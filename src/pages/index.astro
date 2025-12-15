@@ -29,7 +29,7 @@ const pageTitle: string =
       </p>
     </div>
   </section>
-  <section class="why-us">
+  <section class="info-box">
     <h2>Why South Van FC Development Academy?</h2>
     <div class="card">
       <Icon name="targetArrow" size={60} color="#013478" />
@@ -64,6 +64,27 @@ const pageTitle: string =
       </p>
     </div>
   </section>
+  <section class="info-box">
+    <h2>Our Development Philosophy</h2>
+    <p>
+      At South Van FC, we believe in a holistic approach to player development,
+      nurturing not just skill but character. Our comprehensive philosophy is
+      built on principles that extend beyond the pitch.
+    </p>
+    <div>
+      <ul class="dev-info">
+        <li>Long-term player development over short-term results.</li>
+        <li>
+          Fostering confidence, creativity, and decision-making on the ball.
+        </li>
+        <li>
+          Providing a safe, positive, and challenging learning environment.
+        </li>
+        <li>Emphasizing respect, teamwork, and sportsmanship.</li>
+        <li>Building intelligent players who understand the game.</li>
+      </ul>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -73,7 +94,7 @@ const pageTitle: string =
     font-weight: bold;
   }
 
-  .why-us {
+  .info-box {
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -88,7 +109,7 @@ const pageTitle: string =
     border-bottom: 2px solid black;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     align-items: center;
   }
 
@@ -111,6 +132,18 @@ const pageTitle: string =
 
   p {
     font-weight: 300;
+    line-height: 24px;
+  }
+
+  .dev-info {
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+    list-style-type: disc;
   }
 
   .hero {
