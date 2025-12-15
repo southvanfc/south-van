@@ -135,9 +135,7 @@ border-spacing: 0;
 }
 
 html {
-height: 100%;
-width: 100%;
-font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ font-family: "Poppins";
 }
 
 body {
@@ -157,6 +155,16 @@ margin: 0 auto;
 a {
 text-decoration: none;
 color: black;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  gap: 10px;
+  border-top: 2px solid whitesmoke;
 }
 
 /* nav styles */
