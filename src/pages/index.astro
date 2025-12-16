@@ -21,13 +21,15 @@ const pageTitle: string =
       priority
     />
     <div class="overlay">
-      <h1>
-        {pageTitle}
-      </h1>
-      <p class="caption">
-        Building confident, skilled, and intelligent soccer players through
-        professional coaching and long-term development.
-      </p>
+      <div class="content">
+        <h1>
+          {pageTitle}
+        </h1>
+        <p class="caption">
+          Building confident, skilled, and intelligent soccer players through
+          professional coaching and long-term development.
+        </p>
+      </div>
       <div class="cta-links">
         <div class="cta">
           <a href="/join-academy" class="cta-link">Join The Academy</a>
@@ -186,12 +188,48 @@ const pageTitle: string =
 </BaseLayout>
 
 <style>
-  h1 {
-    font-size: 36px;
-    line-height: 2.75rem;
+  /* hero section */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    background-color: black;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    color: white;
+    text-align: center;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cta-link {
+    color: white;
+    font-size: 16px;
     font-weight: bold;
   }
 
+  .cta {
+    border: 4px solid white;
+    padding: 20px;
+    border-radius: 20px;
+  }
   .info-box {
     padding: 20px;
     display: flex;
@@ -211,33 +249,6 @@ const pageTitle: string =
     align-items: center;
   }
 
-  h2 {
-    font-size: 24px;
-    line-height: 1.75rem;
-    font-weight: 700;
-  }
-
-  h3 {
-    font-weight: 700;
-    font-size: 20px;
-  }
-
-  h4 {
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .caption {
-    font-size: 18px;
-    line-height: 1.9rem;
-    font-weight: 400;
-  }
-
-  p {
-    font-weight: 300;
-    line-height: 24px;
-  }
-
   .custom-list {
     text-align: left;
     width: 80%;
@@ -249,53 +260,11 @@ const pageTitle: string =
     list-style-type: disc;
   }
 
-  .hero {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - var(--header-height));
-    overflow: hidden;
-    height: 100svh;
-    background-color: black;
-  }
-
   .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 60%;
-  }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    top: 100px;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-  }
-
-  .cta-links {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    align-items: center;
-  }
-
-  .cta-link {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .cta {
-    border: 4px solid white;
-    padding: 20px;
-    border-radius: 20px;
-    width: 80%;
+    opacity: 0.6;
   }
 
   .program-cta {
