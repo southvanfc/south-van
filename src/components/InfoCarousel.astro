@@ -1,0 +1,43 @@
+---
+/**
+ * Usage:
+ * <InfoCarousel>
+ *   <section>...</section>
+ *   <section>...</section>
+ * </InfoCarousel>
+ */
+---
+
+<section class="carousel" aria-roledescription="carousel">
+  <div class="carousel__viewport">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .carousel {
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  /* Scroll container */
+  .carousel__viewport {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+
+    /* Equal height behavior */
+    align-items: stretch;
+  }
+
+  /* Hide scrollbar */
+  .carousel__viewport {
+    scrollbar-width: none;
+  }
+  .carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+</style>

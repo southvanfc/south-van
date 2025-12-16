@@ -3,6 +3,7 @@ import Image from "astro/components/Image.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BannerImage from "../images/banner-image.webp";
 import { Icon } from "astro-icon/components";
+import InfoCarousel from "../components/InfoCarousel.astro";
 
 const pageTitle: string =
   " South Van FC Development Academy | Elite Youth Soccer Training in Vancouver";
@@ -27,6 +28,14 @@ const pageTitle: string =
         Building confident, skilled, and intelligent soccer players through
         professional coaching and long-term development.
       </p>
+      <div class="cta-links">
+        <div class="cta">
+          <a href="/join-academy" class="cta-link">Join The Academy</a>
+        </div>
+        <div class="cta">
+          <a href="/our-programs" class="cta-link">Our Programs</a>
+        </div>
+      </div>
     </div>
   </section>
   <section class="info-box">
@@ -65,6 +74,95 @@ const pageTitle: string =
     </div>
   </section>
   <section class="info-box">
+    <h2>Our Programs</h2>
+    <InfoCarousel>
+      <section class="carousel__slide">
+        <h3>Grassroots FUNdamentals</h3>
+        <p>U6-U8</p>
+        <div class="custom-list-box">
+          <h4>Focus Areas:</h4>
+          <ul class="custom-list">
+            <li>Fundamental ball skills</li>
+            <li>Basic game understanding</li>
+            <li>Motor skill development</li>
+            <li>Fun-focused learning</li>
+          </ul>
+        </div>
+        <div class="program-cta">
+          <a href="/our-programs">Learn More</a>
+        </div>
+      </section>
+
+      <section class="carousel__slide">
+        <h3>Learn To Train</h3>
+        <p>U8-U11</p>
+        <div class="custom-list-box">
+          <h4>Focus Areas:</h4>
+          <ul class="custom-list">
+            <li>Developing game understanding</li>
+            <li>Ball mastery under pressure</li>
+            <li>Functional tactical awareness</li>
+          </ul>
+        </div>
+        <div class="program-cta">
+          <a href="/our-programs">Learn More</a>
+        </div>
+      </section>
+
+      <section class="carousel__slide">
+        <h3>Train To Train</h3>
+        <p>U11-U15</p>
+        <div class="custom-list-box">
+          <h4>Focus Areas:</h4>
+          <ul class="custom-list">
+            <li>Heightened physical, tactical and technical focus</li>
+            <li>Preparing players for competitive environments</li>
+            <li>Deeper understanding of the game</li>
+          </ul>
+        </div>
+        <div class="program-cta">
+          <a href="/our-programs">Learn More</a>
+        </div>
+      </section>
+
+      <section class="carousel__slide">
+        <h3>Train To Compete</h3>
+        <p>U15-U18</p>
+        <div class="custom-list-box">
+          <h4>Focus Areas:</h4>
+          <ul class="custom-list">
+            <li>Focus on competitive excellence</li>
+            <li>Developing core game intelligence,</li>
+            <li>Developing consistent high-quality performance habits</li>
+            <li>Introduce advanced drills and training challenges</li>
+          </ul>
+        </div>
+        <div class="program-cta">
+          <a href="/our-programs">Learn More</a>
+        </div>
+      </section>
+
+      <section class="carousel__slide">
+        <h3>Train To Win</h3>
+        <p>U18+</p>
+        <div class="custom-list-box">
+          <h4>Focus Areas:</h4>
+          <ul class="custom-list">
+            <li>Elite performance and professional</li>
+            <li>Advanced development of game intelligence,</li>
+            <li>Exposure to elite level of play</li>
+          </ul>
+        </div>
+        <div class="program-cta">
+          <a href="/our-programs">Learn More</a>
+        </div>
+      </section>
+    </InfoCarousel>
+    <div>
+      <p>Swipe to view our programs</p>
+    </div>
+  </section>
+  <section class="info-box">
     <h2>Our Development Philosophy</h2>
     <p>
       At South Van FC, we believe in a holistic approach to player development,
@@ -72,7 +170,7 @@ const pageTitle: string =
       built on principles that extend beyond the pitch.
     </p>
     <div>
-      <ul class="dev-info">
+      <ul class="custom-list">
         <li>Long-term player development over short-term results.</li>
         <li>
           Fostering confidence, creativity, and decision-making on the ball.
@@ -124,6 +222,11 @@ const pageTitle: string =
     font-size: 20px;
   }
 
+  h4 {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
   .caption {
     font-size: 18px;
     line-height: 1.9rem;
@@ -135,7 +238,7 @@ const pageTitle: string =
     line-height: 24px;
   }
 
-  .dev-info {
+  .custom-list {
     text-align: left;
     width: 80%;
     margin: 0 auto;
@@ -152,12 +255,14 @@ const pageTitle: string =
     height: calc(100vh - var(--header-height));
     overflow: hidden;
     height: 100svh;
+    background-color: black;
   }
 
   .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 60%;
   }
 
   .overlay {
@@ -166,10 +271,80 @@ const pageTitle: string =
     display: grid;
     top: 100px;
     color: white;
-    text-align: left;
-    padding: 20px;
+    text-align: center;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 50px;
+  }
+
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .cta-link {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .cta {
+    border: 4px solid white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+  }
+
+  .program-cta {
+    border: 4px solid #013478;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  /* Slides */
+
+  .custom-list-box {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .carousel__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    border: 2px solid #013478;
+    padding: 1.5rem;
+    background: transparent;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Typography polish */
+  .carousel__slide h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .carousel__slide ul {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  /* Tablet / desktop: show more than one */
+  @media (min-width: 768px) {
+    .carousel__slide {
+      flex-basis: 50%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel__slide {
+      flex-basis: 33.333%;
+    }
   }
 </style>

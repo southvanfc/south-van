@@ -157,25 +157,50 @@ text-decoration: none;
 color: black;
 }
 
+h1 {
+    font-size: 36px;
+    line-height: 2.75rem;
+    font-weight: bold;
+  }
+
+ h2 {
+    font-size: 24px;
+    line-height: 1.75rem;
+    font-weight: 700;
+  }
+
+   h3 {
+    font-weight: 700;
+    font-size: 20px;
+  }
+
 footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   justify-content: center;
   gap: 10px;
-  border-top: 2px solid whitesmoke;
+  border-top: 2px solid #013478;
 }
 
 /* nav styles */
 
+ .info-box {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+  }
+
 .menu {
-  background-color: #0d0950;
   border: none;
-  color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
   padding: 5px 10px;
+  background-color: transparent;
 }
 
 .nav-links {

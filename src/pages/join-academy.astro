@@ -1,0 +1,22 @@
+---
+import Image from "astro/components/Image.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BannerImage from "../images/banner-image.webp";
+import { Icon } from "astro-icon/components";
+
+const pageTitle: string = "South Van FC Development Academy | Join The Academy";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <h1>
+    {pageTitle}
+  </h1>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 36px;
+    line-height: 2.75rem;
+    font-weight: bold;
+  }
+</style>

@@ -1,6 +1,8 @@
 ---
 import Menu from "./Menu.astro";
 import Navigation from "./Navigation.astro";
+import Image from "astro/components/Image.astro";
+import SouthVanLogo from "../images/southvan-logo.png";
 ---
 
 <style>
@@ -11,7 +13,44 @@ import Navigation from "./Navigation.astro";
 
 <header>
   <nav>
-    <Menu />
+    <div class="nav">
+      <div class="logo-container">
+        <a href="/">
+          <Image
+            src={SouthVanLogo}
+            alt="South Van FC Team Crest"
+            class="logo"
+          />
+        </a>
+        <p>South Van FC</p>
+      </div>
+      <Menu />
+    </div>
     <Navigation />
   </nav>
 </header>
+
+<style>
+  .logo {
+    height: 50px;
+    width: 50px;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-container > p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
