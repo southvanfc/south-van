@@ -1,0 +1,146 @@
+---
+import InfoCarousel from "../InfoCarousel.astro";
+---
+
+<section class="info-box">
+  <h2>Our Programs</h2>
+  <InfoCarousel>
+    <section class="carousel__slide">
+      <h3>Grassroots FUNdamentals</h3>
+      <p>U6-U8</p>
+      <div class="custom-list-box">
+        <h4>Focus Areas:</h4>
+        <ul class="custom-list">
+          <li>Fundamental ball skills</li>
+          <li>Basic game understanding</li>
+          <li>Motor skill development</li>
+          <li>Fun-focused learning</li>
+        </ul>
+      </div>
+      <div class="program-cta">
+        <a href="/our-programs">Learn More</a>
+      </div>
+    </section>
+
+    <section class="carousel__slide">
+      <h3>Learn To Train</h3>
+      <p>U8-U11</p>
+      <div class="custom-list-box">
+        <h4>Focus Areas:</h4>
+        <ul class="custom-list">
+          <li>Developing game understanding</li>
+          <li>Ball mastery under pressure</li>
+          <li>Functional tactical awareness</li>
+        </ul>
+      </div>
+      <div class="program-cta">
+        <a href="/our-programs">Learn More</a>
+      </div>
+    </section>
+
+    <section class="carousel__slide">
+      <h3>Train To Train</h3>
+      <p>U11-U15</p>
+      <div class="custom-list-box">
+        <h4>Focus Areas:</h4>
+        <ul class="custom-list">
+          <li>Heightened physical, tactical and technical focus</li>
+          <li>Preparing players for competitive environments</li>
+          <li>Deeper understanding of the game</li>
+        </ul>
+      </div>
+      <div class="program-cta">
+        <a href="/our-programs">Learn More</a>
+      </div>
+    </section>
+
+    <section class="carousel__slide">
+      <h3>Train To Compete</h3>
+      <p>U15-U18</p>
+      <div class="custom-list-box">
+        <h4>Focus Areas:</h4>
+        <ul class="custom-list">
+          <li>Focus on competitive excellence</li>
+          <li>Developing core game intelligence,</li>
+          <li>Developing consistent high-quality performance habits</li>
+          <li>Introduce advanced drills and training challenges</li>
+        </ul>
+      </div>
+      <div class="program-cta">
+        <a href="/our-programs">Learn More</a>
+      </div>
+    </section>
+
+    <section class="carousel__slide">
+      <h3>Train To Win</h3>
+      <p>U18+</p>
+      <div class="custom-list-box">
+        <h4>Focus Areas:</h4>
+        <ul class="custom-list">
+          <li>Elite performance and professional</li>
+          <li>Advanced development of game intelligence,</li>
+          <li>Exposure to elite level of play</li>
+        </ul>
+      </div>
+      <div class="program-cta">
+        <a href="/our-programs">Learn More</a>
+      </div>
+    </section>
+  </InfoCarousel>
+  <div>
+    <p>Swipe to view our programs</p>
+  </div>
+</section>
+
+<style>
+  .carousel__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    border: 2px solid #013478;
+    padding: 1.5rem;
+    background: transparent;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Typography polish */
+  .carousel__slide h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .carousel__slide ul {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .program-cta {
+    border: 4px solid #013478;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  /* Slides */
+
+  .custom-list-box {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Tablet / desktop: show more than one */
+  @media (min-width: 768px) {
+    .carousel__slide {
+      flex-basis: 50%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel__slide {
+      flex-basis: 33.333%;
+    }
+  }
+</style>

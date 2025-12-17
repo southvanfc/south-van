@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.2",
     "@fontsource-variable/roboto": "^5.2.9",
     "@fontsource/poppins": "^5.2.7",
     "astro": "^5.16.5",
