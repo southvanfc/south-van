@@ -3,7 +3,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "@fontsource/poppins";
 import "../styles/global.css";
-import Analytics from "@vercel/analytics/astro";
 const { pageTitle } = Astro.props;
 ---
 
@@ -14,7 +13,6 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
-    <Analytics />
   </head>
   <body>
     <Header />
@@ -24,6 +22,8 @@ const { pageTitle } = Astro.props;
     <Footer />
     <script>
       import "../scripts/menu.js";
+      import { inject } from "@vercel/analytics";
+      inject();
     </script>
   </body>
 </html>
