@@ -193,13 +193,8 @@ h6 {
   }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px;
-  justify-content: center;
-  gap: 10px;
-  border-top: 2px solid #013478;
+  padding: 10px 30px;
+  text-align: center;
 }
 
 
