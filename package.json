@@ -9,10 +9,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^9.0.2",
     "@fontsource-variable/roboto": "^5.2.9",
     "@fontsource/poppins": "^5.2.7",
+    "@vercel/analytics": "^1.6.1",
     "astro": "^5.16.5",
     "astro-icon": "^1.1.5"
+  },
+  "devDependencies": {
+    "@astrojs/vercel": "^9.0.2"
+  },
+  "overrides": {
+    "path-to-regexp": "6.3.0"
   }
 }
