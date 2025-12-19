@@ -7,6 +7,5 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   integrations: [icon()],
   adapter: vercel(),
-  output: 'static',
   imageService: true,
 });
