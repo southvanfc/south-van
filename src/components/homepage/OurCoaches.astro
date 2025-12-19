@@ -1,0 +1,54 @@
+---
+import CoachCard from "./CoachCard.astro";
+import SoccerCoach from "../../images/banner-image.webp";
+
+interface CoachData {
+  name: string;
+  certificiation: string;
+  desc: string;
+  imageUrl: ImageMetadata;
+}
+
+const coachDat: CoachData[] = [
+  {
+    name: "Harjit Kainth",
+    certificiation: "Soccer For Life Certification",
+    desc: "Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence",
+    imageUrl: SoccerCoach,
+  },
+];
+---
+
+<section class="info-box">
+  <h2>Meet Our Coaches</h2>
+  <CoachCard
+    name="Harjit Kainth"
+    certification="Soccer For Life Certification"
+    desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
+    imageUrl={SoccerCoach}
+  />
+  <CoachCard
+    name="Dipinder Kainth"
+    certification="Soccer For Life Certification"
+    desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
+    imageUrl={SoccerCoach}
+  />
+  <CoachCard
+    name="Shanil Sharma"
+    certification="Strength and Conditioning"
+    desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
+    imageUrl={SoccerCoach}
+  />
+  <div class="learn-more-link-container">
+    <a href="/our-coaches">Learn More About Our Coaches</a>
+  </div>
+</section>
+
+<style>
+  .learn-more-link-container {
+    border: 2px solid #013478;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+  }
+</style>

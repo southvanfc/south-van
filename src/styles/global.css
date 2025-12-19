@@ -138,10 +138,6 @@ html {
  font-family: "Poppins";
 }
 
-body {
-background-color: #f2f6fa;
-}
-
 main {
 margin: 0 auto;
 }
@@ -198,4 +194,7 @@ footer {
   font-size: 14px;
 }
 
-
+.caption {
+  font-weight: 300;
+  font-size: 12px;
+}

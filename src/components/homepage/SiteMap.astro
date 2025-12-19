@@ -1,16 +1,27 @@
 ---
 import { Image } from "astro:assets";
 import SouthVanWhiteLogo from "../../images/southvanLogo.svg";
+import { Icon } from "astro-icon/components";
 ---
 
 <section class="info-box site-map">
-  <div class="marketing-logo-box">
+  <div class="mini-logo-box">
     <Image
       src={SouthVanWhiteLogo}
       alt="South Van FC Team Crest"
-      class="marketing-logo"
+      class="mini-logo"
     />
     <p>Building confident, skilled, and intelligent players.</p>
+  </div>
+  <div>
+    <h2>Follow Us:</h2>
+    <a
+      href="https://www.instagram.com/southvanfc"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Icon name="insta" size={50} />
+    </a>
   </div>
   <div>
     <h2>Academy</h2>
@@ -59,7 +70,7 @@ import SouthVanWhiteLogo from "../../images/southvanLogo.svg";
     color: white;
   }
 
-  .marketing-logo-box {
+  .mini-logo-box {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -67,7 +78,7 @@ import SouthVanWhiteLogo from "../../images/southvanLogo.svg";
     margin-top: 30px;
   }
 
-  .marketing-logo {
+  .mini-logo {
     height: 100px;
     width: auto;
   }

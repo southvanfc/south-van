@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EvaulationRequestForm from "../components/forms/EvaulationRequestForm.astro";
+
+const pageTitle: string =
+  "South Van FC Player Evaluation | Development Academy Tryouts & Assessment";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="hero">
+    <h1>
+      {pageTitle}
+    </h1>
+    <EvaulationRequestForm />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+</style>
