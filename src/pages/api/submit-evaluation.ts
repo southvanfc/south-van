@@ -56,21 +56,23 @@ export const POST: APIRoute = async ({ request, url }) => {
 
     // Honeypot
     if (String(form.get("company") ?? "")) {
-      return new Response(JSON.stringify({ ok: true }), {
-        status: 200,
-        headers: { "content-type": "application/json" },
-      });
-    }
+  return new Response(null, {
+    status: 303,
+    headers: {
+      Location: "/success",
+    },
+  });
+}
 
     // Match your form naming (supports both your old and new names)
-    const fullName = String(form.get("full_name") ?? form.get("full-name") ?? "").trim();
-    const club = String(form.get("club") ?? form.get("club") ?? "").trim();
-    const email = String(form.get("email") ?? form.get("email") ?? "").trim();
-    const phone = String(form.get("phone") ?? form.get("phone") ?? "").trim();
-    const dob = String(form.get("dob") ?? form.get("dob") ?? "").trim();
+    const fullName = String(form.get("full_name") ?? "").trim();
+    const email = String(form.get("email") ?? "").trim();
+    const phone = String(form.get("phone") ??  "").trim();
+    const dob = String(form.get("dob") ??  "").trim();
     const ageGroup = String(form.get("age_group") ?? "").trim();
-    const dominantFoot = String(form.get("preferred_foot") ?? "").trim();
     const positions = form.getAll("positions").map(String).join(", ");
+    const club = String(form.get("club") ?? "").trim();
+    const dominantFoot = String(form.get("preferred_foot") ?? "").trim();
 
     if (!fullName || !email || !dob) {
       return new Response(JSON.stringify({ ok: false, error: "Missing required fields." }), {
@@ -100,10 +102,12 @@ export const POST: APIRoute = async ({ request, url }) => {
 
     if (!sheetsRes.ok) return new Response(await sheetsRes.text(), { status: 500 });
 
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { "content-type": "application/json" },
-    });
+   return new Response(null, {
+  status: 303,
+  headers: {
+    Location: "/success",
+  },
+});
   } catch (e: any) {
     return new Response(JSON.stringify({ ok: false, error: e?.message ?? "Server error" }), {
       status: 500,
