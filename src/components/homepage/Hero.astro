@@ -1,6 +1,6 @@
 ---
 import Image from "astro/components/Image.astro";
-import BannerImage from "../../images/banner-image.webp";
+import BannerImage from "../../images/hero-image.jpg";
 
 const { pageTitle } = Astro.props;
 ---
@@ -13,6 +13,7 @@ const { pageTitle } = Astro.props;
     sizes="100vw"
     loading="eager"
     decoding="async"
+    format="webp"
     priority
   />
   <div class="overlay">

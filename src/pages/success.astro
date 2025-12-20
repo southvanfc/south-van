@@ -1,20 +1,22 @@
 ---
 import { Image } from "astro:assets";
 import SouthVanLogo from "../images/southvan-logo.png";
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle: string = "Form Submitted Successfully!";
 ---
 
-<div class="hero">
-  <Image src={SouthVanLogo} alt="test" class="image" />
-  <h1>
-    {pageTitle}
-  </h1>
-  <p>
-    We will reach out to you with details for next steps within 24 - 48 hours
-  </p>
-</div>
+<BaseLayout>
+  <div class="hero">
+    <Image src={SouthVanLogo} alt="test" class="image" />
+    <h1>
+      {pageTitle}
+    </h1>
+    <p>
+      We will reach out to you with details for next steps within 24 - 48 hours
+    </p>
+  </div>
+</BaseLayout>
 
 <style>
   .image {
@@ -26,12 +28,6 @@ const pageTitle: string = "Form Submitted Successfully!";
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  html {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100svh;
-    font-family: "Poppins";
+    padding: 20px;
   }
 </style>
