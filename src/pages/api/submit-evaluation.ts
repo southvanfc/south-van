@@ -96,7 +96,7 @@ export const POST: APIRoute = async ({ request, url }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        values: [[createdAt, fullName, club, email, phone, dob, ageGroup, positions, dominantFoot]],
+        values: [[createdAt, fullName, email, phone, club, dob, ageGroup, positions, dominantFoot]],
       }),
     });
 
