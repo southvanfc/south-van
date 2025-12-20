@@ -138,7 +138,7 @@ html {
   font-family: "Poppins";
 }
 
-html, body { height: 100%; } /* ok here */
+html, body { height: 100%; } 
 body {
   min-height: 100%;
   display: flex;
@@ -196,9 +196,16 @@ footer {
   padding: 4px 20px;
   text-align: center;
   font-size: 14px;
+  border-top: 1px solid #013478;
 }
+
+header {
+  border-bottom: 1px solid #013478;
+}
+
 
 .caption {
   font-weight: 300;
   font-size: 12px;
 }
+
