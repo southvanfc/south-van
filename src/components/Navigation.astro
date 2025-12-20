@@ -6,7 +6,7 @@
   <a href="/">Home</a>
 </div>
 
-<style>
+<style is:global>
   .nav-links {
     width: 100%;
     display: none;
@@ -30,7 +30,7 @@
   }
 
   :has(.menu[aria-expanded="true"]) .nav-links {
-    display: unset;
+    display: block;
   }
 
   @media screen and (min-width: 636px) {
