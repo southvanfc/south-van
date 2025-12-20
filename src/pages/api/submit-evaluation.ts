@@ -71,8 +71,8 @@ export const POST: APIRoute = async ({ request, url }) => {
     const dob = String(form.get("dob") ??  "").trim();
     const ageGroup = String(form.get("age_group") ?? "").trim();
     const positions = form.getAll("positions").map(String).join(", ");
-    const club = String(form.get("club") ?? "").trim();
     const dominantFoot = String(form.get("preferred_foot") ?? "").trim();
+    const club = String(form.get("club") ?? "").trim();
 
     if (!fullName || !email || !dob) {
       return new Response(JSON.stringify({ ok: false, error: "Missing required fields." }), {
@@ -96,7 +96,7 @@ export const POST: APIRoute = async ({ request, url }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        values: [[createdAt, page, fullName, club, email, phone, dob, ageGroup, positions, dominantFoot]],
+        values: [[createdAt, fullName, club, email, phone, dob, ageGroup, positions, dominantFoot]],
       }),
     });
 
