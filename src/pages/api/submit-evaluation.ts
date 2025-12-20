@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request, url }) => {
     const vercelOidcJwt = await getVercelOidcToken();
 
     // 2) Exchange with Google STS (WIF)
-    const audience = `//iam.googleapis.com/projects/${env("GCP_PROJECT_NUMBER")}/locations/global/workloadIdentityPools/${env("GCP_WIF_POOL_ID")}/providers/${env("GCP_WIF_PROVIDER_ID")}`;
+    const audience = `//iam.googleapis.com/projects/${env("GCP_PROJECT_NUMBER")}/locations/global/workloadIdentityPools/${env("GCP_WORKLOAD_IDENTITY_POOL_ID")}/providers/${env("GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID")}`;
 
     const stsRes = await fetch("https://sts.googleapis.com/v1/token", {
       method: "POST",
