@@ -26,6 +26,7 @@ export const POST: APIRoute = async ({ request, url }) => {
         subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
         subject_token: vercelOidcJwt,
         audience,
+        scope: "https://www.googleapis.com/auth/cloud-platform",
       }),
     });
 
