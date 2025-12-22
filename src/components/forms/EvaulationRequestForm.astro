@@ -53,7 +53,7 @@
         class="fs-input"
         id="dob"
         name="dob"
-        placeholder="Enter your DOB"
+        placeholder="e.g. May 15 1993"
         required
       />
     </div>
@@ -64,7 +64,7 @@
         <option value="u8-u11">U8-U11</option>
         <option value="u11-u15">U11-U15</option>
         <option value="u15-u18">U15-U18</option>
-        <option value="adult">Adult</option>
+        <option value="adult">18+</option>
       </select>
     </div>
     <div class="fs-field">
@@ -146,7 +146,7 @@
     </div>
   </fieldset>
 
-  <div class="fs-button-group">
+  <div class="fs-button-div">
     <button class="fs-button" type="submit">Submit</button>
   </div>
 </form>
@@ -157,11 +157,11 @@
   :root {
     --color-background: #e7e7e7;
     --color-background-alt: #ba5ed7;
-    --color-border-active: #a94bc3;
+    --color-border-active: #013478;
     --color-border-default: #d1d1d1;
     --color-highlight: #e2b6f1;
-    --color-primary: #86319a;
-    --color-primary-active: #5e2768;
+    --color-primary: #013478;
+    --color-primary-active: #17427a;
     --color-text-default: #262626;
     --color-text-muted: #4f4f4f;
 
@@ -207,14 +207,10 @@
     line-height: 1.25rem;
   }
 
-  .fs-button-group {
+  .fs-button-div {
     display: flex;
-    flex-direction: row-reverse;
-    column-gap: 1.5rem;
-  }
-
-  .fs-form:where(.fs-layout__2-column) .fs-button-group {
-    grid-column: 1 / -1;
+    flex-direction: column;
+    align-items: center;
   }
 
   .fs-button {
@@ -229,6 +225,7 @@
     transition-duration: 200ms;
     transition-property: background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 20px;
   }
 
   .fs-button:hover {
