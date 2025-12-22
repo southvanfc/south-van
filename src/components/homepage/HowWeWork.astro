@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="info-box">
+  <h2>How Our Academy Works</h2>
+  <div class="card">
+    <Icon name="targetArrow" size={60} color="#013478" />
+    <h3>1. Initial Assessment</h3>
+    <p>
+      Join our tryout sessions for a comprehensive evaluation of your skills,
+      athleticism, and game understanding by our professional coaching staff.
+    </p>
+  </div>
+  <div class="card">
+    <Icon name="people" size={60} color="#013478" />
+    <h3>2. Personalized Development Plan</h3>
+    <p>
+      Receive tailored feedback and a custom development roadmap designed to
+      enhance your strengths and improve areas for growth.
+    </p>
+  </div>
+  <div class="card">
+    <Icon name="shieldCheck" size={60} color="#013478" />
+    <h3>3. Academy Program Integration</h3>
+    <p>
+      Seamlessly integrate into the appropriate academy program, training with
+      top-tier facilities and competitive teams.
+    </p>
+  </div>
+</section>
+
+<style>
+  .card {
+    padding: 10px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+</style>

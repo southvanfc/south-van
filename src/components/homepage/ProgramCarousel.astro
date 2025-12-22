@@ -96,13 +96,14 @@ import InfoCarousel from "../InfoCarousel.astro";
   .carousel__slide {
     flex: 0 0 100%;
     scroll-snap-align: start;
-    border: 2px solid #013478;
+    color: white;
     padding: 1.5rem;
-    background: transparent;
+    background: #013478;
     border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 10px;
   }
 
   /* Typography polish */
@@ -117,9 +118,13 @@ import InfoCarousel from "../InfoCarousel.astro";
   }
 
   .program-cta {
-    border: 4px solid #013478;
+    border: 2px solid white;
     padding: 20px;
     border-radius: 20px;
+  }
+
+  a {
+    color: white;
   }
 
   /* Slides */
