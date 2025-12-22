@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@fontsource-variable/oswald": "^5.2.8",
-    "@fontsource-variable/roboto": "^5.2.9",
-    "@fontsource/poppins": "^5.2.7",
     "@vercel/analytics": "^1.6.1",
     "@vercel/oidc": "^3.0.5",
     "@vercel/speed-insights": "^1.3.1",
