@@ -17,6 +17,7 @@ import { Icon } from "astro-icon/components";
     <h2>Follow Us:</h2>
     <a
       href="https://www.instagram.com/southvanfc"
+      aria-label="Visit our instagram page"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -25,27 +26,29 @@ import { Icon } from "astro-icon/components";
   </div>
   <div>
     <h2>Academy</h2>
-    <div class="stack">
-      <a>About Us</a>
-      <a>Our Philosophy</a>
-      <a>Facilities</a>
-      <a>FAQ</a>
+    <div class="stack link-box">
+      <a aria-label="Navigate to the about us page">About Us</a>
+      <a aria-label="Navigate to the our philosophy page">Our Philosophy</a>
+      <a aria-label="Navigate to the our frequently asked questions page">FAQ</a
+      >
     </div>
   </div>
   <div>
     <h2>Our Programs</h2>
-    <div class="stack">
-      <a>Grassroots (U6-U8)</a>
-      <a>Foundation Phase (U9-U12)</a>
-      <a>Youth Development (U13-U18)</a>
-      <a>Camps & Clinics</a>
+    <div class="stack link-box">
+      <a aria-label="Navigate to the our programs page">Grassroots (U6-U8)</a>
+      <a aria-label="Navigate to the our programs page"
+        >Foundation Phase (U9-U12)</a
+      >
+      <a aria-label="Navigate to the our programs page"
+        >Youth Development (U13-U18)</a
+      >
     </div>
   </div>
   <div>
     <h2>Contact Us</h2>
-    <div class="stack">
-      <a>Join Academy</a>
-      <a>southvanfc@gmail.com</a>
+    <div class="link-box">
+      <p>southvanfc@gmail.com</p>
     </div>
   </div>
 </section>
@@ -58,14 +61,11 @@ import { Icon } from "astro-icon/components";
     background-color: #013478;
   }
 
-  .stack {
-    display: flex;
-    flex-direction: column;
+  .link-box {
     gap: 20px;
     margin: 20px 10px;
   }
 
-  .stack > h2,
   a {
     color: white;
   }

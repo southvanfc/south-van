@@ -33,13 +33,16 @@ const coachDat: CoachData[] = [
     desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
     imageUrl={SoccerCoach}
   />
-  <div class="learn-more-link-container">
-    <a href="/our-coaches">Learn More About Our Coaches</a>
-  </div>
+  <a
+    aria-label="Navigate to the our coaches page"
+    href="/our-coaches"
+    class="learn-more-link">Learn More About Our Coaches</a
+  >
 </section>
 
 <style>
-  .learn-more-link-container {
+  .learn-more-link {
+    display: block;
     border: 2px solid #013478;
     padding: 20px;
     border-radius: 20px;
