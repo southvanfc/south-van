@@ -204,13 +204,23 @@ p {
   letter-spacing: 0.02em;
 }
 
-footer {
-  padding: 4px 20px;
-  text-align: center;
-  font-size: 14px;
-  border-top: 1px solid #013478;
-}
+f
 
 header {
   border-bottom: 1px solid #013478;
 }
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-box {
+  margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    align-items: center;
+  }

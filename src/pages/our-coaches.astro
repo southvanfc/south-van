@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Image from "astro/components/Image.astro";
+import SoccerCoach from "../images/soccer-coach.jpg";
+import { Icon } from "astro-icon/components";
+
+const pageTitle: string = "Meet Our Coaches";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="stack container">
+    <div class="stack title-div">
+      <h1>
+        {pageTitle}
+      </h1>
+    </div>
+    <section class="stack description">
+      <h2>Our Coaching Philosophy</h2>
+      <p>
+        At South Van FC, our coaches are more than instructors. They are mentors
+        committed to long-term player development, character building, and a
+        deep understanding of the game. Each coach brings a blend of
+        professional training, competitive experience, and a passion for youth
+        development, ensuring every player receives high-quality coaching in a
+        positive and challenging environment.
+      </p>
+    </section>
+    <section class="stack our-coaches">
+      <h2>Leaders. Mentors. Developers of the Modern Player</h2>
+      <div class="stack coach-card">
+        <Image src={SoccerCoach} alt="test" class="coach-image" />
+        <h3>Harjit Kainth</h3>
+        <p class="caption">Soccer For Life</p>
+        <div class="mentality">
+          <p>Tactical</p>
+          <p>Technical</p>
+          <p>Player Development</p>
+        </div>
+        <div class="badges">
+          <div class="stack badge-div">
+            <Icon name="shieldCheck" size={40} color="#013478" />
+            <p>15 years</p>
+          </div>
+          <div class="stack badge-div">
+            <Icon name="people" size={40} color="#013478" />
+            <p>U8 - 18+</p>
+          </div>
+        </div>
+        <div>
+          <h3>Coach Bio</h3>
+          <div class="stack bio-content">
+            <p>
+              Harjit Kainth began his football journey in Vancouver at the
+              grassroots level with KLM (U6) before progressing into elite youth
+              pathways. He was accepted into TSS Academy and later selected to
+              represent Vancouver Selects, competing at the highest youth level
+              in the Metro Soccer League. His development also included
+              provincial and national exposure with Coastal BC in the Super Y
+              League.
+            </p>
+            <details class="read-more">
+              <summary class="read-more-btn">Read more</summary>
+
+              <div class="stack bio-more">
+                <p>
+                  Internationally, Harjit competed in Salzburg at a top youth
+                  international tournament and completed a three-week training
+                  stint with Dynamo Kyiv’s Youth Academy, gaining valuable
+                  experience in high-performance environments.
+                </p>
+                <p>
+                  Transitioning into coaching during high school, he began by
+                  coaching high school girls’ teams, later expanding to both
+                  boys’ and girls’ programs after graduation. As his coaching
+                  career progressed, he moved into the senior game, coaching
+                  men’s teams in the Vancouver Metro Soccer League (VMSL).
+                </p>
+                <p>
+                  Harjit is currently pursuing his Canada Soccer C Diploma and
+                  is committed to continuous professional development, with the
+                  goal of attaining the highest coaching certifications
+                  available. His coaching philosophy centers on building
+                  confident, intelligent players through structured development,
+                  accountability, and a deep understanding of the modern game.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    padding: 20px;
+    gap: 30px;
+  }
+  .title-div {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .our-coaches {
+    gap: 30px;
+  }
+
+  .coach-card {
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow:
+      0px 0px 0px #00000000,
+      0px 2px 4px #01347814;
+  }
+
+  .coach-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+
+  .badges {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .badge-div {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mentality {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .bio-content {
+    margin-top: 5px;
+    gap: 10px;
+  }
+
+  .read-more {
+    width: 100%;
+  }
+
+  /* Make summary look like a button */
+  .read-more-btn {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #013478;
+    color: #013478;
+  }
+
+  /* hide default marker (Chrome/Safari) */
+  .read-more-btn::-webkit-details-marker {
+    display: none;
+  }
+
+  /* When open, change label */
+  .read-more[open] > .read-more-btn::after {
+    content: " (Read less)";
+  }
+
+  /* spacing for expanded content */
+  .bio-more {
+    gap: 20px;
+    margin-top: 12px;
+  }
+
+  .read-more-btn:hover {
+    background: #013478;
+    color: #fff;
+  }
+</style>

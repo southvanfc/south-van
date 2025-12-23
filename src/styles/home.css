@@ -2,15 +2,7 @@
 
 /* nav styles */
 
-.info-box {
-  margin-top: 50px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-    align-items: center;
-  }
+
 
 
 .banner {
