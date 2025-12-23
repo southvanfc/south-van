@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import Image from "astro/components/Image.astro";
 
 const { name, certification, desc, imageUrl } = Astro.props;
@@ -8,8 +9,8 @@ const { name, certification, desc, imageUrl } = Astro.props;
   <Image src={imageUrl} alt="test" class="coach-image" />
   <div class="card-content">
     <h3>{name}</h3>
-    <p class="caption">{certification}</p>
-    <p>
+    <p>{certification}</p>
+    <p class="caption">
       {desc}
     </p>
   </div>
@@ -17,21 +18,24 @@ const { name, certification, desc, imageUrl } = Astro.props;
 
 <style>
   .card {
+    padding: 20px;
     width: 100%;
     text-align: left;
     border: 2px solid #013478;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
   .card-content {
-    padding: 8px 12px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
   }
 
   .coach-image {
-    width: 100%;
-    height: auto;
-    border-radius: 4px 4px 0px 0px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
   }
 </style>
