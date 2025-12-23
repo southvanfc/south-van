@@ -14,7 +14,7 @@ const pageTitle: string = "Meet Our Coaches";
         {pageTitle}
       </h1>
       <section class="stack description">
-        <h2>Our Coaching Philosophy</h2>
+        <h2 class="title">Our Coaching Philosophy</h2>
         <p>
           At South Van FC, our coaches are more than instructors. They are
           mentors committed to long-term player development, character building,
@@ -26,7 +26,7 @@ const pageTitle: string = "Meet Our Coaches";
       </section>
     </div>
     <section class="stack our-coaches">
-      <h2>Leaders. Mentors. Developers of the Modern Player</h2>
+      <h2 class="title">Leaders. Mentors. Developers of the Modern Player</h2>
       <div class="stack coach-card">
         <Image src={SoccerCoach} alt="test" class="coach-image" />
         <h3>Harjit Kainth</h3>
@@ -105,6 +105,10 @@ const pageTitle: string = "Meet Our Coaches";
 
   .our-coaches {
     gap: 30px;
+  }
+
+  .title {
+    text-align: center;
   }
 
   .coach-card {
