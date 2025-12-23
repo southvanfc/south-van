@@ -204,10 +204,9 @@ p {
   letter-spacing: 0.02em;
 }
 
-f
-
 header {
   border-bottom: 1px solid #013478;
+  padding: 10px;
 }
 
 .stack {
@@ -216,7 +215,7 @@ header {
 }
 
 .info-box {
-  margin-top: 50px;
+    margin-top: 50px;
     padding: 20px;
     display: flex;
     flex-direction: column;
