@@ -6,16 +6,23 @@ import InfoCarousel from "../InfoCarousel.astro";
   <h2>Our Programs</h2>
   <InfoCarousel>
     <section class="carousel__slide">
-      <h3>Grassroots FUNdamentals</h3>
-      <p>U6-U8</p>
-      <div class="custom-list-box">
-        <h4>Focus Areas:</h4>
-        <ul class="custom-list">
-          <li>Fundamental ball skills</li>
-          <li>Basic game understanding</li>
-          <li>Motor skill development</li>
-          <li>Fun-focused learning</li>
-        </ul>
+      <h3>Technical & Movement Fundamentals</h3>
+      <div class="best-for">
+        <h4>Best For:</h4>
+        <p>Beginners</p>
+      </div>
+      <div class="best-for">
+        <h4>Ages:</h4>
+        <p>1-13 typically (older players starting out welcome)</p>
+      </div>
+      <div class="best-for">
+        <h4>Overview:</h4>
+        <p>
+          The focus is on ball mastery, body mechanics, and comfort under
+          pressure. Designed primarily for younger players, but open to any age
+          where technical foundations need to be developed or refined.Builds
+          confident, technically sound players with strong movement habits.
+        </p>
       </div>
       <a
         aria-label="Navigate to the our programs page"
@@ -103,12 +110,14 @@ import InfoCarousel from "../InfoCarousel.astro";
 </section>
 
 <style>
+  .best-for {
+    text-align: left;
+  }
   .carousel__slide {
     flex: 0 0 100%;
     scroll-snap-align: start;
-    color: white;
     padding: 1.5rem;
-    background: #013478;
+    border: 2px solid #013478;
     border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -128,13 +137,9 @@ import InfoCarousel from "../InfoCarousel.astro";
   }
 
   .program-cta {
-    border: 2px solid white;
+    border: 2px solid #013478;
     padding: 20px;
     border-radius: 20px;
-  }
-
-  a {
-    color: white;
   }
 
   /* Slides */
