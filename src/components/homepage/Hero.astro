@@ -1,17 +1,15 @@
 ---
 import Image from "astro/components/Image.astro";
-import BannerImage from "../../images/hero-image.jpg";
 
-const { pageTitle } = Astro.props;
+const { pageTitle, bannerImage, tagline } = Astro.props;
 ---
 
 <section class="hero">
   <Image
-    src={BannerImage}
+    src={bannerImage}
     alt="Hero banner"
     class="hero-img"
     widths={[480, 768, 1024, 1440, 1920]}
-    sizes="100vw"
     loading="eager"
     decoding="async"
     format="webp"
@@ -22,9 +20,8 @@ const { pageTitle } = Astro.props;
       <h1>
         {pageTitle}
       </h1>
-      <p>
-        Building confident, skilled, and intelligent soccer players through
-        professional coaching and long-term development.
+      <p class="tagline">
+        {tagline}
       </p>
     </div>
   </div>
@@ -37,6 +34,11 @@ const { pageTitle } = Astro.props;
     width: 100%;
     height: 50vh;
     background-color: black;
+  }
+
+  .tagline {
+    font-size: 22px;
+    font-weight: 600;
   }
 
   .hero-img {

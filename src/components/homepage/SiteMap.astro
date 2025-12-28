@@ -4,7 +4,7 @@ import SouthVanWhiteLogo from "../../images/southvanLogo.svg";
 import { Icon } from "astro-icon/components";
 ---
 
-<section class="info-box site-map">
+<section class="stack site-map">
   <div class="mini-logo-box">
     <Image
       src={SouthVanWhiteLogo}
@@ -13,42 +13,50 @@ import { Icon } from "astro-icon/components";
     />
     <p>Building confident, skilled, and intelligent players.</p>
   </div>
-  <div>
-    <h2>Follow Us:</h2>
-    <a
-      href="https://www.instagram.com/southvanfc"
-      aria-label="Visit our instagram page"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon name="insta" size={50} />
-    </a>
-  </div>
-  <div>
-    <h2>Academy</h2>
-    <div class="stack link-box">
-      <a aria-label="Navigate to the about us page">About Us</a>
-      <a aria-label="Navigate to the our philosophy page">Our Philosophy</a>
-      <a aria-label="Navigate to the our frequently asked questions page">FAQ</a
+  <div class="stack content-box">
+    <div>
+      <h2>Follow Us</h2>
+      <a
+        href="https://www.instagram.com/southvanfc"
+        aria-label="Visit our instagram page"
+        target="_blank"
+        rel="noopener noreferrer"
       >
+        <Icon name="insta" size={50} />
+      </a>
     </div>
-  </div>
-  <div>
-    <h2>Our Programs</h2>
-    <div class="stack link-box">
-      <a aria-label="Navigate to the our programs page">Grassroots (U6-U8)</a>
-      <a aria-label="Navigate to the our programs page"
-        >Foundation Phase (U9-U12)</a
-      >
-      <a aria-label="Navigate to the our programs page"
-        >Youth Development (U13-U18)</a
-      >
+    <div>
+      <h2>Quick Links</h2>
+      <div class="stack link-box">
+        <a href="/about-us" aria-label="Navigate to the about us page"
+          >About Us</a
+        >
+        <a href="/our-coaches" aria-label="Navigate to the our coaches page"
+          >Our Coaches</a
+        >
+        <a aria-label="Navigate to the our philosophy page">Our Philosophy</a>
+        <a aria-label="Navigate to the our frequently asked questions page"
+          >FAQ</a
+        >
+      </div>
     </div>
-  </div>
-  <div>
-    <h2>Contact Us</h2>
-    <div class="link-box">
-      <p>southvanfc@gmail.com</p>
+    <div>
+      <h2>Our Programs</h2>
+      <div class="stack link-box">
+        <a aria-label="Navigate to the our programs page">Grassroots (U6-U8)</a>
+        <a aria-label="Navigate to the our programs page"
+          >Foundation Phase (U9-U12)</a
+        >
+        <a aria-label="Navigate to the our programs page"
+          >Youth Development (U13-U18)</a
+        >
+      </div>
+    </div>
+    <div>
+      <h2>Contact Us</h2>
+      <div class="link-box">
+        <p>southvanfc@gmail.com</p>
+      </div>
     </div>
   </div>
 </section>
@@ -59,8 +67,8 @@ import { Icon } from "astro-icon/components";
     align-items: flex-start;
     color: white;
     background-color: #013478;
+    padding: 20px;
   }
-
   .link-box {
     gap: 20px;
     margin: 20px 10px;
@@ -81,5 +89,22 @@ import { Icon } from "astro-icon/components";
   .mini-logo {
     height: 100px;
     width: auto;
+  }
+
+  @media screen and (min-width: 800px) {
+    .site-map {
+      gap: 20px;
+    }
+    .content-box {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    .mini-logo {
+      height: 125px;
+    }
   }
 </style>

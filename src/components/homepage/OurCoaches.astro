@@ -1,48 +1,28 @@
 ---
-import CoachCard from "./CoachCard.astro";
-import SoccerCoach from "../../images/hero-image.jpg";
 
-interface CoachData {
-  name: string;
-  certificiation: string;
-  desc: string;
-  imageUrl: ImageMetadata;
-}
-
-const coachDat: CoachData[] = [
-  {
-    name: "Harjit Kainth",
-    certificiation: "Soccer For Life Certification",
-    desc: "Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence",
-    imageUrl: SoccerCoach,
-  },
-];
 ---
 
-<section class="info-box">
-  <h2>Meet Our Coaches</h2>
-  <CoachCard
-    name="Harjit Kainth"
-    certification="Soccer For Life Certification"
-    desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
-    imageUrl={SoccerCoach}
-  />
-  <CoachCard
-    name="Dipinder Kainth"
-    certification="Soccer For Life Certification"
-    desc="Former elite youth player with passion for player development. Specizlizes in technical skill, tactics, and game intelligence"
-    imageUrl={SoccerCoach}
-  />
-  <a
-    aria-label="Navigate to the our coaches page"
-    href="/our-coaches"
-    class="learn-more-link">Learn More About Our Coaches</a
-  >
+<section class="info-box relative-box">
+  <div class="stack content-box">
+    <h2>Built Here. Grown Here. Giving Back.</h2>
+    <p>
+      We are coaches shaped by this community and the game within it. Our
+      success started here and now we're committed to helping the next
+      generation rise through the same pathways, and beyond.
+    </p>
+    <a href="/our-coaches" class="learn-more-link"
+      >Learn More About Our Coaches</a
+    >
+  </div>
 </section>
 
 <style>
+  .content-box {
+    gap: 20px;
+    align-items: center;
+  }
+
   .learn-more-link {
-    display: block;
     border: 2px solid #013478;
     padding: 20px;
     border-radius: 20px;

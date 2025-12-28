@@ -1,22 +1,76 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/homepage/Hero.astro";
-import ProgramCarousel from "../components/homepage/ProgramCarousel.astro";
 import "../styles/home.css";
-import OurCoaches from "../components/homepage/OurCoaches.astro";
-import StartPlayerDev from "../components/homepage/StartPlayerDev.astro";
-import HowWeWork from "../components/homepage/HowWeWork.astro";
-import Evaluation from "../components/homepage/Evaluation.astro";
+import BannerImage from "../images/bannerImage.jpg";
 
-const pageTitle: string =
-  " South Van FC Development Academy | Elite Youth Soccer Training";
+const pageTitle: string = "South Van FC";
+const tagline: string = "Built by the Community. Developed for the Game.";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <Hero pageTitle={pageTitle} />
-  <HowWeWork />
-  <Evaluation />
-  <StartPlayerDev />
-  <ProgramCarousel />
-  <!-- <OurCoaches /> -->
+  <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
+  <section class="info-box">
+    <div class="stack cta-div">
+      <h2>Open Mens Team</h2>
+      <p>
+        Founded in 2023, the South Van FC Div 4 Mens team is driven by ambition.
+        We compete with intent, train to improve, and hold ourselves to
+        standards that lead to results. Every season, our objective remains the
+        same to build a winning squad, earn promotion, and keep moving forward.
+      </p>
+      <a class="program-cta">Apply for the Mens Squad</a>
+    </div>
+    <div class="stack cta-div">
+      <h2>Academy</h2>
+      <p>
+        Our Development Academy is the foundation of South Van FC, built for
+        players committed to learning, hard work, and long-term development. We
+        focus on technical quality, movement, and game understanding to prepare
+        players for a successful youth career.
+      </p>
+      <a href="/academy" class="program-cta">View Academy Programs</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .info-box {
+    margin-bottom: 40px;
+  }
+  .tagline {
+    font-weight: 600;
+  }
+
+  .cta-div {
+    align-items: center;
+    padding: 30px;
+    gap: 15px;
+    background-color: white;
+    border-radius: 12px;
+    max-width: 450px;
+    justify-content: space-between;
+    text-align: left;
+    box-shadow:
+      0px 0px 0px #00000000,
+      0px 2px 4px #01347814;
+  }
+
+  .program-cta {
+    background-color: #013478;
+    padding: 14px 10px;
+    border-radius: 20px;
+    color: white;
+    width: 80%;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 900px) {
+    .info-box {
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: center;
+      gap: 60px;
+    }
+  }
+</style>
