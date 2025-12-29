@@ -1,0 +1,197 @@
+---
+
+---
+
+<section class="stack faq">
+  <div class="stack faq-header">
+    <h2>Frequently Asked Questions</h2>
+    <p>
+      Everything you need to know about training with South Van FC Academy and
+      Men's club.
+    </p>
+  </div>
+
+  <div class="stack faq-list">
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Who is the men's team for?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <div>
+          <p>
+            The Men's Team is for serious players committed to competing at the
+            VMSL Men's Open level. We demand passion, discipline, and a winning
+            mentality as we push for promotion each season. Players must be 18+,
+            with select younger players considered with parental consent.
+          </p>
+        </div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Does the men's team train?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <div>
+          <p>
+            Yes. Training takes place once per week and is a key part of
+            preparing for VMSL competition. Commitment and performance in
+            training directly influence match selection and playing time.
+          </p>
+        </div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Who is the academy for?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <div>
+          <ul class="custom-list">
+            <li>Motivated youth players (grassroots to youth development)</li>
+            <li>Players who want to improve technically and tactically</li>
+            <li>Athletes committed to consistent training and growth</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>What programs do you offer?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <ul class="custom-list">
+          <li>
+            Technical & Foundation Program with focus on ball mastery,
+            coordination, movement
+          </li>
+          <li>
+            Game Development Program with focus on tactics, decision-making,
+            game understanding
+          </li>
+          <li>
+            High-Performance Pathway & Exposure for advanced players looking to
+            join and get exposure to high level teams
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Do I need to play for South Van FC to join?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          No. Players from any club are welcome. The academy is designed to
+          supplement club soccer. We are looking to develop our own youth club
+          in the future, stay tuned!
+        </p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Do you offer trials or evaluations?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          Yes. Evaluation sessions help us understand each player’s technical
+          ability, mindset, and development stage, allowing us to place them in
+          an environment that supports long-term growth.
+        </p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-question">
+        <h3>Where are training sessions held?</h3>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-answer">
+        <p>
+          Training locations vary by program and season. All sessions are held
+          at approved local fields within the Tri City area. Full details are
+          shared after registration.
+        </p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<style>
+  .faq {
+    gap: 10px;
+  }
+
+  .faq-header {
+    gap: 10px;
+  }
+
+  .faq-list {
+    gap: 15px;
+    padding: 10px;
+  }
+
+  /* Remove default marker */
+  .faq-question {
+    list-style: none;
+  }
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #013478;
+  }
+  .faq-question:hover {
+    background-color: #ddeeff;
+  }
+
+  .faq-answer {
+    padding: 18px;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  /* Icon (plus -> minus) */
+  .faq__icon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    flex: 0 0 18px;
+    opacity: 0.9;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 999px;
+  }
+
+  .faq__icon::after {
+    width: 2px;
+    height: 18px;
+  }
+
+  .faq-item[open] .faq__icon::after {
+    transform: scaleY(0);
+  }
+</style>

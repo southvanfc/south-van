@@ -12,9 +12,9 @@
 
 .custom-list {
     text-align: left;
-    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     list-style-type: disc;
+    padding: 10px;
   }

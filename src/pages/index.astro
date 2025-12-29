@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/homepage/Hero.astro";
 import "../styles/home.css";
 import BannerImage from "../images/bannerImage.jpg";
+import Faq from "../components/Faq.astro";
 
 const pageTitle: string = "South Van FC";
 const tagline: string = "Built by the Community. Developed for the Game.";
@@ -10,16 +11,17 @@ const tagline: string = "Built by the Community. Developed for the Game.";
 
 <BaseLayout pageTitle={pageTitle}>
   <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
-  <section class="info-box">
+  <section class="info-box row">
     <div class="stack cta-div">
-      <h2>Open Mens Team</h2>
+      <h2>Open Men's Team</h2>
       <p>
-        Founded in 2023, the South Van FC Div 4 Mens team is driven by ambition.
-        We compete with intent, train to improve, and hold ourselves to
-        standards that lead to results. Every season, our objective remains the
-        same to build a winning squad, earn promotion, and keep moving forward.
+        Founded in 2023, the South Van FC Div 4 Men's team is driven by
+        ambition. We compete with intent, train to improve, and hold ourselves
+        to standards that lead to results. Every season, our objective remains
+        the same to build a winning squad, earn promotion, and keep moving
+        forward.
       </p>
-      <a class="program-cta">Apply for the Mens Squad</a>
+      <a class="program-cta">Apply for the Men's Squad</a>
     </div>
     <div class="stack cta-div">
       <h2>Academy</h2>
@@ -32,6 +34,11 @@ const tagline: string = "Built by the Community. Developed for the Game.";
       <a href="/academy" class="program-cta">View Academy Programs</a>
     </div>
   </section>
+  <section class="info-box stack">
+    <div class="faq">
+      <Faq />
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -40,6 +47,11 @@ const tagline: string = "Built by the Community. Developed for the Game.";
   }
   .tagline {
     font-weight: 600;
+  }
+
+  .faq {
+    max-width: 600px;
+    text-align: left;
   }
 
   .cta-div {
@@ -66,7 +78,7 @@ const tagline: string = "Built by the Community. Developed for the Game.";
   }
 
   @media screen and (min-width: 900px) {
-    .info-box {
+    .row {
       flex-direction: row;
       align-items: stretch;
       justify-content: center;
