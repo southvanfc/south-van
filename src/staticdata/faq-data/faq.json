@@ -1,0 +1,57 @@
+{
+  "items": [
+    {
+      "question": "Who is the men's team for?",
+      "answerType": "p",
+      "answer": "The Men's Team is for serious players committed to competing at the VMSL Men's Open level. We demand passion, discipline, and a winning mentality as we push for promotion each season. Players must be 18+, with select younger players considered with parental consent."
+    },
+    {
+      "question": "Does the men's team train?",
+      "answerType": "p",
+      "answer": "Yes. Training takes place once per week and is a key part of preparing for VMSL competition. Commitment and performance in training directly influence match selection and playing time."
+    },
+    {
+      "question": "Who is the academy for?",
+      "answerType": "ul",
+      "answer": [
+        "Motivated youth players (grassroots to youth development)",
+        "Players who want to improve technically and tactically",
+        "Athletes committed to consistent training and growth"
+      ]
+    },
+    {
+      "question": "What programs do you offer?",
+      "answerType": "ul",
+      "answer": [
+        "Technical & Foundation Program with focus on ball mastery, coordination, movement",
+        "Game Development Program with focus on tactics, decision-making, game understanding",
+        "High-Performance Pathway & Exposure for advanced players looking to join and get exposure to high level teams"
+      ]
+    },
+    {
+      "question": "Is there a South Van FC youth team?",
+      "answerType": "p",
+      "answer": "Players from any club are welcome. The academy is designed to supplement club soccer. We are looking to develop our own youth club in the future, stay tuned!"
+    },
+    {
+      "question": "Do you offer trials or evaluations?",
+      "answerType": "p",
+      "answer": "Yes. Evaluation sessions help us understand each player’s technical ability, mindset, and development stage, allowing us to place them in an environment that supports long-term growth."
+    },
+    {
+      "question": "Where are training sessions held?",
+      "answerType": "p",
+      "answer": "Training locations vary by program and season. All sessions are held at approved local fields within the Tri City area. Full details are shared after registration."
+    },
+    {
+      "question": "What is expected from players?",
+      "answerType": "ul",
+      "answer": [
+        "Arrive on time and prepared",
+        "Show respect to teammates and coaches",
+        "Train with focus and effort",
+        "Take responsibility for their development"
+      ]
+    }
+  ]
+}

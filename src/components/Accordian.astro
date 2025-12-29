@@ -1,0 +1,88 @@
+---
+type FaqItemProps = {
+  question: string;
+  answerType: "p" | "ul";
+  answer: string | string[];
+};
+
+const { question, answerType, answer } = Astro.props as FaqItemProps;
+---
+
+<details class="item">
+  <summary class="heading">
+    <h3>{question}</h3>
+    <span class="icon" aria-hidden="true"></span>
+  </summary>
+  <div class="answer">
+    {
+      answerType === "ul" && Array.isArray(answer) ? (
+        <ul class="custom-list">
+          {answer.map((li: string) => (
+            <li>{li}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>{typeof answer === "string" ? answer : answer?.join(" ")}</p>
+      )
+    }
+  </div>
+</details>
+
+<style>
+  /* Remove default marker */
+  .heading {
+    list-style: none;
+  }
+  .heading::-webkit-details-marker {
+    display: none;
+  }
+
+  .heading {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #013478;
+  }
+  .heading:hover {
+    background-color: #ddeeff;
+  }
+
+  .answer {
+    padding: 18px;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  /* Icon (plus -> minus) */
+  .icon {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    flex: 0 0 18px;
+    opacity: 0.9;
+  }
+
+  .icon::before,
+  .icon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 999px;
+  }
+
+  .icon::after {
+    width: 2px;
+    height: 18px;
+  }
+
+  .item[open] .icon::after {
+    transform: scaleY(0);
+  }
+</style>
