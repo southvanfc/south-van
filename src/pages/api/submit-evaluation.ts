@@ -84,9 +84,13 @@ export const POST: APIRoute = async ({ request, url }) => {
     // 5) Append into Google Sheets
     const createdAt = new Date().toISOString();
 
+    const TAB_NAME = "submission";
+
+    const range = `${TAB_NAME}!A:Z`;
     const appendUrl =
       `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(env("GOOGLE_SHEET_ID"))}` +
-      `/values/${encodeURIComponent(env("GOOGLE_SHEET_TAB"))}!A:Z:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+      `/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+
 
     const sheetsRes = await fetch(appendUrl, {
       method: "POST",
