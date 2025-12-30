@@ -16,9 +16,11 @@ const tagline: string =
 
 <BaseLayout pageTitle={pageTitle}>
   <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline}>
-    <a href="/academy/player-evaluation" slot="cta" class="link"
-      >Request Player Evaluation</a
-    >
+    <div class="learn-more-div" slot="cta">
+      <a href="/academy/player-evaluation" class="link"
+        >Request Player Evaluation</a
+      >
+    </div>
   </Hero>
   <HowWeWork />
   <ProgramCarousel />
@@ -27,6 +29,13 @@ const tagline: string =
 </BaseLayout>
 
 <style>
+  .learn-more-div {
+    background-color: rgba(1, 52, 120, 0.85);
+    padding: 18px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+  }
   .link {
     color: white;
     font-size: 18px;
