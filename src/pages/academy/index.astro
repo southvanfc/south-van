@@ -6,7 +6,6 @@ import ProgramCarousel from "../../components/homepage/ProgramCarousel.astro";
 import StartPlayerDev from "../../components/homepage/StartPlayerDev.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BannerImage from "../../images/hero-image.jpg";
-import OurCoaches from "./our-coaches.astro";
 
 const pageTitle: string =
   " South Van FC Development Academy | Elite Youth Soccer Training";
@@ -16,9 +15,20 @@ const tagline: string =
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
+  <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline}>
+    <a href="/academy/player-evaluation" slot="cta" class="link"
+      >Request Player Evaluation</a
+    >
+  </Hero>
   <HowWeWork />
   <ProgramCarousel />
   <Evaluation />
   <StartPlayerDev />
 </BaseLayout>
+
+<style>
+  .link {
+    color: white;
+    font-size: 18px;
+  }
+</style>
