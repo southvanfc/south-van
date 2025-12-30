@@ -1,0 +1,29 @@
+---
+import MensRequestForm from "../components/forms/MensRequestForm.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle: string = "South Van FC Mens Application Form";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="hero">
+    <h1>
+      {pageTitle}
+    </h1>
+    <p>
+      Fill out form to apply to join training sessions with South Van FC Men's
+      team.
+    </p>
+    <MensRequestForm />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+</style>
