@@ -7,20 +7,24 @@ const pageTitle: string =
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <div class="hero">
-    <h1>
-      {pageTitle}
-    </h1>
+  <div class="stack">
+    <div class="title">
+      <h1>
+        {pageTitle}
+      </h1>
+    </div>
     <EvaulationRequestForm />
   </div>
 </BaseLayout>
 
 <style>
-  .hero {
+  .stack {
+    gap: 20px;
+    padding: 20px;
+    align-items: center;
+  }
+  .title {
     text-align: center;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
   }
 </style>

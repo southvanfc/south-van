@@ -16,21 +16,24 @@
 
 <style>
   .carousel {
-    max-width: 100%;
+    width: 100%;
+    max-width: 1200px;
     margin-inline: auto;
   }
 
-  /* Scroll container */
   .carousel__viewport {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     padding: 1rem 0;
-
-    /* Equal height behavior */
     align-items: stretch;
+    min-width: 0;
+  }
+
+  .carousel__viewport > * {
+    min-width: 0;
   }
 
   /* Hide scrollbar */
@@ -39,5 +42,17 @@
   }
   .carousel__viewport::-webkit-scrollbar {
     display: none;
+  }
+
+  /* === Desktop: static layout === */
+  @media (min-width: 768px) {
+    .carousel__viewport {
+      overflow-x: visible;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+    }
   }
 </style>
