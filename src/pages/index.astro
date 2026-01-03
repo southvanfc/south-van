@@ -1,19 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/homepage/Hero.astro";
 import "../styles/home.css";
 import BannerImage from "../images/bannerImage.jpg";
 import Faq from "../components/Faq.astro";
+import Hero from "../components/Hero.astro";
 
 const pageTitle: string = "South Van FC";
+const mainTitle: string = "";
 const tagline: string = "Built by the Community. Developed for the Game.";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
-  <section class="info-box row">
-    <div class="stack cta-div">
-      <h2>Open Men's Team</h2>
+  <div class="info-box row">
+    <section class="stack cta-div" aria-labelledby="mens-program-heading">
+      <h2 id="mens-program-heading">Open Men's Team</h2>
       <p>
         Founded in 2023, the South Van FC Div 4 Men's team is driven by
         ambition. We compete with intent, train to improve, and hold ourselves
@@ -24,9 +25,9 @@ const tagline: string = "Built by the Community. Developed for the Game.";
       <a href="/mens-team-application" class="program-cta"
         >Apply for the Men's Squad</a
       >
-    </div>
-    <div class="stack cta-div">
-      <h2>Academy</h2>
+    </section>
+    <section class="stack cta-div" aria-labelledby="academy-heading">
+      <h2 id="academy-heading">Academy</h2>
       <p>
         Our Development Academy is the foundation of South Van FC, built for
         players committed to learning, hard work, and long-term development. We
@@ -34,13 +35,9 @@ const tagline: string = "Built by the Community. Developed for the Game.";
         players for a successful youth career.
       </p>
       <a href="/academy" class="program-cta">View Academy</a>
-    </div>
-  </section>
-  <section class="info-box stack">
-    <div class="faq">
-      <Faq />
-    </div>
-  </section>
+    </section>
+  </div>
+  <Faq />
 </BaseLayout>
 
 <style>
@@ -49,11 +46,6 @@ const tagline: string = "Built by the Community. Developed for the Game.";
   }
   .tagline {
     font-weight: 600;
-  }
-
-  .faq {
-    max-width: 600px;
-    text-align: left;
   }
 
   .cta-div {

@@ -203,6 +203,38 @@ p {
   letter-spacing: 0.02em;
 }
 
+/* Tablet */
+@media (min-width: 640px) {
+  h1 { font-size: 40px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 22px; }
+  h4 { font-size: 20px; }
+  h5, h6 { font-size: 18px; }
+  p { font-size: 17px; }
+  .caption { font-size: 14px; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  h1 { font-size: 48px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 22px; }
+  h5, h6 { font-size: 19px; }
+  p { font-size: 18px; }
+  .caption { font-size: 14px; }
+}
+
+/* Large desktop */
+@media (min-width: 1280px) {
+  h1 { font-size: 56px; }
+  h2 { font-size: 36px; }
+  h3 { font-size: 26px; }
+  h4 { font-size: 24px; }
+  h5, h6 { font-size: 20px; }
+  /* keep paragraph stable */
+}
+
 header {
   border-bottom: 1px solid #013478;
   padding: 10px;

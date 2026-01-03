@@ -3,9 +3,9 @@ import Accordian from "./Accordian.astro";
 import faqData from "../staticdata/faq-data/faq.json";
 ---
 
-<section class="stack faq">
+<section class="info-box stack faq" aria-labelledby="faq-heading">
   <div class="stack faq-header">
-    <h2>Frequently Asked Questions</h2>
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
     <p>
       Everything you need to know about training with South Van FC Academy and
       Men's club.
@@ -26,12 +26,19 @@ import faqData from "../staticdata/faq-data/faq.json";
 </section>
 
 <style>
+  .info-box {
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
   .faq {
+    max-width: 600px;
+    text-align: left;
     gap: 10px;
   }
 
   .faq-header {
     gap: 10px;
+    padding: 10px;
   }
 
   .faq-list {
