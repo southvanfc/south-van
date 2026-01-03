@@ -10,6 +10,7 @@ const { pageTitle, bannerImage, tagline } = Astro.props;
     alt="Hero banner"
     class="hero-img"
     widths={[480, 768, 1024, 1440, 1920]}
+    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 90vw, 1200px"
     loading="eager"
     decoding="async"
     priority
