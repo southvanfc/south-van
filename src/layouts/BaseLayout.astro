@@ -60,6 +60,23 @@ const canonicalUrl = seo?.canonical
 
 // OG image should be absolute too
 const ogImageUrl = new URL(seo?.ogImage ?? DEFAULT_OG_IMAGE, base).toString();
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://southvanfc.com/#organization",
+  name: "South Van FC",
+  url: "https://southvanfc.com",
+  logo: "https://southvanfc.com/favicon.svg",
+  description:
+    "South Van FC in Vancouver — community built football with a technical first development academy.",
+  foundingDate: "2023",
+  areaServed: {
+    "@type": "Place",
+    name: "Vancouver, BC, Canada",
+  },
+  sameAs: ["https://www.instagram.com/southvanfc"],
+};
 ---
 
 <html lang={lang}>
@@ -98,27 +115,10 @@ const ogImageUrl = new URL(seo?.ogImage ?? DEFAULT_OG_IMAGE, base).toString();
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "@id": `${SITE_URL}/#organization`,
-        "name": SITE_NAME,
-        "url": SITE_URL,
-        "logo": `${SITE_URL}/favicon.svg`,
-        "description": DEFAULT_DESCRIPTION,
-        "foundingDate": "2023",
-        "areaServed": {
-          "@type": "Place",
-          "name": "Vancouver, BC, Canada"
-        },
-        "sameAs": [
-          "https://www.instagram.com/southvanfc",
-          "https://www.facebook.com/southvanfc"
-        ]
-      })}
-    </script>
-
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
 
     <!-- Vercel -->
     <Analytics />
