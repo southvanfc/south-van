@@ -6,11 +6,18 @@ import Faq from "../components/Faq.astro";
 import Hero from "../components/Hero.astro";
 
 const pageTitle: string = "South Van FC";
-const mainTitle: string = "";
 const tagline: string = "Built by the Community. Developed for the Game.";
+
+const seo = {
+  title: "South Van FC | Vancouver Football Club & Player Development Academy",
+  description:
+    "South Van FC is a community-built club in Vancouver with an Open Men’s team and a technical-first Development Academy focused on movement and game intelligence.",
+  canonical: "/",
+  ogImage: "/og/home.png", // optional: make sure this exists in /public/og/home.jpg
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} seo={seo}>
   <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
   <div class="info-box row">
     <section class="stack cta-div" aria-labelledby="mens-program-heading">

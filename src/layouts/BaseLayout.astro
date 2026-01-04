@@ -4,19 +4,127 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-const { pageTitle } = Astro.props;
+
+type SEO = {
+  title: string;
+  description?: string;
+  canonical?: string;
+  robots?: string; // "index,follow" | "noindex,nofollow" etc.
+
+  /** Social */
+  ogImage?: string; // "/og/home.jpg" or absolute
+  ogType?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
+
+  /** Optional extras */
+  keywords?: string;
+  author?: string;
+};
+
+type Props = {
+  /** New: pass an SEO object */
+  seo?: SEO;
+
+  /** Old: kept for backwards compatibility (mapped to <title>) */
+  pageTitle?: string;
+
+  /** Optional */
+  lang?: string;
+};
+
+const { seo, pageTitle, lang = "en" } = Astro.props as Props;
+
+// Site-wide defaults (edit once)
+const SITE_NAME = "South Van FC";
+const DEFAULT_DESCRIPTION =
+  "South Van FC in Vancouver — community built football with a technical first development academy.";
+const DEFAULT_OG_IMAGE = "/og-default.jpg";
+const THEME_COLOR = "#013478";
+
+// Final resolved SEO values
+const title = seo?.title ?? pageTitle ?? SITE_NAME;
+const description = seo?.description ?? DEFAULT_DESCRIPTION;
+const robots = seo?.robots ?? "index,follow";
+const ogType = seo?.ogType ?? "website";
+const twitterCard = seo?.twitterCard ?? "summary_large_image";
+const keywords = seo?.keywords;
+const author = seo?.author;
+
+// Build absolute URLs (works best when you set `site` in astro.config.mjs)
+const base = Astro.site ?? Astro.url;
+
+// Canonical: use explicit canonical if provided; otherwise use current path
+const canonicalUrl = seo?.canonical
+  ? new URL(seo.canonical, base).toString()
+  : new URL(Astro.url.pathname, base).toString();
+
+// OG image should be absolute too
+const ogImageUrl = new URL(seo?.ogImage ?? DEFAULT_OG_IMAGE, base).toString();
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
+    <!-- Core -->
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
+    <title>{title}</title>
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content={THEME_COLOR} />
+
+    <!-- SEO -->
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    {author && <meta name="author" content={author} />}
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={twitterCard} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        "name": SITE_NAME,
+        "url": SITE_URL,
+        "logo": `${SITE_URL}/favicon.svg`,
+        "description": DEFAULT_DESCRIPTION,
+        "foundingDate": "2023",
+        "areaServed": {
+          "@type": "Place",
+          "name": "Vancouver, BC, Canada"
+        },
+        "sameAs": [
+          "https://www.instagram.com/southvanfc",
+          "https://www.facebook.com/southvanfc"
+        ]
+      })}
+    </script>
+
+
+    <!-- Vercel -->
     <Analytics />
     <SpeedInsights />
   </head>
+
   <body>
     <Header />
     <main>
@@ -24,8 +132,7 @@ const { pageTitle } = Astro.props;
     </main>
     <Footer />
 
-    <script>
-      import "../scripts/menu.js";
-    </script>
+    <!-- Load your menu script safely -->
+    <script type="module" src="/scripts/menu.js"></script>
   </body>
 </html>
