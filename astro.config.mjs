@@ -5,8 +5,12 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://southvanfc.com",
-  integrations: [icon(), sitemap(),],
-  output:'server',
+  integrations: [icon(), sitemap()],
+  output: "server",
   adapter: vercel(),
-  imageService: true,
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+  },
 });
