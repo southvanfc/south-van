@@ -4,7 +4,7 @@ import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://southvanfc.com",
+  site: "https://www.southvanfc.com",
   integrations: [icon(), sitemap()],
   output: "server",
   adapter: vercel(),
