@@ -53,10 +53,25 @@ const author = seo?.author;
 // Build absolute URLs (works best when you set `site` in astro.config.mjs)
 const base = Astro.site ?? Astro.url;
 
-// Canonical: use explicit canonical if provided; otherwise use current path
+function normalizeCanonicalPath(path: string) {
+  // absolute URLs: return as-is
+  if (/^https?:\/\//i.test(path)) return path;
+
+  // ensure leading slash
+  let p = path.startsWith("/") ? path : `/${path}`;
+
+  // keep root as "/"
+  if (p === "/") return "/";
+
+  // force trailing slash
+  if (!p.endsWith("/")) p += "/";
+
+  return p;
+}
+
 const canonicalUrl = seo?.canonical
-  ? new URL(seo.canonical, base).toString()
-  : new URL(Astro.url.pathname, base).toString();
+  ? new URL(normalizeCanonicalPath(seo.canonical), base).toString()
+  : new URL(normalizeCanonicalPath(Astro.url.pathname), base).toString();
 
 // OG image should be absolute too
 const ogImageUrl = new URL(seo?.ogImage ?? DEFAULT_OG_IMAGE, base).toString();
