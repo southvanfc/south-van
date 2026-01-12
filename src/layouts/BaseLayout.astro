@@ -117,10 +117,6 @@ const organizationSchema = {
       type="application/ld+json"
       set:html={JSON.stringify(organizationSchema)}
     />
-
-    <!-- Vercel -->
-    <Analytics />
-    <SpeedInsights />
   </head>
 
   <body>
@@ -129,7 +125,9 @@ const organizationSchema = {
       <slot />
     </main>
     <Footer />
-
+    <!-- Vercel -->
+    <Analytics />
+    <SpeedInsights />
     <!-- Load your menu script safely -->
     <script type="module" src="/scripts/menu.js"></script>
   </body>
