@@ -1,6 +1,6 @@
 ---
 import Image from "astro/components/Image.astro";
-import SoccerCoach from "../../images/soccer-coach.jpg";
+import SoccerCoach from "../../images/soccer-coach.png";
 import { Icon } from "astro-icon/components";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -46,7 +46,7 @@ const pageTitle: string = "Meet Our Coaches";
             <p>U8 - 18+</p>
           </div>
         </div>
-        <div>
+        <div class="coach-content">
           <h3>Coach Bio</h3>
           <div class="stack bio-content">
             <p>
@@ -65,15 +65,15 @@ const pageTitle: string = "Meet Our Coaches";
                 <p>
                   Internationally, Harjit competed in Salzburg at a top youth
                   international tournament and completed a three-week training
-                  stint with Dynamo Kyiv’s Youth Academy, gaining valuable
+                  stint with Dynamo Kyiv's Youth Academy, gaining valuable
                   experience in high-performance environments.
                 </p>
                 <p>
                   Transitioning into coaching during high school, he began by
-                  coaching high school girls’ teams, later expanding to both
-                  boys’ and girls’ programs after graduation. As his coaching
+                  coaching high school girls' teams, later expanding to both
+                  boys' and girls' programs after graduation. As his coaching
                   career progressed, he moved into the senior game, coaching
-                  men’s teams in the Vancouver Metro Soccer League (VMSL).
+                  men's teams in the Vancouver Metro Soccer League (VMSL).
                 </p>
                 <p>
                   Harjit is currently pursuing his Canada Soccer C Diploma and
@@ -82,6 +82,60 @@ const pageTitle: string = "Meet Our Coaches";
                   available. His coaching philosophy centers on building
                   confident, intelligent players through structured development,
                   accountability, and a deep understanding of the modern game.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+      <div class="stack coach-card">
+        <Image src={SoccerCoach} alt="test" class="coach-image" />
+        <h3>Dipinder Kainth</h3>
+        <p class="caption">Soccer For Life</p>
+        <div class="mentality">
+          <p>Tactical</p>
+          <p>Skill Development</p>
+          <p>Leadership</p>
+        </div>
+        <div class="badges">
+          <div class="stack badge-div">
+            <Icon name="shieldCheck" size={40} color="#013478" />
+            <p>15 years</p>
+          </div>
+          <div class="stack badge-div">
+            <Icon name="people" size={40} color="#013478" />
+            <p>U8 - 18+</p>
+          </div>
+        </div>
+        <div class="coach-content">
+          <h3>Coach Bio</h3>
+          <div class="stack bio-content">
+            <p>
+              Dipinder Kainth's soccer journey began at the age of eight with
+              KLM soccer club. He quickly progressed within KLM and began
+              playing at the Silver 1 level. His development in soccer lead him
+              to be part of two city championships with his high school team.
+            </p>
+            <details class="read-more">
+              <summary class="read-more-btn">Read more</summary>
+
+              <div class="stack bio-more">
+                <p>
+                  Transitioning from youth to adult soccer, Dipinder began with
+                  a seven-a-side league. In his first season he helped his team
+                  place 1st in the division and later moved on to winning the
+                  championship. He eventually joined Coach Harjit to compete in
+                  a competitive men's division with the Vancouver Metro Soccer
+                  League (VMSL).
+                </p>
+                <p>
+                  As a coach, Dipinder has taken on the role of leading and
+                  coaching the men's team for South Van FC. He is currently
+                  pursuing his Canada Soccer C Diploma with aspirations of
+                  obtaining higher levels of coaching certification. His
+                  coaching philosophy revolves around developing confident, well
+                  rounded players, focusing on resilience, game intelligence and
+                  team work.
                 </p>
               </div>
             </details>
@@ -97,14 +151,21 @@ const pageTitle: string = "Meet Our Coaches";
     margin-top: 30px;
     padding: 20px;
     gap: 100px;
+    align-items: center;
   }
   .title-div {
     align-items: center;
-    gap: 20px;
+    gap: 40px;
+    max-width: 800px;
   }
 
   .our-coaches {
     gap: 30px;
+    max-width: 500px;
+  }
+
+  .description {
+    gap: 20px;
   }
 
   .title {
