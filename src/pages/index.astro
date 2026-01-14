@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/home.css";
-import BannerImage from "../images/bannerImage.jpg";
+import BannerImage from "../images/bannerImage.webp";
 import Faq from "../components/Faq.astro";
 import Hero from "../components/Hero.astro";
 
@@ -17,7 +17,11 @@ const seo = {
 ---
 
 <BaseLayout pageTitle={pageTitle} seo={seo}>
-  <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline} />
+  <Hero
+    pageTitle={pageTitle}
+    bannerImage={"assets/bannerImage.webp"}
+    tagline={tagline}
+  />
   <div class="info-box row">
     <section class="stack cta-div" aria-labelledby="mens-program-heading">
       <h2 id="mens-program-heading">Open Men's Team</h2>
