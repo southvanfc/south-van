@@ -1,8 +1,8 @@
 ---
-import Image from "astro/components/Image.astro";
-import SoccerCoach from "../../images/soccer-coach.png";
-import { Icon } from "astro-icon/components";
+import { ourCoachesData } from "../../staticContent/ourCoachesData";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CoachCard from "../../components/CoachCard.astro";
+import type { Coach } from "../../types/types";
 
 const pageTitle: string = "Meet Our Coaches";
 ---
@@ -27,225 +27,73 @@ const pageTitle: string = "Meet Our Coaches";
     </div>
     <section class="stack our-coaches">
       <h2 class="title">Leaders. Mentors. Developers of the Modern Player</h2>
-      <div class="stack coach-card">
-        <Image src={SoccerCoach} alt="test" class="coach-image" />
-        <h3>Harjit Kainth</h3>
-        <p class="caption">Soccer For Life</p>
-        <div class="mentality">
-          <p>Tactical</p>
-          <p>Technical</p>
-          <p>Player Development</p>
-        </div>
-        <div class="badges">
-          <div class="stack badge-div">
-            <Icon name="shieldCheck" size={40} color="#013478" />
-            <p>15 years</p>
-          </div>
-          <div class="stack badge-div">
-            <Icon name="people" size={40} color="#013478" />
-            <p>U8 - 18+</p>
-          </div>
-        </div>
-        <div class="coach-content">
-          <h3>Coach Bio</h3>
-          <div class="stack bio-content">
-            <p>
-              Harjit Kainth began his football journey in Vancouver at the
-              grassroots level with KLM (U6) before progressing into elite youth
-              pathways. He was accepted into TSS Academy and later selected to
-              represent Vancouver Selects, competing at the highest youth level
-              in the Metro Soccer League. His development also included
-              provincial and national exposure with Coastal BC in the Super Y
-              League.
-            </p>
-            <details class="read-more">
-              <summary class="read-more-btn">Read more</summary>
-
-              <div class="stack bio-more">
-                <p>
-                  Internationally, Harjit competed in Salzburg at a top youth
-                  international tournament and completed a three-week training
-                  stint with Dynamo Kyiv's Youth Academy, gaining valuable
-                  experience in high-performance environments.
-                </p>
-                <p>
-                  Transitioning into coaching during high school, he began by
-                  coaching high school girls' teams, later expanding to both
-                  boys' and girls' programs after graduation. As his coaching
-                  career progressed, he moved into the senior game, coaching
-                  men's teams in the Vancouver Metro Soccer League (VMSL).
-                </p>
-                <p>
-                  Harjit is currently pursuing his Canada Soccer C Diploma and
-                  is committed to continuous professional development, with the
-                  goal of attaining the highest coaching certifications
-                  available. His coaching philosophy centers on building
-                  confident, intelligent players through structured development,
-                  accountability, and a deep understanding of the modern game.
-                </p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-      <div class="stack coach-card">
-        <Image src={SoccerCoach} alt="test" class="coach-image" />
-        <h3>Dipinder Kainth</h3>
-        <p class="caption">Soccer For Life</p>
-        <div class="mentality">
-          <p>Tactical</p>
-          <p>Skill Development</p>
-          <p>Leadership</p>
-        </div>
-        <div class="badges">
-          <div class="stack badge-div">
-            <Icon name="shieldCheck" size={40} color="#013478" />
-            <p>15 years</p>
-          </div>
-          <div class="stack badge-div">
-            <Icon name="people" size={40} color="#013478" />
-            <p>U8 - 18+</p>
-          </div>
-        </div>
-        <div class="coach-content">
-          <h3>Coach Bio</h3>
-          <div class="stack bio-content">
-            <p>
-              Dipinder Kainth's soccer journey began at the age of eight with
-              KLM soccer club. He quickly progressed within KLM and began
-              playing at the Silver 1 level. His development in soccer lead him
-              to be part of two city championships with his high school team.
-            </p>
-            <details class="read-more">
-              <summary class="read-more-btn">Read more</summary>
-
-              <div class="stack bio-more">
-                <p>
-                  Transitioning from youth to adult soccer, Dipinder began with
-                  a seven-a-side league. In his first season he helped his team
-                  place 1st in the division and later moved on to winning the
-                  championship. He eventually joined Coach Harjit to compete in
-                  a competitive men's division with the Vancouver Metro Soccer
-                  League (VMSL).
-                </p>
-                <p>
-                  As a coach, Dipinder has taken on the role of leading and
-                  coaching the men's team for South Van FC. He is currently
-                  pursuing his Canada Soccer C Diploma with aspirations of
-                  obtaining higher levels of coaching certification. His
-                  coaching philosophy revolves around developing confident, well
-                  rounded players, focusing on resilience, game intelligence and
-                  team work.
-                </p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
+      {
+        ourCoachesData.map((data: Coach) => (
+          <CoachCard
+            imageUrl={data.imageUrl}
+            name={data.name}
+            mentality={data.mentality}
+            years={data.years}
+            ageGroup={data.ageGroup}
+            bioPreview={data.bioPreview}
+            completeBio={data.completeBio}
+          />
+        ))
+      }
     </section>
   </div>
 </BaseLayout>
 
 <style>
   .container {
-    margin-top: 30px;
-    padding: 20px;
-    gap: 100px;
-    align-items: center;
+    padding: 0 20px;
+    max-width: 1100px;
+    margin: 48px auto;
   }
+
+  /* --- HERO / INTRO --- */
   .title-div {
-    align-items: center;
-    gap: 40px;
-    max-width: 800px;
-  }
-
-  .our-coaches {
-    gap: 30px;
-    max-width: 500px;
-  }
-
-  .description {
-    gap: 20px;
-  }
-
-  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 720px;
+    margin: 0 auto;
     text-align: center;
   }
 
-  .coach-card {
-    padding: 20px;
-    align-items: center;
-    gap: 10px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow:
-      0px 0px 0px #00000000,
-      0px 2px 4px #01347814;
+  .title-div h1 {
+    margin-bottom: 16px;
   }
 
-  .coach-image {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-  }
-
-  .badges {
-    width: 100%;
+  /* --- DESCRIPTION BLOCK --- */
+  .description {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .description p {
+    text-align: left;
+    line-height: 1.7;
+  }
+
+  /* --- COACHES SECTION --- */
+  .our-coaches {
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
     gap: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .badge-div {
-    align-items: center;
-    gap: 10px;
+  .our-coaches .title {
+    margin-bottom: 16px;
   }
 
-  .mentality {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  .bio-content {
-    margin-top: 5px;
-    gap: 10px;
-  }
-
-  .read-more {
-    width: 100%;
-  }
-
-  /* Make summary look like a button */
-  .read-more-btn {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid #013478;
-    color: #013478;
-  }
-
-  /* hide default marker (Chrome/Safari) */
-  .read-more-btn::-webkit-details-marker {
-    display: none;
-  }
-
-  /* When open, change label */
-  .read-more[open] > .read-more-btn::after {
-    content: " (Read less)";
-  }
-
-  /* spacing for expanded content */
-  .bio-more {
-    gap: 20px;
-    margin-top: 12px;
-  }
-
-  .read-more-btn:hover {
-    background: #013478;
-    color: #fff;
+  /* --- TITLES --- */
+  .title {
+    text-align: center;
   }
 </style>

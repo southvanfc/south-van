@@ -1,21 +1,30 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BannerImage from "../../images/hero-image.jpg";
 import Evaluation from "../../components/Evaluation.astro";
 import Hero from "../../components/Hero.astro";
 import HowWeWork from "../../components/HowWeWork.astro";
 import ProgramCarousel from "../../components/ProgramCarousel.astro";
 import StartPlayerDev from "../../components/StartPlayerDev.astro";
 
-const pageTitle: string =
-  " South Van FC Development Academy | Elite Youth Soccer Training";
+const pageTitle: string = "A Connected Football Experience";
 
 const tagline: string =
-  "Building confident, skilled, and intelligent soccer players through professional coaching and long-term development.";
+  "Where fundamentals, creativity, and competition live side by side.";
+
+const seo = {
+  title: "SouthVan FC | Vancouver Football Club & Development Academy",
+  description:
+    "SouthVan FC is a community-built club in Vancouver with an Open Men's team and a technical first Development Academy focused on movement and game intelligence.",
+  ogImage: "/og/home.png", // optional: make sure this exists in /public/og/home.jpg
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  <Hero pageTitle={pageTitle} bannerImage={BannerImage} tagline={tagline}>
+<BaseLayout pageTitle={pageTitle} seo={seo}>
+  <Hero
+    pageTitle={pageTitle}
+    bannerImage={"assets/hero-image.jpg"}
+    tagline={tagline}
+  >
     <a href="/academy/player-evaluation" slot="cta" class="learn-more-link"
       >Request Player Evaluation</a
     >
