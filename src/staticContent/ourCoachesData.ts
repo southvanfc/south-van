@@ -36,10 +36,10 @@ export const ourCoachesData: Coach[] = [
         "mentality": ["Agility", "Strenghtening", "Plyometrics"],
         "years": "15 Years",
         "ageGroup": "U8 - 18+",
-        "bioPreview": "Shanil Sharma started playing for Killarney Soccer, at a young age and continued up until U18, playing at the gold level. He also played for the high school team winning the city championship and was also the captain of the team.",
+        "bioPreview": "Shanil Sharma started played for Killarney Soccer, at young age and continued up until U18, playing at the gold level. He also played for the high school team winning the city championship and was also the captain of the team.",
         "completeBio": [
-            "After high-school Shanil underwent a surgery and opted to coach the high-school soccer team taking them to the city finals twice. Shanil continued to play men's in the men's league and continues to play for South Van FCs men's team, and helps coach.", 
-            "Shanil is Kinesiologist graduating from the University of British Columbia. He specializes in strength and conditioning training, as well as injury rehabilitation. He is a member of the National Coaching Certification Program, and looks to pursue with the canada soccer program."
+            "After high-school Shanil underwent a surgery and opted to coach the high-school soccer team for 2 years. Shanil has continued to play in the men's league and continues to play for South Van FCs men's team, where he also helps coach.", 
+            "Shanil is Kinesiologist who graduated from the University of British Columbia. He specializes in strength and conditioning training, as well as injury rehabilitation. He is a member of the National Coaching Certification Program, and looks to pursue with the canada soccer program."
         ]
     }
 
