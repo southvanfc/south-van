@@ -116,7 +116,7 @@ import InfoCarousel from "./InfoCarousel.astro";
     </section>
   </InfoCarousel>
   <div>
-    <p>Swipe to view our programs</p>
+    <p class="swipe-action">Swipe to view our programs</p>
   </div>
 </section>
 
@@ -166,6 +166,10 @@ import InfoCarousel from "./InfoCarousel.astro";
   @media (min-width: 1024px) {
     .carousel__slide {
       flex-basis: 33.333%;
+    }
+
+    .swipe-action {
+      display: none;
     }
   }
 </style>
