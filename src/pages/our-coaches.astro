@@ -1,21 +1,25 @@
 ---
-import { ourCoachesData } from "../../staticContent/ourCoachesData";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import CoachCard from "../../components/CoachCard.astro";
-import type { Coach } from "../../types/types";
+import CoachCard from "../components/CoachCard.astro";
+import Hero from "../components/Hero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ourCoachesData } from "../staticContent/ourCoachesData";
+import type { Coach } from "../types/types";
 
 const pageTitle: string = "Meet Our Coaches";
+const tagline: string = "Leaders. Mentors. Developers of the Modern Player";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+  <Hero
+    pageTitle={pageTitle}
+    bannerImage={"assets/our-coaches.webp"}
+    tagline={tagline}
+  />
   <div class="stack container">
-    <div class="stack title-div">
-      <h1>
-        {pageTitle}
-      </h1>
+    <div class="stack">
       <section class="stack description">
         <h2 class="title">Our Coaching Philosophy</h2>
-        <p>
+        <p class="intro">
           At South Van FC, our coaches are more than instructors. They are
           mentors committed to long-term player development, character building,
           and a deep understanding of the game. Each coach brings a blend of
@@ -23,24 +27,24 @@ const pageTitle: string = "Meet Our Coaches";
           development, ensuring every player receives high-quality coaching in a
           positive and challenging environment.
         </p>
+
+        <div class="stack our-coaches">
+          {
+            ourCoachesData.map((data: Coach) => (
+              <CoachCard
+                imageUrl={data.imageUrl}
+                name={data.name}
+                mentality={data.mentality}
+                years={data.years}
+                ageGroup={data.ageGroup}
+                bioPreview={data.bioPreview}
+                completeBio={data.completeBio}
+              />
+            ))
+          }
+        </div>
       </section>
     </div>
-    <section class="stack our-coaches">
-      <h2 class="title">Leaders. Mentors. Developers of the Modern Player</h2>
-      {
-        ourCoachesData.map((data: Coach) => (
-          <CoachCard
-            imageUrl={data.imageUrl}
-            name={data.name}
-            mentality={data.mentality}
-            years={data.years}
-            ageGroup={data.ageGroup}
-            bioPreview={data.bioPreview}
-            completeBio={data.completeBio}
-          />
-        ))
-      }
-    </section>
   </div>
 </BaseLayout>
 
@@ -51,30 +55,17 @@ const pageTitle: string = "Meet Our Coaches";
     margin: 48px auto;
   }
 
-  /* --- HERO / INTRO --- */
-  .title-div {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    max-width: 720px;
-    margin: 0 auto;
+  .intro {
     text-align: center;
-  }
-
-  .title-div h1 {
-    margin-bottom: 16px;
+    max-width: 650px;
   }
 
   /* --- DESCRIPTION BLOCK --- */
   .description {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;
-  }
-
-  .description p {
-    text-align: left;
-    line-height: 1.7;
   }
 
   /* --- COACHES SECTION --- */
