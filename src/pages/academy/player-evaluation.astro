@@ -1,5 +1,8 @@
 ---
-import EvaulationRequestForm from "../../components/forms/EvaulationRequestForm.astro";
+import EvalHero from "../../components/PlayerEval/EvalHero.astro";
+import EvalMeta from "../../components/PlayerEval/EvalMeta.astro";
+import EvalProcess from "../../components/PlayerEval/EvalProcess.astro";
+import EvalRequestForm from "../../components/PlayerEval/EvalRequestForm.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle: string =
@@ -7,24 +10,68 @@ const pageTitle: string =
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <div class="stack">
-    <div class="title">
-      <h1>
-        {pageTitle}
-      </h1>
+  <EvalHero />
+  <EvalMeta />
+  <EvalProcess />
+  <div class="form-wrap">
+    <div class="form-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Evaluation Request Form</h2>
+        <p class="panel-sub">
+          Complete all required fields. <strong>Optional</strong> fields help us personalise
+          your session.
+        </p>
+      </div>
+      <EvalRequestForm />
     </div>
-    <EvaulationRequestForm />
   </div>
 </BaseLayout>
 
 <style>
-  .stack {
-    gap: 20px;
-    padding: 20px;
-    align-items: center;
+  .eval-body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    background: #f7f8fc;
   }
-  .title {
-    text-align: center;
-    padding: 20px;
+
+  .form-panel {
+    background: #fff;
+    border-left: 1px solid #eef0f7;
+    padding: 44px 72px 64px 44px;
+  }
+  .panel-header {
+    margin-bottom: 4px;
+  }
+  .panel-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    margin-bottom: 6px;
+  }
+  .panel-sub {
+    font-size: 13px;
+    color: #6b7a9e;
+    line-height: 1.6;
+  }
+  .panel-sub strong {
+    font-weight: 600;
+    color: #3d4d6e;
+  }
+
+  @media (max-width: 1100px) {
+    .form-panel {
+      padding: 44px 40px 64px 32px;
+    }
+  }
+  @media (max-width: 960px) {
+    .eval-body {
+      grid-template-columns: 1fr;
+    }
+    .form-panel {
+      border-left: none;
+      border-top: 1px solid #eef0f7;
+      padding: 36px 28px 56px;
+    }
   }
 </style>

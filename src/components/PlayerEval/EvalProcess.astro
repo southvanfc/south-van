@@ -1,0 +1,176 @@
+---
+// src/components/academy/EvalProcess.astro
+
+const steps = [
+  {
+    num: "01",
+    title: "Submit This Form",
+    body: "Fill in your details below. We'll match you to the right evaluation format for your age and level.",
+  },
+  {
+    num: "02",
+    title: "We'll Confirm",
+    body: "A coach will reach out within 48 hours to schedule your evaluation session.",
+  },
+  {
+    num: "03",
+    title: "Attend Your Session",
+    body: "Come ready to play. We evaluate in a live, realistic football environment.",
+  },
+  {
+    num: "04",
+    title: "Receive Feedback",
+    body: "You'll get a written report with scores across all four pillars and clear next steps.",
+  },
+];
+---
+
+<section class="process">
+  <div class="process-inner">
+    <div class="process-label">
+      <span class="eyebrow-sm">How It Works</span>
+      <h2 class="process-title">Four Steps to Your Evaluation</h2>
+    </div>
+    <ol class="steps-row">
+      {
+        steps.map(({ num, title, body }, i) => (
+          <li class="step-item">
+            {i < steps.length - 1 && (
+              <div class="step-connector" aria-hidden="true" />
+            )}
+            <div class="step-num-wrap">
+              <span class="step-num">{num}</span>
+            </div>
+            <div class="step-content">
+              <div class="step-title">{title}</div>
+              <p class="step-body">{body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: #011f4a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 56px 80px;
+  }
+  .process-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .process-label {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .eyebrow-sm {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    white-space: nowrap;
+  }
+  .process-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 26px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 400;
+  }
+
+  /* Steps row */
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    list-style: none;
+    position: relative;
+  }
+
+  .step-item {
+    position: relative;
+    padding-right: 32px;
+  }
+  .step-item:last-child {
+    padding-right: 0;
+  }
+
+  /* Connecting dashed line between steps */
+  .step-connector {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 32px;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(232, 180, 48, 0.4) 0,
+      rgba(232, 180, 48, 0.4) 5px,
+      transparent 5px,
+      transparent 9px
+    );
+    z-index: 1;
+  }
+
+  /* Number badge */
+  .step-num-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .step-num {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: #e8b430;
+    letter-spacing: 1px;
+  }
+
+  /* Text */
+  .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+  }
+  .step-body {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.45);
+    max-width: 220px;
+  }
+
+  @media (max-width: 960px) {
+    .process {
+      padding: 44px 28px;
+    }
+    .steps-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .step-connector {
+      display: none;
+    }
+    .step-item {
+      padding-right: 0;
+    }
+    .process-label {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+  @media (max-width: 560px) {
+    .steps-row {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+// src/components/academy/Evaluation.astro
+
+const criteria = [
+  {
+    icon: "⚽",
+    name: "Technical Skills",
+    description:
+      "Dribbling, passing, shooting, first touch, and ball control under pressure in competitive conditions.",
+  },
+  {
+    icon: "⚡",
+    name: "Physical Attributes",
+    description:
+      "Speed, agility, strength, endurance, and overall athletic potential assessed across a range of drills.",
+  },
+  {
+    icon: "🧠",
+    name: "Tactical Understanding",
+    description:
+      "Game understanding, positioning, decision-making, and off-ball movement in live situations.",
+  },
+  {
+    icon: "🏆",
+    name: "Mental Fortitude",
+    description:
+      "Resilience, communication, leadership, and attitude on and off the pitch — the character behind the capability.",
+  },
+];
+---
+
+<section class="evaluation">
+  <div class="eval-header">
+    <div>
+      <span class="eyebrow eyebrow-gold">Assessment</span>
+      <h2 class="section-title section-title-white" style="margin-bottom: 0">
+        What We<br />Evaluate
+      </h2>
+    </div>
+    <p class="section-body section-body-white eval-intro">
+      Our evaluation process is thorough and holistic, covering every dimension
+      that defines a complete footballer. No single metric tells the full story.
+    </p>
+  </div>
+
+  <div class="eval-grid">
+    {
+      criteria.map(({ icon, name, description }) => (
+        <div class="eval-card">
+          <div class="eval-icon">{icon}</div>
+          <h3 class="eval-name">{name}</h3>
+          <p class="eval-desc">{description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .evaluation {
+    background: var(--navy);
+    padding: 96px 80px;
+  }
+
+  .eval-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+
+  .eval-intro {
+    max-width: 520px;
+  }
+
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .eval-card {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 40px 30px;
+    border-top: 2px solid transparent;
+    transition:
+      border-color 0.3s,
+      background 0.3s;
+  }
+  .eval-card:hover {
+    border-top-color: var(--gold);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .eval-icon {
+    font-size: 28px;
+    margin-bottom: 18px;
+  }
+
+  .eval-name {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .eval-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  @media (max-width: 960px) {
+    .evaluation {
+      padding: 64px 28px;
+    }
+    .eval-header {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .eval-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .eval-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+// src/components/academy/Philosophy.astro
+
+const pillars = ["Technical", "Tactical", "Physical", "Mental"] as const;
+---
+
+<section class="philosophy">
+  <!-- Left: copy -->
+  <div class="phil-text">
+    <span class="eyebrow eyebrow-navy">Our Approach</span>
+    <h2 class="section-title">Development<br />Philosophy</h2>
+    <p class="section-body">
+      Our focus is long-term player development, not a win-now mentality. We
+      build technically strong, thoughtful players who understand the game and
+      their role within it.
+    </p>
+    <p class="section-body" style="margin-top: 18px">
+      Training across ability levels creates competitive environments where
+      players are challenged daily, advanced players are pushed to lead, and the
+      overall standard continues to rise.
+    </p>
+    <a
+      href="/academy/player-evaluation"
+      class="btn btn-navy"
+      style="margin-top: 32px"
+    >
+      Start Your Evaluation
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+      >
+    </a>
+  </div>
+
+  <!-- Right: orbital diagram -->
+  <div class="phil-orbit" aria-hidden="true">
+    <!-- Outer ring with pillar labels -->
+    <div class="ring ring-outer">
+      {
+        pillars.map((p, i) => (
+          <span class:list={["orbit-label", `ol-${i}`]}>{p}</span>
+        ))
+      }
+    </div>
+
+    <!-- Spinning dashed ring with gold dots -->
+    <div class="ring ring-mid">
+      <div class="orbit-dot od-t"></div>
+      <div class="orbit-dot od-b"></div>
+      <div class="orbit-dot od-l"></div>
+      <div class="orbit-dot od-r"></div>
+    </div>
+
+    <!-- Centre -->
+    <div class="ring ring-inner">
+      <span class="orbit-center">LONG<br />TERM<br />GROWTH</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .philosophy {
+    background: var(--off-white);
+    padding: 96px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  /* ── Orbital ── */
+  .phil-orbit {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .ring-outer {
+    width: 340px;
+    height: 340px;
+    border: 1px solid var(--mid-gray);
+  }
+
+  .ring-mid {
+    width: 240px;
+    height: 240px;
+    border: 1px dashed rgba(1, 52, 120, 0.15);
+    animation: spinSlow 28s linear infinite;
+  }
+
+  .ring-inner {
+    width: 140px;
+    height: 140px;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orbit-center {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Pillar labels — positioned around the outer ring */
+  .orbit-label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    background: #fff;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--lt-gray);
+    box-shadow: 0 2px 8px rgba(1, 52, 120, 0.07);
+    white-space: nowrap;
+  }
+  /* Top / Bottom / Left / Right */
+  .ol-0 {
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ol-1 {
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .ol-2 {
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ol-3 {
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Gold dots on the spinning ring */
+  .orbit-dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .od-t {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .od-b {
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .od-l {
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .od-r {
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .philosophy {
+      grid-template-columns: 1fr;
+      padding: 64px 28px;
+      gap: 48px;
+    }
+    .phil-orbit {
+      height: 300px;
+    }
+    .ring-outer {
+      width: 260px;
+      height: 260px;
+    }
+    .ring-mid {
+      width: 182px;
+      height: 182px;
+    }
+    .ring-inner {
+      width: 108px;
+      height: 108px;
+    }
+  }
+</style>

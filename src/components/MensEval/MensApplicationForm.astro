@@ -1,0 +1,780 @@
+---
+// src/components/mens/MensApplicationForm.astro
+// Fields post to /api/submit-mens-application
+// Sheet columns: Timestamp | Full Name | Email | Phone | DOB |
+//   Position(s) | Preferred Foot | Current/Previous Club |
+//   League Experience | Availability | Why South Van | Referral
+---
+
+<!-- Honeypot -->
+<input
+  type="text"
+  name="company"
+  autocomplete="off"
+  tabindex="-1"
+  aria-hidden="true"
+  style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+/>
+
+<form action="/api/submit-mens-application" method="POST" id="mens-form">
+  <!-- ── 01 PERSONAL DETAILS ──────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">01</span>
+      <div>
+        <div class="fsec-label">Personal Details</div>
+        <div class="fsec-hint">Basic information about you as a player.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-2">
+      <div class="f">
+        <label class="f-label" for="full_name"
+          >Full Name <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="full_name"
+          name="full_name"
+          type="text"
+          placeholder="Your full name"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="dob"
+          >Date of Birth <span class="f-req">*</span></label
+        >
+        <input class="f-input" id="dob" name="dob" type="date" required />
+      </div>
+      <div class="f">
+        <label class="f-label" for="email"
+          >Email Address <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="your@email.com"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="phone"
+          >Phone Number <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="+1 (604) 000-0000"
+          required
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 02 PLAYING PROFILE ────────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">02</span>
+      <div>
+        <div class="fsec-label">Playing Profile</div>
+        <div class="fsec-hint">Where you play and your background.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <!-- Positions -->
+      <div class="f">
+        <label class="f-label"
+          >Primary Position(s) <span class="f-req">*</span></label
+        >
+        <p class="f-hint">Select all that apply.</p>
+        <div class="pos-grid">
+          {
+            [
+              { value: "GK", label: "Goalkeeper", icon: "🧤" },
+              { value: "Defender", label: "Defender", icon: "🛡️" },
+              { value: "Midfielder", label: "Midfielder", icon: "⚙️" },
+              { value: "Winger", label: "Winger", icon: "⚡" },
+              { value: "Striker", label: "Striker", icon: "⚽" },
+            ].map(({ value, label, icon }) => (
+              <label class="pos-tile">
+                <input type="checkbox" name="positions" value={value} />
+                <span class="pos-icon">{icon}</span>
+                <span class="pos-lbl">{label}</span>
+                <span class="pos-check">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.5"
+                    stroke-linecap="round"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Foot -->
+      <div class="f">
+        <label class="f-label">Dominant Foot <span class="f-req">*</span></label
+        >
+        <div class="foot-row">
+          {
+            [
+              { value: "right", label: "Right" },
+              { value: "left", label: "Left" },
+              { value: "both", label: "Both" },
+            ].map(({ value, label }) => (
+              <label class="rtile">
+                <input
+                  type="radio"
+                  name="preferred_foot"
+                  value={value}
+                  required
+                />
+                <span class="rtile-lbl">{label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Club & experience row -->
+      <div class="fgrid fgrid-2" style="padding-left:0">
+        <div class="f">
+          <label class="f-label" for="current_club"
+            >Current / Previous Club <span class="f-opt">Optional</span></label
+          >
+          <input
+            class="f-input"
+            id="current_club"
+            name="current_club"
+            type="text"
+            placeholder="e.g. FVSL, Parks & Rec, None"
+          />
+        </div>
+        <div class="f">
+          <label class="f-label" for="league_experience"
+            >League Experience <span class="f-req">*</span></label
+          >
+          <select
+            class="f-select"
+            id="league_experience"
+            name="league_experience"
+            required
+          >
+            <option value="" disabled selected>Select level</option>
+            <option value="none">No competitive experience</option>
+            <option value="recreational">Recreational / Casual</option>
+            <option value="parks_rec">Parks & Recreation League</option>
+            <option value="fvsl_div4plus">FVSL / VMSL Div 4+</option>
+            <option value="vmsl_div3plus">VMSL Div 3 or higher</option>
+            <option value="semi_pro">Semi-professional / higher</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 AVAILABILITY & COMMITMENT ─────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">03</span>
+      <div>
+        <div class="fsec-label">Availability &amp; Commitment</div>
+        <div class="fsec-hint">
+          We need honest answers here — commitment is non-negotiable.
+        </div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <!-- Availability tiles -->
+      <div class="f">
+        <label class="f-label"
+          >Training Availability <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          Select all sessions you can realistically attend every week.
+        </p>
+        <div class="avail-grid">
+          {
+            [
+              { value: "weekday_eve", label: "Weekday Evenings" },
+              { value: "saturday_morn", label: "Saturday Mornings" },
+              { value: "saturday_aft", label: "Saturday Afternoons" },
+              { value: "sunday_morn", label: "Sunday Mornings" },
+              { value: "sunday_aft", label: "Sunday Afternoons" },
+              { value: "flexible", label: "Fully Flexible" },
+            ].map(({ value, label }) => (
+              <label class="avail-tile">
+                <input type="checkbox" name="availability" value={value} />
+                <span class="avail-lbl">{label}</span>
+                <span class="avail-check">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.5"
+                    stroke-linecap="round"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Commitment acknowledgement -->
+      <div class="f">
+        <label class="f-label"
+          >Season Commitment <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          You must be able to commit to the full season. Select your answer.
+        </p>
+        <div class="commit-row">
+          {
+            [
+              { value: "yes_full", label: "Yes — full season availability" },
+              { value: "yes_most", label: "Mostly — some conflicts expected" },
+              {
+                value: "no_partial",
+                label: "No — looking for partial involvement",
+              },
+            ].map(({ value, label }) => (
+              <label class="rtile rtile-wide">
+                <input
+                  type="radio"
+                  name="season_commitment"
+                  value={value}
+                  required
+                />
+                <span class="rtile-lbl">{label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 ABOUT YOU ──────────────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">04</span>
+      <div>
+        <div class="fsec-label">About You</div>
+        <div class="fsec-hint">
+          This is the part that matters most — we want to hear your voice.
+        </div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <div class="f">
+        <label class="f-label" for="why_southvan"
+          >Why South Van FC? <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          What draws you to this club? What do you bring to a squad? Tell us
+          something we won't read in every other application.
+        </p>
+        <textarea
+          class="f-textarea"
+          id="why_southvan"
+          name="why_southvan"
+          rows="5"
+          placeholder="e.g. I've been playing VMSL for 3 years and I'm looking for a club that takes training seriously. I'm competitive, I want to be pushed, and I'm willing to work for my place in the starting eleven..."
+          required></textarea>
+      </div>
+      <div class="f">
+        <label class="f-label" for="referral"
+          >How did you hear about us? <span class="f-opt">Optional</span></label
+        >
+        <select class="f-select" id="referral" name="referral">
+          <option value="" disabled selected>Select an option</option>
+          <option value="instagram">Instagram</option>
+          <option value="facebook">Facebook</option>
+          <option value="google">Google Search</option>
+          <option value="friend">Friend or Teammate</option>
+          <option value="coach">Coach / Club</option>
+          <option value="southvanfc_website">South Van FC Website</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUBMIT ──────────────────────────────────── -->
+  <div class="f-submit">
+    <p class="f-note">
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        ><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"
+        ></path></svg
+      >
+      Submitting is not a guarantee of a trial. We'll reach out within 48 hours.
+    </p>
+    <button type="submit" class="f-btn" id="submit-btn">
+      Submit Application
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+      >
+    </button>
+  </div>
+</form>
+
+<style>
+  /* ── Sections ── */
+  .fsec {
+    padding: 32px 0;
+    border-bottom: 1px solid #eef0f7;
+  }
+  .fsec:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .fsec-head {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 26px;
+  }
+  .fsec-num {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: #eef0f7;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: right;
+    transition: color 0.3s;
+  }
+  .fsec:focus-within .fsec-num {
+    color: #e8b430;
+  }
+  .fsec-label {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    margin-bottom: 3px;
+  }
+  .fsec-hint {
+    font-size: 12px;
+    color: #6b7a9e;
+  }
+
+  /* ── Grids ── */
+  .fgrid {
+    display: grid;
+    gap: 18px;
+    padding-left: 56px;
+  }
+  .fgrid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fgrid-1 {
+    grid-template-columns: 1fr;
+  }
+  .f-full {
+    grid-column: 1 / -1;
+  }
+
+  /* ── Fields ── */
+  .f {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .f-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a1428;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+  .f-hint {
+    font-size: 11px;
+    color: #6b7a9e;
+    margin-top: -2px;
+  }
+  .f-req {
+    color: #e8b430;
+    font-size: 13px;
+  }
+  .f-opt {
+    font-size: 10px;
+    font-weight: 400;
+    color: #6b7a9e;
+    background: #eef0f7;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+
+  /* ── Inputs ── */
+  .f-input,
+  .f-select,
+  .f-textarea {
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 14px;
+    color: #0a1428;
+    background: #fff;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    padding: 11px 13px;
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .f-input:focus,
+  .f-select:focus,
+  .f-textarea:focus {
+    border-color: #013478;
+    box-shadow: 0 0 0 3px rgba(1, 52, 120, 0.09);
+  }
+  .f-input::placeholder,
+  .f-textarea::placeholder {
+    color: #6b7a9e;
+  }
+  .f-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 11px center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    padding-right: 34px;
+    cursor: pointer;
+  }
+  .f-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  /* ── Position tiles ── */
+  .pos-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .pos-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 13px 6px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .pos-tile:hover {
+    border-color: #013478;
+    background: #f7f8fc;
+  }
+  .pos-tile:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .pos-tile input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .pos-icon {
+    font-size: 20px;
+  }
+  .pos-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    color: #3d4d6e;
+    letter-spacing: 0.4px;
+    text-align: center;
+  }
+  .pos-tile:has(input:checked) .pos-lbl {
+    color: #013478;
+  }
+  .pos-check {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #013478;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .pos-tile:has(input:checked) .pos-check {
+    opacity: 1;
+  }
+
+  /* ── Foot tiles ── */
+  .foot-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .rtile {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .rtile:hover {
+    border-color: #013478;
+  }
+  .rtile:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .rtile input {
+    accent-color: #013478;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .rtile-lbl {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3d4d6e;
+  }
+  .rtile:has(input:checked) .rtile-lbl {
+    color: #013478;
+  }
+
+  /* ── Availability tiles ── */
+  .avail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .avail-tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 10px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    text-align: center;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .avail-tile:hover {
+    border-color: #013478;
+    background: #f7f8fc;
+  }
+  .avail-tile:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .avail-tile input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .avail-lbl {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d4d6e;
+  }
+  .avail-tile:has(input:checked) .avail-lbl {
+    color: #013478;
+  }
+  .avail-check {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #013478;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .avail-tile:has(input:checked) .avail-check {
+    opacity: 1;
+  }
+
+  /* ── Season commitment ── */
+  .commit-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .rtile-wide {
+    flex: none;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  /* ── Submit strip ── */
+  .f-submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 2px solid #e8b430;
+    margin-top: 6px;
+  }
+  .f-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #6b7a9e;
+    max-width: 340px;
+  }
+  .f-note svg {
+    flex-shrink: 0;
+    color: #013478;
+  }
+  .f-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #e8b430;
+    color: #011f4a;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      transform 0.2s;
+    flex-shrink: 0;
+  }
+  .f-btn:hover {
+    background: #f5cc6a;
+    transform: translateY(-2px);
+  }
+  .f-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .fgrid-2 {
+      grid-template-columns: 1fr;
+    }
+    .fgrid {
+      padding-left: 0;
+    }
+    .pos-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .avail-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .f-submit {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 500px) {
+    .pos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .avail-grid {
+      grid-template-columns: 1fr;
+    }
+    .foot-row {
+      flex-wrap: wrap;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("mens-form") as HTMLFormElement | null;
+  const btn = document.getElementById("submit-btn") as HTMLButtonElement | null;
+  if (form && btn) {
+    form.addEventListener("submit", () => {
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" style="animation:spin .7s linear infinite">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+        Submitting...`;
+    });
+  }
+</script>

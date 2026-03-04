@@ -1,0 +1,275 @@
+---
+// src/components/coaches/CoachCard.astro
+
+interface Props {
+  initials: string;
+  name: string;
+  role: string;
+  experience: string;
+  ageGroups: string;
+  specialisms: string[];
+  bioShort: string;
+  bioFull: string;
+  id: string; // unique id for accordion toggle
+}
+
+const {
+  initials,
+  name,
+  role,
+  experience,
+  ageGroups,
+  specialisms,
+  bioShort,
+  bioFull,
+  id,
+} = Astro.props;
+---
+
+<article class="coach-card">
+  <!-- Avatar -->
+  <div class="coach-avatar">
+    <span class="avatar-ghost">{initials}</span>
+    <div class="avatar-circle">
+      <span class="avatar-initials">{initials}</span>
+    </div>
+    <div class="avatar-badge">{role}</div>
+  </div>
+
+  <!-- Body -->
+  <div class="coach-body">
+    <h3 class="coach-name">{name}</h3>
+    <div class="coach-role">{role}</div>
+
+    <!-- Meta row -->
+    <div class="coach-meta">
+      <div class="meta-item">
+        <span class="meta-lbl">Experience</span>
+        <span class="meta-val">{experience}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-lbl">Age Groups</span>
+        <span class="meta-val">{ageGroups}</span>
+      </div>
+    </div>
+
+    <!-- Specialism pills -->
+    <div class="coach-specs">
+      {specialisms.map((s) => <span class="pill pill-navy">{s}</span>)}
+    </div>
+
+    <!-- Bio -->
+    <div class="coach-bio">
+      <p class="bio-short">{bioShort}</p>
+      <div class="bio-full" id={`bio-${id}`} hidden>
+        <p set:html={bioFull} />
+      </div>
+      <button class="read-more" data-target={`bio-${id}`} aria-expanded="false">
+        <span class="rm-text">Read more</span>
+        <svg
+          class="rm-chevron"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".read-more").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.target!;
+      const bioFull = document.getElementById(targetId)!;
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+      bioFull.hidden = isExpanded;
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      btn.querySelector(".rm-text")!.textContent = isExpanded
+        ? "Read more"
+        : "Read less";
+      btn
+        .querySelector(".rm-chevron")!
+        .classList.toggle("flipped", !isExpanded);
+    });
+  });
+</script>
+
+<style>
+  .coach-card {
+    background: var(--white);
+    border: 1px solid var(--lt-gray);
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+      box-shadow 0.3s,
+      transform 0.3s;
+  }
+  .coach-card:hover {
+    box-shadow: 0 20px 56px rgba(1, 52, 120, 0.1);
+    transform: translateY(-4px);
+  }
+
+  /* ── Avatar ── */
+  .coach-avatar {
+    height: 220px;
+    background: var(--navy);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .avatar-ghost {
+    position: absolute;
+    font-family: "Inter Variable", sans-serif;
+    font-size: 180px;
+    color: rgba(255, 255, 255, 0.06);
+    letter-spacing: -4px;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .avatar-circle {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 2px solid rgba(232, 180, 48, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .avatar-initials {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 34px;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+
+  .avatar-badge {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(0, 0, 0, 0.45);
+    padding: 5px 12px;
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    z-index: 2;
+  }
+
+  /* ── Body ── */
+  .coach-body {
+    padding: 28px 28px 32px;
+  }
+
+  .coach-name {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--navy-dark);
+    margin-bottom: 4px;
+  }
+
+  .coach-role {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+
+  .coach-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--lt-gray);
+    border-bottom: 1px solid var(--lt-gray);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .meta-lbl {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 700;
+  }
+  .meta-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy-dark);
+  }
+
+  .coach-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  /* ── Bio ── */
+  .coach-bio {
+  }
+
+  .bio-short {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    margin-bottom: 14px;
+  }
+
+  .bio-full {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    margin-bottom: 14px;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: "Inter Variable", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .read-more:hover {
+    color: var(--navy-dark);
+  }
+
+  .rm-chevron {
+    transition: transform 0.3s;
+  }
+  .rm-chevron.flipped {
+    transform: rotate(180deg);
+  }
+</style>

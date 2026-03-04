@@ -1,59 +1,97 @@
 ---
+// src/components/Nav.astro
+interface Props {
+  activePage?: "home" | "academy" | "coaches";
+}
 
+const { activePage = "home" } = Astro.props;
+
+const links = [
+  { key: "home", href: "/", label: "Home" },
+  { key: "academy", href: "/academy", label: "Academy" },
+  { key: "coaches", href: "/our-coaches", label: "Coaches" },
+];
 ---
 
-<div id="main-menu" class="nav-links">
-  <a href="/" aria-label="Navigate to the home page">Home</a>
-  <a href="/academy" aria-label="Naivgate to the the development academy page"
-    >Academy</a
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-mark">
+      <img
+        src="/assets/blue.png"
+        alt="South Van FC crest"
+        width="48"
+        height="48"
+      />
+    </div>
+    <span class="nav-brand">South Van FC</span>
+  </a>
+
+  <ul class="nav-links">
+    {
+      links.map(({ key, href, label }) => (
+        <li>
+          <a href={href} class:list={[{ active: activePage === key }]}>
+            {label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a href="/mens-team-application" class="nav-cta">Apply Now</a>
+    </li>
+  </ul>
+
+  <button
+    class="nav-hamburger"
+    id="hamburger"
+    aria-label="Open menu"
+    aria-expanded="false"
   >
-  <a href="/our-coaches" aria-label="Naivgate to the coaches page">Coaches</a>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="drawer" aria-hidden="true">
+  {
+    links.map(({ key, href, label }) => (
+      <a href={href} class:list={[{ active: activePage === key }]}>
+        {label}
+      </a>
+    ))
+  }
+  <a href="/academy/player-evaluation">Request Evaluation</a>
+  <a href="/mens-team-application" class="drawer-cta">Apply for Men's Squad</a>
 </div>
 
-<style is:global>
-  .nav-links {
-    width: 100%;
-    display: none;
-    margin: 0;
-  }
+<script>
+  const ham = document.getElementById("hamburger")!;
+  const drawer = document.getElementById("drawer")!;
 
-  .nav-links a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    padding: 10px 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #0d0950;
-  }
+  ham.addEventListener("click", () => {
+    const isOpen = ham.classList.toggle("open");
+    drawer.classList.toggle("open", isOpen);
+    ham.setAttribute("aria-expanded", String(isOpen));
+    drawer.setAttribute("aria-hidden", String(!isOpen));
+  });
 
-  .nav-links a:hover,
-  .nav-links a:focus {
-    background-color: rgba(0, 0, 0, 0.04);
-    border-radius: 4px;
-  }
+  // Close on link click
+  drawer.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      ham.classList.remove("open");
+      drawer.classList.remove("open");
+      ham.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+    }),
+  );
 
-  :has(.menu[aria-expanded="true"]) .nav-links {
-    display: block;
-  }
-
-  @media screen and (min-width: 636px) {
-    .nav-links {
-      margin-left: 5em;
-      display: block;
-      position: static;
-      width: auto;
-      background: none;
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (!ham.contains(e.target as Node) && !drawer.contains(e.target as Node)) {
+      ham.classList.remove("open");
+      drawer.classList.remove("open");
     }
-
-    .nav-links a {
-      display: inline-block;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    .menu {
-      display: none;
-    }
-  }
-</style>
+  });
+</script>

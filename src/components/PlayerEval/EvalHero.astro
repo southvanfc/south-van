@@ -1,0 +1,186 @@
+---
+// src/components/academy/EvalHero.astro
+---
+
+<section class="eval-hero">
+  <div class="field-pattern" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+        >
+        <a href="/academy">Academy</a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+        >
+        <span class="crumb-cur">Player Evaluation</span>
+      </nav>
+      <span class="eyebrow">Development Academy</span>
+      <h1 class="hero-title">Request Your<br /><em>Evaluation</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-body">
+        Our evaluation process is built to understand every dimension of a
+        player — technically, tactically, physically, and mentally. Submit your
+        details and we'll be in touch within 48 hours to confirm your session.
+      </p>
+      <div class="hero-pills">
+        <span class="pill">All Ages Welcome</span>
+        <span class="pill">48hr Response</span>
+        <span class="pill">All Clubs Welcome</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stripe" aria-hidden="true"></div>
+</section>
+
+<style>
+  .eval-hero {
+    background: #011f4a;
+    padding: 72px 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 64px;
+  }
+
+  /* Breadcrumb */
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 24px;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .crumb-cur {
+    color: #e8b430;
+  }
+
+  /* Heading */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: block;
+    color: #e8b430;
+    margin-bottom: 14px;
+  }
+  .hero-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(52px, 5.5vw, 82px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: #e8b430;
+    display: block;
+  }
+
+  /* Right col */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 6px;
+  }
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 5px 13px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* Gold dashed stripe */
+  .hero-stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      #e8b430 0,
+      #e8b430 40px,
+      transparent 40px,
+      transparent 48px
+    );
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 960px) {
+    .eval-hero {
+      padding: 60px 28px 0;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-bottom: 52px;
+    }
+  }
+</style>

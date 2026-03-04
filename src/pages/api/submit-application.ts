@@ -9,22 +9,25 @@ function env(name: string): string {
   return v;
 }
 
-export const POST: APIRoute = async ({ request, url }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
-    // 1) Get Vercel OIDC token (pass request in Astro)
+    // 1) Get Vercel OIDC token
     const vercelOidcJwt = await getVercelOidcToken();
 
     // 2) Exchange with Google STS (WIF)
-    const audience = `//iam.googleapis.com/projects/${env("GCP_PROJECT_NUMBER")}/locations/global/workloadIdentityPools/${env("GCP_WORKLOAD_IDENTITY_POOL_ID")}/providers/${env("GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID")}`;
+    const audience =
+      `//iam.googleapis.com/projects/${env("GCP_PROJECT_NUMBER")}` +
+      `/locations/global/workloadIdentityPools/${env("GCP_WORKLOAD_IDENTITY_POOL_ID")}` +
+      `/providers/${env("GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID")}`;
 
     const stsRes = await fetch("https://sts.googleapis.com/v1/token", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
-        requested_token_type: "urn:ietf:params:oauth:token-type:access_token",
-        subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
-        subject_token: vercelOidcJwt,
+        grant_type:            "urn:ietf:params:oauth:grant-type:token-exchange",
+        requested_token_type:  "urn:ietf:params:oauth:token-type:access_token",
+        subject_token_type:    "urn:ietf:params:oauth:token-type:jwt",
+        subject_token:         vercelOidcJwt,
         audience,
         scope: "https://www.googleapis.com/auth/cloud-platform",
       }),
@@ -51,44 +54,48 @@ export const POST: APIRoute = async ({ request, url }) => {
     if (!iamRes.ok) return new Response(await iamRes.text(), { status: 500 });
     const { accessToken } = await iamRes.json();
 
-    // 4) Read the HTML form fields
+    // 4) Read form fields
     const form = await request.formData();
 
     // Honeypot
-    if (String(form.get("company") ?? "")) {
-  return new Response(null, {
-    status: 303,
-    headers: {
-      Location: "/success",
-    },
-  });
-}
-
-    // Match your form naming (supports both your old and new names)
-    const fullName = String(form.get("full_name") ?? "").trim();
-    const email = String(form.get("email") ?? "").trim();
-    const phone = String(form.get("phone") ??  "").trim();
-    const dob = String(form.get("dob") ??  "").trim();
-    const positions = form.getAll("positions").map(String).join(", ");
-   
-
-    if (!fullName || !email || !dob) {
-      return new Response(JSON.stringify({ ok: false, error: "Missing required fields." }), {
-        status: 400,
-        headers: { "content-type": "application/json" },
-      });
+    if (String(form.get("company") ?? "").trim()) {
+      return new Response(null, { status: 303, headers: { Location: "/success" } });
     }
 
-    // 5) Append into Google Sheets
+    // Required fields
+    const fullName          = String(form.get("full_name")          ?? "").trim();
+    const email             = String(form.get("email")              ?? "").trim();
+    const phone             = String(form.get("phone")              ?? "").trim();
+    const dob               = String(form.get("dob")               ?? "").trim();
+    const positions         = form.getAll("positions").map(String).join(", ");
+    const preferredFoot     = String(form.get("preferred_foot")     ?? "").trim();
+    const leagueExperience  = String(form.get("league_experience")  ?? "").trim();
+    const availability      = form.getAll("availability").map(String).join(", ");
+    const seasonCommitment  = String(form.get("season_commitment")  ?? "").trim();
+    const whySouthVan       = String(form.get("why_southvan")       ?? "").trim();
+
+    // Optional fields
+    const currentClub       = String(form.get("current_club")       ?? "").trim();
+    const referral          = String(form.get("referral")           ?? "").trim();
+
+    if (!fullName || !email || !dob || !phone || !positions || !leagueExperience || !seasonCommitment || !whySouthVan) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "Missing required fields." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    // 5) Append to Google Sheets
+    // Sheet tab: "mens-application"
+    // Columns:   Timestamp | Full Name | Email | Phone | DOB | Position(s) |
+    //            Preferred Foot | Current/Prev Club | League Experience |
+    //            Availability | Season Commitment | Why South Van FC | Referral
     const createdAt = new Date().toISOString();
-
-    const TAB_NAME = "mens-application";
-
-    const range = `${TAB_NAME}!A:Z`;
+    const TAB_NAME  = "mens-application";
+    const range     = `${TAB_NAME}!A:Z`;
     const appendUrl =
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(env("GOOGLE_SHEET_ID"))}` +
-    `/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
-
+      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(env("GOOGLE_SHEET_ID"))}` +
+      `/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
 
     const sheetsRes = await fetch(appendUrl, {
       method: "POST",
@@ -97,22 +104,32 @@ export const POST: APIRoute = async ({ request, url }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        values: [[createdAt, fullName, email, phone, dob, positions, ]],
+        values: [[
+          createdAt,
+          fullName,
+          email,
+          phone,
+          dob,
+          positions,
+          preferredFoot,
+          currentClub,
+          leagueExperience,
+          availability,
+          seasonCommitment,
+          whySouthVan,
+          referral,
+        ]],
       }),
     });
 
     if (!sheetsRes.ok) return new Response(await sheetsRes.text(), { status: 500 });
 
-   return new Response(null, {
-  status: 303,
-  headers: {
-    Location: "/success",
-  },
-});
+    return new Response(null, { status: 303, headers: { Location: "/success" } });
+
   } catch (e: any) {
-    return new Response(JSON.stringify({ ok: false, error: e?.message ?? "Server error" }), {
-      status: 500,
-      headers: { "content-type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ ok: false, error: e?.message ?? "Server error" }),
+      { status: 500, headers: { "content-type": "application/json" } }
+    );
   }
 };

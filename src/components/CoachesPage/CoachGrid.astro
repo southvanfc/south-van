@@ -1,0 +1,88 @@
+---
+// src/components/coaches/CoachGrid.astro
+import CoachCard from "./CoachCard.astro";
+
+const coaches = [
+  {
+    id: "harjit",
+    initials: "HK",
+    name: "Harjit Kainth",
+    role: "Head Coach",
+    experience: "15 Years",
+    ageGroups: "U8 - 18+",
+    specialisms: ["Tactical", "Technical", "Player Development"],
+    bioShort:
+      "Harjit began his football journey in Vancouver at the grassroots level before progressing into elite youth pathways. Accepted into TSS Academy and selected to represent Vancouver Selects, he competed at the highest youth level in the Metro Soccer League.",
+    bioFull: `His development included provincial and national exposure with Coastal BC in the Super Y League and NTC. Internationally, Harjit competed in Salzburg at a top youth international tournament and completed a three-week training stint with Dynamo Kyiv's Youth Academy, gaining valuable experience in high-performance environments.<br /><br />
+      During high school, coaching was taken on alongside competitive play, expanding leadership and tactical understanding. Began by coaching high school girls' teams, later expanding to both boys' and girls' programs. He subsequently moved into the senior game, coaching men's teams in the VMSL. Harjit is currently pursuing his Canada Soccer C Diploma and is committed to continuous professional development, with the goal of attaining the highest coaching certifications available.`,
+  },
+  {
+    id: "dipinder",
+    initials: "DK",
+    name: "Dipinder Kainth",
+    role: "Assistant Coach",
+    experience: "1 Year",
+    ageGroups: "U8 - 18+",
+    specialisms: ["Tactical", "Skill Development", "Leadership"],
+    bioShort:
+      "Dipinder's soccer journey began at age eight with KLM Soccer Club, where he quickly progressed to the Silver 1 level and was part of two city championship-winning high school teams.",
+    bioFull: `Transitioning from youth to adult soccer, Dipinder began with a seven-a-side league. In his first season he helped his team place 1st in the division before going on to win the championship. He eventually joined Coach Harjit to compete in a competitive men's division within the Vancouver Metro Soccer League (VMSL).<br /><br />
+      As a coach, Dipinder leads and coaches the men's team for South Van FC. He is currently pursuing his Canada Soccer C Diploma with aspirations of obtaining higher levels of coaching certification. His coaching philosophy revolves around developing confident, well-rounded players — focusing on resilience, game intelligence, and teamwork.`,
+  },
+  {
+    id: "shanil",
+    initials: "SS",
+    name: "Shanil Sharma",
+    role: "Fitness & Conditioning Coach",
+    experience: "15 Years",
+    ageGroups: "U8 - 18+",
+    specialisms: ["Agility", "Strengthening", "Plyometrics"],
+    bioShort:
+      "Shanil played for Killarney Soccer from a young age through to U18 at the gold level, captaining his high school team to a city championship before moving into coaching and conditioning.",
+    bioFull: `After high school, Shanil underwent surgery and opted to coach the high school soccer team for two years. He has continued to play in the men's league and plays for South Van FC's men's team, where he also helps coach.<br /><br />
+      Shanil is a Kinesiologist who graduated from the University of British Columbia. He specialises in strength and conditioning training as well as injury rehabilitation. He is a member of the National Coaching Certification Program and is pursuing further certification through the Canada Soccer program.`,
+  },
+];
+---
+
+<section class="coach-grid-section">
+  <div class="section-header">
+    <span class="eyebrow eyebrow-navy">Meet the Team</span>
+    <h2 class="section-title">Our Coaching Staff</h2>
+  </div>
+
+  <div class="coach-grid">
+    {coaches.map((coach) => <CoachCard {...coach} />)}
+  </div>
+</section>
+
+<style>
+  .coach-grid-section {
+    padding: 96px 80px;
+  }
+
+  .section-header {
+    margin-bottom: 56px;
+  }
+
+  .coach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 960px) {
+    .coach-grid-section {
+      padding: 64px 28px;
+    }
+    .coach-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .coach-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

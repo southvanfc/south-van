@@ -1,0 +1,125 @@
+---
+import type { Value } from "../../types/types";
+
+// src/components/home/Values.astro
+
+const values: Value[] = [
+  {
+    icon: "⚽",
+    name: "Ambition",
+    description:
+      "We compete with intent to win promotion and push our limits every season on the pitch.",
+  },
+  {
+    icon: "🏋️",
+    name: "Discipline",
+    description:
+      "Hard work in training is non-negotiable. Performance on match day reflects daily effort.",
+  },
+  {
+    icon: "🤝",
+    name: "Community",
+    description:
+      "Built by Vancouver, for Vancouver. Every player is part of something far bigger than themselves.",
+  },
+  {
+    icon: "📈",
+    name: "Development",
+    description:
+      "Long-term growth over short-term wins. We invest in the full technical and mental player.",
+  },
+];
+---
+
+<section class="values">
+  <div class="values-header">
+    <span class="eyebrow eyebrow-navy">Who We Are</span>
+    <h2 class="section-title">What We Stand For</h2>
+  </div>
+
+  <div class="values-grid">
+    {
+      values.map(({ icon, name, description }) => (
+        <div class="value-card">
+          <div class="value-icon">{icon}</div>
+          <h3 class="value-name">{name}</h3>
+          <p class="value-desc">{description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .values {
+    background: var(--off-white);
+    padding: 96px 80px;
+  }
+
+  .values-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--lt-gray);
+  }
+
+  .value-card {
+    background: #fff;
+    padding: 40px 32px;
+    border-top: 3px solid transparent;
+    transition:
+      border-color 0.3s,
+      transform 0.3s;
+    cursor: default;
+  }
+  .value-card:hover {
+    border-top-color: var(--gold);
+    transform: translateY(-4px);
+  }
+
+  .value-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--navy);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .value-name {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--navy-dark);
+    margin-bottom: 10px;
+  }
+
+  .value-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+  }
+
+  @media (max-width: 960px) {
+    .values {
+      padding: 64px 28px;
+    }
+    .values-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

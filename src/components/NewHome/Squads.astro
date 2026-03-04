@@ -1,0 +1,168 @@
+---
+// src/components/home/Squads.astro
+
+const squads = [
+  {
+    side: "navy",
+    label: "Competitive",
+    title: "Open\nMen's Team",
+    body: "Founded in 2023, South Van FC Div 4 Men's team competes with intent, trains to improve, and holds itself to standards that produce results. Every player is expected to commit, earn your minutes based on performance in game and at training",
+    pills: ["Commitment", "Compete", "Weekly Training"],
+    pillStyle: "white",
+    ctaHref: "/mens-team-application",
+    ctaLabel: "Apply for the Squad",
+    ghost: "01",
+  },
+  {
+    side: "light",
+    label: "Development",
+    title: "Youth\nAcademy",
+    body: "Our Development Academy is built for players committed to learning, hard work, and long-term growth. We focus on technical quality, movement, and game understanding to prepare players for a successful football career. Our method involves exposing all players to all aspects of the game.",
+    pills: ["One Curriculum", "Development", "Individual Planning"],
+    pillStyle: "navy",
+    ctaHref: "/academy",
+    ctaLabel: "View the Academy",
+    ghost: "02",
+  },
+];
+---
+
+<section class="squads">
+  {
+    squads.map((s) => (
+      <div class:list={["squad", `squad-${s.side}`]}>
+        <span class="squad-ghost">{s.ghost}</span>
+
+        <div class="squad-content">
+          <span
+            class:list={[
+              "eyebrow",
+              s.side === "navy" ? "eyebrow-gold" : "eyebrow-navy",
+            ]}
+          >
+            {s.label}
+          </span>
+          <h2
+            class="section-title"
+            set:html={s.title.replace("\n", "<br />")}
+          />
+          <p class="section-body">{s.body}</p>
+
+          <div class="pills">
+            {s.pills.map((p) => (
+              <span class:list={["pill", `pill-${s.pillStyle}`]}>{p}</span>
+            ))}
+          </div>
+        </div>
+
+        <a
+          href={s.ctaHref}
+          class:list={[
+            "btn",
+            s.side === "navy" ? "btn-gold" : "btn-navy",
+            "squad-cta",
+          ]}
+        >
+          {s.ctaLabel}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .squads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .squad {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+    gap: 36px;
+  }
+
+  .squad-navy {
+    background: var(--navy);
+  }
+  .squad-light {
+    background: var(--off-white);
+  }
+
+  .squad-ghost {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 200px;
+    line-height: 1;
+    position: absolute;
+    right: 16px;
+    bottom: -24px;
+    opacity: 0.05;
+    user-select: none;
+    letter-spacing: -4px;
+    pointer-events: none;
+  }
+  .squad-navy .squad-ghost {
+    color: #fff;
+  }
+  .squad-light .squad-ghost {
+    color: var(--navy);
+  }
+
+  .squad-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Typography overrides for each side */
+  .squad-navy :global(.section-title) {
+    color: #fff;
+  }
+  .squad-light :global(.section-title) {
+    color: var(--navy-dark);
+  }
+  .squad-navy :global(.section-body) {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .squad-light :global(.section-body) {
+    color: var(--text-mid);
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .squad-cta {
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 960px) {
+    .squads {
+      grid-template-columns: 1fr;
+    }
+    .squad {
+      padding: 56px 28px;
+      min-height: auto;
+    }
+  }
+</style>

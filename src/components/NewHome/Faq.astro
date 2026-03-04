@@ -1,0 +1,205 @@
+---
+import type { FAQItem } from "../../types/types";
+
+const faqs: FAQItem[] = [
+  {
+    question: "Who is the men's team for?",
+    answer:
+      "Serious players committed to VMSL Men's Open level competition. We demand passion, discipline, and a winning mentality as we push for promotion. Players must be 18+, with select younger players considered with parental consent.",
+    defaultOpen: true,
+  },
+  {
+    question: "Does the men's team train?",
+    answer:
+      "Yes — training takes place once per week and is a key part of match preparation. Commitment and performance in training directly influence selection and playing time.",
+  },
+  {
+    question: "Who is the academy for?",
+    isList: true,
+    answer: "",
+    listItems: [
+      "Motivated youth players (grassroots to youth development)",
+      "Players who want to improve technically and tactically",
+      "Athletes committed to consistent training and growth",
+    ],
+  },
+  {
+    question: "What programs do you offer?",
+    answer:
+      "We offer multiple programs, however our approach is rooted in knowing that each player is different. We do not put players in a box. All programs are used in every session, while one or more programs might apply more speficially to an individual",
+    defaultOpen: true,
+  },
+  {
+    question: "Do you offer trials or evaluations?",
+    answer:
+      "Yes. Evaluation sessions help us understand each player's technical ability, mindset, and development stage, allowing us to place them in the environment that best supports their growth. Our team evaluate a player over 1-3 sessions, eliminating false assumptions based on just he first session",
+  },
+  {
+    question: "Where are training sessions held?",
+    answer:
+      "Training locations vary by program and season. All sessions are held at approved local fields within the Lower Mainland area. Full details are shared after registration.",
+  },
+  {
+    question: "Is there a South Van FC youth team?",
+    answer:
+      "Players from any club are welcome, the academy is designed to supplement club soccer. We are looking to develop our own youth club in the future. Stay tuned!",
+  },
+  {
+    question: "What is expected from players?",
+    isList: true,
+    answer: "",
+    listItems: [
+      "Arrive on time and prepared",
+      "Show respect to teammates and coaches",
+      "Train with focus and full effort",
+      "Take responsibility for their own development",
+      "Be Coachable",
+    ],
+  },
+];
+---
+
+<section class="faq">
+  <!-- Left: intro -->
+  <div class="faq-intro">
+    <span class="eyebrow eyebrow-gold">FAQ</span>
+    <h2 class="section-title section-title-white">
+      Everything<br />You Need<br />to Know
+    </h2>
+    <p class="section-body section-body-white" style="margin-top: 20px">
+      Have a question not answered here? Reach out directly.
+    </p>
+    <a
+      href="mailto:southvanfc@gmail.com"
+      class="btn btn-gold"
+      style="margin-top: 32px"
+    >
+      Email Us
+    </a>
+  </div>
+
+  <!-- Right: accordion -->
+  <div class="faq-list" id="faq-list">
+    {
+      faqs.map(({ question, answer, isList, listItems, defaultOpen }, i) => (
+        <div class:list={["faq-item", { open: defaultOpen }]} data-faq-item>
+          <button class="faq-q" aria-expanded={defaultOpen ? "true" : "false"}>
+            <span>{question}</span>
+            <svg
+              class="faq-chevron"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          <div class="faq-a" hidden={!defaultOpen}>
+            {isList && listItems ? (
+              <ul>
+                {listItems.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>{answer}</p>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("[data-faq-item]").forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>(".faq-q")!;
+    const answer = item.querySelector<HTMLElement>(".faq-a")!;
+
+    btn.addEventListener("click", () => {
+      const isOpen = item.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(isOpen));
+      answer.hidden = !isOpen;
+    });
+  });
+</script>
+
+<style>
+  .faq {
+    background: var(--navy);
+    padding: 96px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .faq-intro :global(.section-title) {
+    color: #fff;
+  }
+
+  /* ── Accordion ── */
+  .faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: "Inter Variable", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    text-align: left;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--gold);
+    transition: transform 0.3s ease;
+    margin-top: 2px;
+  }
+
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-a {
+    padding: 0 0 20px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .faq-a ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .faq-a ul li::before {
+    content: "→ ";
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  @media (max-width: 960px) {
+    .faq {
+      grid-template-columns: 1fr;
+      padding: 64px 28px;
+      gap: 48px;
+    }
+  }
+</style>

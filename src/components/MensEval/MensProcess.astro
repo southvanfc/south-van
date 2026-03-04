@@ -1,0 +1,166 @@
+---
+// src/components/mens/MensProcess.astro
+
+const steps = [
+  {
+    num: "01",
+    title: "Apply",
+    body: "Complete the form below. Tell us your position, availability, and what drives you to compete.",
+  },
+  {
+    num: "02",
+    title: "Trial Session",
+    body: "You'll be invited to train with the squad. Our trials span over multiple sessions. Show us what you've got.",
+  },
+  {
+    num: "03",
+    title: "Selection",
+    body: "Coaches assess your technical level, decision-making, and attitude. Every decision is merit-based.",
+  },
+  {
+    num: "04",
+    title: "Earn Your Minutes",
+    body: "Making the squad is the start. Match minutes are earned week-to-week through training and performance.",
+  },
+];
+---
+
+<section class="process">
+  <div class="process-inner">
+    <div class="process-label">
+      <span class="eyebrow-sm">The Path In</span>
+      <h2 class="process-title">How Selection Works</h2>
+    </div>
+    <ol class="steps-row">
+      {
+        steps.map(({ num, title, body }, i) => (
+          <li class="step-item">
+            {i < steps.length - 1 && (
+              <div class="step-connector" aria-hidden="true" />
+            )}
+            <div class="step-num-wrap">
+              <span class="step-num">{num}</span>
+            </div>
+            <div class="step-content">
+              <div class="step-title">{title}</div>
+              <p class="step-body">{body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    background: #011f4a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 56px 80px;
+  }
+  .process-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .process-label {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .eyebrow-sm {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    white-space: nowrap;
+  }
+  .process-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 26px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 400;
+  }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    position: relative;
+  }
+  .step-item {
+    position: relative;
+    padding-right: 32px;
+  }
+  .step-item:last-child {
+    padding-right: 0;
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 32px;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(232, 180, 48, 0.35) 0,
+      rgba(232, 180, 48, 0.35) 5px,
+      transparent 5px,
+      transparent 9px
+    );
+    z-index: 1;
+  }
+
+  .step-num-wrap {
+    margin-bottom: 14px;
+  }
+  .step-num {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    color: #e8b430;
+    letter-spacing: 1px;
+  }
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 0.2px;
+  }
+  .step-body {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.42);
+    max-width: 220px;
+  }
+
+  @media (max-width: 960px) {
+    .process {
+      padding: 44px 28px;
+    }
+    .steps-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .step-connector {
+      display: none;
+    }
+    .step-item {
+      padding-right: 0;
+    }
+    .process-label {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+  @media (max-width: 560px) {
+    .steps-row {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

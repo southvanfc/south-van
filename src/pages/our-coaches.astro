@@ -1,85 +1,31 @@
 ---
-import CoachCard from "../components/CoachCard.astro";
-import Hero from "../components/Hero.astro";
+import CoachesHero from "../components/CoachesPage/CoachesHero.astro";
+import CoachGrid from "../components/CoachesPage/CoachGrid.astro";
+import CoachPhilosophy from "../components/CoachesPage/CoachPhilosophy.astro";
+import Cta from "../components/Cta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { ourCoachesData } from "../staticContent/ourCoachesData";
-import type { Coach } from "../types/types";
 
 const pageTitle: string = "Meet Our Coaches";
-const tagline: string = "Leaders. Mentors. Developers of the Modern Player";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <Hero
-    pageTitle={pageTitle}
-    bannerImage={"assets/our-coaches.webp"}
-    tagline={tagline}
+  <CoachesHero />
+  <CoachGrid />
+  <CoachPhilosophy />
+  <Cta
+    title="Train With<br />Our Coaches"
+    body="Whether you're joining the men's squad or the academy, our coaching staff is ready to develop your game."
+    links={[
+      {
+        href: "/academy/player-evaluation",
+        label: "Request Evaluation",
+        style: "navy",
+      },
+      {
+        href: "/mens-team-application",
+        label: "Men's Application",
+        style: "outline-navy",
+      },
+    ]}
   />
-  <div class="stack container">
-    <div class="stack">
-      <section class="stack description">
-        <h2>Our Coaching Philosophy</h2>
-        <p class="intro">
-          At South Van FC, our coaches are more than instructors. They are
-          mentors committed to long-term player development, character building,
-          and a deep understanding of the game. Each coach brings a blend of
-          professional training, competitive experience, and a passion for youth
-          development, ensuring every player receives high-quality coaching in a
-          positive and challenging environment.
-        </p>
-
-        <div class="stack our-coaches">
-          {
-            ourCoachesData.map((data: Coach) => (
-              <CoachCard
-                imageUrl={data.imageUrl}
-                name={data.name}
-                mentality={data.mentality}
-                years={data.years}
-                ageGroup={data.ageGroup}
-                bioPreview={data.bioPreview}
-                completeBio={data.completeBio}
-              />
-            ))
-          }
-        </div>
-      </section>
-    </div>
-  </div>
 </BaseLayout>
-
-<style>
-  .container {
-    padding: 0 20px;
-    max-width: 1100px;
-    margin: 48px auto;
-  }
-
-  .intro {
-    text-align: center;
-    max-width: 650px;
-  }
-
-  /* --- DESCRIPTION BLOCK --- */
-  .description {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  /* --- COACHES SECTION --- */
-  .our-coaches {
-    margin-top: 72px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .our-coaches .title {
-    margin-bottom: 16px;
-  }
-</style>

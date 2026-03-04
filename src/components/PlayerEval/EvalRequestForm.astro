@@ -1,0 +1,717 @@
+---
+// src/components/academy/EvaluationRequestForm.astro
+// All field names match submit-evaluation.ts exactly.
+// New fields: parent_name, program_interest, goals, referral
+// — add these 4 columns to your Google Sheet's "submission" tab.
+---
+
+<!-- Honeypot — hidden from users, catches bots -->
+<input
+  type="text"
+  name="company"
+  autocomplete="off"
+  tabindex="-1"
+  aria-hidden="true"
+  style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+/>
+
+<form action="/api/submit-evaluation" method="POST" id="eval-form">
+  <!-- ── 01 PLAYER DETAILS ───────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">01</span>
+      <div>
+        <div class="fsec-label">Player Details</div>
+        <div class="fsec-hint">Tell us about the player being evaluated.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-2">
+      <div class="f">
+        <label class="f-label" for="full_name"
+          >Full Name <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="full_name"
+          name="full_name"
+          type="text"
+          placeholder="Player's full name"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="dob"
+          >Date of Birth <span class="f-req">*</span></label
+        >
+        <input class="f-input" id="dob" name="dob" type="date" required />
+      </div>
+      <div class="f">
+        <label class="f-label" for="age_group"
+          >Age Group <span class="f-req">*</span></label
+        >
+        <select class="f-select" id="age_group" name="age_group" required>
+          <option value="" disabled selected>Select age group</option>
+          <option value="u6-u8">U6 – U8</option>
+          <option value="u8-u11">U8 – U11</option>
+          <option value="u11-u15">U11 – U15</option>
+          <option value="u15-u18">U15 – U18</option>
+          <option value="adult">18+ (Adult)</option>
+        </select>
+      </div>
+      <div class="f">
+        <label class="f-label" for="club"
+          >Current Club <span class="f-opt">Optional</span></label
+        >
+        <input
+          class="f-input"
+          id="club"
+          name="club"
+          type="text"
+          placeholder="Leave blank if no club"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 02 PLAYING PROFILE ─────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">02</span>
+      <div>
+        <div class="fsec-label">Playing Profile</div>
+        <div class="fsec-hint">Positions and technical details.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <!-- Position tiles -->
+      <div class="f">
+        <label class="f-label"
+          >Primary Position(s) <span class="f-req">*</span></label
+        >
+        <p class="f-hint">Select all that apply.</p>
+        <div class="pos-grid">
+          {
+            [
+              { value: "GK", label: "Goalkeeper", icon: "🧤" },
+              { value: "Defender", label: "Defender", icon: "🛡️" },
+              { value: "Midfielder", label: "Midfielder", icon: "⚙️" },
+              { value: "Winger", label: "Winger", icon: "⚡" },
+              { value: "Striker", label: "Striker", icon: "⚽" },
+            ].map(({ value, label, icon }) => (
+              <label class="pos-tile">
+                <input type="checkbox" name="positions" value={value} />
+                <span class="pos-icon">{icon}</span>
+                <span class="pos-lbl">{label}</span>
+                <span class="pos-check">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.5"
+                    stroke-linecap="round"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Dominant foot -->
+      <div class="f">
+        <label class="f-label">Dominant Foot <span class="f-req">*</span></label
+        >
+        <div class="foot-row">
+          {
+            [
+              { value: "right", label: "Right" },
+              { value: "left", label: "Left" },
+              { value: "both", label: "Both" },
+            ].map(({ value, label }) => (
+              <label class="rtile">
+                <input
+                  type="radio"
+                  name="preferred_foot"
+                  value={value}
+                  required
+                />
+                <span class="rtile-lbl">{label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Program interest -->
+      <div class="f">
+        <label class="f-label"
+          >Interested Programs <span class="f-opt">Optional</span></label
+        >
+        <p class="f-hint">Select programs you'd like to be considered for.</p>
+        <div class="check-list">
+          {
+            [
+              "Technical & Movement Fundamentals",
+              "Game Development & Intelligence",
+              "High-Performance Pathway & Exposure",
+              "Match Observation & In-Game Evaluation",
+              "Individual Video Analysis",
+            ].map((prog) => (
+              <label class="check-row">
+                <input type="checkbox" name="program_interest" value={prog} />
+                <span class="check-box">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.5"
+                    stroke-linecap="round"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+                <span class="check-lbl">{prog}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 CONTACT ─────────────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">03</span>
+      <div>
+        <div class="fsec-label">Contact Information</div>
+        <div class="fsec-hint">How we'll reach you after the evaluation.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-2">
+      <div class="f">
+        <label class="f-label" for="email"
+          >Email Address <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="your@email.com"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="phone"
+          >Phone Number <span class="f-opt">Optional</span></label
+        >
+        <input
+          class="f-input"
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="+1 (604) 000-0000"
+        />
+      </div>
+      <div class="f f-full">
+        <label class="f-label" for="parent_name"
+          >Parent / Guardian Name <span class="f-opt">If under 18</span></label
+        >
+        <input
+          class="f-input"
+          id="parent_name"
+          name="parent_name"
+          type="text"
+          placeholder="Parent or guardian full name"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 GOALS & BACKGROUND ─────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">04</span>
+      <div>
+        <div class="fsec-label">Goals &amp; Background</div>
+        <div class="fsec-hint">Help us understand what you're looking for.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <div class="f">
+        <label class="f-label" for="goals"
+          >Development Goals <span class="f-opt">Recommended</span></label
+        >
+        <p class="f-hint">
+          What does the player want to improve? What are their football
+          ambitions?
+        </p>
+        <textarea
+          class="f-textarea"
+          id="goals"
+          name="goals"
+          rows="4"
+          placeholder="e.g. Improve first touch and defensive positioning. Long-term goal is to compete at the provincial level..."
+        ></textarea>
+      </div>
+      <div class="f">
+        <label class="f-label" for="referral"
+          >How did you hear about us? <span class="f-opt">Optional</span></label
+        >
+        <select class="f-select" id="referral" name="referral">
+          <option value="" disabled selected>Select an option</option>
+          <option value="instagram">Instagram</option>
+          <option value="facebook">Facebook</option>
+          <option value="google">Google Search</option>
+          <option value="friend">Friend or Family</option>
+          <option value="coach">Coach / Club</option>
+          <option value="southvanfc_website">South Van FC Website</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUBMIT ─────────────────────────────── -->
+  <div class="f-submit">
+    <div class="f-note">
+      <p class="caption">
+        Fields marked <span class="f-req">*</span> are required.
+      </p>
+      <p class="caption">We respond within 48 hours.</p>
+    </div>
+    <button type="submit" class="f-btn" id="submit-btn">
+      Submit Evaluation Request
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+      >
+    </button>
+  </div>
+</form>
+
+<style>
+  /* ── Section blocks ── */
+  .fsec {
+    padding: 32px 0;
+    border-bottom: 1px solid #eef0f7;
+  }
+  .fsec:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .fsec-head {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 26px;
+  }
+  .fsec-num {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: #eef0f7;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: right;
+    transition: color 0.3s;
+  }
+  .fsec:focus-within .fsec-num {
+    color: #e8b430;
+  }
+  .fsec-label {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    margin-bottom: 3px;
+  }
+  .fsec-hint {
+    font-size: 12px;
+    color: #6b7a9e;
+  }
+
+  /* ── Field grids ── */
+  .fgrid {
+    display: grid;
+    gap: 18px;
+    padding-left: 56px;
+  }
+  .fgrid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fgrid-1 {
+    grid-template-columns: 1fr;
+  }
+  .f-full {
+    grid-column: 1 / -1;
+  }
+
+  /* ── Fields ── */
+  .f {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .f-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a1428;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+  .f-hint {
+    font-size: 11px;
+    color: #6b7a9e;
+    margin-top: -2px;
+  }
+  .f-req {
+    color: #e8b430;
+    font-size: 13px;
+  }
+  .f-opt {
+    font-size: 10px;
+    font-weight: 400;
+    color: #6b7a9e;
+    background: #eef0f7;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+
+  /* ── Inputs ── */
+  .f-input,
+  .f-select,
+  .f-textarea {
+    font-family: "Inter Variable", system-ui, sans-serif;
+    font-size: 14px;
+    color: #0a1428;
+    background: #fff;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    padding: 11px 13px;
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .f-input:focus,
+  .f-select:focus,
+  .f-textarea:focus {
+    border-color: #013478;
+    box-shadow: 0 0 0 3px rgba(1, 52, 120, 0.09);
+  }
+  .f-input::placeholder,
+  .f-textarea::placeholder {
+    color: #6b7a9e;
+  }
+  .f-input[type="date"] {
+    cursor: pointer;
+  }
+  .f-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 11px center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    padding-right: 34px;
+    cursor: pointer;
+  }
+  .f-textarea {
+    resize: vertical;
+    min-height: 104px;
+    line-height: 1.6;
+  }
+
+  /* ── Position tiles ── */
+  .pos-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .pos-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 13px 6px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .pos-tile:hover {
+    border-color: #013478;
+    background: #f7f8fc;
+  }
+  .pos-tile input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .pos-tile:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .pos-icon {
+    font-size: 20px;
+  }
+  .pos-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    color: #3d4d6e;
+    letter-spacing: 0.4px;
+    text-align: center;
+  }
+  .pos-tile:has(input:checked) .pos-lbl {
+    color: #013478;
+  }
+  .pos-check {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #013478;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .pos-tile:has(input:checked) .pos-check {
+    opacity: 1;
+  }
+
+  /* ── Foot radio tiles ── */
+  .foot-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .rtile {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .rtile:hover {
+    border-color: #013478;
+  }
+  .rtile:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .rtile input {
+    accent-color: #013478;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .rtile-lbl {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3d4d6e;
+  }
+  .rtile:has(input:checked) .rtile-lbl {
+    color: #013478;
+  }
+
+  /* ── Program check rows ── */
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 14px;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    user-select: none;
+  }
+  .check-row:hover {
+    border-color: #013478;
+    background: #f7f8fc;
+  }
+  .check-row:has(input:checked) {
+    border-color: #013478;
+    background: rgba(1, 52, 120, 0.04);
+  }
+  .check-row input {
+    display: none;
+  }
+  .check-box {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border: 1.5px solid #d0d5e8;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    background: #fff;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .check-row:has(input:checked) .check-box {
+    background: #013478;
+    border-color: #013478;
+    color: #fff;
+  }
+  .check-lbl {
+    font-size: 13px;
+    color: #3d4d6e;
+  }
+  .check-row:has(input:checked) .check-lbl {
+    color: #013478;
+    font-weight: 500;
+  }
+
+  /* ── Submit strip ── */
+  .f-submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 2px solid #e8b430;
+    margin-top: 6px;
+  }
+  .f-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #6b7a9e;
+    max-width: 520px;
+  }
+  .f-note svg {
+    flex-shrink: 0;
+    color: #013478;
+  }
+  .f-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #e8b430;
+    color: #011f4a;
+    font-family: "Inter Variable", system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      transform 0.2s;
+    flex-shrink: 0;
+  }
+  .f-btn:hover {
+    background: #f5cc6a;
+    transform: translateY(-2px);
+  }
+  .f-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .fgrid-2 {
+      grid-template-columns: 1fr;
+    }
+    .fgrid {
+      padding-left: 0;
+    }
+    .pos-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .f-submit {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 500px) {
+    .pos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .foot-row {
+      flex-wrap: wrap;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  // Submitting state feedback
+  const form = document.getElementById("eval-form") as HTMLFormElement | null;
+  const btn = document.getElementById("submit-btn") as HTMLButtonElement | null;
+  if (form && btn) {
+    form.addEventListener("submit", () => {
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" style="animation:spin .7s linear infinite">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+        Submitting...`;
+    });
+  }
+</script>

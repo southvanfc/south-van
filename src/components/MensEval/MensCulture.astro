@@ -1,0 +1,266 @@
+---
+// src/components/mens/MensCulture.astro
+
+const commitment = [
+  "Weekly training — attendance is non-negotiable",
+  "Full availability for league fixture weekends",
+  "Punctuality and pre-session preparation expected",
+  "Active engagement in team structure and tactics",
+  "Minimum 75% training attendance to be matchday eligible",
+];
+
+const minutes = [
+  {
+    label: "Training Form",
+    desc: "Your sharpness, work rate, and attitude in the week leading to a fixture.",
+  },
+  {
+    label: "Position Depth",
+    desc: "Competition within your position group pushes everyone's standard.",
+  },
+  {
+    label: "Match Fitness",
+    desc: "Consistent attendance directly links to your readiness to play.",
+  },
+  {
+    label: "Tactical Role",
+    desc: "Understanding your role and executing it reliably earns trust from the staff.",
+  },
+];
+
+const culture = [
+  {
+    icon: "⚔️",
+    heading: "Compete, Always",
+    body: "No guaranteed starts. No protected spots. Every player competes every week, that's what keeps standards high.",
+  },
+  {
+    icon: "🤝",
+    heading: "Accountability",
+    body: "We hold each other to a high standard. Honest feedback, direct communication, and mutual respect are the baseline.",
+  },
+  {
+    icon: "📈",
+    heading: "Improvement Over Ego",
+    body: "We want players who want to get better. If you're coachable and driven, you'll fit here. If you're not, you won't.",
+  },
+];
+---
+
+<section class="culture-section">
+  <!-- Top row: 3 culture pillars -->
+  <div class="culture-top">
+    {
+      culture.map(({ icon, heading, body }) => (
+        <div class="cpillar">
+          <span class="cpillar-icon">{icon}</span>
+          <div class="cpillar-heading">{heading}</div>
+          <p class="cpillar-body">{body}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Divider -->
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- Bottom row: commitment left, minutes right -->
+  <div class="details-row">
+    <!-- Commitment -->
+    <div class="detail-col">
+      <div class="col-eyebrow">What We Expect</div>
+      <h3 class="col-title">Full Commitment,<br />Every Week</h3>
+      <ul class="commit-list">
+        {
+          commitment.map((item) => (
+            <li class="commit-item">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="details-divider" aria-hidden="true"></div>
+
+    <!-- How minutes are earned -->
+    <div class="detail-col">
+      <div class="col-eyebrow">Playing Time</div>
+      <h3 class="col-title">Minutes Are Earned,<br />Not Promised</h3>
+      <div class="minutes-grid">
+        {
+          minutes.map(({ label, desc }) => (
+            <div class="minute-card">
+              <div class="minute-label">{label}</div>
+              <p class="minute-desc">{desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .culture-section {
+    background: #fff;
+    border-bottom: 1px solid #eef0f7;
+  }
+
+  /* ── Culture pillars ── */
+  .culture-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #011f4a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .cpillar {
+    padding: 44px 40px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .cpillar:last-child {
+    border-right: none;
+  }
+
+  .cpillar-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 18px;
+  }
+  .cpillar-heading {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .cpillar-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* ── Horizontal rule ── */
+  .section-divider {
+    height: 1px;
+    background: #eef0f7;
+  }
+
+  /* ── Commitment + Minutes ── */
+  .details-row {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+    padding: 52px 80px;
+  }
+  .details-divider {
+    background: #eef0f7;
+    align-self: stretch;
+    margin: 0 60px;
+  }
+
+  .detail-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .col-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+  }
+  .col-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    line-height: 1.05;
+    margin-top: -4px;
+  }
+
+  /* Commitment list */
+  .commit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .commit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #3d4d6e;
+    line-height: 1.5;
+  }
+  .commit-item svg {
+    flex-shrink: 0;
+    color: #013478;
+    margin-top: 3px;
+  }
+
+  /* Minutes grid */
+  .minutes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .minute-card {
+    background: #f7f8fc;
+    border: 1px solid #eef0f7;
+    border-left: 3px solid #e8b430;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .minute-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #011f4a;
+  }
+  .minute-desc {
+    font-size: 12px;
+    color: #6b7a9e;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 960px) {
+    .culture-top {
+      grid-template-columns: 1fr;
+    }
+    .cpillar {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 36px 28px;
+    }
+    .cpillar:last-child {
+      border-bottom: none;
+    }
+    .details-row {
+      grid-template-columns: 1fr;
+      padding: 40px 28px;
+      gap: 40px;
+    }
+    .details-divider {
+      display: none;
+    }
+    .minutes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

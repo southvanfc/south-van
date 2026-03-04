@@ -1,0 +1,124 @@
+---
+// src/components/academy/ProgramCard.astro
+interface Props {
+  index: string;
+  badge: string;
+  name: string;
+  bestFor: string;
+  ages: string;
+  overview: string;
+}
+
+const { index, badge, name, bestFor, ages, overview } = Astro.props;
+---
+
+<div class="prog-card">
+  <div class="prog-idx">{index}</div>
+  <div class="prog-badge">{badge}</div>
+  <h3 class="prog-name">{name}</h3>
+  <div class="prog-meta">
+    <div>
+      <div class="prog-meta-lbl">Best For</div>
+      <div class="prog-meta-val">{bestFor}</div>
+    </div>
+    <div>
+      <div class="prog-meta-lbl">Ages</div>
+      <div class="prog-meta-val">{ages}</div>
+    </div>
+  </div>
+  <p class="prog-overview">{overview}</p>
+</div>
+
+<style>
+  .prog-card {
+    background: var(--white);
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .prog-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--navy);
+    transition: width 0.35s ease;
+  }
+  .prog-card:hover::before {
+    width: 4px;
+  }
+  .prog-card:hover {
+    background: var(--off-white);
+  }
+
+  .prog-idx {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--lt-gray);
+    margin-bottom: 12px;
+    transition: color 0.3s;
+    user-select: none;
+  }
+  .prog-card:hover .prog-idx {
+    color: rgba(1, 52, 120, 0.07);
+  }
+
+  .prog-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .prog-badge::before {
+    content: "";
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+    display: block;
+  }
+
+  .prog-name {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 22px;
+    color: var(--navy-dark);
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+
+  .prog-meta {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 18px;
+  }
+
+  .prog-meta-lbl {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .prog-meta-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 3px;
+  }
+
+  .prog-overview {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+</style>

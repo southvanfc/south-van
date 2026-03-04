@@ -1,0 +1,116 @@
+---
+import type { Principals } from "../../types/types";
+
+// src/components/coaches/CoachingPhilosophy.astro
+
+const principles: Principals[] = [
+  {
+    title: "Player-Centred Development",
+    body: "Every player is an individual. Training is tailored to the specific needs, strengths, and development stage of each player. Never a one-size-fits-all approach.",
+  },
+  {
+    title: "Technical Excellence First",
+    body: "Technical ability is the foundation of all good football. Before tactics, before physical conditioning, we build players who are comfortable on the ball under pressure.",
+  },
+  {
+    title: "Competitive Environments",
+    body: "Training must replicate match intensity. We create environments where players are challenged daily and where raising the group's standard is a shared responsibility.",
+  },
+  {
+    title: "Respect & Accountability",
+    body: "Character matters as much as skill. We expect every player to respect teammates, coaches, and the game, and to take full ownership of their development journey.",
+  },
+];
+---
+
+<section class="philosophy">
+  <div class="phil-header">
+    <div>
+      <span class="eyebrow eyebrow-gold">How We Coach</span>
+      <h2 class="section-title section-title-white" style="margin-bottom: 0">
+        Our Coaching<br />Principles
+      </h2>
+    </div>
+    <p class="section-body section-body-white phil-intro">
+      Every member of our coaching staff operates from a shared set of
+      principles that define how we develop players, from their first session to
+      their highest level of performance.
+    </p>
+  </div>
+
+  <div class="phil-grid">
+    {
+      principles.map(({ title, body }) => (
+        <div class="phil-card">
+          <h3 class="phil-card-title">{title}</h3>
+          <p class="phil-card-body">{body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .philosophy {
+    background: var(--navy);
+    padding: 96px 80px;
+  }
+
+  .phil-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 56px;
+  }
+
+  .phil-intro {
+    padding-top: 8px;
+    max-width: 480px;
+  }
+
+  .phil-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .phil-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 32px 28px;
+    transition: background 0.3s;
+  }
+  .phil-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .phil-card-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .phil-card-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  @media (max-width: 960px) {
+    .philosophy {
+      padding: 64px 28px;
+    }
+    .phil-header {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .phil-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

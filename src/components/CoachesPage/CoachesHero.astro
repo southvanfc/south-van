@@ -1,0 +1,186 @@
+---
+// src/components/coaches/CoachesHero.astro
+---
+
+<section class="coaches-hero">
+  <div class="field-pattern" aria-hidden="true"></div>
+
+  <div class="coaches-hero-inner">
+    <div>
+      <nav class="crumb fu d1" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+        >
+        <span class="crumb-cur">Coaches</span>
+      </nav>
+
+      <span class="eyebrow eyebrow-gold fu d1">Coaching Staff</span>
+      <h1 class="hero-title fu d2">
+        Leaders.<br />
+        Mentors.<br />
+        <em>Developers.</em>
+      </h1>
+    </div>
+
+    <div class="hero-right fu d3">
+      <p class="section-body section-body-white">
+        At South Van FC, our coaches are more than instructors. They are mentors
+        committed to long-term player development, character building, and a
+        deep understanding of the game. Each coach brings a blend of
+        professional training, competitive experience, and a genuine passion for
+        developing the modern player.
+      </p>
+      <div class="hero-stats">
+        <div class="hstat">
+          <span class="hstat-num">3</span>
+          <span class="hstat-lbl">Staff Coaches</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">U8</span>
+          <span class="hstat-lbl">to Senior</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">YVR</span>
+          <span class="hstat-lbl">Based</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold stripe at the bottom -->
+  <div class="hero-stripe" aria-hidden="true"></div>
+</section>
+
+<style>
+  .coaches-hero {
+    background: var(--navy-dark);
+    padding: 80px 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  .coaches-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 80px;
+  }
+
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 32px;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .crumb-cur {
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(58px, 6vw, 92px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding-bottom: 8px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+
+  .hstat {
+    display: flex;
+    flex-direction: column;
+  }
+  .hstat-num {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hstat-lbl {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 4px;
+  }
+
+  .hero-stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--gold) 0,
+      var(--gold) 40px,
+      transparent 40px,
+      transparent 48px
+    );
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (max-width: 960px) {
+    .coaches-hero {
+      padding: 60px 28px 0;
+    }
+    .coaches-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 56px;
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import type { Stat } from "../../types/types";
+
+// src/components/StatsBand.astro
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="stats-band">
+  {
+    stats.map(({ value, label }: Stat) => (
+      <div class="stat-cell">
+        <div class="stat-num">{value}</div>
+        <div class="stat-lbl">{label}</div>
+      </div>
+    ))
+  }
+</div>

@@ -1,16 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Evaluation from "../../components/Evaluation.astro";
-import Hero from "../../components/Hero.astro";
-import HowWeWork from "../../components/HowWeWork.astro";
-import ProgramCarousel from "../../components/ProgramCarousel.astro";
-import StartPlayerDev from "../../components/StartPlayerDev.astro";
-import DevPhilosophy from "../../components/DevPhilosophy.astro";
+import AcademyHero from "../../components/NewAcademy/AcademyHero.astro";
+import Philosophy from "../../components/NewAcademy/Philosophy.astro";
+import Programs from "../../components/NewAcademy/Programs.astro";
+import Evaluation from "../../components/NewAcademy/Evaluation.astro";
+import Cta from "../../components/Cta.astro";
 
 const pageTitle: string = "A Connected Football Experience";
-
-const tagline: string =
-  "Where fundamentals, creativity, and competition live side by side.";
 
 const seo = {
   title: "SouthVan FC | Vancouver Football Club & Development Academy",
@@ -21,30 +17,24 @@ const seo = {
 ---
 
 <BaseLayout pageTitle={pageTitle} seo={seo}>
-  <Hero
-    pageTitle={pageTitle}
-    bannerImage={"assets/hero-image.jpg"}
-    tagline={tagline}
-  >
-    <a href="/academy/player-evaluation" slot="cta" class="learn-more-link"
-      >Request Player Evaluation</a
-    >
-  </Hero>
-  <DevPhilosophy />
-  <HowWeWork />
-  <ProgramCarousel />
+  <AcademyHero />
+  <Philosophy />
   <Evaluation />
-  <StartPlayerDev />
+  <Programs />
+  <Cta
+    title="Start Your Development<br />Journey Today"
+    body="Join South Van FC and unlock your full potential. Discover the right program or book a personalised evaluation."
+    links={[
+      {
+        href: "/academy/player-evaluation",
+        label: "Request Player Evaluation",
+        style: "navy",
+      },
+      {
+        href: "/our-coaches",
+        label: "Meet the Coaches",
+        style: "outline-navy",
+      },
+    ]}
+  />
 </BaseLayout>
-
-<style>
-  .learn-more-link {
-    background-color: rgba(1, 52, 120, 0.85);
-    padding: 18px;
-    border-radius: 20px;
-    width: 100%;
-    text-align: center;
-    color: white;
-    max-width: 300px;
-  }
-</style>

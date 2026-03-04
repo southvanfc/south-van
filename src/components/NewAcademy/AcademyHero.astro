@@ -1,0 +1,267 @@
+---
+// src/components/academy/AcademyHero.astro
+---
+
+<section class="aca-hero">
+  <div class="field-pattern" aria-hidden="true"></div>
+
+  <!-- Left: copy -->
+  <div class="aca-hero-left">
+    <nav class="crumb fu d1" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+      >
+      <span class="crumb-cur">Academy</span>
+    </nav>
+
+    <span class="eyebrow eyebrow-gold fu d1">Development Academy</span>
+
+    <h1 class="hero-title fu d2">
+      Connected<br />
+      <em>Football</em><br />
+      Experience
+    </h1>
+
+    <p class="hero-sub fu d3">
+      Where fundamentals, creativity, and competition live side by side.
+    </p>
+
+    <div class="hero-actions fu d4">
+      <a href="/academy/player-evaluation" class="btn btn-gold">
+        Request Evaluation
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        >
+      </a>
+      <a href="#programs" class="btn btn-outline-white">
+        View Programs
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg
+        >
+      </a>
+    </div>
+  </div>
+
+  <!-- Right: how it works -->
+  <div class="aca-hero-right">
+    <p class="process-label fu d2">How It Works</p>
+
+    <div class="process-card fu d3">
+      <span class="proc-num">01</span>
+      <div>
+        <h3 class="proc-title">Initial Assessment</h3>
+        <p class="proc-body">
+          Join our sessions for a comprehensive evaluation of your skills,
+          athleticism, and game understanding by our professional coaching
+          staff.
+        </p>
+      </div>
+    </div>
+
+    <div class="process-card fu d4">
+      <span class="proc-num">02</span>
+      <div>
+        <h3 class="proc-title">Personalized Development Plan</h3>
+        <p class="proc-body">
+          Receive tailored feedback and a custom development roadmap designed to
+          enhance your strengths and address areas for growth.
+        </p>
+      </div>
+    </div>
+
+    <div class="process-card fu d5">
+      <span class="proc-num">03</span>
+      <div>
+        <h3 class="proc-title">Academy Program Integration</h3>
+        <p class="proc-body">
+          Integrate into the academy, training in competitive environments built
+          to raise the overall standard.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .aca-hero {
+    min-height: calc(100vh - 72px);
+    background: var(--navy-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  /* ── Left ── */
+  .aca-hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 32px;
+    list-style: none;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .crumb-cur {
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(60px, 6vw, 96px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.62);
+    max-width: 420px;
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Right: process cards ── */
+  .aca-hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 80px 80px 40px;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .process-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 26px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition:
+      background 0.3s,
+      border-color 0.3s;
+  }
+  .process-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(232, 180, 48, 0.4);
+  }
+
+  .proc-num {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    color: var(--gold);
+    flex-shrink: 0;
+    width: 44px;
+  }
+
+  .proc-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 7px;
+  }
+
+  .proc-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.54);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .aca-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .aca-hero-left {
+      padding: 60px 28px;
+    }
+    .aca-hero-right {
+      padding: 40px 28px 60px;
+    }
+  }
+</style>

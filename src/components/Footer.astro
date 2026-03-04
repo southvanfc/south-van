@@ -1,19 +1,59 @@
 ---
-import SiteMap from "./SiteMap.astro";
+// src/components/Footer.astro
+const quickLinks = [
+  { href: "/", label: "Home" },
+  { href: "/academy", label: "Academy" },
+  { href: "/our-coaches", label: "Our Coaches" },
+  { href: "/academy/player-evaluation", label: "Request Youth Evaluation" },
+  { href: "/mens-team-application", label: "Men's Training Squad" },
+];
 ---
 
-<footer>
-  <SiteMap />
-  <div class="container">
-    <p class="caption">© 2025 South Van FC. All rights reserved.</p>
-    <p class="caption">Powered by Nextier Solutions</p>
+<footer class="footer">
+  <!-- Brand -->
+  <div>
+    <div class="footer-logo-row">
+      <div class="footer-mark">
+        <img
+          src="/assets/white.png"
+          alt="South Van FC crest"
+          width="44"
+          height="44"
+        />
+      </div>
+      <span class="footer-brand">South Van FC</span>
+    </div>
+    <p class="footer-tagline">
+      Built by the Community.<br />
+      Developed for the Game.<br />
+      Vancouver, BC &mdash; Est. 2023
+    </p>
+  </div>
+
+  <!-- Quick links -->
+  <div>
+    <div class="footer-col-title">Quick Links</div>
+    <ul class="footer-links">
+      {
+        quickLinks.map(({ href, label }) => (
+          <li>
+            <a href={href}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- Contact -->
+  <div>
+    <div class="footer-col-title">Contact</div>
+    <ul class="footer-links">
+      <li><a href="mailto:southvanfc@gmail.com">southvanfc@gmail.com</a></li>
+    </ul>
   </div>
 </footer>
 
-<style>
-  .container {
-    line-height: normal;
-    text-align: center;
-    padding: 5px;
-  }
-</style>
+<div class="footer-bottom">
+  <p>&copy; {new Date().getFullYear()} South Van FC. All rights reserved.</p>
+  <p>Powered by Nextier Solutions</p>
+</div>
