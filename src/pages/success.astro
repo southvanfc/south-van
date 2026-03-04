@@ -1,35 +1,573 @@
 ---
-import { Image } from "astro:assets";
-import SouthVanLogo from "../images/southvan-logo.png";
+// src/pages/success.astro
+import Footer from "../components/Footer.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const pageTitle: string = "Form Submitted Successfully!";
 ---
 
 <BaseLayout>
-  <div class="hero">
-    <Image src={SouthVanLogo} alt="test" class="image" />
-    <h1>
-      {pageTitle}
-    </h1>
-    <p>
-      We will reach out to you with details for next steps within 24 - 48 hours
-    </p>
-  </div>
+  <section class="success-hero">
+    <div class="field-pattern" aria-hidden="true"></div>
+    <div class="accent-bar" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <!-- Left: confirmation -->
+      <div class="confirm-col">
+        <div class="check-wrap" aria-hidden="true">
+          <svg class="check-ring" viewBox="0 0 80 80" fill="none">
+            <circle
+              cx="40"
+              cy="40"
+              r="36"
+              stroke="rgba(232,180,48,.2)"
+              stroke-width="1.5"></circle>
+            <circle
+              cx="40"
+              cy="40"
+              r="36"
+              stroke="#e8b430"
+              stroke-width="1.5"
+              stroke-dasharray="226"
+              stroke-dashoffset="226"
+              class="ring-fill"
+              stroke-linecap="round"></circle>
+          </svg>
+          <svg
+            class="check-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#e8b430"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 6L9 17l-5-5"></path>
+          </svg>
+        </div>
+
+        <span class="eyebrow">Submission Received</span>
+        <h1 class="confirm-title" id="confirm-title">
+          We've Got<br /><em>Your Application.</em>
+        </h1>
+        <p class="confirm-body">
+          Every submission is reviewed personally by our coaching staff. We'll
+          be in touch within <strong>48 hours</strong> to confirm next steps.
+        </p>
+
+        <a href="/" class="back-link">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg
+          >
+          Back to Home
+        </a>
+      </div>
+
+      <!-- Right: what happens next -->
+      <div class="next-col">
+        <div class="next-card">
+          <div class="next-card-title">What Happens Next</div>
+
+          <ol class="next-steps">
+            <li class="next-step" id="step-1">
+              <span class="ns-num">01</span>
+              <div>
+                <div class="ns-title" id="ns-title-1">Application Review</div>
+                <p class="ns-body" id="ns-body-1">
+                  A staff member will read through your submission and assess
+                  fit against current squad needs.
+                </p>
+              </div>
+            </li>
+            <li class="next-step" id="step-2">
+              <span class="ns-num">02</span>
+              <div>
+                <div class="ns-title">We'll Reach Out</div>
+                <p class="ns-body">
+                  Expect a reply within 48 hours to the email address you
+                  provided. Check your spam folder if you don't hear from us.
+                </p>
+              </div>
+            </li>
+            <li class="next-step" id="step-3">
+              <span class="ns-num">03</span>
+              <div>
+                <div class="ns-title" id="ns-title-3">Next Session</div>
+                <p class="ns-body" id="ns-body-3">
+                  If there's a match, we'll invite you to an upcoming session.
+                  Come ready — first impressions matter.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="next-divider" aria-hidden="true"></div>
+
+          <div class="next-contact">
+            <p class="nc-label">Have a question in the meantime?</p>
+            <a href="mailto:southvanfc@gmail.com" class="nc-link">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                ><path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path><polyline points="22,6 12,13 2,6"></polyline></svg
+              >
+              southvanfc@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stripe" aria-hidden="true"></div>
+  </section>
+
+  <!-- Explore links -->
+  <section class="explore">
+    <div class="explore-inner">
+      <div class="explore-label">While You Wait</div>
+      <div class="explore-grid">
+        <a href="/academy" class="explore-card">
+          <span class="ec-icon">🎓</span>
+          <div class="ec-text">
+            <div class="ec-title">Development Academy</div>
+            <p class="ec-body">
+              Youth programs, individual evaluations, and development pathways
+              across all age groups.
+            </p>
+          </div>
+          <svg
+            class="ec-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+          >
+        </a>
+
+        <a href="/our-coaches" class="explore-card">
+          <span class="ec-icon">👋</span>
+          <div class="ec-text">
+            <div class="ec-title">Meet the Coaching Staff</div>
+            <p class="ec-body">
+              Learn more about the people who'll be evaluating your application
+              and running the sessions.
+            </p>
+          </div>
+          <svg
+            class="ec-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+          >
+        </a>
+
+        <a href="/academy/player-evaluation" class="explore-card">
+          <span class="ec-icon">📋</span>
+          <div class="ec-text">
+            <div class="ec-title">Player Evaluation</div>
+            <p class="ec-body">
+              Not what you applied for? Request a structured individual
+              evaluation instead.
+            </p>
+          </div>
+          <svg
+            class="ec-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+          >
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .image {
-    width: 200px;
-    height: auto;
+  /* ── Hero ── */
+  .success-hero {
+    background: #011f4a;
+    padding: 96px 80px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
   }
-  .hero {
-    height: 100%;
-    text-align: center;
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.02) 59px,
+        rgba(255, 255, 255, 0.02) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.02) 59px,
+        rgba(255, 255, 255, 0.02) 60px
+      );
+  }
+  .accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #e8b430 0%, rgba(232, 180, 48, 0) 100%);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 72px;
+  }
+
+  /* ── Check animation ── */
+  .check-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 32px;
+  }
+  .check-ring {
+    position: absolute;
+    inset: 0;
+    width: 80px;
+    height: 80px;
+  }
+  .check-icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 28px;
+    height: 28px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease 0.7s forwards;
+  }
+  .ring-fill {
+    transform-origin: center;
+    transform: rotate(-90deg);
+    animation: ringDraw 0.65s ease forwards;
+  }
+  @keyframes ringDraw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ── Left col ── */
+  .confirm-col {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    padding-top: 8px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .confirm-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(48px, 5vw, 72px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 24px;
+  }
+  .confirm-title em {
+    font-style: normal;
+    color: #e8b430;
+    display: block;
+    -webkit-text-stroke: 1px #e8b430;
+  }
+  .confirm-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 440px;
+    border-left: 2px solid rgba(232, 180, 48, 0.35);
+    padding-left: 20px;
+    margin-bottom: 36px;
+  }
+  .confirm-body strong {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+  }
+
+  .back-link {
+    display: inline-flex;
     align-items: center;
-    padding: 20px;
-    gap: 20px;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-link:hover {
+    color: #e8b430;
+  }
+
+  /* ── Right col: next steps card ── */
+  .next-col {
+    padding-top: 8px;
+  }
+  .next-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .next-card-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .next-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .next-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .ns-num {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 26px;
+    color: #e8b430;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: right;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .ns-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .ns-body {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.6;
+  }
+
+  .next-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    margin: 22px 0;
+  }
+
+  .next-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nc-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .nc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8b430;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nc-link:hover {
+    opacity: 0.75;
+  }
+
+  .hero-stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      #e8b430 0,
+      #e8b430 40px,
+      transparent 40px,
+      transparent 48px
+    );
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Explore section ── */
+  .explore {
+    background: #f7f8fc;
+    padding: 56px 80px;
+    border-bottom: 1px solid #eef0f7;
+  }
+  .explore-inner {
+    max-width: 1100px;
+  }
+  .explore-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    margin-bottom: 20px;
+  }
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .explore-card {
+    background: #fff;
+    border: 1px solid #eef0f7;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  .explore-card:hover {
+    border-color: #013478;
+    box-shadow: 0 4px 24px rgba(1, 52, 120, 0.08);
+    transform: translateY(-2px);
+  }
+  .ec-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .ec-text {
+    flex: 1;
+  }
+  .ec-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #011f4a;
+    margin-bottom: 6px;
+  }
+  .ec-body {
+    font-size: 12px;
+    color: #6b7a9e;
+    line-height: 1.6;
+  }
+  .ec-arrow {
+    color: #d0d5e8;
+    flex-shrink: 0;
+    margin-top: 3px;
+    transition:
+      color 0.2s,
+      transform 0.2s;
+  }
+  .explore-card:hover .ec-arrow {
+    color: #013478;
+    transform: translateX(3px);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .success-hero {
+      padding: 80px 28px 0;
+      min-height: auto;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding-bottom: 52px;
+    }
+    .explore {
+      padding: 44px 28px;
+    }
+    .explore-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .explore-card {
+      padding: 20px;
+    }
   }
 </style>
+
+<script>
+  // Personalise heading based on referrer
+  const ref = document.referrer;
+  const title = document.getElementById("confirm-title");
+  const nsTitle1 = document.getElementById("ns-title-1");
+  const nsBody1 = document.getElementById("ns-body-1");
+  const nsTitle3 = document.getElementById("ns-title-3");
+  const nsBody3 = document.getElementById("ns-body-3");
+
+  if (ref.includes("mens-team-application")) {
+    if (title) title.innerHTML = "We've Got<br /><em>Your Application.</em>";
+    if (nsTitle1) nsTitle1.textContent = "Application Review";
+    if (nsBody1)
+      nsBody1.textContent =
+        "Our coaching staff will review your submission against current squad availability and needs.";
+    if (nsTitle3) nsTitle3.textContent = "Trial Invitation";
+    if (nsBody3)
+      nsBody3.textContent =
+        "If there's a fit, we'll invite you to an upcoming training session. Come ready — first impressions matter.";
+  } else if (ref.includes("player-evaluation")) {
+    if (title) title.innerHTML = "Request<br /><em>Received.</em>";
+    if (nsTitle1) nsTitle1.textContent = "Form Review";
+    if (nsBody1)
+      nsBody1.textContent =
+        "A coach will review your evaluation request and match you to the right session format for your age and level.";
+    if (nsTitle3) nsTitle3.textContent = "Your Evaluation Session";
+    if (nsBody3)
+      nsBody3.textContent =
+        "We'll confirm your session time and location. Come in your kit and ready to play.";
+  }
+</script>
