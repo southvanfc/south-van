@@ -5,11 +5,71 @@ import EvalProcess from "../../components/PlayerEval/EvalProcess.astro";
 import EvalRequestForm from "../../components/PlayerEval/EvalRequestForm.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const pageTitle: string =
-  "South Van FC Player Evaluation | Development Academy Tryouts & Assessment";
+const seo = {
+  title: "Player Evaluation | South Van FC Development Academy Vancouver",
+  description:
+    "Book a personalised player evaluation with South Van FC Academy. Our coaches assess your technical skills, tactical understanding, and movement to design your individual development plan.",
+  keywords:
+    "soccer player evaluation Vancouver, football tryout Vancouver, player assessment Vancouver, soccer skills assessment, South Van FC evaluation, academy evaluation Vancouver",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Academy",
+      item: "https://www.southvanfc.com/academy/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Player Evaluation",
+      item: "https://www.southvanfc.com/academy/player-evaluation/",
+    },
+  ],
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Player Evaluation",
+  provider: {
+    "@type": "Organization",
+    name: "South Van FC",
+    url: "https://www.southvanfc.com",
+  },
+  description:
+    "A personalised player evaluation session where South Van FC coaches assess technical skills, tactical understanding, and athletic development to create an individual training plan.",
+  areaServed: {
+    "@type": "Place",
+    name: "Vancouver, BC, Canada",
+  },
+  url: "https://www.southvanfc.com/academy/player-evaluation/",
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(serviceSchema)}
+  />
   <EvalHero />
   <EvalMeta />
   <EvalProcess />

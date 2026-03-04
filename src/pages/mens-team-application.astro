@@ -1,16 +1,45 @@
 ---
-import { Icon } from "astro-icon/components";
-import MensRequestForm from "../components/forms/MensRequestForm.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MensHero from "../components/MensEval/MensHero.astro";
 import MensProcess from "../components/MensEval/MensProcess.astro";
 import MensCulture from "../components/MensEval/MensCulture.astro";
 import MensApplicationForm from "../components/MensEval/MensApplicationForm.astro";
 
-const pageTitle: string = "South Van FC Mens Application Form";
+const seo = {
+  title: "Men's Team Application | South Van FC Open Squad Vancouver",
+  description:
+    "Apply to join South Van FC's Open Men's team in Vancouver. We welcome players of all backgrounds committed to a technical, development-focused approach to football.",
+  keywords:
+    "South Van FC men's team, adult soccer Vancouver, open men's soccer Vancouver, join soccer team Vancouver, Vancouver soccer tryout, adult football team Vancouver",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Men's Team Application",
+      item: "https://www.southvanfc.com/mens-team-application/",
+    },
+  ],
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
   <MensHero />
   <MensProcess />
   <MensCulture />

@@ -7,12 +7,13 @@ import Values from "../components/NewHome/Values.astro";
 import Faq from "../components/NewHome/Faq.astro";
 import Signup from "../components/NewHome/Signup.astro";
 
-const pageTitle: string = "South Van FC";
 const seo = {
-  title: "SouthVan FC | Vancouver Football Club & Development Academy",
+  title: "South Van FC | Vancouver Football Club & Development Academy",
   description:
-    "SouthVan FC is a community-built club in Vancouver with an Open Men's team and a technical first Development Academy focused on movement and game intelligence.",
-  ogImage: "/og/home.png", // optional: make sure this exists in /public/og/home.jpg
+    "South Van FC is a community-built football club in Vancouver, BC. Join our Open Men's team or our technical-first Development Academy focused on player development and game intelligence.",
+  keywords:
+    "South Van FC, Vancouver football club, soccer club Vancouver, soccer academy Vancouver, player development Vancouver, adult soccer Vancouver, youth soccer Vancouver, BC soccer",
+  ogImage: "/og/home.png",
 };
 
 const stats = [
@@ -21,9 +22,45 @@ const stats = [
   { value: "IDP", label: "Individual Development Plan" },
   { value: "YVR", label: "Lower Mainland" },
 ];
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.southvanfc.com/#website",
+  url: "https://www.southvanfc.com",
+  name: "South Van FC",
+  description:
+    "Community-built football club in Vancouver with a technical-first Development Academy.",
+};
+
+const sportsTeamSchema = {
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  "@id": "https://www.southvanfc.com/#sportsorganization",
+  name: "South Van FC",
+  url: "https://www.southvanfc.com",
+  sport: "Soccer",
+  areaServed: {
+    "@type": "Place",
+    name: "Vancouver, BC, Canada",
+  },
+  sameAs: ["https://www.instagram.com/southvanfc"],
+};
 ---
 
-<BaseLayout pageTitle={pageTitle} seo={seo}>
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(websiteSchema)}
+  />
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(sportsTeamSchema)}
+  />
   <Hero bannerImage={"/assets/white.png"} />
   <StatsBand stats={stats} />
   <Squads />

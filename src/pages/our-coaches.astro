@@ -5,10 +5,41 @@ import CoachPhilosophy from "../components/CoachesPage/CoachPhilosophy.astro";
 import Cta from "../components/Cta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const pageTitle: string = "Meet Our Coaches";
+const seo = {
+  title: "Our Coaches | South Van FC Academy & Men's Team Vancouver",
+  description:
+    "Meet the South Van FC coaching staff. Our qualified coaches bring technical expertise and a player-first philosophy to both our Development Academy and Open Men's team in Vancouver.",
+  keywords:
+    "South Van FC coaches, soccer coach Vancouver, football coach Vancouver, academy coach Vancouver, youth soccer coaching, player development coach",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Our Coaches",
+      item: "https://www.southvanfc.com/our-coaches/",
+    },
+  ],
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
   <CoachesHero />
   <CoachGrid />
   <CoachPhilosophy />

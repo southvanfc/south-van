@@ -6,17 +6,42 @@ import Programs from "../../components/NewAcademy/Programs.astro";
 import Evaluation from "../../components/NewAcademy/Evaluation.astro";
 import Cta from "../../components/Cta.astro";
 
-const pageTitle: string = "A Connected Football Experience";
-
 const seo = {
-  title: "SouthVan FC | Vancouver Football Club & Development Academy",
+  title: "South Van FC Academy | Technical Football Development in Vancouver",
   description:
-    "SouthVan FC is a community-built club in Vancouver with an Open Men's team and a technical first Development Academy focused on movement and game intelligence.",
-  ogImage: "/og/home.png", // optional: make sure this exists in /public/og/home.jpg
+    "South Van FC Development Academy offers technical-first soccer training in Vancouver. Individual development plans, small-group coaching, and game intelligence training for all levels.",
+  keywords:
+    "South Van FC Academy, soccer academy Vancouver, football academy Vancouver, player development Vancouver, technical soccer training, individual development plan soccer, youth football Vancouver",
+  ogImage: "/og/home.png",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Academy",
+      item: "https://www.southvanfc.com/academy/",
+    },
+  ],
 };
 ---
 
-<BaseLayout pageTitle={pageTitle} seo={seo}>
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
   <AcademyHero />
   <Philosophy />
   <Evaluation />

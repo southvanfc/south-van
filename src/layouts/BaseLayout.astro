@@ -132,6 +132,7 @@ const organizationSchema = {
       type="application/ld+json"
       set:html={JSON.stringify(organizationSchema)}
     />
+    <slot name="head" />
   </head>
 
   <body>
