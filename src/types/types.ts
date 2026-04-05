@@ -51,5 +51,22 @@ export interface Programs {
     name: string;
     bestFor: string;
     ages: string;
+    price: string;
     overview: string;
+}
+
+export interface SEO {
+  title: string;
+  description?: string;
+  canonical?: string;
+  robots?: string; // "index,follow" | "noindex,nofollow" etc.
+
+  /** Social */
+  ogImage?: string; // "/og/home.jpg" or absolute
+  ogType?: "website" | "article";
+  twitterCard?: "summary" | "summary_large_image";
+
+  /** Optional extras */
+  keywords?: string;
+  author?: string;
 }

@@ -4,22 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-
-type SEO = {
-  title: string;
-  description?: string;
-  canonical?: string;
-  robots?: string; // "index,follow" | "noindex,nofollow" etc.
-
-  /** Social */
-  ogImage?: string; // "/og/home.jpg" or absolute
-  ogType?: "website" | "article";
-  twitterCard?: "summary" | "summary_large_image";
-
-  /** Optional extras */
-  keywords?: string;
-  author?: string;
-};
+import type { SEO } from "../types/types";
 
 type Props = {
   /** New: pass an SEO object */
@@ -38,7 +23,7 @@ const { seo, pageTitle, lang = "en" } = Astro.props as Props;
 const SITE_NAME = "South Van FC";
 const DEFAULT_DESCRIPTION =
   "South Van FC in Vancouver — community built football with a technical first development academy.";
-const DEFAULT_OG_IMAGE = "/og-default.jpg";
+const DEFAULT_OG_IMAGE = "/og-default.png";
 const THEME_COLOR = "#013478";
 
 // Final resolved SEO values

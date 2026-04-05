@@ -7,6 +7,7 @@ interface Props {
   role: string;
   experience: string;
   ageGroups: string;
+  athletes: string;
   specialisms: string[];
   bioShort: string;
   bioFull: string;
@@ -19,6 +20,7 @@ const {
   role,
   experience,
   ageGroups,
+  athletes,
   specialisms,
   bioShort,
   bioFull,
@@ -51,6 +53,10 @@ const {
         <span class="meta-lbl">Age Groups</span>
         <span class="meta-val">{ageGroups}</span>
       </div>
+      <div class="meta-item">
+        <span class="meta-lbl">Athletes</span>
+        <span class="meta-val">{athletes}</span>
+      </div>
     </div>
 
     <!-- Specialism pills -->
@@ -61,8 +67,8 @@ const {
     <!-- Bio -->
     <div class="coach-bio">
       <p class="bio-short">{bioShort}</p>
-      <div class="bio-full" id={`bio-${id}`} hidden>
-        <p set:html={bioFull} />
+      <div id={`bio-${id}`} hidden>
+        <p class="bio-full" set:html={bioFull} />
       </div>
       <button class="read-more" data-target={`bio-${id}`} aria-expanded="false">
         <span class="rm-text">Read more</span>
