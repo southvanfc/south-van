@@ -1,0 +1,153 @@
+---
+// No server-side logic needed — fully client-driven
+---
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>
+  <div class="cb-inner">
+    <div class="cb-text">
+      <p class="cb-heading">We use analytics</p>
+      <p class="cb-body">
+        We use Vercel Analytics and Speed Insights to understand how visitors use
+        our site — no ads, no cross-site tracking. See our
+        <a href="/privacy-policy">Privacy Policy</a> for details.
+      </p>
+    </div>
+    <div class="cb-actions">
+      <button id="cookie-deny" class="cb-btn cb-deny">Decline</button>
+      <button id="cookie-accept" class="cb-btn cb-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 680px;
+    background: #011f4a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+    z-index: 9999;
+    padding: 20px 24px;
+    animation: slideUp 0.3s ease both;
+  }
+  .cookie-banner[hidden] {
+    display: none;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .cb-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .cb-text {
+    flex: 1;
+  }
+  .cb-heading {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px;
+  }
+  .cb-body {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .cb-body a {
+    color: #e8b430;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cb-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .cb-btn {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  }
+  .cb-btn:hover { opacity: 0.8; }
+  .cb-deny {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .cb-accept {
+    background: #e8b430;
+    color: #011f4a;
+  }
+
+  @media (max-width: 560px) {
+    .cb-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .cb-actions { width: 100%; }
+    .cb-btn { flex: 1; text-align: center; }
+  }
+</style>
+
+<script>
+  const CONSENT_KEY = "svfc_analytics_consent";
+
+  function loadAnalytics() {
+    // Vercel Analytics
+    const va = document.createElement("script");
+    va.src = "/_vercel/insights/script.js";
+    va.defer = true;
+    document.head.appendChild(va);
+
+    // Vercel Speed Insights
+    const si = document.createElement("script");
+    si.src = "/_vercel/speed-insights/script.js";
+    si.defer = true;
+    document.head.appendChild(si);
+  }
+
+  function hideBanner() {
+    const banner = document.getElementById("cookie-banner");
+    if (banner) banner.hidden = true;
+  }
+
+  function init() {
+    const consent = localStorage.getItem(CONSENT_KEY);
+
+    if (consent === "accepted") {
+      loadAnalytics();
+      return;
+    }
+
+    if (consent === "denied") {
+      return;
+    }
+
+    // No decision yet — show the banner
+    const banner = document.getElementById("cookie-banner");
+    if (banner) banner.hidden = false;
+
+    document.getElementById("cookie-accept")?.addEventListener("click", () => {
+      localStorage.setItem(CONSENT_KEY, "accepted");
+      hideBanner();
+      loadAnalytics();
+    });
+
+    document.getElementById("cookie-deny")?.addEventListener("click", () => {
+      localStorage.setItem(CONSENT_KEY, "denied");
+      hideBanner();
+    });
+  }
+
+  init();
+</script>

@@ -2,8 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
+import CookieBanner from "../components/CookieBanner.astro";
 import type { SEO } from "../types/types";
 
 type Props = {
@@ -126,9 +125,7 @@ const organizationSchema = {
       <slot />
     </main>
     <Footer />
-    <!-- Vercel -->
-    <Analytics />
-    <SpeedInsights />
+    <CookieBanner />
     <!-- Load your menu script safely -->
     <script is:inline type="module" src="/scripts/menu.js"></script>
   </body>
