@@ -1,0 +1,307 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const { slug } = Astro.params;
+const posts = await getCollection("blog");
+const post = posts.find((p) => p.slug === slug);
+
+if (!post) {
+  return Astro.redirect("/blogs");
+}
+
+const { Content } = await post.render();
+
+const seo = {
+  title: `${post.data.title} | South Van FC Blog`,
+  description: post.data.description,
+  ogType: "article" as const,
+  ogImage: post.data.image ?? "/og/og-default.png",
+  canonical: `/blogs/${post.slug}`,
+};
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: {
+    "@type": "Organization",
+    name: post.data.author,
+  },
+};
+---
+
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(articleSchema)}
+  />
+
+  <article class="post-page">
+    <header class="post-hero">
+      <div class="post-hero-inner">
+        <a href="/blogs" class="post-back">← All Posts</a>
+        {
+          post.data.category && (
+            <span class="blog-card-cat">{post.data.category}</span>
+          )
+        }
+        <h1 class="post-title">{post.data.title}</h1>
+        <p class="post-desc">{post.data.description}</p>
+        <div class="post-meta">
+          {
+            post.data.image && (
+              <img
+                class="author-avatar"
+                src={post.data.image}
+                alt={post.data.author}
+              />
+            )
+          }
+          <div>
+            <div>
+              <span>{post.data.author}</span>
+            </div>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {formatDate(post.data.pubDate)}
+            </time>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="post-body">
+      <div class="prose">
+        <Content />
+      </div>
+
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="post-tags">
+            {post.data.tags.map((tag) => (
+              <span class="pill pill-navy">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="post-footer">
+        <a href="/blogs" class="btn btn-outline-navy btn-sm">← Back to Blog</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .post-hero {
+    background: var(--navy-dark);
+    padding: 80px 80px 64px;
+  }
+  .post-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .post-back {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+    width: fit-content;
+  }
+  .post-back:hover {
+    color: var(--gold);
+  }
+
+  .blog-card-cat {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .post-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+    color: #fff;
+  }
+
+  .post-desc {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 600px;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    padding-top: 4px;
+  }
+  .meta-dot {
+    opacity: 0.5;
+  }
+
+  .author-avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* Body */
+  .post-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 80px 96px;
+  }
+
+  /* Prose styles — applied to rendered markdown */
+  .prose {
+    color: var(--text-dark);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  .prose :global(h2) {
+    font-size: clamp(22px, 2.5vw, 28px);
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-top: 48px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .prose :global(h3) {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-top: 36px;
+    margin-bottom: 12px;
+  }
+  .prose :global(p) {
+    margin-bottom: 20px;
+    color: var(--text-mid);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .prose :global(ul) {
+    list-style: disc;
+  }
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+  .prose :global(li) {
+    color: var(--text-mid);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .prose :global(strong) {
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .prose :global(em) {
+    font-style: italic;
+  }
+  .prose :global(a) {
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose :global(a:hover) {
+    color: var(--gold);
+  }
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--gold);
+    padding: 4px 20px;
+    margin: 24px 0;
+    color: var(--text-mid);
+    font-style: italic;
+  }
+  .prose :global(code) {
+    background: var(--lt-gray);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 14px;
+    font-family: monospace;
+  }
+  .prose :global(pre) {
+    background: var(--navy-dark);
+    color: #e6edf3;
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    font-size: 14px;
+    color: inherit;
+  }
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--lt-gray);
+    margin: 40px 0;
+  }
+  .prose :global(img) {
+    border-radius: 8px;
+    margin: 24px 0;
+  }
+
+  /* Tags */
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--lt-gray);
+  }
+
+  /* Footer */
+  .post-footer {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 960px) {
+    .post-hero {
+      padding: 56px 28px 48px;
+    }
+    .post-cover {
+      padding: 0 28px;
+    }
+    .post-body {
+      padding: 40px 28px 72px;
+    }
+  }
+</style>

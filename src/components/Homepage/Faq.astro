@@ -92,7 +92,7 @@ const faqs: FAQItem[] = [
   <!-- Right: accordion -->
   <div class="faq-list" id="faq-list">
     {
-      faqs.map(({ question, answer, isList, listItems, defaultOpen }, i) => (
+      faqs.map(({ question, answer, isList, listItems, defaultOpen }) => (
         <div class:list={["faq-item", { open: defaultOpen }]} data-faq-item>
           <button class="faq-q" aria-expanded={defaultOpen ? "true" : "false"}>
             <span>{question}</span>

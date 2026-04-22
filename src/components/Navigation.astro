@@ -1,15 +1,16 @@
 ---
 // src/components/Nav.astro
 interface Props {
-  activePage?: "home" | "academy" | "coaches";
+  activePage?: "home" | "academy" | "coaches" | "blog";
 }
 
 const { activePage = "home" } = Astro.props;
 
 const links = [
   { key: "home", href: "/", label: "Home" },
-  { key: "academy", href: "/academy", label: "Academy" },
+  { key: "academy", href: "/academy", label: "Youth Academy" },
   { key: "coaches", href: "/our-coaches", label: "Coaches" },
+  { key: "blogs", href: "/blogs", label: "Blogs" },
 ];
 ---
 
@@ -36,8 +37,22 @@ const links = [
         </li>
       ))
     }
-    <li>
-      <a href="/mens-team-application" class="nav-cta">Apply For Men's Squad</a>
+    <li class="nav-dropdown">
+      <button
+        class="nav-cta nav-dropdown-toggle"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        Apply Now <span class="nav-dropdown-arrow">▾</span>
+      </button>
+      <ul class="nav-dropdown-menu" role="menu">
+        <li role="none">
+          <a href="/mens-team-application" role="menuitem">Men's Squad</a>
+        </li>
+        <li role="none">
+          <a href="/academy/player-evaluation" role="menuitem">Youth Academy</a>
+        </li>
+      </ul>
     </li>
   </ul>
 
@@ -62,13 +77,39 @@ const links = [
       </a>
     ))
   }
-  <a href="/academy/player-evaluation">Request Evaluation</a>
-  <a href="/mens-team-application" class="drawer-cta">Apply for Men's Squad</a>
+  <a href="/mens-team-application" class="drawer-cta">Apply — Men's Squad</a>
+  <a href="/academy/player-evaluation" class="drawer-cta"
+    >Apply — Youth Academy</a
+  >
 </div>
 
 <script>
   const ham = document.getElementById("hamburger")!;
   const drawer = document.getElementById("drawer")!;
+
+  // Dropdown
+  const dropdownToggle = document.querySelector<HTMLButtonElement>(
+    ".nav-dropdown-toggle",
+  )!;
+  const dropdownMenu =
+    document.querySelector<HTMLElement>(".nav-dropdown-menu")!;
+
+  dropdownToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = dropdownToggle.getAttribute("aria-expanded") === "true";
+    dropdownToggle.setAttribute("aria-expanded", String(!isOpen));
+    dropdownMenu.classList.toggle("open", !isOpen);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      !dropdownToggle.contains(e.target as Node) &&
+      !dropdownMenu.contains(e.target as Node)
+    ) {
+      dropdownToggle.setAttribute("aria-expanded", "false");
+      dropdownMenu.classList.remove("open");
+    }
+  });
 
   ham.addEventListener("click", () => {
     const isOpen = ham.classList.toggle("open");
