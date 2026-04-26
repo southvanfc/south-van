@@ -1,0 +1,621 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Cta from "../../components/Cta.astro";
+
+const seo = {
+  title: "Youth Academy Pricing | South Van FC",
+  description:
+    "Year-round youth development academy for players aged U8–U18. Monthly pricing by age group. Same curriculum, same professional coaching — no long-term contract required.",
+  keywords:
+    "South Van FC pricing, youth academy cost Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 academy",
+  ogImage: "/og/og-default.png",
+};
+
+const tiers = [
+  {
+    age: "U8 – U10",
+    price: 100,
+    born: "Born 2016 – 2018",
+    focus: "Foundational technique, movement, and love for the game.",
+  },
+  {
+    age: "U11 – U13",
+    price: 125,
+    born: "Born 2013 – 2015",
+    focus: "Technical development, positional awareness, and decision-making.",
+  },
+  {
+    age: "U14 – U18",
+    price: 150,
+    born: "Born 2008 – 2012",
+    focus:
+      "Tactical sophistication, physical conditioning, and competitive preparation.",
+  },
+];
+
+const included = [
+  {
+    title: "Individual Development Plan",
+    body: "A personalised IDP is created for every player following an initial 1–3 session evaluation. Progress is reviewed and updated continuously.",
+  },
+  {
+    title: "4 Sessions / Month",
+    body: "Weekly professional coaching sessions applying our four-pillar curriculum — tailored to each player's development stage.",
+  },
+  {
+    title: "Year-Round Program",
+    body: "Training continues across all 12 months. No summer gaps, no off-season disruption to player development.",
+  },
+  {
+    title: "Professional Coaching",
+    body: "Our coaching staff brings professional playing and coaching backgrounds. A step above community-volunteer models.",
+  },
+  {
+    title: "Supplement Any Club",
+    body: "Players from any existing club are welcome. South Van FC academy is designed to run alongside your current team — not replace it.",
+  },
+];
+
+const comingSoon = [
+  {
+    title: "Performance Analytics",
+    body: "Individual performance data and session analytics to track player progress over time.",
+  },
+  {
+    title: "Enhanced Equipment",
+    body: "Investment in upgraded training equipment to support higher-quality sessions.",
+  },
+  {
+    title: "Youth Team",
+    body: "A youth team competing in youth league in Vancouver is currently in development — watch this space.",
+  },
+];
+---
+
+<BaseLayout seo={seo}>
+  <!-- Hero -->
+  <section class="pricing-hero">
+    <div class="field-pattern" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <nav class="crumb fu d1" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+        <a href="/academy">Youth Academy</a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+        <span class="crumb-cur">Pricing</span>
+      </nav>
+
+      <span class="eyebrow eyebrow-gold fu d1">2026 Program Pricing</span>
+      <h1 class="hero-title fu d2">
+        One Program.<br />
+        <em>Every Age.</em>
+      </h1>
+      <p class="hero-sub fu d3">
+        Every player gets the same curriculum, the same professional coaching,
+        and the same individual development plan. Pricing reflects age group
+        only.
+      </p>
+
+      <div class="hero-pills fu d4">
+        <span class="pill pill-white">Year-Round</span>
+        <span class="pill pill-white">No Long-Term Contract</span>
+        <span class="pill pill-white">Cancel with 30 Days Notice</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="included-section">
+    <div class="included-header">
+      <span class="eyebrow eyebrow-navy">What's Included</span>
+      <h2 class="section-title">Everything in<br />Every Plan</h2>
+    </div>
+    <div class="included-grid">
+      {
+        included.map((item) => (
+          <div class="included-card">
+            <div class="included-icon" aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="included-title">{item.title}</h3>
+              <p class="included-body">{item.body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="pricing-section">
+    <div class="pricing-header">
+      <span class="eyebrow eyebrow-navy">Monthly Pricing by Age Group</span>
+      <h2 class="section-title">Choose Your<br />Age Group</h2>
+      <p class="section-body pricing-note">
+        All age groups receive identical coaching, curriculum, and support. The
+        only difference is the group your player trains with.
+      </p>
+    </div>
+
+    <div class="tier-grid">
+      {
+        tiers.map((tier) => (
+          <div class="tier-card">
+            <p class="tier-age">{tier.age}</p>
+            <div class="tier-price">
+              <span class="tier-dollar">$</span>
+              <span class="tier-amount">{tier.price}</span>
+              <span class="tier-per">/ month</span>
+            </div>
+            <p class="tier-born">{tier.born}</p>
+            <p class="tier-focus">{tier.focus}</p>
+            <a
+              href="/academy/player-evaluation"
+              class="btn btn-outline-navy tier-cta"
+            >
+              Get Started
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="billing-note">
+      * Monthly billing. No long-term contract required. Cancel with 30 days
+      notice.
+    </p>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="coming-section">
+    <div class="coming-inner">
+      <div class="coming-header">
+        <span class="eyebrow eyebrow-gold"
+          >Coming Soon — Included at No Extra Cost</span
+        >
+        <h2 class="section-title section-title-white">
+          Invested in<br />Your Growth
+        </h2>
+        <p class="section-body section-body-white">
+          As part of our ongoing investment in the academy, the following will
+          be rolled out to all registered players at no additional charge.
+        </p>
+      </div>
+      <div class="coming-grid">
+        {
+          comingSoon.map((item) => (
+            <div class="coming-card">
+              <h3 class="coming-title">{item.title}</h3>
+              <p class="coming-body">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Cta
+    title="Ready to Get<br />Started?"
+    body="Players begin with a 1–3 session evaluation so we can build their Individual Development Plan. Reach out to register or ask any questions."
+    links={[
+      {
+        href: "/academy/player-evaluation",
+        label: "Request Player Evaluation",
+        style: "navy",
+      },
+      {
+        href: "mailto:southvanfc@gmail.com",
+        label: "Email Us",
+        style: "outline-navy",
+      },
+    ]}
+  />
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .pricing-hero {
+    background: var(--navy-dark);
+    padding: 96px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 32px;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .crumb-cur {
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(56px, 6vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.62);
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Pricing Section ── */
+  .pricing-section {
+    padding: 96px 80px;
+    background: var(--off-white);
+  }
+
+  .pricing-header {
+    max-width: 580px;
+    margin-bottom: 60px;
+  }
+
+  .pricing-note {
+    margin-top: 16px;
+    max-width: 520px;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .tier-card {
+    background: #fff;
+    border: 1.5px solid var(--lt-gray);
+    border-radius: 16px;
+    padding: 40px 36px 44px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  .tier-card:hover {
+    box-shadow: 0 8px 40px rgba(1, 52, 120, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .tier-age {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--lt-gray);
+  }
+  .tier-dollar {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-top: 6px;
+  }
+  .tier-amount {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -2px;
+  }
+  .tier-per {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-left: 4px;
+  }
+
+  .tier-born {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .tier-focus {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-mid);
+    flex: 1;
+    margin-bottom: 28px;
+  }
+
+  .tier-cta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .billing-note {
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* ── Included Section ── */
+  .included-section {
+    padding: 96px 80px;
+    background: #fff;
+  }
+
+  .included-header {
+    max-width: 480px;
+    margin-bottom: 60px;
+  }
+
+  .included-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--lt-gray);
+  }
+
+  .included-card {
+    background: #fff;
+    padding: 36px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .included-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--gold-pale);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+    border: 1.5px solid rgba(232, 180, 48, 0.3);
+  }
+
+  .included-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 8px;
+  }
+
+  .included-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  /* ── Coming Soon Section ── */
+  .coming-section {
+    background: var(--navy-dark);
+    padding: 96px 80px;
+    position: relative;
+  }
+
+  .coming-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .coming-header {
+    position: sticky;
+    top: 100px;
+  }
+
+  .coming-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .coming-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 28px 32px;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+  }
+  .coming-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(232, 180, 48, 0.3);
+  }
+
+  .coming-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .coming-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.54);
+  }
+
+  /* ── Club Kit Section ── */
+  .kit-section {
+    background: var(--lt-gray);
+    padding: 72px 80px;
+    border-top: 3px solid var(--mid-gray);
+  }
+
+  .kit-inner {
+    max-width: 720px;
+  }
+
+  .kit-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(32px, 3.5vw, 52px);
+    line-height: 0.96;
+    letter-spacing: 1px;
+    color: var(--navy-dark);
+    margin-bottom: 20px;
+    margin-top: 4px;
+  }
+
+  .kit-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-mid);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .pricing-hero {
+      padding: 64px 28px;
+    }
+    .pricing-section {
+      padding: 64px 28px;
+    }
+    .tier-grid {
+      grid-template-columns: 1fr;
+      max-width: 440px;
+    }
+    .included-section {
+      padding: 64px 28px;
+    }
+    .included-grid {
+      grid-template-columns: 1fr;
+    }
+    .coming-section {
+      padding: 64px 28px;
+    }
+    .coming-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .coming-header {
+      position: static;
+    }
+    .kit-section {
+      padding: 56px 28px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 52px;
+    }
+    .tier-amount {
+      font-size: 56px;
+    }
+    .included-card {
+      padding: 28px 24px;
+    }
+  }
+</style>
