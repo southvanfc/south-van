@@ -499,10 +499,10 @@ a { color: inherit; }
   font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
   text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
 }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; color: rgba(255,255,255,0.48); transition: color 0.2s; font-size: 14px;}
 .footer-links a {
-  text-decoration: none; font-size: 14px;
-  color: rgba(255,255,255,0.48); transition: color 0.2s;
+  text-decoration: none; 
+  
 }
 .footer-links a:hover { color: #fff; }
 .footer-bottom {

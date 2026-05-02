@@ -46,6 +46,33 @@ const sportsTeamSchema = {
   },
   sameAs: ["https://www.instagram.com/southvanfc"],
 };
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "SportsClub",
+  "@id": "https://www.southvanfc.com/#sportsclub",
+  name: "South Van FC",
+  url: "https://www.southvanfc.com",
+  email: "southvanfc@gmail.com",
+  description:
+    "Community-built football club in Vancouver with a technical-first youth soccer academy and competitive men's team.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "South Vancouver",
+    addressRegion: "BC",
+    addressCountry: "CA",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 49.2141,
+    longitude: -123.084,
+  },
+  areaServed: {
+    "@type": "Place",
+    name: "Lower Mainland, BC, Canada",
+  },
+  sameAs: ["https://www.instagram.com/southvanfc"],
+};
 ---
 
 <BaseLayout seo={seo}>
@@ -60,6 +87,12 @@ const sportsTeamSchema = {
     slot="head"
     type="application/ld+json"
     set:html={JSON.stringify(sportsTeamSchema)}
+  />
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
   />
   <Hero bannerImage={"/assets/white.png"} />
   <StatsBand stats={stats} />

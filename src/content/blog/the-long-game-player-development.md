@@ -1,6 +1,6 @@
 ---
 title: "The Long Game: What Real Youth Soccer Player Development Actually Looks Like"
-seoTitle: "What Real Youth Soccer Player Development Looks Like"
+seoTitle: "Real Youth Soccer Player Development | South Van FC"
 description: "Think youth soccer development means winning at age 10? South Van FC's Harjit Kainth explains the long-term approach that actually builds complete, confident players."
 pubDate: 2026-04-21T00:00:00-08:00
 author: "Harjit Kainth"
@@ -9,7 +9,7 @@ image: "/assets/gold.png"
 tags: ["Youth Development", "Coaching", "Football", "Player Development"]
 ---
 
-# The Long Game
+## The Long Game
 
 Ask any coach what they want for their players, and you'll hear the same things: more confidence, sharper technique, better decision-making on the ball. But ask those same coaches what they did at training last Tuesday, and you might get a shrug.
 
