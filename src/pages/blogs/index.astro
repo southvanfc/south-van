@@ -7,9 +7,9 @@ const posts = (await getCollection("blog")).sort(
 );
 
 const seo = {
-  title: "Blog | South Van FC",
+  title: "Soccer Blog Vancouver | Youth Development & Training Tips",
   description:
-    "News, insights, match recaps, and stories from inside South Van FC — Vancouver's community-built football club.",
+    "Soccer insights for Vancouver parents and players. Youth development tips, training advice, player stories, and club news from South Van FC's coaching team.",
   keywords: "South Van FC blog, Vancouver football news, soccer club updates",
   canonical: "/blogs",
 };
@@ -32,7 +32,9 @@ function readingTime(body: string) {
   <section class="blog-hero">
     <div class="blog-hero-inner">
       <span class="eyebrow eyebrow-gold">From the Club</span>
-      <h1 class="section-title section-title-white">Blogs</h1>
+      <h1 class="section-title section-title-white">
+        South Van FC Blog. Training Tips & Club News
+      </h1>
       <p class="section-body section-body-white">
         News, insights, and stories from inside South Van FC.
       </p>
@@ -70,7 +72,9 @@ function readingTime(body: string) {
                     <time datetime={post.data.pubDate.toISOString()}>
                       {formatDate(post.data.pubDate)}
                     </time>
-                    <span class="blog-card-read">{readingTime(post.body ?? "")}</span>
+                    <span class="blog-card-read">
+                      {readingTime(post.body ?? "")}
+                    </span>
                   </div>
                 </div>
               </div>

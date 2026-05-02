@@ -1,6 +1,7 @@
 ---
 title: "The Long Game: What Real Youth Soccer Player Development Actually Looks Like"
-description: "Real player development goes beyond drills. A breakdown of the four pillars South Van FC builds every program around: Technical, Tactical, Physical, and Mental."
+seoTitle: "What Real Youth Soccer Player Development Looks Like"
+description: "Think youth soccer development means winning at age 10? South Van FC's Harjit Kainth explains the long-term approach that actually builds complete, confident players."
 pubDate: 2026-04-21T00:00:00-08:00
 author: "Harjit Kainth"
 category: "Philosophy"

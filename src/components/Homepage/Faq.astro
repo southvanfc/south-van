@@ -68,7 +68,22 @@ const faqs: FAQItem[] = [
     ],
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ question, answer, isList, listItems }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: isList && listItems ? listItems.join(", ") : answer,
+    },
+  })),
+};
 ---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 <section class="faq">
   <!-- Left: intro -->

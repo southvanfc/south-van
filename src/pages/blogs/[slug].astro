@@ -13,7 +13,7 @@ if (!post) {
 const { Content } = await post.render();
 
 const seo = {
-  title: `${post.data.title} | South Van FC Blog`,
+  title: `${post.data.seoTitle} | South Van FC Blog`,
   description: post.data.description,
   ogType: "article" as const,
   ogImage: post.data.image ?? "/og/og-default.png",
@@ -35,7 +35,7 @@ const articleSchema = {
   description: post.data.description,
   datePublished: post.data.pubDate.toISOString(),
   author: {
-    "@type": "Organization",
+    "@type": "Person",
     name: post.data.author,
   },
 };

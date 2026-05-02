@@ -3,9 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Cta from "../../components/Cta.astro";
 
 const seo = {
-  title: "Youth Academy Pricing | South Van FC",
+  title: "Youth Soccer Academy Pricing in Vancouver | South Van FC",
   description:
-    "Year-round youth development academy for players aged U8–U18. Monthly pricing by age group. Same curriculum, same professional coaching — no long-term contract required.",
+    "Youth soccer academy training from $100/month in Vancouver. Programs for U8–U18 players. No long-term contracts — join any time and train at your level.",
   keywords:
     "South Van FC pricing, youth academy cost Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 academy",
   ogImage: "/og/og-default.png",
@@ -73,6 +73,48 @@ const comingSoon = [
 ---
 
 <BaseLayout seo={seo}>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "South Van FC Youth Academy Pricing",
+        url: "https://www.southvanfc.com/academy/pricing",
+        itemListElement: tiers.map((tier, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Product",
+            name: `South Van FC Youth Academy — ${tier.age}`,
+            description: tier.focus,
+            brand: { "@type": "Brand", name: "South Van FC" },
+            offers: {
+              "@type": "Offer",
+              url: "https://www.southvanfc.com/academy/pricing",
+              priceCurrency: "CAD",
+              price: tier.price,
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: tier.price,
+                priceCurrency: "CAD",
+                unitText: "month",
+                billingDuration: "P1M",
+              },
+              availability: "https://schema.org/InStock",
+              seller: {
+                "@type": "SportsOrganization",
+                name: "South Van FC",
+                url: "https://www.southvanfc.com",
+              },
+            },
+          },
+        })),
+      })}
+    />
+  </Fragment>
+
   <!-- Hero -->
   <section class="pricing-hero">
     <div class="field-pattern" aria-hidden="true"></div>
