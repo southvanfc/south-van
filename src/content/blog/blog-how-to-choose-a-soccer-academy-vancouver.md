@@ -34,7 +34,7 @@ When you're evaluating any Vancouver soccer academy, ask directly about coaching
 
 Licences are a starting point. Also ask whether the coaches have actually played at a high level. Someone who has been in the game reads situations differently, and that comes through when they're coaching your kid. The ratio matters too. Once you're past 1:10 in a technical session, your child is basically waiting their turn. Real feedback becomes the exception rather than the norm.
 
-At [South Van FC](https://southvanfc.com), our coaching staff hold Canada Soccer and UEFA licences and have played at senior competitive levels. Sessions are deliberately capped to protect that ratio. You can [meet our coaching team](https://southvanfc.com/our-coaches) to see exactly who will be working with your child.
+Sessions are deliberately capped to protect that ratio. You can [meet our coaching team](https://southvanfc.com/our-coaches) to see exactly who will be working with your child.
 
 ---
 
