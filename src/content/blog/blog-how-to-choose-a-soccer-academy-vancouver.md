@@ -6,7 +6,14 @@ pubDate: 2026-05-01T00:00:00-08:00
 author: "Harjit Kainth"
 category: "Academy"
 image: "/assets/gold.png"
-tags: ["Youth Development", "Soccer Academy", "Vancouver", "Coaching", "Player Development"]
+tags:
+  [
+    "Youth Development",
+    "Soccer Academy",
+    "Vancouver",
+    "Coaching",
+    "Player Development",
+  ]
 ---
 
 # How to Choose a Soccer Academy in Vancouver
@@ -23,7 +30,7 @@ Here are five things that actually matter when you're looking at youth soccer pr
 
 The single biggest factor in your child's development isn't the facility or the schedule. It's the coach standing in front of them every session.
 
-When you're evaluating any Vancouver soccer academy, ask directly about coaching qualifications. In Canada, look for Canada Soccer licensing: a National B Licence or higher for lead coaches, and at minimum a Regional C Licence for assistants. If a program can't answer this question clearly, that tells you something.
+When you're evaluating any Vancouver soccer academy, ask directly about coaching qualifications. If a program can't answer this question clearly, that tells you something.
 
 Licences are a starting point. Also ask whether the coaches have actually played at a high level. Someone who has been in the game reads situations differently, and that comes through when they're coaching your kid. The ratio matters too. Once you're past 1:10 in a technical session, your child is basically waiting their turn. Real feedback becomes the exception rather than the norm.
 
