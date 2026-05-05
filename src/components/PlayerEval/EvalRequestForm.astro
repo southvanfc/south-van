@@ -1,8 +1,14 @@
 ---
-// src/components/academy/EvaluationRequestForm.astro
-// All field names match submit-evaluation.ts exactly.
-// New fields: parent_name, program_interest, goals, referral
-// — add these 4 columns to your Google Sheet's "submission" tab.
+// src/components/PlayerEval/EvalRequestForm.astro
+// Field names match submit-evaluation.ts exactly.
+// Sections: Player Details | Playing Profile | Parent/Guardian | Player Background | Goals & Referral
+// Google Sheet columns (in order):
+// Timestamp | Full Name | DOB | Age Group | Current Club | Years Playing | School Grade |
+// Positions | Dominant Foot | Weekly Training Hours | Competition Level | Other Sports |
+// Parent Name | Parent Relationship | Parent Email | Parent Phone |
+// Previous Coaching | Injuries / Physical Notes | Player Strengths | Areas to Improve |
+// Response to Feedback | Motivation Drive | Handles Mistakes |
+// Long-term Ambition | Development Goals | Referral Source
 ---
 
 <!-- Honeypot — hidden from users, catches bots -->
@@ -22,7 +28,9 @@
       <span class="fsec-num">01</span>
       <div>
         <div class="fsec-label">Player Details</div>
-        <div class="fsec-hint">Tell us about the player being evaluated.</div>
+        <div class="fsec-hint">
+          Basic information about the player being evaluated.
+        </div>
       </div>
     </div>
     <div class="fgrid fgrid-2">
@@ -55,7 +63,6 @@
           <option value="u8-u11">U8 – U11</option>
           <option value="u11-u15">U11 – U15</option>
           <option value="u15-u18">U15 – U18</option>
-          <option value="adult">18+ (Adult)</option>
         </select>
       </div>
       <div class="f">
@@ -70,6 +77,45 @@
           placeholder="Leave blank if no club"
         />
       </div>
+      <div class="f">
+        <label class="f-label" for="years_playing"
+          >Years Playing Soccer <span class="f-req">*</span></label
+        >
+        <select
+          class="f-select"
+          id="years_playing"
+          name="years_playing"
+          required
+        >
+          <option value="" disabled selected>Select range</option>
+          <option value="less-than-1">Less than 1 year</option>
+          <option value="1-2">1 – 2 years</option>
+          <option value="3-5">3 – 5 years</option>
+          <option value="6-9">6 – 9 years</option>
+          <option value="10+">10+ years</option>
+        </select>
+      </div>
+      <div class="f">
+        <label class="f-label" for="school_grade"
+          >School Grade <span class="f-opt">Optional</span></label
+        >
+        <select class="f-select" id="school_grade" name="school_grade">
+          <option value="" disabled selected>Select grade</option>
+          <option value="k">Kindergarten</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+          <option value="5">Grade 5</option>
+          <option value="6">Grade 6</option>
+          <option value="7">Grade 7</option>
+          <option value="8">Grade 8</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -79,7 +125,9 @@
       <span class="fsec-num">02</span>
       <div>
         <div class="fsec-label">Playing Profile</div>
-        <div class="fsec-hint">Positions and technical details.</div>
+        <div class="fsec-hint">
+          Positions, technical details, and current training load.
+        </div>
       </div>
     </div>
     <div class="fgrid fgrid-1">
@@ -146,83 +194,93 @@
         </div>
       </div>
 
-      <!-- Program interest -->
+      <!-- Weekly training hours -->
       <div class="f">
-        <label class="f-label"
-          >Interested Programs <span class="f-opt">Optional</span></label
+        <label class="f-label" for="training_hours"
+          >Weekly Training Hours <span class="f-req">*</span></label
         >
-        <p class="f-hint">Select programs you'd like to be considered for.</p>
-        <div class="check-list">
-          {
-            [
-              "Technical & Movement Fundamentals",
-              "Game Development & Intelligence",
-              "High-Performance Pathway & Exposure",
-              "Match Observation & In-Game Evaluation",
-              "Individual Video Analysis",
-            ].map((prog) => (
-              <label class="check-row">
-                <input type="checkbox" name="program_interest" value={prog} />
-                <span class="check-box">
-                  <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3.5"
-                    stroke-linecap="round"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                </span>
-                <span class="check-lbl">{prog}</span>
-              </label>
-            ))
-          }
-        </div>
+        <p class="f-hint">
+          Outside of school PE — include all club sessions, personal training,
+          and pickup.
+        </p>
+        <select
+          class="f-select"
+          id="training_hours"
+          name="training_hours"
+          required
+        >
+          <option value="" disabled selected>Select range</option>
+          <option value="less-than-2">Less than 2 hours</option>
+          <option value="2-4">2 – 4 hours</option>
+          <option value="4-6">4 – 6 hours</option>
+          <option value="6-8">6 – 8 hours</option>
+          <option value="8+">8+ hours</option>
+        </select>
+      </div>
+
+      <!-- Competition level -->
+      <div class="f">
+        <label class="f-label" for="competition_level"
+          >Current Competition Level <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          Select the highest level this player currently competes at in
+          Vancouver / Lower Mainland.
+        </p>
+        <select
+          class="f-select"
+          id="competition_level"
+          name="competition_level"
+          required
+        >
+          <option value="" disabled selected>Select level</option>
+          <option value="bcspl">BCSPL (BC Soccer Premier League)</option>
+          <option value="metro">Metro</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+          <option value="recreational">Recreational / House League</option>
+          <option value="school-only">School team only</option>
+          <option value="no-team">Not currently on a team</option>
+        </select>
+      </div>
+
+      <!-- Other sports -->
+      <div class="f">
+        <label class="f-label" for="other_sports"
+          >Other Sports Currently Played <span class="f-opt">Optional</span
+          ></label
+        >
+        <p class="f-hint">
+          List any other sports the player actively trains or competes in.
+        </p>
+        <input
+          class="f-input"
+          id="other_sports"
+          name="other_sports"
+          type="text"
+          placeholder="e.g. Basketball, ice hockey, swimming"
+        />
       </div>
     </div>
   </div>
 
-  <!-- ── 03 CONTACT ─────────────────────────── -->
+  <!-- ── 03 PARENT / GUARDIAN ───────────────── -->
   <div class="fsec">
     <div class="fsec-head">
       <span class="fsec-num">03</span>
       <div>
-        <div class="fsec-label">Contact Information</div>
-        <div class="fsec-hint">How we'll reach you after the evaluation.</div>
+        <div class="fsec-label">Parent / Guardian</div>
+        <div class="fsec-hint">
+          Required for all players under 18. This is our primary contact for
+          scheduling and updates.
+        </div>
       </div>
     </div>
     <div class="fgrid fgrid-2">
       <div class="f">
-        <label class="f-label" for="email"
-          >Email Address <span class="f-req">*</span></label
-        >
-        <input
-          class="f-input"
-          id="email"
-          name="email"
-          type="email"
-          placeholder="your@email.com"
-          required
-        />
-      </div>
-      <div class="f">
-        <label class="f-label" for="phone"
-          >Phone Number <span class="f-opt">Optional</span></label
-        >
-        <input
-          class="f-input"
-          id="phone"
-          name="phone"
-          type="tel"
-          placeholder="+1 (604) 000-0000"
-        />
-      </div>
-      <div class="f f-full">
         <label class="f-label" for="parent_name"
-          >Parent / Guardian Name <span class="f-opt">If under 18</span></label
+          >Full Name <span class="f-req">*</span></label
         >
         <input
           class="f-input"
@@ -230,37 +288,294 @@
           name="parent_name"
           type="text"
           placeholder="Parent or guardian full name"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="parent_relationship"
+          >Relationship to Player <span class="f-req">*</span></label
+        >
+        <select
+          class="f-select"
+          id="parent_relationship"
+          name="parent_relationship"
+          required
+        >
+          <option value="" disabled selected>Select relationship</option>
+          <option value="mother">Mother</option>
+          <option value="father">Father</option>
+          <option value="guardian">Legal Guardian</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="f">
+        <label class="f-label" for="parent_email"
+          >Email Address <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="parent_email"
+          name="parent_email"
+          type="email"
+          placeholder="parent@email.com"
+          required
+        />
+      </div>
+      <div class="f">
+        <label class="f-label" for="parent_phone"
+          >Phone Number <span class="f-req">*</span></label
+        >
+        <input
+          class="f-input"
+          id="parent_phone"
+          name="parent_phone"
+          type="tel"
+          placeholder="+1 (604) 000-0000"
+          required
         />
       </div>
     </div>
   </div>
 
-  <!-- ── 04 GOALS & BACKGROUND ─────────────── -->
+  <!-- ── 04 PLAYER BACKGROUND ──────────────── -->
   <div class="fsec">
     <div class="fsec-head">
       <span class="fsec-num">04</span>
       <div>
-        <div class="fsec-label">Goals &amp; Background</div>
-        <div class="fsec-hint">Help us understand what you're looking for.</div>
+        <div class="fsec-label">Player Background</div>
+        <div class="fsec-hint">
+          Helps us tailor every session to where the player is right now.
+        </div>
       </div>
     </div>
     <div class="fgrid fgrid-1">
+      <!-- Previous coaching -->
+      <div class="f">
+        <label class="f-label"
+          >Previous Structured Coaching <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          Has the player received coaching outside of school or recreational
+          leagues?
+        </p>
+        <div class="foot-row">
+          {
+            [
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ].map(({ value, label }) => (
+              <label class="rtile">
+                <input
+                  type="radio"
+                  name="previous_coaching"
+                  value={value}
+                  required
+                />
+                <span class="rtile-lbl">{label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Injuries / physical notes -->
+      <div class="f">
+        <label class="f-label" for="injuries"
+          >Injuries or Physical Considerations <span class="f-opt"
+            >Recommended</span
+          ></label
+        >
+        <p class="f-hint">
+          Any current or recurring injuries, physical limitations, or medical
+          notes our coaches should know about.
+        </p>
+        <textarea
+          class="f-textarea"
+          id="injuries"
+          name="injuries"
+          rows="3"
+          placeholder="e.g. Recovering from a sprained ankle. No contact drills for 4 weeks..."
+        ></textarea>
+      </div>
+
+      <!-- Player strengths -->
+      <div class="f">
+        <label class="f-label" for="player_strengths"
+          >Player Strengths <span class="f-opt">Recommended</span></label
+        >
+        <p class="f-hint">What does this player do well on the pitch?</p>
+        <textarea
+          class="f-textarea"
+          id="player_strengths"
+          name="player_strengths"
+          rows="3"
+          placeholder="e.g. Strong in the air, good first touch, reads the game well under pressure..."
+        ></textarea>
+      </div>
+
+      <!-- Areas to improve -->
+      <div class="f">
+        <label class="f-label" for="areas_to_improve"
+          >Areas to Improve <span class="f-opt">Recommended</span></label
+        >
+        <p class="f-hint">
+          Where does the player feel they need the most development?
+        </p>
+        <textarea
+          class="f-textarea"
+          id="areas_to_improve"
+          name="areas_to_improve"
+          rows="3"
+          placeholder="e.g. Weak foot, defensive positioning, decision-making in tight spaces..."
+        ></textarea>
+      </div>
+
+      <!-- Response to feedback -->
+      <div class="f">
+        <label class="f-label" for="response_to_feedback"
+          >Response to Coaching Feedback <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          How does this player typically respond when a coach corrects them
+          during training?
+        </p>
+        <select
+          class="f-select"
+          id="response_to_feedback"
+          name="response_to_feedback"
+          required
+        >
+          <option value="" disabled selected>Select an option</option>
+          <option value="adjusts-immediately"
+            >Adjusts immediately and tries again</option
+          >
+          <option value="needs-moment"
+            >Takes a moment to process, then responds positively</option
+          >
+          <option value="sometimes-pushback"
+            >Sometimes questions or pushes back</option
+          >
+          <option value="gets-frustrated"
+            >Tends to get frustrated or withdraw</option
+          >
+        </select>
+      </div>
+
+      <!-- Motivation / drive -->
+      <div class="f">
+        <label class="f-label" for="motivation_drive"
+          >Motivation to Improve <span class="f-req">*</span></label
+        >
+        <p class="f-hint">What best describes what drives this player?</p>
+        <select
+          class="f-select"
+          id="motivation_drive"
+          name="motivation_drive"
+          required
+        >
+          <option value="" disabled selected>Select an option</option>
+          <option value="self-driven"
+            >Highly self-motivated — pushes themselves without prompting</option
+          >
+          <option value="coach-driven"
+            >Responds well when challenged by coaches</option
+          >
+          <option value="competition-driven"
+            >Motivated by games and competition</option
+          >
+          <option value="needs-encouragement"
+            >Needs consistent encouragement to stay focused</option
+          >
+        </select>
+      </div>
+
+      <!-- Handles mistakes -->
+      <div class="f">
+        <label class="f-label" for="handles_mistakes"
+          >Handling Mistakes <span class="f-req">*</span></label
+        >
+        <p class="f-hint">
+          How does this player typically respond to making mistakes in training
+          or games?
+        </p>
+        <select
+          class="f-select"
+          id="handles_mistakes"
+          name="handles_mistakes"
+          required
+        >
+          <option value="" disabled selected>Select an option</option>
+          <option value="bounces-back"
+            >Bounces back quickly and refocuses</option
+          >
+          <option value="brief-frustration"
+            >Brief frustration, then moves on</option
+          >
+          <option value="lingers">Lingers on mistakes and loses focus</option>
+          <option value="shuts-down"
+            >Shuts down or becomes visibly upset</option
+          >
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 05 GOALS & REFERRAL ────────────────── -->
+  <div class="fsec">
+    <div class="fsec-head">
+      <span class="fsec-num">05</span>
+      <div>
+        <div class="fsec-label">Goals &amp; Ambitions</div>
+        <div class="fsec-hint">Tell us where this player wants to go.</div>
+      </div>
+    </div>
+    <div class="fgrid fgrid-1">
+      <!-- Long-term ambition -->
+      <div class="f">
+        <label class="f-label" for="long_term_goal"
+          >Long-term Football Ambition <span class="f-req">*</span></label
+        >
+        <select
+          class="f-select"
+          id="long_term_goal"
+          name="long_term_goal"
+          required
+        >
+          <option value="" disabled selected>Select an option</option>
+          <option value="recreational"
+            >Recreational — play for fun and fitness</option
+          >
+          <option value="local-competitive"
+            >Local competitive — play at a strong club level</option
+          >
+          <option value="provincial"
+            >Provincial — represent BC or compete provincially</option
+          >
+          <option value="national">National — national team pathway</option>
+          <option value="professional"
+            >Professional / semi-professional pathway</option
+          >
+        </select>
+      </div>
+
+      <!-- Development goals -->
       <div class="f">
         <label class="f-label" for="goals"
           >Development Goals <span class="f-opt">Recommended</span></label
         >
         <p class="f-hint">
-          What does the player want to improve? What are their football
-          ambitions?
+          What does the player want to achieve in the next 6 – 12 months?
         </p>
         <textarea
           class="f-textarea"
           id="goals"
           name="goals"
           rows="4"
-          placeholder="e.g. Improve first touch and defensive positioning. Long-term goal is to compete at the provincial level..."
+          placeholder="e.g. Earn a spot on a competitive U14 team by summer. Work on consistency when receiving under pressure..."
         ></textarea>
       </div>
+
+      <!-- Referral -->
       <div class="f">
         <label class="f-label" for="referral"
           >How did you hear about us? <span class="f-opt">Optional</span></label
@@ -296,8 +611,10 @@
         fill="none"
         stroke="currentColor"
         stroke-width="2.5"
-        stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        stroke-linecap="round"
       >
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
     </button>
   </div>
 </form>
@@ -435,7 +752,7 @@
   }
   .f-textarea {
     resize: vertical;
-    min-height: 104px;
+    min-height: 88px;
     line-height: 1.6;
   }
 
@@ -509,7 +826,7 @@
     opacity: 1;
   }
 
-  /* ── Foot radio tiles ── */
+  /* ── Foot / yes-no radio tiles ── */
   .foot-row {
     display: flex;
     gap: 8px;
@@ -551,68 +868,6 @@
   }
   .rtile:has(input:checked) .rtile-lbl {
     color: #013478;
-  }
-
-  /* ── Program check rows ── */
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  .check-row {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 11px 14px;
-    border: 1.5px solid #d0d5e8;
-    border-radius: 8px;
-    cursor: pointer;
-    background: #fff;
-    transition:
-      border-color 0.2s,
-      background 0.2s;
-    user-select: none;
-  }
-  .check-row:hover {
-    border-color: #013478;
-    background: #f7f8fc;
-  }
-  .check-row:has(input:checked) {
-    border-color: #013478;
-    background: rgba(1, 52, 120, 0.04);
-  }
-  .check-row input {
-    display: none;
-  }
-  .check-box {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    border: 1.5px solid #d0d5e8;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: transparent;
-    background: #fff;
-    transition:
-      background 0.2s,
-      border-color 0.2s,
-      color 0.2s;
-  }
-  .check-row:has(input:checked) .check-box {
-    background: #013478;
-    border-color: #013478;
-    color: #fff;
-  }
-  .check-lbl {
-    font-size: 13px;
-    color: #3d4d6e;
-  }
-  .check-row:has(input:checked) .check-lbl {
-    color: #013478;
-    font-weight: 500;
   }
 
   /* ── Submit strip ── */

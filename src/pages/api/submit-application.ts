@@ -1,59 +1,9 @@
 import type { APIRoute } from "astro";
-import { getVercelOidcToken } from "@vercel/oidc";
-
-const SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
-
-function env(name: string): string {
-  const v = import.meta.env[name] ?? process.env[name];
-  if (!v) throw new Error(`Missing env var: ${name}`);
-  return v;
-}
+import { supabase } from "../../lib/supabase";
+import type { MensApplicationInsert } from "../../types/types";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // 1) Get Vercel OIDC token
-    const vercelOidcJwt = await getVercelOidcToken();
-
-    // 2) Exchange with Google STS (WIF)
-    const audience =
-      `//iam.googleapis.com/projects/${env("GCP_PROJECT_NUMBER")}` +
-      `/locations/global/workloadIdentityPools/${env("GCP_WORKLOAD_IDENTITY_POOL_ID")}` +
-      `/providers/${env("GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID")}`;
-
-    const stsRes = await fetch("https://sts.googleapis.com/v1/token", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        grant_type:            "urn:ietf:params:oauth:grant-type:token-exchange",
-        requested_token_type:  "urn:ietf:params:oauth:token-type:access_token",
-        subject_token_type:    "urn:ietf:params:oauth:token-type:jwt",
-        subject_token:         vercelOidcJwt,
-        audience,
-        scope: "https://www.googleapis.com/auth/cloud-platform",
-      }),
-    });
-
-    if (!stsRes.ok) return new Response(await stsRes.text(), { status: 500 });
-    const { access_token: federatedAccessToken } = await stsRes.json();
-
-    // 3) Impersonate service account to get Sheets-scoped token
-    const iamRes = await fetch(
-      `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${encodeURIComponent(
-        env("GCP_SERVICE_ACCOUNT_EMAIL")
-      )}:generateAccessToken`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${federatedAccessToken}`,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ scope: SHEETS_SCOPES, lifetime: "3600s" }),
-      }
-    );
-
-    if (!iamRes.ok) return new Response(await iamRes.text(), { status: 500 });
-    const { accessToken } = await iamRes.json();
-
     // 4) Read form fields
     const form = await request.formData();
 
@@ -85,44 +35,30 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // 5) Append to Google Sheets
-    // Sheet tab: "mens-application"
-    // Columns:   Timestamp | Full Name | Email | Phone | DOB | Position(s) |
-    //            Preferred Foot | Current/Prev Club | League Experience |
-    //            Availability | Season Commitment | Why South Van FC | Referral
-    const createdAt = new Date().toISOString();
-    const TAB_NAME  = "mens-application";
-    const range     = `${TAB_NAME}!A:Z`;
-    const appendUrl =
-      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(env("GOOGLE_SHEET_ID"))}` +
-      `/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+    // 5) Insert into Supabase
+    const payload: MensApplicationInsert = {
+      full_name:          fullName,
+      email,
+      phone,
+      dob,
+      positions,
+      preferred_foot:     preferredFoot || undefined,
+      current_club:       currentClub || undefined,
+      league_experience:  leagueExperience,
+      availability,
+      season_commitment:  seasonCommitment,
+      why_south_van:      whySouthVan,
+      referral:           referral || undefined,
+    };
 
-    const sheetsRes = await fetch(appendUrl, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        values: [[
-          createdAt,
-          fullName,
-          email,
-          phone,
-          dob,
-          positions,
-          preferredFoot,
-          currentClub,
-          leagueExperience,
-          availability,
-          seasonCommitment,
-          whySouthVan,
-          referral,
-        ]],
-      }),
-    });
+    const { error } = await supabase.from("mens_applications").insert(payload);
 
-    if (!sheetsRes.ok) return new Response(await sheetsRes.text(), { status: 500 });
+    if (error) {
+      return new Response(
+        JSON.stringify({ ok: false, error: error.message }),
+        { status: 500, headers: { "content-type": "application/json" } }
+      );
+    }
 
     return new Response(null, { status: 303, headers: { Location: "/success" } });
 

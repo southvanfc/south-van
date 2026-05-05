@@ -70,3 +70,46 @@ export interface SEO {
   keywords?: string;
   author?: string;
 }
+
+export interface PlayerEvaluationInsert {
+  full_name:            string;
+  dob:                  string;
+  age_group:            string;
+  current_club?:        string;
+  years_playing:        string;
+  school_grade?:        string;
+  positions:            string;
+  dominant_foot:        string;
+  training_hours:       string;
+  competition_level:    string;
+  other_sports?:        string;
+  parent_name:          string;
+  parent_relationship:  string;
+  parent_email:         string;
+  parent_phone:         string;
+  previous_coaching:    string;
+  injuries?:            string;
+  player_strengths?:    string;
+  areas_to_improve?:    string;
+  response_to_feedback: string;
+  motivation_drive:     string;
+  handles_mistakes:     string;
+  long_term_goal:       string;
+  goals?:               string;
+  referral?:            string;
+}
+
+export interface MensApplicationInsert {
+  full_name:          string;
+  email:              string;
+  phone:              string;
+  dob:                string;
+  positions:          string;
+  preferred_foot?:    string;
+  current_club?:      string;
+  league_experience:  string;
+  availability:       string;
+  season_commitment:  string;
+  why_south_van:      string;
+  referral?:          string;
+}
