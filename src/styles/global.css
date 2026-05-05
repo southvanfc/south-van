@@ -495,6 +495,9 @@ a { color: inherit; }
   font-size: 20px; letter-spacing: 2.5px; color: #fff;
 }
 .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.7; }
+.footer-social { display: flex; gap: 14px; margin-top: 16px; }
+.footer-social a { color: rgba(255,255,255,0.48); transition: color 0.2s; display: flex; align-items: center; }
+.footer-social a:hover { color: #fff; }
 .footer-col-title {
   font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
   text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
