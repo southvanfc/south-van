@@ -26,3 +26,6 @@ pnpm-debug.log*
 # Claude
 .claude/
 claude/
+
+#Vercel
+.Vercel
