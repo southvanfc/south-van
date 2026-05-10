@@ -32,6 +32,77 @@ const breadcrumbSchema = {
     },
   ],
 };
+
+const coachSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.southvanfc.com/our-coaches/#harjit-kainth",
+    name: "Harjit Kainth",
+    jobTitle: "Head Coach",
+    worksFor: {
+      "@type": "SportsClub",
+      "@id": "https://www.southvanfc.com/#sportsclub",
+      name: "South Van FC",
+    },
+    url: "https://www.southvanfc.com/our-coaches",
+    description:
+      "Head Coach at South Van FC. Elite youth pathway background including TSS Academy, Vancouver Selects, and Coastal BC Super Y League. International experience in Salzburg and with Dynamo Kyiv Youth Academy. Pursuing Canada Soccer C Diploma.",
+    knowsAbout: [
+      "Soccer Coaching",
+      "Youth Player Development",
+      "Tactical Training",
+      "Technical Training",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.southvanfc.com/our-coaches/#dipinder-kainth",
+    name: "Dipinder Kainth",
+    jobTitle: "Men's Team Coach",
+    worksFor: {
+      "@type": "SportsClub",
+      "@id": "https://www.southvanfc.com/#sportsclub",
+      name: "South Van FC",
+    },
+    url: "https://www.southvanfc.com/our-coaches",
+    description:
+      "Men's Team Coach at South Van FC. VMSL competitive playing background. Pursuing Canada Soccer C Diploma.",
+    knowsAbout: [
+      "Soccer Coaching",
+      "Men's Football",
+      "Skill Development",
+      "Leadership",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.southvanfc.com/our-coaches/#shanil-sharma",
+    name: "Shanil Sharma",
+    jobTitle: "Strength & Conditioning Coach",
+    worksFor: {
+      "@type": "SportsClub",
+      "@id": "https://www.southvanfc.com/#sportsclub",
+      name: "South Van FC",
+    },
+    url: "https://www.southvanfc.com/our-coaches",
+    description:
+      "Strength and Conditioning Coach at South Van FC. UBC Kinesiology graduate specializing in strength, conditioning, and injury rehabilitation. Member of the National Coaching Certification Program.",
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of British Columbia",
+    },
+    knowsAbout: [
+      "Strength and Conditioning",
+      "Kinesiology",
+      "Injury Rehabilitation",
+      "Plyometrics",
+      "Sports Science",
+    ],
+  },
+];
 ---
 
 <BaseLayout seo={seo}>
@@ -41,6 +112,16 @@ const breadcrumbSchema = {
     type="application/ld+json"
     set:html={JSON.stringify(breadcrumbSchema)}
   />
+  {
+    coachSchemas.map((schema) => (
+      <script
+        is:inline
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify(schema)}
+      />
+    ))
+  }
   <CoachesHero />
   <CoachGrid />
   <CoachPhilosophy />

@@ -1,0 +1,316 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const seo = {
+  title: "Page Not Found | South Van FC",
+  description: "The page you're looking for doesn't exist. Head back to South Van FC to explore our youth academy, coaching staff, and more.",
+  robots: "noindex,follow",
+};
+---
+
+<BaseLayout seo={seo}>
+  <section class="not-found-hero">
+    <div class="field-pattern" aria-hidden="true"></div>
+    <div class="accent-bar" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <span class="error-code" aria-hidden="true">404</span>
+      <span class="eyebrow">Page Not Found</span>
+      <h1 class="hero-title">
+        Wrong<br /><em>Pitch.</em>
+      </h1>
+      <p class="hero-body">
+        The page you're looking for doesn't exist or may have moved. Let's get you back on the right field.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/" class="btn btn-gold">Go Home</a>
+        <a href="/academy" class="btn btn-outline">View Academy</a>
+      </div>
+    </div>
+
+    <div class="hero-stripe" aria-hidden="true"></div>
+  </section>
+
+  <section class="explore">
+    <div class="explore-inner">
+      <div class="explore-label">Explore South Van FC</div>
+      <div class="explore-grid">
+        <a href="/academy" class="explore-card">
+          <div class="ec-text">
+            <div class="ec-title">Development Academy</div>
+            <p class="ec-body">Youth programs, evaluations, and development pathways across all age groups.</p>
+          </div>
+          <svg class="ec-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+
+        <a href="/blogs" class="explore-card">
+          <div class="ec-text">
+            <div class="ec-title">Blog</div>
+            <p class="ec-body">Training tips, club news, and development insights from our coaching staff.</p>
+          </div>
+          <svg class="ec-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+
+        <a href="/our-coaches" class="explore-card">
+          <div class="ec-text">
+            <div class="ec-title">Coaching Staff</div>
+            <p class="ec-body">Meet the people behind South Van FC's technical development programs.</p>
+          </div>
+          <svg class="ec-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found-hero {
+    background: #011f4a;
+    padding: 96px 80px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.02) 59px,
+        rgba(255, 255, 255, 0.02) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.02) 59px,
+        rgba(255, 255, 255, 0.02) 60px
+      );
+  }
+
+  .accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #e8b430 0%, rgba(232, 180, 48, 0) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .error-code {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 120px;
+    line-height: 1;
+    color: rgba(232, 180, 48, 0.12);
+    letter-spacing: 4px;
+    margin-bottom: -16px;
+    display: block;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: #e8b430;
+    display: block;
+    -webkit-text-stroke: 1px #e8b430;
+  }
+
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 440px;
+    border-left: 2px solid rgba(232, 180, 48, 0.35);
+    padding-left: 20px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .btn-gold {
+    background: #e8b430;
+    color: #011f4a;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-outline:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+  }
+
+  .hero-stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      #e8b430 0,
+      #e8b430 40px,
+      transparent 40px,
+      transparent 48px
+    );
+    position: relative;
+    z-index: 2;
+  }
+
+  .explore {
+    background: #f7f8fc;
+    padding: 56px 80px;
+    border-bottom: 1px solid #eef0f7;
+  }
+
+  .explore-inner {
+    max-width: 1100px;
+  }
+
+  .explore-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    margin-bottom: 20px;
+  }
+
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .explore-card {
+    background: #fff;
+    border: 1px solid #eef0f7;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+
+  .explore-card:hover {
+    border-color: #013478;
+    box-shadow: 0 4px 24px rgba(1, 52, 120, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .ec-text {
+    flex: 1;
+  }
+
+  .ec-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #011f4a;
+    margin-bottom: 6px;
+  }
+
+  .ec-body {
+    font-size: 12px;
+    color: #6b7a9e;
+    line-height: 1.6;
+  }
+
+  .ec-arrow {
+    color: #d0d5e8;
+    flex-shrink: 0;
+    margin-top: 3px;
+    transition:
+      color 0.2s,
+      transform 0.2s;
+  }
+
+  .explore-card:hover .ec-arrow {
+    color: #013478;
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 960px) {
+    .not-found-hero {
+      padding: 72px 28px 0;
+      min-height: auto;
+    }
+
+    .error-code {
+      font-size: 80px;
+    }
+
+    .explore {
+      padding: 44px 28px;
+    }
+
+    .explore-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .explore-card {
+      padding: 20px;
+    }
+  }
+</style>
