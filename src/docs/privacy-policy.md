@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **South Van FC Youth Academy**
-**Last Updated: April 11, 2026**
+**Last Updated: May 11, 2026**
 
 ---
 
@@ -9,7 +9,7 @@
 
 South Van FC Youth Academy ("South Van FC", "we", "us", or "our") is committed to protecting the privacy and personal information of everyone who interacts with our website at [www.southvanfc.com](https://www.southvanfc.com), including players, parents, guardians, and prospective members.
 
-This Privacy Policy explains what personal information we collect, how we use it, who we share it with, and what rights you have regarding your data. It applies to information collected through our website's forms and any related services.
+This Privacy Policy explains what personal information we collect, how we use it, who we share it with, and what rights you have regarding your data. It applies to information collected through our website's forms, email subscription, and any related services.
 
 We operate in accordance with Canada's *Personal Information Protection and Electronic Documents Act* (PIPEDA) and British Columbia's *Personal Information Protection Act* (PIPA).
 
@@ -49,6 +49,14 @@ When you submit an application to join our men's team, we may collect:
 - A personal statement about why you want to join South Van FC
 - How you heard about us (optional)
 
+### Email Newsletter Subscription
+
+When you subscribe to our email list through the website, we collect:
+
+- Email address (required)
+- Name (optional)
+- The page or section where you signed up (e.g., homepage, footer, popup — used internally to understand where signups originate)
+
 ### Website Usage Data
 
 We also automatically collect certain non-personal information when you visit our website, including:
@@ -66,6 +74,7 @@ We use the personal information we collect for the following purposes:
 - **To process applications and evaluation requests** — reviewing submissions and following up with players or parents/guardians
 - **To communicate with you** — responding to your inquiry, scheduling evaluations, or providing information about programs
 - **To manage our programs** — organizing tryouts, evaluations, and player development activities
+- **To send you club updates and communications** — if you subscribe to our email list, we may send you news, program updates, and promotional content about South Van FC
 - **To improve our website and services** — using aggregated analytics data to understand how visitors use our site
 
 We will not use your personal information for purposes other than those listed above without your consent.
@@ -86,6 +95,8 @@ South Van FC provides programs for youth players, including children under the a
 
 Form submissions are securely transmitted and stored in **Google Sheets** via Google Cloud Platform (GCP), using encrypted connections and secure authentication protocols (Workload Identity Federation).
 
+Email subscriber data is stored in **Supabase**, a secure cloud database platform. Supabase stores data within secure, encrypted infrastructure.
+
 Our website is hosted and deployed through **Vercel**, a cloud platform that maintains industry-standard security practices.
 
 We retain your information only as long as necessary to fulfill the purposes outlined in this policy, or as required by law. If you would like your data removed, please contact us (see Section 9).
@@ -102,6 +113,7 @@ We use the following third-party services that may collect or process data on ou
 | **Vercel** | Website hosting and deployment | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
 | **Vercel Analytics** | Aggregate, anonymized website traffic analysis | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
 | **Vercel Speed Insights** | Aggregate website performance monitoring | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Supabase** | Secure storage of email subscriber data | [Supabase Privacy Policy](https://supabase.com/privacy) |
 
 We do not use advertising networks, Facebook Pixel, Google Ads tracking, or any other third-party marketing trackers.
 
@@ -134,6 +146,7 @@ Under PIPEDA and BC PIPA, you have the right to:
 - **Correct** any inaccurate or incomplete information
 - **Withdraw consent** to our use of your personal information (subject to legal or contractual obligations)
 - **Request deletion** of your personal information, where applicable
+- **Unsubscribe** from email communications at any time by emailing **southvanfc@gmail.com** with "Unsubscribe" in the subject line
 
 To exercise any of these rights, please contact us at **southvanfc@gmail.com**. We will respond to your request within 30 days.
 

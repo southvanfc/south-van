@@ -1,7 +1,7 @@
 # Terms and Conditions
 
 **South Van FC Youth Academy**
-**Last Updated: April 11, 2026**
+**Last Updated: May 11, 2026**
 
 ---
 
@@ -108,25 +108,33 @@ Your use of our website and submission of personal information is governed by ou
 
 ---
 
-## 13. Third-Party Links
+## 13. Email Communications
+
+You may subscribe to receive email updates from South Van FC, including club news, program announcements, and promotional content. Subscribing is entirely voluntary.
+
+By subscribing, you consent to receiving occasional emails from South Van FC. You may unsubscribe at any time by emailing **southvanfc@gmail.com** with "Unsubscribe" in the subject line. We will process your request promptly. We do not sell or share your email address with third parties for marketing purposes.
+
+---
+
+## 14. Third-Party Links
 
 Our website may contain links to third-party websites (such as social media platforms). These links are provided for convenience only. South Van FC is not responsible for the content, accuracy, or privacy practices of any third-party websites.
 
 ---
 
-## 14. Modifications to These Terms
+## 15. Modifications to These Terms
 
 We reserve the right to update or modify these Terms at any time. Changes will be effective upon posting to the website with a revised "Last Updated" date. Continued use of our website or services after any changes constitutes your acceptance of the updated Terms.
 
 ---
 
-## 15. Governing Law
+## 16. Governing Law
 
 These Terms are governed by and interpreted in accordance with the laws of the Province of British Columbia and the federal laws of Canada applicable therein, without regard to conflict of law principles. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts of British Columbia.
 
 ---
 
-## 16. Contact Us
+## 17. Contact Us
 
 If you have any questions about these Terms and Conditions, please contact us:
 
