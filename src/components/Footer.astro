@@ -1,5 +1,7 @@
 ---
 // src/components/Footer.astro
+import SubscribeForm from "./SubscribeForm.astro";
+
 const quickLinks = [
   { href: "/", label: "Home" },
   { href: "/academy", label: "Youth Academy" },
@@ -9,6 +11,18 @@ const quickLinks = [
   { href: "/mens-team-application", label: "Men's Training Squad" },
 ];
 ---
+
+<div class="footer-subscribe">
+  <div class="footer-subscribe-inner">
+    <div class="footer-subscribe-text">
+      <p class="footer-subscribe-label">Stay in the loop</p>
+      <p class="footer-subscribe-desc">Club news, promos & match updates.</p>
+    </div>
+    <div class="footer-subscribe-form">
+      <SubscribeForm source="footer" theme="dark" buttonLabel="Subscribe" />
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <!-- Brand -->

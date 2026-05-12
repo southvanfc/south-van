@@ -1,0 +1,254 @@
+---
+interface Props {
+  source: string;
+  theme?: "light" | "dark";
+  showName?: boolean;
+  buttonLabel?: string;
+  id?: string;
+}
+
+const {
+  source,
+  theme = "light",
+  showName = false,
+  buttonLabel = "Subscribe",
+  id = `sf-${source}`,
+} = Astro.props;
+---
+
+<div class={`sf-wrap sf-${theme}`} id={id}>
+  <form class="sf-form" data-source={source}>
+    <input type="text" name="company" class="sf-honeypot" tabindex="-1" autocomplete="off" />
+    <input type="hidden" name="source" value={source} />
+
+    {showName && (
+      <input
+        class="sf-input"
+        type="text"
+        name="name"
+        placeholder="Your name (optional)"
+        autocomplete="name"
+      />
+    )}
+
+    <div class="sf-row">
+      <input
+        class="sf-input"
+        type="email"
+        name="email"
+        placeholder="Your email address"
+        required
+        autocomplete="email"
+      />
+      <button class="sf-btn" type="submit">{buttonLabel}</button>
+    </div>
+
+    <p class="sf-note">No spam. Unsubscribe anytime.</p>
+  </form>
+
+  <div class="sf-success" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span class="sf-success-text">You're in!</span>
+  </div>
+
+  <div class="sf-error" hidden>
+    <span class="sf-error-text"></span>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>(".sf-form").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const wrap = form.closest(".sf-wrap") as HTMLElement;
+      const btn = form.querySelector<HTMLButtonElement>(".sf-btn")!;
+      const successEl = wrap.querySelector<HTMLElement>(".sf-success")!;
+      const errorEl   = wrap.querySelector<HTMLElement>(".sf-error")!;
+      const errorText = wrap.querySelector<HTMLElement>(".sf-error-text")!;
+
+      btn.disabled = true;
+      btn.textContent = "…";
+
+      try {
+        const res = await fetch("/api/subscribe", {
+          method: "POST",
+          body: new FormData(form),
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+          form.hidden = true;
+          errorEl.hidden = true;
+          successEl.hidden = false;
+          const text = successEl.querySelector(".sf-success-text")!;
+          text.textContent = data.already
+            ? "You're already subscribed — we'll keep you posted!"
+            : "You're in! We'll keep you updated.";
+          try { localStorage.setItem("svfc_subscribe_dismissed", "1"); } catch {}
+
+          // Auto-close the popup overlay after showing success
+          const popup = wrap.closest<HTMLElement>(".popup-overlay");
+          if (popup) {
+            setTimeout(() => {
+              popup.classList.remove("popup-visible");
+              setTimeout(() => { popup.hidden = true; }, 300);
+            }, 2000);
+          }
+        } else {
+          errorText.textContent = data.error ?? "Something went wrong.";
+          errorEl.hidden = false;
+          btn.disabled = false;
+          btn.textContent = form.dataset.btnLabel ?? "Subscribe";
+        }
+      } catch {
+        errorText.textContent = "Network error. Please try again.";
+        errorEl.hidden = false;
+        btn.disabled = false;
+        btn.textContent = form.dataset.btnLabel ?? "Subscribe";
+      }
+    });
+  });
+</script>
+
+<style>
+  .sf-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sf-wrap {
+    position: relative;
+  }
+
+  .sf-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sf-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .sf-input {
+    flex: 1;
+    min-width: 200px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .sf-light .sf-input {
+    border: 1.5px solid var(--mid-gray);
+    background: #fff;
+    color: var(--text-dark);
+  }
+  .sf-light .sf-input:focus {
+    border-color: var(--navy);
+  }
+  .sf-light .sf-input::placeholder {
+    color: var(--text-light);
+  }
+
+  .sf-dark .sf-input {
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+  .sf-dark .sf-input:focus {
+    border-color: var(--gold);
+  }
+  .sf-dark .sf-input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .sf-btn {
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .sf-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .sf-light .sf-btn {
+    background: var(--navy);
+    color: #fff;
+  }
+  .sf-light .sf-btn:hover:not(:disabled) {
+    background: var(--navy-dark);
+  }
+
+  .sf-dark .sf-btn {
+    background: var(--gold);
+    color: var(--navy-dark);
+  }
+  .sf-dark .sf-btn:hover:not(:disabled) {
+    background: var(--gold-light);
+  }
+
+  .sf-note {
+    font-size: 12px;
+    color: var(--text-light);
+    margin: 0;
+  }
+  .sf-dark .sf-note {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .sf-success[hidden],
+  .sf-error[hidden] {
+    display: none;
+  }
+
+  .sf-success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .sf-light .sf-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+  .sf-dark .sf-success {
+    background: rgba(255,255,255,0.1);
+    color: var(--gold-light);
+  }
+
+  .sf-error {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .sf-light .sf-error {
+    background: #fdecea;
+    color: #c62828;
+  }
+  .sf-dark .sf-error {
+    background: rgba(255,255,255,0.08);
+    color: #ff8a80;
+  }
+</style>

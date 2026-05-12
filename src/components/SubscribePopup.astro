@@ -1,0 +1,158 @@
+---
+import SubscribeForm from "./SubscribeForm.astro";
+---
+
+<div class="popup-overlay" id="subscribe-popup" aria-modal="true" role="dialog" aria-labelledby="popup-heading" hidden>
+  <div class="popup-card">
+    <button class="popup-close" id="popup-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <span class="popup-eyebrow">Stay in the loop</span>
+    <h2 class="popup-heading" id="popup-heading">Club Updates & Promos</h2>
+    <p class="popup-body">
+      Get the latest from South Van FC — new programs, match updates, early access to tryouts, and community news delivered to your inbox.
+    </p>
+
+    <SubscribeForm source="popup" theme="dark" showName={true} buttonLabel="Subscribe" id="sf-popup" />
+  </div>
+</div>
+
+<script>
+  const DISMISSED_KEY = "svfc_subscribe_dismissed";
+  const popup = document.getElementById("subscribe-popup") as HTMLElement;
+  const closeBtn = document.getElementById("popup-close")!;
+
+  function isDismissed() {
+    try { return !!localStorage.getItem(DISMISSED_KEY); } catch { return false; }
+  }
+
+  function dismiss() {
+    try { localStorage.setItem(DISMISSED_KEY, "1"); } catch {}
+    popup.hidden = true;
+    popup.classList.remove("popup-visible");
+  }
+
+  function show() {
+    if (isDismissed()) return;
+    popup.hidden = false;
+    // Force reflow so transition fires
+    popup.offsetHeight;
+    popup.classList.add("popup-visible");
+  }
+
+  if (!isDismissed()) {
+    let shown = false;
+
+    const timer = setTimeout(() => {
+      if (!shown) { shown = true; show(); }
+    }, 8000);
+
+    const onScroll = () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (!shown && pct >= 0.5) {
+        shown = true;
+        clearTimeout(timer);
+        show();
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  closeBtn.addEventListener("click", dismiss);
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) dismiss();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !popup.hidden) dismiss();
+  });
+</script>
+
+<style>
+  .popup-overlay[hidden] {
+    display: none;
+  }
+
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(1, 20, 40, 0.65);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .popup-overlay.popup-visible {
+    opacity: 1;
+  }
+
+  .popup-card {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 40px 36px 36px;
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    transform: translateY(16px);
+    transition: transform 0.3s ease;
+  }
+  .popup-visible .popup-card {
+    transform: translateY(0);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255,255,255,0.6);
+    transition: background 0.2s, color 0.2s;
+  }
+  .popup-close:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  .popup-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .popup-heading {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .popup-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 480px) {
+    .popup-card {
+      padding: 32px 24px 28px;
+    }
+  }
+</style>

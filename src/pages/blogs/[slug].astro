@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ShareBar from "../../components/ShareBar.astro";
+import SubscribeForm from "../../components/SubscribeForm.astro";
 
 const { slug } = Astro.params;
 const posts = await getCollection("blog");
@@ -177,6 +178,19 @@ const articleSchema = {
 
       <div class="post-footer">
         <a href="/blogs" class="btn btn-outline-navy btn-sm">← Back to Blog</a>
+      </div>
+    </div>
+
+    <div class="blog-subscribe">
+      <div class="blog-subscribe-inner">
+        <div class="blog-subscribe-text">
+          <span class="blog-subscribe-eyebrow">Stay in the loop</span>
+          <h3 class="blog-subscribe-heading">Enjoyed this article?</h3>
+          <p class="blog-subscribe-body">Get the latest posts, club updates, and promos from South Van FC delivered straight to your inbox.</p>
+        </div>
+        <div class="blog-subscribe-form">
+          <SubscribeForm source="blog" theme="light" buttonLabel="Subscribe" />
+        </div>
       </div>
     </div>
 
@@ -450,6 +464,44 @@ const articleSchema = {
     margin-top: 40px;
   }
 
+  /* Blog Subscribe CTA */
+  .blog-subscribe {
+    background: var(--gold-pale);
+    border-top: 1px solid #f0e4b0;
+    border-bottom: 1px solid #f0e4b0;
+    padding: 56px 80px;
+  }
+  .blog-subscribe-inner {
+    max-width: 810px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .blog-subscribe-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .blog-subscribe-heading {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 800;
+    color: var(--navy-dark);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .blog-subscribe-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    margin: 0;
+  }
+
   /* Recent Articles */
   .recent-articles {
     background: var(--off-white);
@@ -589,6 +641,13 @@ const articleSchema = {
     }
     .post-body {
       padding: 40px 28px 72px;
+    }
+    .blog-subscribe {
+      padding: 40px 28px;
+    }
+    .blog-subscribe-inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
     .recent-articles {
       padding: 56px 28px;
