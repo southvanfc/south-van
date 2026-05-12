@@ -23,7 +23,7 @@ const {
 
     {showName && (
       <input
-        class="sf-input"
+        class="sf-input sf-input--name"
         type="text"
         name="name"
         placeholder="Your name (optional)"
@@ -146,6 +146,12 @@ const {
     font-family: inherit;
     outline: none;
     transition: border-color 0.2s;
+  }
+
+  .sf-input--name {
+    align-self: flex-start;
+    flex: none;
+    padding: 0 20px;
   }
 
   .sf-light .sf-input {
