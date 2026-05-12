@@ -7,6 +7,7 @@ author: "Dipinder Kainth"
 category: "Player Development"
 image: "/assets/gold.png"
 tags: ["Youth Development", "Training", "Player Development", "Coaching"]
+coverImage: "/assets/blog/training.webp"
 ---
 
 ## How Often Should Young Players Train?

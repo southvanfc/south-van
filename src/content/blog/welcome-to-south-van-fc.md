@@ -7,6 +7,7 @@ author: "Harjit Kainth"
 category: "Club News"
 image: "/assets/gold.png"
 tags: ["Community", "Football", "Vancouver", "Club News", "Youth Development"]
+coverImage: "/assets/blog/welcome.webp"
 ---
 
 ## Who We Are

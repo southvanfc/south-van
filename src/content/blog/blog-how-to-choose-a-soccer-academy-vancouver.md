@@ -14,6 +14,8 @@ tags:
     "Coaching",
     "Player Development",
   ]
+coverImage: "/assets/blog/stadium.webp"
+coverImageAlt: "South Van FC youth soccer academy in Vancouver BC, soccer field with mountain backdrop, player development program for kids"
 ---
 
 # How to Choose a Soccer Academy in Vancouver

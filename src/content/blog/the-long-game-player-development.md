@@ -7,6 +7,8 @@ author: "Harjit Kainth"
 category: "Philosophy"
 image: "/assets/gold.png"
 tags: ["Youth Development", "Coaching", "Football", "Player Development"]
+coverImage: "/assets/blog/test-cover-image.webp"
+coverImageAlt: "Youth soccer training setup with cones and ball on turf field at South Van FC academy in Vancouver"
 ---
 
 ## The Long Game
