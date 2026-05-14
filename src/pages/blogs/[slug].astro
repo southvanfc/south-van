@@ -139,7 +139,7 @@ const articleSchema = {
               </time>
             </div>
           </div>
-          <ShareBar title={post.data.title} url={Astro.url.href} theme="dark" showLabel={false} />
+          <ShareBar title={post.data.title} url={Astro.url.href} theme="dark" />
         </div>
       </div>
     </header>
@@ -163,6 +163,15 @@ const articleSchema = {
       <div class="prose">
         <Content />
       </div>
+      <script>
+        document.querySelectorAll(".prose a[href]").forEach((a) => {
+          const href = (a as HTMLAnchorElement).href;
+          if (href && !href.startsWith(location.origin)) {
+            a.setAttribute("target", "_blank");
+            a.setAttribute("rel", "noopener noreferrer");
+          }
+        });
+      </script>
 
       {
         post.data.tags && post.data.tags.length > 0 && (
