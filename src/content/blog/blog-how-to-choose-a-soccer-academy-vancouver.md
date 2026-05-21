@@ -121,4 +121,6 @@ If you'd like to see how South Van FC measures up, [book a free player evaluatio
 
 ---
 
+_Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
+
 _South Van FC is a community football club based in South Vancouver, BC. We run a youth development academy and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._

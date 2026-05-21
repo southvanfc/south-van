@@ -3,7 +3,7 @@ title: "What to Do in the First 48 Hours After a Soccer Injury"
 seoTitle: "What to Do in the First 48 Hours After a Soccer Injury"
 description: "Your kid just got hurt at soccer practice. Here's what to do in the first 48 hours to reduce swelling, manage pain, and protect their recovery."
 pubDate: 2026-05-21T00:00:00-08:00
-author: "South Van FC"
+author: "Shanil Sharma"
 category: "Player Development"
 image: "/assets/gold.png"
 coverImage: "/assets/blog/injury.webp"
@@ -90,4 +90,6 @@ At South Vancouver FC, player health is built into how we run every program. Whe
 
 ---
 
-_Shanil Sharma is a Kinesiologist at SNS Fitness Rehab and contributes to South Van FC on player development, recovery, and injury prevention._
+_Shanil Sharma is a Kinesiologist at [SNS Fitness Rehab](https://www.snsfitnessrehab.ca/) and contributes to South Van FC on player development, recovery, and injury prevention._
+
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth development academy and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
