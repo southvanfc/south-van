@@ -8,7 +8,7 @@ category: "Player Preparation"
 image: "/assets/gold.png"
 coverImage: "/assets/blog/game-day-prep.webp"
 coverImageAlt: "Youth player tyiing their cleats getting ready for upcoming game"
-tags: ["Game day prep", "Test"]
+tags: ["Game Day", "Preperation", "Mind & Body"]
 ---
 
 Most players get to game day and wing it. Slept okay, maybe. Grabbed something to eat. Showed up. Then wonder why the first 20 minutes felt rough.
