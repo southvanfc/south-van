@@ -1,0 +1,166 @@
+---
+// src/components/Homepage/LocalSection.astro
+---
+
+<section class="local">
+  <div class="local-inner">
+    <div class="local-copy">
+      <span class="eyebrow eyebrow-gold">South Vancouver</span>
+      <h2 class="local-title">South Vancouver's Football Club</h2>
+      <p class="local-body">
+        We train, play, and grow in South Vancouver. The neighbourhoods, parks,
+        and pitches here are what shaped us. From Fraserview to Killarney, South Van FC
+        is built by the community it represents.
+      </p>
+      <p class="local-body">
+        Whether you're a parent looking for a development pathway for your
+        child, or an adult player ready to compete in the VMSL, this is your
+        club.
+      </p>
+      <div class="local-links">
+        <a href="/academy" class="local-link">
+          Youth Academy
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="/mens-team-application" class="local-link">
+          Men's Team
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="local-detail">
+      <div class="local-card">
+        <div class="lc-icon">📍</div>
+        <div>
+          <div class="lc-title">Based in South Vancouver, BC</div>
+          <div class="lc-desc">Training at local parks and pitches across South Van and the Lower Mainland</div>
+        </div>
+      </div>
+      <div class="local-card">
+        <div class="lc-icon">⚽</div>
+        <div>
+          <div class="lc-title">Youth Academy — U8 to U18</div>
+          <div class="lc-desc">Technical-first player development with Individual Development Plans for every player</div>
+        </div>
+      </div>
+      <div class="local-card">
+        <div class="lc-icon">🏆</div>
+        <div>
+          <div class="lc-title">Competitive Men's Team — VMSL</div>
+          <div class="lc-desc">Adult players competing in the Vancouver Metro Soccer League</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .local {
+    background: var(--navy-dark);
+    padding: 96px 80px;
+  }
+
+  .local-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .local-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.08;
+    letter-spacing: 1px;
+    color: #fff;
+    margin: 12px 0 24px;
+  }
+
+  .local-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+    max-width: 480px;
+  }
+
+  .local-links {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .local-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .local-link:hover {
+    border-bottom-color: var(--gold);
+  }
+
+  .local-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .local-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 24px 28px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .local-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .lc-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .lc-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .lc-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 960px) {
+    .local {
+      padding: 64px 28px;
+    }
+    .local-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .local-body {
+      max-width: 100%;
+    }
+  }
+</style>

@@ -7,9 +7,10 @@ import Values from "../components/Homepage/Values.astro";
 import Faq from "../components/Homepage/Faq.astro";
 import Signup from "../components/Homepage/Signup.astro";
 import SubscribeSection from "../components/Homepage/SubscribeSection.astro";
+import LocalSection from "../components/Homepage/LocalSection.astro";
 
 const seo = {
-  title: "South Van FC | Youth Soccer Academy & Football Club Vancouver",
+  title: "South Van FC | Youth Soccer Academy Vancouver",
   description:
     "South Van FC is Vancouver's technical youth soccer academy and competitive men's football club. Development programs for U8–U18 players in South Vancouver, BC.",
   keywords:
@@ -21,7 +22,7 @@ const stats = [
   { value: "1:1", label: "Focused Coaching" },
   { value: "4", label: "Pillars Every Session" },
   { value: "IDP", label: "Individual Development Plan" },
-  { value: "YVR", label: "Lower Mainland" },
+  { value: "YVR", label: "South Vancouver, BC" },
 ];
 
 const websiteSchema = {
@@ -99,6 +100,7 @@ const localBusinessSchema = {
   <StatsBand stats={stats} />
   <Squads />
   <Values />
+  <LocalSection />
   <Faq />
   <SubscribeSection />
   <Signup />
