@@ -1,0 +1,132 @@
+---
+// src/components/SouthVan/SouthVanNeighbourhood.astro
+---
+
+<section class="svn">
+  <div class="svn-inner">
+    <div class="svn-copy">
+      <span class="eyebrow eyebrow-gold">Where We Train</span>
+      <h2 class="svn-title">Rooted in South Vancouver</h2>
+      <p class="svn-body">
+        South Vancouver is one of the most underserved parts of the city when it comes to
+        high-quality football development. South Van FC exists to change that. We run training
+        sessions at the parks and pitches our players grew up playing at.
+      </p>
+      <p class="svn-body">
+        Fraserview, Killarney, Champlain Heights, Sunset, Victoria-Fraserview. These
+        neighbourhoods are not a backdrop for what we do. They are the reason we exist.
+      </p>
+    </div>
+
+    <div class="svn-detail">
+      <div class="svn-card">
+        <div class="sc-icon">🏟️</div>
+        <div>
+          <div class="sc-title">Memorial Turf — Home Field</div>
+          <div class="sc-desc">Our primary home field for both Youth Academy and Men's Team training and matches. Located in South Vancouver.</div>
+        </div>
+      </div>
+      <div class="svn-card">
+        <div class="sc-icon">📍</div>
+        <div>
+          <div class="sc-title">Fraserview &amp; Killarney</div>
+          <div class="sc-desc">The South Vancouver neighbourhoods the club calls home. Our players and families come from the streets and schools right here.</div>
+        </div>
+      </div>
+      <div class="svn-card">
+        <div class="sc-icon">📍</div>
+        <div>
+          <div class="sc-title">Champlain Heights &amp; Sunset</div>
+          <div class="sc-desc">Additional South Van neighbourhoods represented in our squads, with supplementary sessions at local parks when needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .svn {
+    background: var(--navy-dark);
+    padding: 96px 80px;
+  }
+
+  .svn-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .svn-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.08;
+    letter-spacing: 1px;
+    color: #fff;
+    margin: 12px 0 24px;
+  }
+
+  .svn-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+    max-width: 480px;
+  }
+
+  .svn-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .svn-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 24px 28px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .svn-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .sc-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sc-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .sc-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 960px) {
+    .svn {
+      padding: 64px 28px;
+    }
+    .svn-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .svn-body {
+      max-width: 100%;
+    }
+  }
+</style>

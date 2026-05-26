@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SouthVanHero from "../components/SouthVan/SouthVanHero.astro";
+import SouthVanNeighbourhood from "../components/SouthVan/SouthVanNeighbourhood.astro";
+import SouthVanCommunity from "../components/SouthVan/SouthVanCommunity.astro";
+import Cta from "../components/Cta.astro";
+
+const seo = {
+  title: "South Vancouver Soccer Club | South Van FC",
+  description:
+    "South Van FC is South Vancouver's football club, rooted in Fraserview, Killarney, and the neighbourhoods that shaped us. Youth academy and men's team.",
+  keywords:
+    "soccer academy south Vancouver, South Vancouver soccer club, soccer training south Vancouver, football club south Vancouver, youth soccer south Vancouver",
+  ogImage: "https://www.southvanfc.com/og/og-default.png",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "South Vancouver",
+      item: "https://www.southvanfc.com/south-vancouver/",
+    },
+  ],
+};
+---
+
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <SouthVanHero />
+  <SouthVanNeighbourhood />
+  <SouthVanCommunity />
+  <Cta
+    title="Join the<br />Club"
+    body="Whether you're a young player looking for a development pathway or an adult ready to compete, South Van FC has a place for you."
+    links={[
+      {
+        href: "/academy/player-evaluation",
+        label: "Youth Academy",
+        style: "navy",
+      },
+      {
+        href: "/mens-team",
+        label: "Men's Team",
+        style: "outline-navy",
+      },
+    ]}
+  />
+</BaseLayout>
