@@ -1,0 +1,218 @@
+---
+const highlights = [
+  {
+    label: "Founded",
+    value: "1970s",
+    desc: "One of BC's longest-running adult amateur leagues",
+  },
+  {
+    label: "Level",
+    value: "Division 2",
+    desc: "Competitive men's soccer with serious standards",
+  },
+  {
+    label: "Season",
+    value: "Winter & Fall",
+    desc: "Structured VMSL fixtures across both seasons",
+  },
+  {
+    label: "Teams",
+    value: "100+",
+    desc: "Clubs competing across Metro Vancouver",
+  },
+];
+---
+
+<section class="league-section">
+  <div class="league-inner">
+    <div class="league-left">
+      <span class="eyebrow">The League</span>
+      <h2 class="league-title">Competing in the VMSL</h2>
+      <p class="league-body">
+        The Vancouver Men's Soccer League is one of the top adult amateur
+        competitions in British Columbia. Founded decades ago, it draws hundreds
+        of clubs across Metro Vancouver and sets a standard that separates
+        recreational play from real competitive soccer.
+      </p>
+      <p class="league-body">
+        Matches are structured, refereed, and reported. There are standings,
+        promotions, relegations, and consequences. If you want to test yourself
+        against the best adult players in the region, this is the level.
+      </p>
+      <a href="#apply" class="league-cta">Apply for Trials</a>
+    </div>
+
+    <div class="league-right">
+      <div class="highlights-label">VMSL at a Glance</div>
+      <div class="highlights-grid">
+        {
+          highlights.map(({ label, value, desc }) => (
+            <div class="highlight-card">
+              <div class="hl-value">{value}</div>
+              <div class="hl-label">{label}</div>
+              <p class="hl-desc">{desc}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="pathway-block">
+        <div class="pathway-eyebrow">The South Van FC Pathway</div>
+        <p class="pathway-body">
+          Academy graduates who reach the right standard have a direct route
+          into the men's squad. We're building a club where youth development
+          and adult competition are connected, not separate.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .league-section {
+    background: #fff;
+    border-bottom: 1px solid #eef0f7;
+    padding: 72px 80px;
+  }
+
+  .league-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .league-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(34px, 3.5vw, 48px);
+    letter-spacing: 1.5px;
+    color: #011f4a;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .league-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3d4d6e;
+    margin-bottom: 16px;
+  }
+  .league-body:last-of-type {
+    margin-bottom: 32px;
+  }
+
+  .league-cta {
+    display: inline-block;
+    background: #013478;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 13px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .league-cta:hover {
+    background: #011f4a;
+  }
+
+  /* Right column */
+  .highlights-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6b7a9e;
+    margin-bottom: 16px;
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .highlight-card {
+    background: #f7f8fc;
+    border: 1px solid #eef0f7;
+    border-top: 3px solid #013478;
+    border-radius: 0 0 8px 8px;
+    padding: 18px 20px 20px;
+  }
+
+  .hl-value {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: #013478;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hl-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6b7a9e;
+    margin-bottom: 8px;
+  }
+
+  .hl-desc {
+    font-size: 12px;
+    color: #6b7a9e;
+    line-height: 1.6;
+  }
+
+  .pathway-block {
+    background: #011f4a;
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+
+  .pathway-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    margin-bottom: 10px;
+  }
+
+  .pathway-body {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  @media (max-width: 960px) {
+    .league-section {
+      padding: 52px 28px;
+    }
+    .league-inner {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+    .highlights-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

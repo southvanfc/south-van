@@ -1,7 +1,7 @@
 ---
 // src/components/Nav.astro
 interface Props {
-  activePage?: "home" | "academy" | "coaches" | "blog" | "pricing";
+  activePage?: "home" | "academy" | "coaches" | "blog" | "pricing" | "mens-team";
 }
 
 const { activePage = "home" } = Astro.props;
@@ -11,6 +11,7 @@ const links = [
   { key: "academy", href: "/academy", label: "Youth Academy" },
   { key: "pricing", href: "/academy/pricing", label: "Pricing" },
   { key: "coaches", href: "/our-coaches", label: "Coaches" },
+  { key: "mens-team", href: "/mens-team", label: "Men's Team" },
   { key: "blogs", href: "/blogs", label: "Blogs" },
 ];
 ---

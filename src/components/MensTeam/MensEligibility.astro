@@ -1,0 +1,218 @@
+---
+const eligibility = [
+  "18 years or older",
+  "Prior competitive or club soccer experience",
+  "Year-round commitment: the squad competes in VMSL and additional leagues throughout the year",
+  "Full availability for fixture weekends across all competitions",
+  "Commitment to weekly training sessions",
+  "Physical fitness to compete at a high amateur level",
+  "Coachable attitude and willingness to work within team structure",
+];
+
+const schedule = [
+  {
+    label: "Training Days",
+    value: "Wednesdays",
+    note: "Weekly sessions every Wednesday",
+  },
+  {
+    label: "Training Times",
+    value: "9:00 PM",
+    note: "Subject to change, confirmed with squad",
+  },
+  {
+    label: "Location",
+    value: "McNeil Secondary",
+    note: "Richmond, subject to change",
+  },
+  {
+    label: "Fixtures",
+    value: "Weekends",
+    note: "VMSL and other leagues, the squad competes year-round",
+  },
+];
+---
+
+<section class="eligibility-section">
+  <div class="eligibility-inner">
+    <div class="elig-col">
+      <span class="eyebrow">Who We're Looking For</span>
+      <h2 class="col-title">Eligibility</h2>
+      <p class="col-intro">
+        We trial all applicants on merit. If you meet the requirements below and
+        can match our standards on the pitch, there is a spot available for you.
+      </p>
+      <ul class="elig-list">
+        {
+          eligibility.map((item) => (
+            <li class="elig-item">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="sched-col">
+      <span class="eyebrow">Training Details</span>
+      <h2 class="col-title">What to Expect</h2>
+      <p class="col-intro">
+        Sessions are structured and purposeful. You'll work on technical
+        execution, tactical shape, and match preparation. This is not
+        recreational football.
+      </p>
+      <div class="sched-grid">
+        {
+          schedule.map(({ label, value, note }) => (
+            <div class="sched-card">
+              <div class="sched-label">{label}</div>
+              <div class="sched-value">{value}</div>
+              <p class="sched-note">{note}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .eligibility-section {
+    background: #f7f8fc;
+    border-bottom: 1px solid #eef0f7;
+    padding: 72px 80px;
+  }
+
+  .eligibility-inner {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+    align-items: start;
+  }
+
+  .divider {
+    background: #eef0f7;
+    align-self: stretch;
+    margin: 0 60px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .col-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 34px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .col-intro {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #6b7a9e;
+    margin-bottom: 24px;
+  }
+
+  /* Eligibility list */
+  .elig-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .elig-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #3d4d6e;
+    line-height: 1.5;
+  }
+
+  .elig-item svg {
+    flex-shrink: 0;
+    color: #013478;
+    margin-top: 2px;
+  }
+
+  /* Schedule grid */
+  .sched-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sched-card {
+    background: #fff;
+    border: 1px solid #eef0f7;
+    border-left: 3px solid #e8b430;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 18px;
+  }
+
+  .sched-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6b7a9e;
+    margin-bottom: 6px;
+  }
+
+  .sched-value {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #011f4a;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .sched-note {
+    font-size: 12px;
+    color: #6b7a9e;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 960px) {
+    .eligibility-section {
+      padding: 52px 28px;
+    }
+    .eligibility-inner {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+    .divider {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sched-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
