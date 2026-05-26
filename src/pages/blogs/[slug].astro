@@ -190,6 +190,28 @@ const articleSchema = {
       </div>
     </div>
 
+    <section class="blog-cta-cards">
+      <div class="blog-cta-cards-inner">
+        <div class="blog-cta-card">
+          <span class="blog-cta-card-eyebrow">Men's Team</span>
+          <h3 class="blog-cta-card-title">Ready to play?</h3>
+          <p class="blog-cta-card-body">Competitive men's soccer in Vancouver. If you're looking for a club that takes development seriously, we want to hear from you.</p>
+          <div class="blog-cta-card-actions">
+            <a href="/mens-team" class="btn btn-navy btn-sm">Join the Men's Team</a>
+          </div>
+        </div>
+        <div class="blog-cta-card">
+          <span class="blog-cta-card-eyebrow">Youth Academy</span>
+          <h3 class="blog-cta-card-title">Is your child a player?</h3>
+          <p class="blog-cta-card-body">Long-term development over short-term results. Start with a free evaluation and see if we're the right fit.</p>
+          <div class="blog-cta-card-actions">
+            <a href="/academy/player-evaluation" class="btn btn-navy btn-sm">Request an Evaluation</a>
+            <a href="/academy" class="btn btn-outline-navy btn-sm">Explore the Academy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="blog-subscribe">
       <div class="blog-subscribe-inner">
         <div class="blog-subscribe-text">
@@ -473,6 +495,56 @@ const articleSchema = {
     margin-top: 40px;
   }
 
+  /* Blog CTA Cards */
+  .blog-cta-cards {
+    background: var(--off-white);
+    border-top: 1px solid var(--lt-gray);
+    padding: 56px 80px;
+  }
+  .blog-cta-cards-inner {
+    max-width: 810px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .blog-cta-card {
+    background: #fff;
+    border: 1px solid var(--lt-gray);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .blog-cta-card-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .blog-cta-card-title {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 800;
+    color: var(--navy-dark);
+    line-height: 1.2;
+    margin: 0;
+  }
+  .blog-cta-card-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    margin: 0;
+    flex: 1;
+  }
+  .blog-cta-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
   /* Blog Subscribe CTA */
   .blog-subscribe {
     background: var(--gold-pale);
@@ -650,6 +722,12 @@ const articleSchema = {
     }
     .post-body {
       padding: 40px 28px 72px;
+    }
+    .blog-cta-cards {
+      padding: 40px 28px;
+    }
+    .blog-cta-cards-inner {
+      grid-template-columns: 1fr;
     }
     .blog-subscribe {
       padding: 40px 28px;
