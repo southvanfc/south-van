@@ -8,6 +8,7 @@ category: "Player Development"
 image: "/assets/gold.png"
 tags: ["Youth Development", "Training", "Player Development", "Coaching"]
 coverImage: "/assets/blog/training.webp"
+coverImageAlt: "Youth soccer players practicing on a training field"
 ---
 
 ## How Often Should Young Players Train?

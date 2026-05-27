@@ -7,6 +7,7 @@ author: "Shanil Sharma"
 category: "Player Development"
 image: "/assets/gold.png"
 coverImage: "/assets/blog/cold-warmup.webp"
+coverImageAlt: "Soccer players warming up before a match in cold conditions"
 tags:
   [
     "Active Recovery",

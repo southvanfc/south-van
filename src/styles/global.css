@@ -226,23 +226,6 @@ p {
   /* keep paragraph stable */
 }
 
-.stack {
-  display: flex;
-  flex-direction: column;
-}
-
-.info-box {
-    margin-top: 40px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-    align-items: center;
-  }
-
-  /* new code */
-
   /* ================================================================
    SOUTH VAN FC — GLOBAL DESIGN SYSTEM
    Primary #013478 (Navy) · Accent #e8b430 (Gold)
@@ -250,7 +233,6 @@ p {
    ================================================================ */
 
 /* ── RESET ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: 'Inter Variable', sans-serif;
@@ -548,6 +530,26 @@ a { color: inherit; }
 .footer-bottom-right { display: flex; align-items: center; gap: 20px; }
 .footer-bottom-right a { font-size: 12px; color: rgba(255,255,255,0.28); text-decoration: none; transition: color 0.2s; }
 .footer-bottom-right a:hover { color: #e8b430; }
+
+/* ── ACCESSIBILITY ── */
+.skip-link {
+  position: absolute; top: -100%; left: 16px;
+  background: var(--gold); color: var(--navy-dark);
+  padding: 10px 20px; border-radius: 0 0 6px 6px;
+  font-size: 14px; font-weight: 700; z-index: 9999;
+  text-decoration: none; transition: top 0.15s;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {

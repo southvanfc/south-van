@@ -74,14 +74,14 @@ export interface SEO {
 export interface PlayerEvaluationInsert {
   full_name:            string;
   dob:                  string;
-  age_group:            string;
+  age_group:            "u6-u8" | "u8-u11" | "u11-u15" | "u15-u18" | string;
   current_club?:        string;
-  years_playing:        string;
+  years_playing:        "less-than-1" | "1-2" | "3-5" | "6-9" | "10+" | string;
   school_grade?:        string;
   positions:            string;
-  dominant_foot:        string;
-  training_hours:       string;
-  competition_level:    string;
+  dominant_foot:        "Left" | "Right" | "Both" | string;
+  training_hours:       "less-than-2" | "2-4" | "4-6" | "6-8" | "8+" | string;
+  competition_level:    "bcspl" | "metro" | "gold" | "silver" | "bronze" | "recreational" | "school-only" | "no-team" | string;
   other_sports?:        string;
   parent_name:          string;
   parent_relationship:  string;

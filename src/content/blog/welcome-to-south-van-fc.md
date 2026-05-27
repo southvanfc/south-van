@@ -8,6 +8,7 @@ category: "Club News"
 image: "/assets/gold.png"
 tags: ["Community", "Football", "Vancouver", "Club News", "Youth Development"]
 coverImage: "/assets/blog/welcome.webp"
+coverImageAlt: "Sceninc view of pitch with mountains and a lake"
 ---
 
 ## Who We Are

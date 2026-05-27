@@ -69,7 +69,25 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (missing.length > 0) {
       return new Response(
-        JSON.stringify({ ok: false, error: `Missing required fields: ${missing.join(", ")}.` }),
+        JSON.stringify({ ok: false, error: "Missing required fields." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(parentEmail)) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "Please enter a valid parent email address." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    if (
+      fullName.length > 200 || parentName.length > 200 || parentEmail.length > 200 ||
+      parentPhone.length > 50 || longTermGoal.length > 5000 || motivationDrive.length > 5000 ||
+      handlesMistakes.length > 5000 || responseToFeedback.length > 5000
+    ) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
         { status: 400, headers: { "content-type": "application/json" } }
       );
     }
@@ -106,17 +124,19 @@ export const POST: APIRoute = async ({ request }) => {
     const { error } = await supabase.from("player_evaluations").insert(payload);
 
     if (error) {
+      console.error("[submit-evaluation] Supabase error:", error);
       return new Response(
-        JSON.stringify({ ok: false, error: error.message }),
+        JSON.stringify({ ok: false, error: "Something went wrong. Please try again." }),
         { status: 500, headers: { "content-type": "application/json" } }
       );
     }
 
     return new Response(null, { status: 303, headers: { Location: "/success" } });
 
-  } catch (e: any) {
+  } catch (e) {
+    console.error("[submit-evaluation] Unexpected error:", e);
     return new Response(
-      JSON.stringify({ ok: false, error: e?.message ?? "Server error" }),
+      JSON.stringify({ ok: false, error: "Something went wrong. Please try again." }),
       { status: 500, headers: { "content-type": "application/json" } }
     );
   }

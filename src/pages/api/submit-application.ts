@@ -35,6 +35,20 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "Please enter a valid email address." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    if (fullName.length > 200 || email.length > 200 || phone.length > 50 || whySouthVan.length > 5000) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
     // 5) Insert into Supabase
     const payload: MensApplicationInsert = {
       full_name:          fullName,
@@ -54,17 +68,19 @@ export const POST: APIRoute = async ({ request }) => {
     const { error } = await supabase.from("mens_applications").insert(payload);
 
     if (error) {
+      console.error("[submit-application] Supabase error:", error);
       return new Response(
-        JSON.stringify({ ok: false, error: error.message }),
+        JSON.stringify({ ok: false, error: "Something went wrong. Please try again." }),
         { status: 500, headers: { "content-type": "application/json" } }
       );
     }
 
     return new Response(null, { status: 303, headers: { Location: "/success" } });
 
-  } catch (e: any) {
+  } catch (e) {
+    console.error("[submit-application] Unexpected error:", e);
     return new Response(
-      JSON.stringify({ ok: false, error: e?.message ?? "Server error" }),
+      JSON.stringify({ ok: false, error: "Something went wrong. Please try again." }),
       { status: 500, headers: { "content-type": "application/json" } }
     );
   }

@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
     const name   = String(form.get("name")   ?? "").trim();
     const source = String(form.get("source") ?? "").trim();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || email.length > 254 || !/^[^\s@]+@[^\s@.][^\s@]*\.[^\s@.]{2,}$/.test(email) || email.includes("..")) {
       return new Response(
         JSON.stringify({ ok: false, error: "Please enter a valid email address." }),
         { status: 400, headers: { "content-type": "application/json" } }
@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { "content-type": "application/json" },
     });
 
-  } catch (e: any) {
+  } catch (e) {
     return new Response(
       JSON.stringify({ ok: false, error: "Server error. Please try again." }),
       { status: 500, headers: { "content-type": "application/json" } }
