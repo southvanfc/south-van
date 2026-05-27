@@ -81,6 +81,15 @@ const organizationSchema = {
 
 <html lang={lang}>
   <head>
+    <!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2T60XZ1JXZ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2T60XZ1JXZ');
+    </script>
+
     <!-- Core -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
