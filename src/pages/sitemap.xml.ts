@@ -21,7 +21,7 @@ export const GET: APIRoute = async () => {
   const posts = await getCollection("blog");
 
   const blogEntries = posts.map((post) => ({
-    url: `/blogs/${post.slug}/`,
+    url: `/blogs/${post.id}/`,
     lastmod: post.data.pubDate.toISOString().split("T")[0],
     priority: "0.7",
     changefreq: "monthly",

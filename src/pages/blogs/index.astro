@@ -71,7 +71,7 @@ function readingTime(body: string) {
         <div class="blog-grid" id="blog-grid">
           {posts.map((post) => (
             <a
-              href={`/blogs/${post.slug}`}
+              href={`/blogs/${post.id}`}
               class="blog-card"
               data-category={post.data.category ?? ""}
               data-pubdate={post.data.pubDate.valueOf()}
