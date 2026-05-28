@@ -1,18 +1,24 @@
 ---
 // src/components/Nav.astro
 interface Props {
-  activePage?: "home" | "academy" | "coaches" | "blog" | "pricing" | "mens-team";
+  activePage?:
+    | "home"
+    | "academy"
+    | "coaches"
+    | "blog"
+    | "pricing"
+    | "mens-team";
 }
 
 const { activePage = "home" } = Astro.props;
 
 const links = [
   { key: "home", href: "/", label: "Home" },
-  { key: "academy", href: "/academy", label: "Youth Academy" },
-  { key: "pricing", href: "/academy/pricing", label: "Pricing" },
-  { key: "coaches", href: "/our-coaches", label: "Coaches" },
-  { key: "mens-team", href: "/mens-team", label: "Men's Team" },
-  { key: "blogs", href: "/blogs", label: "Blogs" },
+  { key: "academy", href: "/academy/", label: "Youth Academy" },
+  { key: "pricing", href: "/academy/pricing/", label: "Pricing" },
+  { key: "coaches", href: "/our-coaches/", label: "Coaches" },
+  { key: "mens-team", href: "/mens-team/", label: "Men's Team" },
+  { key: "blogs", href: "/blogs/", label: "Blogs" },
 ];
 ---
 
@@ -49,10 +55,11 @@ const links = [
       </button>
       <ul class="nav-dropdown-menu" role="menu">
         <li role="none">
-          <a href="/mens-team-application" role="menuitem">Men's Squad</a>
+          <a href="/mens-team-application/" role="menuitem">Men's Squad</a>
         </li>
         <li role="none">
-          <a href="/academy/player-evaluation" role="menuitem">Youth Academy</a>
+          <a href="/academy/player-evaluation/" role="menuitem">Youth Academy</a
+          >
         </li>
       </ul>
     </li>
@@ -79,8 +86,8 @@ const links = [
       </a>
     ))
   }
-  <a href="/mens-team-application" class="drawer-cta">Apply — Men's Squad</a>
-  <a href="/academy/player-evaluation" class="drawer-cta"
+  <a href="/mens-team-application/" class="drawer-cta">Apply — Men's Squad</a>
+  <a href="/academy/player-evaluation/" class="drawer-cta"
     >Apply — Youth Academy</a
   >
 </div>

@@ -2,14 +2,21 @@
 // No server-side logic needed — fully client-driven
 ---
 
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite" hidden>
+<div
+  id="cookie-banner"
+  class="cookie-banner"
+  role="dialog"
+  aria-label="Cookie consent"
+  aria-live="polite"
+  hidden
+>
   <div class="cb-inner">
     <div class="cb-text">
       <p class="cb-heading">We use analytics</p>
       <p class="cb-body">
-        We use Vercel Analytics and Speed Insights to understand how visitors use
-        our site — no ads, no cross-site tracking. See our
-        <a href="/privacy-policy">Privacy Policy</a> for details.
+        We use Vercel Analytics and Speed Insights to understand how visitors
+        use our site — no ads, no cross-site tracking. See our
+        <a href="/privacy-policy/">Privacy Policy</a> for details.
       </p>
     </div>
     <div class="cb-actions">
@@ -39,8 +46,14 @@
     display: none;
   }
   @keyframes slideUp {
-    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   }
 
   .cb-inner {
@@ -82,7 +95,9 @@
     border: none;
     transition: opacity 0.2s;
   }
-  .cb-btn:hover { opacity: 0.8; }
+  .cb-btn:hover {
+    opacity: 0.8;
+  }
   .cb-deny {
     background: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.6);
@@ -93,9 +108,18 @@
   }
 
   @media (max-width: 560px) {
-    .cb-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .cb-actions { width: 100%; }
-    .cb-btn { flex: 1; text-align: center; }
+    .cb-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .cb-actions {
+      width: 100%;
+    }
+    .cb-btn {
+      flex: 1;
+      text-align: center;
+    }
   }
 </style>
 

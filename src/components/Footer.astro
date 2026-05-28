@@ -4,12 +4,12 @@ import SubscribeForm from "./SubscribeForm.astro";
 
 const quickLinks = [
   { href: "/", label: "Home" },
-  { href: "/south-vancouver", label: "South Vancouver" },
-  { href: "/academy", label: "Youth Academy" },
-  { href: "/our-coaches", label: "Our Coaches" },
-  { href: "/blogs", label: "Blogs" },
-  { href: "/academy/player-evaluation", label: "Request Youth Evaluation" },
-  { href: "/mens-team-application", label: "Men's Training Squad" },
+  { href: "/south-vancouver/", label: "South Vancouver" },
+  { href: "/academy/", label: "Youth Academy" },
+  { href: "/our-coaches/", label: "Our Coaches" },
+  { href: "/blogs/", label: "Blogs" },
+  { href: "/academy/player-evaluation/", label: "Request Youth Evaluation" },
+  { href: "/mens-team-application/", label: "Men's Training Squad" },
 ];
 ---
 
@@ -20,7 +20,12 @@ const quickLinks = [
       <p class="footer-subscribe-desc">Club news, promos & match updates.</p>
     </div>
     <div class="footer-subscribe-form">
-      <SubscribeForm source="footer" theme="dark" showName={true} buttonLabel="Subscribe" />
+      <SubscribeForm
+        source="footer"
+        theme="dark"
+        showName={true}
+        buttonLabel="Subscribe"
+      />
     </div>
   </div>
 </div>
@@ -52,11 +57,46 @@ const quickLinks = [
         rel="noopener noreferrer"
         aria-label="South Van FC on Instagram"
       >
-        <svg width="32" height="32" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 5H9.5C7.29086 5 5.5 6.79086 5.5 9V15C5.5 17.2091 7.29086 19 9.5 19H15.5C17.7091 19 19.5 17.2091 19.5 15V9C19.5 6.79086 17.7091 5 15.5 5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 15C10.8431 15 9.5 13.6569 9.5 12C9.5 10.3431 10.8431 9 12.5 9C14.1569 9 15.5 10.3431 15.5 12C15.5 12.7956 15.1839 13.5587 14.6213 14.1213C14.0587 14.6839 13.2956 15 12.5 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="15.5" y="9" width="2" height="2" rx="1" transform="rotate(-90 15.5 9)" fill="currentColor"/>
-          <rect x="16" y="8.5" width="1" height="1" rx="0.5" transform="rotate(-90 16 8.5)" stroke="currentColor" stroke-linecap="round"/>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 -0.5 25 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M15.5 5H9.5C7.29086 5 5.5 6.79086 5.5 9V15C5.5 17.2091 7.29086 19 9.5 19H15.5C17.7091 19 19.5 17.2091 19.5 15V9C19.5 6.79086 17.7091 5 15.5 5Z"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.5 15C10.8431 15 9.5 13.6569 9.5 12C9.5 10.3431 10.8431 9 12.5 9C14.1569 9 15.5 10.3431 15.5 12C15.5 12.7956 15.1839 13.5587 14.6213 14.1213C14.0587 14.6839 13.2956 15 12.5 15Z"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <rect
+            x="15.5"
+            y="9"
+            width="2"
+            height="2"
+            rx="1"
+            transform="rotate(-90 15.5 9)"
+            fill="currentColor"></rect>
+          <rect
+            x="16"
+            y="8.5"
+            width="1"
+            height="1"
+            rx="0.5"
+            transform="rotate(-90 16 8.5)"
+            stroke="currentColor"
+            stroke-linecap="round"></rect>
         </svg>
       </a>
     </div>
@@ -91,8 +131,8 @@ const quickLinks = [
 <div class="footer-bottom">
   <p>&copy; {new Date().getFullYear()} South Van FC. All rights reserved.</p>
   <div class="footer-bottom-right">
-    <a href="/privacy-policy">Privacy Policy</a>
-    <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+    <a href="/privacy-policy/">Privacy Policy</a>
+    <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
     <p>Powered by Nextier Solutions</p>
   </div>
 </div>
