@@ -6,7 +6,7 @@ export const programs: Programs[] = [
     badge: "Foundations",
     name: "Technical & Movement Fundamentals",
     bestFor: "Beginners",
-    ages: "U6 & up",
+    ages: "U8 & up",
     price: "",
     overview:
       "Ball mastery, body mechanics, and comfort under pressure. Designed for younger players but open to any age needing to develop or refine technical foundations.",

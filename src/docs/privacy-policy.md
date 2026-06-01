@@ -11,7 +11,7 @@ South Van FC Youth Academy ("South Van FC", "we", "us", or "our") is committed t
 
 This Privacy Policy explains what personal information we collect, how we use it, who we share it with, and what rights you have regarding your data. It applies to information collected through our website's forms, email subscription, and any related services.
 
-We operate in accordance with Canada's *Personal Information Protection and Electronic Documents Act* (PIPEDA) and British Columbia's *Personal Information Protection Act* (PIPA).
+We operate in accordance with Canada's _Personal Information Protection and Electronic Documents Act_ (PIPEDA) and British Columbia's _Personal Information Protection Act_ (PIPA).
 
 ---
 
@@ -24,7 +24,7 @@ We collect personal information through two forms on our website:
 When you submit a request for a player evaluation, we may collect:
 
 - Player's full name
-- Date of birth and age group (U6–U8, U8–U11, U11–U15, U15–U18, or 18+)
+- Date of birth and age group (U8–U11, U11–U15, U15–U18, or 18+)
 - Email address
 - Phone number (optional)
 - Current club (optional)
@@ -107,13 +107,13 @@ We retain your information only as long as necessary to fulfill the purposes out
 
 We use the following third-party services that may collect or process data on our behalf:
 
-| Service | Purpose | Privacy Policy |
-|---|---|---|
-| **Google Cloud / Google Sheets** | Secure storage of form submissions | [Google Privacy Policy](https://policies.google.com/privacy) |
-| **Vercel** | Website hosting and deployment | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Vercel Analytics** | Aggregate, anonymized website traffic analysis | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Vercel Speed Insights** | Aggregate website performance monitoring | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Supabase** | Secure storage of email subscriber data | [Supabase Privacy Policy](https://supabase.com/privacy) |
+| Service                          | Purpose                                        | Privacy Policy                                                   |
+| -------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| **Google Cloud / Google Sheets** | Secure storage of form submissions             | [Google Privacy Policy](https://policies.google.com/privacy)     |
+| **Vercel**                       | Website hosting and deployment                 | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Vercel Analytics**             | Aggregate, anonymized website traffic analysis | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Vercel Speed Insights**        | Aggregate website performance monitoring       | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Supabase**                     | Secure storage of email subscriber data        | [Supabase Privacy Policy](https://supabase.com/privacy)          |
 
 We do not use advertising networks, Facebook Pixel, Google Ads tracking, or any other third-party marketing trackers.
 
@@ -174,4 +174,4 @@ Lower Mainland, Vancouver, BC
 
 ---
 
-*South Van FC is committed to keeping your information safe and using it only to help build a great football community.*
+_South Van FC is committed to keeping your information safe and using it only to help build a great football community._
