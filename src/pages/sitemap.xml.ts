@@ -11,8 +11,7 @@ const staticRoutes = [
   { url: "/blogs/", priority: "0.8", changefreq: "weekly" },
   { url: "/our-coaches/", priority: "0.7", changefreq: "monthly" },
   { url: "/mens-team/", priority: "0.8", changefreq: "monthly" },
-  { url: "/mens-team-application/", priority: "0.7", changefreq: "monthly" },
-  { url: "/south-vancouver/", priority: "0.7", changefreq: "monthly" },
+{ url: "/south-vancouver/", priority: "0.7", changefreq: "monthly" },
   { url: "/privacy-policy/", priority: "0.3", changefreq: "yearly" },
   { url: "/terms-and-conditions/", priority: "0.3", changefreq: "yearly" },
 ];
