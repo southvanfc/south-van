@@ -1,25 +1,23 @@
 ---
-// src/components/Nav.astro
-interface Props {
-  activePage?:
-    | "home"
-    | "academy"
-    | "coaches"
-    | "blog"
-    | "pricing"
-    | "mens-team";
-}
-
-const { activePage = "home" } = Astro.props;
-
 const links = [
   { key: "home", href: "/", label: "Home" },
   { key: "academy", href: "/academy/", label: "Youth Academy" },
   { key: "pricing", href: "/academy/pricing/", label: "Pricing" },
   { key: "coaches", href: "/our-coaches/", label: "Coaches" },
   { key: "mens-team", href: "/mens-team/", label: "Men's Team" },
-  { key: "blogs", href: "/blogs/", label: "Blogs" },
+  { key: "blog", href: "/blogs/", label: "Blogs" },
 ];
+
+const pathname = Astro.url.pathname;
+
+// Most specific href that is a prefix of (or equals) the current pathname
+const activeKey = links.reduce(
+  (best, { key, href }) => {
+    const matches = href === "/" ? pathname === "/" : pathname.startsWith(href);
+    return matches && href.length > best.len ? { key, len: href.length } : best;
+  },
+  { key: "", len: 0 },
+).key;
 ---
 
 <nav class="nav" id="nav">
@@ -39,7 +37,7 @@ const links = [
     {
       links.map(({ key, href, label }) => (
         <li>
-          <a href={href} class:list={[{ active: activePage === key }]}>
+          <a href={href} class:list={[{ active: activeKey === key }]}>
             {label}
           </a>
         </li>
@@ -81,7 +79,7 @@ const links = [
 <div class="nav-drawer" id="drawer" aria-hidden="true">
   {
     links.map(({ key, href, label }) => (
-      <a href={href} class:list={[{ active: activePage === key }]}>
+      <a href={href} class:list={[{ active: activeKey === key }]}>
         {label}
       </a>
     ))

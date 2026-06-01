@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Honeypot
     if (String(form.get("company") ?? "").trim()) {
-      return new Response(null, { status: 303, headers: { Location: "/success" } });
+      return new Response(null, { status: 303, headers: { Location: "/success/" } });
     }
 
     // Required fields
@@ -75,7 +75,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    return new Response(null, { status: 303, headers: { Location: "/success" } });
+    return new Response(null, { status: 303, headers: { Location: "/success/" } });
 
   } catch (e) {
     console.error("[submit-application] Unexpected error:", e);

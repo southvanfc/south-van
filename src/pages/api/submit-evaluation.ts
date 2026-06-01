@@ -10,7 +10,7 @@ export const POST: APIRoute = async ({ request }) => {
     // ── Honeypot check ──────────────────────────────────────────
     if (String(form.get("company") ?? "").trim()) {
       // Bot detected — silent success redirect
-      return new Response(null, { status: 303, headers: { Location: "/success" } });
+      return new Response(null, { status: 303, headers: { Location: "/success/" } });
     }
 
     // ── 01 Player Details ───────────────────────────────────────
@@ -39,9 +39,6 @@ export const POST: APIRoute = async ({ request }) => {
     const injuries            = String(form.get("injuries")             ?? "").trim();
     const playerStrengths     = String(form.get("player_strengths")     ?? "").trim();
     const areasToImprove      = String(form.get("areas_to_improve")     ?? "").trim();
-    const responseToFeedback  = String(form.get("response_to_feedback") ?? "").trim();
-    const motivationDrive     = String(form.get("motivation_drive")     ?? "").trim();
-    const handlesMistakes     = String(form.get("handles_mistakes")     ?? "").trim();
 
     // ── 05 Goals & Referral ─────────────────────────────────────
     const longTermGoal = String(form.get("long_term_goal") ?? "").trim();
@@ -62,9 +59,6 @@ export const POST: APIRoute = async ({ request }) => {
     if (!parentEmail)        missing.push("parent_email");
     if (!parentPhone)        missing.push("parent_phone");
     if (!previousCoaching)   missing.push("previous_coaching");
-    if (!responseToFeedback) missing.push("response_to_feedback");
-    if (!motivationDrive)    missing.push("motivation_drive");
-    if (!handlesMistakes)    missing.push("handles_mistakes");
     if (!longTermGoal)       missing.push("long_term_goal");
 
     if (missing.length > 0) {
@@ -83,8 +77,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (
       fullName.length > 200 || parentName.length > 200 || parentEmail.length > 200 ||
-      parentPhone.length > 50 || longTermGoal.length > 5000 || motivationDrive.length > 5000 ||
-      handlesMistakes.length > 5000 || responseToFeedback.length > 5000
+      parentPhone.length > 50 || longTermGoal.length > 5000
     ) {
       return new Response(
         JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
@@ -113,9 +106,6 @@ export const POST: APIRoute = async ({ request }) => {
       injuries:             injuries || undefined,
       player_strengths:     playerStrengths || undefined,
       areas_to_improve:     areasToImprove || undefined,
-      response_to_feedback: responseToFeedback,
-      motivation_drive:     motivationDrive,
-      handles_mistakes:     handlesMistakes,
       long_term_goal:       longTermGoal,
       goals:                goals || undefined,
       referral:             referral || undefined,
@@ -131,7 +121,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    return new Response(null, { status: 303, headers: { Location: "/success" } });
+    return new Response(null, { status: 303, headers: { Location: "/success/" } });
 
   } catch (e) {
     console.error("[submit-evaluation] Unexpected error:", e);

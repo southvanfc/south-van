@@ -1,601 +1,579 @@
 ---
 // src/components/PlayerEval/EvalRequestForm.astro
 // Field names match submit-evaluation.ts exactly.
-// Sections: Player Details | Playing Profile | Parent/Guardian | Player Background | Goals & Referral
-// Google Sheet columns (in order):
-// Timestamp | Full Name | DOB | Age Group | Current Club | Years Playing | School Grade |
-// Positions | Dominant Foot | Weekly Training Hours | Competition Level | Other Sports |
-// Parent Name | Parent Relationship | Parent Email | Parent Phone |
-// Previous Coaching | Injuries / Physical Notes | Player Strengths | Areas to Improve |
-// Response to Feedback | Motivation Drive | Handles Mistakes |
-// Long-term Ambition | Development Goals | Referral Source
+// Step 1: Player Details | Parent / Guardian | Position & Foot
+// Step 2: Training & Competition | Player Background | Goals & Referral
 ---
 
-<!-- Honeypot — hidden from users, catches bots -->
-<input
-  type="text"
-  name="company"
-  autocomplete="off"
-  tabindex="-1"
-  aria-hidden="true"
-  style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
-/>
+<form action="/api/submit-evaluation/" method="POST" id="eval-form">
+  <!-- Honeypot — inside form so it actually submits with the POST -->
+  <input
+    type="text"
+    name="company"
+    autocomplete="off"
+    tabindex="-1"
+    aria-hidden="true"
+    style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+  />
 
-<form action="/api/submit-evaluation" method="POST" id="eval-form">
-  <!-- ── 01 PLAYER DETAILS ───────────────────── -->
-  <div class="fsec">
-    <div class="fsec-head">
-      <span class="fsec-num">01</span>
-      <div>
-        <div class="fsec-label">Player Details</div>
-        <div class="fsec-hint">
-          Basic information about the player being evaluated.
-        </div>
-      </div>
+  <!-- ── Progress indicator ──────────────────── -->
+  <div class="step-indicator" aria-label="Form progress">
+    <div class="step-pip" data-pip="1">
+      <div class="step-circle">1</div>
+      <span class="step-label">Player &amp; Parent</span>
     </div>
-    <div class="fgrid fgrid-2">
-      <div class="f">
-        <label class="f-label" for="full_name"
-          >Full Name <span class="f-req">*</span></label
-        >
-        <input
-          class="f-input"
-          id="full_name"
-          name="full_name"
-          type="text"
-          placeholder="Player's full name"
-          required
-        />
-      </div>
-      <div class="f">
-        <label class="f-label" for="dob"
-          >Date of Birth <span class="f-req">*</span></label
-        >
-        <input class="f-input" id="dob" name="dob" type="date" required />
-      </div>
-      <div class="f">
-        <label class="f-label" for="age_group"
-          >Age Group <span class="f-req">*</span></label
-        >
-        <select class="f-select" id="age_group" name="age_group" required>
-          <option value="" disabled selected>Select age group</option>
-          <option value="u6-u8">U6 – U8</option>
-          <option value="u8-u11">U8 – U11</option>
-          <option value="u11-u15">U11 – U15</option>
-          <option value="u15-u18">U15 – U18</option>
-        </select>
-      </div>
-      <div class="f">
-        <label class="f-label" for="club"
-          >Current Club <span class="f-opt">Optional</span></label
-        >
-        <input
-          class="f-input"
-          id="club"
-          name="club"
-          type="text"
-          placeholder="Leave blank if no club"
-        />
-      </div>
-      <div class="f">
-        <label class="f-label" for="years_playing"
-          >Years Playing Soccer <span class="f-req">*</span></label
-        >
-        <select
-          class="f-select"
-          id="years_playing"
-          name="years_playing"
-          required
-        >
-          <option value="" disabled selected>Select range</option>
-          <option value="less-than-1">Less than 1 year</option>
-          <option value="1-2">1 – 2 years</option>
-          <option value="3-5">3 – 5 years</option>
-          <option value="6-9">6 – 9 years</option>
-          <option value="10+">10+ years</option>
-        </select>
-      </div>
-      <div class="f">
-        <label class="f-label" for="school_grade"
-          >School Grade <span class="f-opt">Optional</span></label
-        >
-        <select class="f-select" id="school_grade" name="school_grade">
-          <option value="" disabled selected>Select grade</option>
-          <option value="k">Kindergarten</option>
-          <option value="1">Grade 1</option>
-          <option value="2">Grade 2</option>
-          <option value="3">Grade 3</option>
-          <option value="4">Grade 4</option>
-          <option value="5">Grade 5</option>
-          <option value="6">Grade 6</option>
-          <option value="7">Grade 7</option>
-          <option value="8">Grade 8</option>
-          <option value="9">Grade 9</option>
-          <option value="10">Grade 10</option>
-          <option value="11">Grade 11</option>
-          <option value="12">Grade 12</option>
-        </select>
-      </div>
+    <div class="step-connector"></div>
+    <div class="step-pip" data-pip="2">
+      <div class="step-circle">2</div>
+      <span class="step-label">Background &amp; Goals</span>
     </div>
   </div>
 
-  <!-- ── 02 PLAYING PROFILE ─────────────────── -->
-  <div class="fsec">
-    <div class="fsec-head">
-      <span class="fsec-num">02</span>
-      <div>
-        <div class="fsec-label">Playing Profile</div>
-        <div class="fsec-hint">
-          Positions, technical details, and current training load.
+  <!-- ════════════════════════════════════════════
+       STEP 1 — Player identity + contact
+       ════════════════════════════════════════════ -->
+  <div class="form-step" data-step="1">
+    <!-- ── 01 PLAYER DETAILS ──────────────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">01</span>
+        <div>
+          <div class="fsec-label">Player Details</div>
+          <div class="fsec-hint">
+            Basic information about the player being evaluated.
+          </div>
+        </div>
+      </div>
+      <div class="fgrid fgrid-2">
+        <div class="f">
+          <label class="f-label" for="full_name"
+            >Full Name <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="full_name"
+            name="full_name"
+            type="text"
+            placeholder="Player's full name"
+          />
+          <span class="f-err" id="full_name-error" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="dob"
+            >Date of Birth <span class="f-req">*</span></label
+          >
+          <input class="f-input" id="dob" name="dob" type="date" />
+          <span class="f-err" id="dob-error" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="age_group"
+            >Age Group <span class="f-req">*</span></label
+          >
+          <select class="f-select" id="age_group" name="age_group">
+            <option value="" disabled selected>Select age group</option>
+            <option value="u6-u8">U6 – U8</option>
+            <option value="u8-u11">U8 – U11</option>
+            <option value="u11-u15">U11 – U15</option>
+            <option value="u15-u18">U15 – U18</option>
+          </select>
+          <span class="f-err" id="age_group-error" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="club"
+            >Current Club <span class="f-opt">Optional</span></label
+          >
+          <input
+            class="f-input"
+            id="club"
+            name="club"
+            type="text"
+            placeholder="Leave blank if no club"
+          />
+        </div>
+        <div class="f">
+          <label class="f-label" for="years_playing"
+            >Years Playing Soccer <span class="f-req">*</span></label
+          >
+          <select class="f-select" id="years_playing" name="years_playing">
+            <option value="" disabled selected>Select range</option>
+            <option value="less-than-1">Less than 1 year</option>
+            <option value="1-2">1 – 2 years</option>
+            <option value="3-5">3 – 5 years</option>
+            <option value="6-9">6 – 9 years</option>
+            <option value="10+">10+ years</option>
+          </select>
+          <span class="f-err" id="years_playing-error" aria-live="polite"
+          ></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="school_grade"
+            >School Grade <span class="f-opt">Optional</span></label
+          >
+          <select class="f-select" id="school_grade" name="school_grade">
+            <option value="" disabled selected>Select grade</option>
+            <option value="k">Kindergarten</option>
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+          </select>
         </div>
       </div>
     </div>
-    <div class="fgrid fgrid-1">
-      <!-- Position tiles -->
-      <div class="f">
-        <label class="f-label"
-          >Primary Position(s) <span class="f-req">*</span></label
-        >
-        <p class="f-hint">Select all that apply.</p>
-        <div class="pos-grid">
-          {
-            [
-              { value: "GK", label: "Goalkeeper", icon: "🧤" },
-              { value: "Defender", label: "Defender", icon: "🛡️" },
-              { value: "Midfielder", label: "Midfielder", icon: "⚙️" },
-              { value: "Winger", label: "Winger", icon: "⚡" },
-              { value: "Striker", label: "Striker", icon: "⚽" },
-            ].map(({ value, label, icon }) => (
-              <label class="pos-tile">
-                <input type="checkbox" name="positions" value={value} />
-                <span class="pos-icon">{icon}</span>
-                <span class="pos-lbl">{label}</span>
-                <span class="pos-check">
-                  <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3.5"
-                    stroke-linecap="round"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                </span>
-              </label>
-            ))
-          }
+
+    <!-- ── 02 PARENT / GUARDIAN ───────────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">02</span>
+        <div>
+          <div class="fsec-label">Parent / Guardian</div>
+          <div class="fsec-hint">
+            Required for all players under 18. This is our primary contact for
+            scheduling and updates.
+          </div>
         </div>
       </div>
-
-      <!-- Dominant foot -->
-      <div class="f">
-        <label class="f-label">Dominant Foot <span class="f-req">*</span></label
-        >
-        <div class="foot-row">
-          {
-            [
-              { value: "right", label: "Right" },
-              { value: "left", label: "Left" },
-              { value: "both", label: "Both" },
-            ].map(({ value, label }) => (
-              <label class="rtile">
-                <input
-                  type="radio"
-                  name="preferred_foot"
-                  value={value}
-                  required
-                />
-                <span class="rtile-lbl">{label}</span>
-              </label>
-            ))
-          }
+      <div class="fgrid fgrid-2">
+        <div class="f">
+          <label class="f-label" for="parent_name"
+            >Full Name <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="parent_name"
+            name="parent_name"
+            type="text"
+            placeholder="Parent or guardian full name"
+          />
+          <span class="f-err" id="parent_name-error" aria-live="polite"></span>
         </div>
-      </div>
-
-      <!-- Weekly training hours -->
-      <div class="f">
-        <label class="f-label" for="training_hours"
-          >Weekly Training Hours <span class="f-req">*</span></label
-        >
-        <p class="f-hint">
-          Outside of school PE — include all club sessions, personal training,
-          and pickup.
-        </p>
-        <select
-          class="f-select"
-          id="training_hours"
-          name="training_hours"
-          required
-        >
-          <option value="" disabled selected>Select range</option>
-          <option value="less-than-2">Less than 2 hours</option>
-          <option value="2-4">2 – 4 hours</option>
-          <option value="4-6">4 – 6 hours</option>
-          <option value="6-8">6 – 8 hours</option>
-          <option value="8+">8+ hours</option>
-        </select>
-      </div>
-
-      <!-- Competition level -->
-      <div class="f">
-        <label class="f-label" for="competition_level"
-          >Current Competition Level <span class="f-req">*</span></label
-        >
-        <p class="f-hint">
-          Select the highest level this player currently competes at in
-          Vancouver / Lower Mainland.
-        </p>
-        <select
-          class="f-select"
-          id="competition_level"
-          name="competition_level"
-          required
-        >
-          <option value="" disabled selected>Select level</option>
-          <option value="bcspl">BCSPL (BC Soccer Premier League)</option>
-          <option value="metro">Metro</option>
-          <option value="gold">Gold</option>
-          <option value="silver">Silver</option>
-          <option value="bronze">Bronze</option>
-          <option value="recreational">Recreational / House League</option>
-          <option value="school-only">School team only</option>
-          <option value="no-team">Not currently on a team</option>
-        </select>
-      </div>
-
-      <!-- Other sports -->
-      <div class="f">
-        <label class="f-label" for="other_sports"
-          >Other Sports Currently Played <span class="f-opt">Optional</span
-          ></label
-        >
-        <p class="f-hint">
-          List any other sports the player actively trains or competes in.
-        </p>
-        <input
-          class="f-input"
-          id="other_sports"
-          name="other_sports"
-          type="text"
-          placeholder="e.g. Basketball, ice hockey, swimming"
-        />
+        <div class="f">
+          <label class="f-label" for="parent_relationship"
+            >Relationship to Player <span class="f-req">*</span></label
+          >
+          <select
+            class="f-select"
+            id="parent_relationship"
+            name="parent_relationship"
+          >
+            <option value="" disabled selected>Select relationship</option>
+            <option value="mother">Mother</option>
+            <option value="father">Father</option>
+            <option value="guardian">Legal Guardian</option>
+            <option value="other">Other</option>
+          </select>
+          <span class="f-err" id="parent_relationship-error" aria-live="polite"
+          ></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="parent_email"
+            >Email Address <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="parent_email"
+            name="parent_email"
+            type="email"
+            placeholder="parent@email.com"
+          />
+          <span class="f-err" id="parent_email-error" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="parent_phone"
+            >Phone Number <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="parent_phone"
+            name="parent_phone"
+            type="tel"
+            placeholder="+1 (604) 000-0000"
+          />
+          <span class="f-err" id="parent_phone-error" aria-live="polite"></span>
+        </div>
       </div>
     </div>
+
+    <!-- ── 03 PLAYING POSITION ────────────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">03</span>
+        <div>
+          <div class="fsec-label">Playing Position</div>
+          <div class="fsec-hint">
+            Select primary position(s) and dominant foot.
+          </div>
+        </div>
+      </div>
+      <div class="fgrid fgrid-1">
+        <!-- Position tiles -->
+        <div class="f">
+          <label class="f-label"
+            >Primary Position(s) <span class="f-req">*</span></label
+          >
+          <p class="f-hint">Select all that apply.</p>
+          <div class="pos-grid">
+            {
+              [
+                { value: "GK", label: "Goalkeeper", icon: "🧤" },
+                { value: "Defender", label: "Defender", icon: "🛡️" },
+                { value: "Midfielder", label: "Midfielder", icon: "⚙️" },
+                { value: "Winger", label: "Winger", icon: "⚡" },
+                { value: "Striker", label: "Striker", icon: "⚽" },
+              ].map(({ value, label, icon }) => (
+                <label class="pos-tile">
+                  <input type="checkbox" name="positions" value={value} />
+                  <span class="pos-icon">{icon}</span>
+                  <span class="pos-lbl">{label}</span>
+                  <span class="pos-check">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3.5"
+                      stroke-linecap="round"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+          <span class="f-err" id="positions-error" aria-live="polite"></span>
+        </div>
+
+        <!-- Dominant foot -->
+        <div class="f">
+          <label class="f-label"
+            >Dominant Foot <span class="f-req">*</span></label
+          >
+          <div class="foot-row">
+            {
+              [
+                { value: "right", label: "Right" },
+                { value: "left", label: "Left" },
+                { value: "both", label: "Both" },
+              ].map(({ value, label }) => (
+                <label class="rtile">
+                  <input type="radio" name="preferred_foot" value={value} />
+                  <span class="rtile-lbl">{label}</span>
+                </label>
+              ))
+            }
+          </div>
+          <span class="f-err" id="preferred_foot-error" aria-live="polite"
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div><!-- /form-step[1] -->
+
+  <!-- ── STEP 1 NAV ─────────────────────────── -->
+  <div class="f-nav" id="step-nav-1">
+    <div class="f-note">
+      <p class="caption">
+        Fields marked <span class="f-req">*</span> are required.
+      </p>
+      <p class="caption">We respond within 48 hours.</p>
+    </div>
+    <button type="button" class="f-btn" id="next-btn">
+      Continue
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+      >
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
   </div>
 
-  <!-- ── 03 PARENT / GUARDIAN ───────────────── -->
-  <div class="fsec">
-    <div class="fsec-head">
-      <span class="fsec-num">03</span>
-      <div>
-        <div class="fsec-label">Parent / Guardian</div>
-        <div class="fsec-hint">
-          Required for all players under 18. This is our primary contact for
-          scheduling and updates.
+  <!-- ════════════════════════════════════════════
+       STEP 2 — Training, background, goals
+       ════════════════════════════════════════════ -->
+  <div class="form-step" data-step="2">
+    <!-- ── 04 TRAINING & COMPETITION ──────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">04</span>
+        <div>
+          <div class="fsec-label">Training &amp; Competition</div>
+          <div class="fsec-hint">
+            Current training load and competitive level.
+          </div>
+        </div>
+      </div>
+      <div class="fgrid fgrid-1">
+        <div class="f">
+          <label class="f-label" for="training_hours"
+            >Weekly Training Hours <span class="f-req">*</span></label
+          >
+          <p class="f-hint">
+            Outside of school PE — include all club sessions, personal training,
+            and pickup.
+          </p>
+          <select
+            class="f-select"
+            id="training_hours"
+            name="training_hours"
+            required
+          >
+            <option value="" disabled selected>Select range</option>
+            <option value="less-than-2">Less than 2 hours</option>
+            <option value="2-4">2 – 4 hours</option>
+            <option value="4-6">4 – 6 hours</option>
+            <option value="6-8">6 – 8 hours</option>
+            <option value="8+">8+ hours</option>
+          </select>
+        </div>
+
+        <div class="f">
+          <label class="f-label" for="competition_level"
+            >Current Competition Level <span class="f-req">*</span></label
+          >
+          <p class="f-hint">
+            Select the highest level this player currently competes at in
+            Vancouver / Lower Mainland.
+          </p>
+          <select
+            class="f-select"
+            id="competition_level"
+            name="competition_level"
+            required
+          >
+            <option value="" disabled selected>Select level</option>
+            <option value="bcspl">BCSPL (BC Soccer Premier League)</option>
+            <option value="metro">Metro</option>
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="bronze">Bronze</option>
+            <option value="recreational">Recreational / House League</option>
+            <option value="school-only">School team only</option>
+            <option value="no-team">Not currently on a team</option>
+          </select>
+        </div>
+
+        <div class="f">
+          <label class="f-label" for="other_sports"
+            >Other Sports Currently Played <span class="f-opt">Optional</span
+            ></label
+          >
+          <p class="f-hint">
+            List any other sports the player actively trains or competes in.
+          </p>
+          <input
+            class="f-input"
+            id="other_sports"
+            name="other_sports"
+            type="text"
+            placeholder="e.g. Basketball, ice hockey, swimming"
+          />
         </div>
       </div>
     </div>
-    <div class="fgrid fgrid-2">
-      <div class="f">
-        <label class="f-label" for="parent_name"
-          >Full Name <span class="f-req">*</span></label
-        >
-        <input
-          class="f-input"
-          id="parent_name"
-          name="parent_name"
-          type="text"
-          placeholder="Parent or guardian full name"
-          required
-        />
-      </div>
-      <div class="f">
-        <label class="f-label" for="parent_relationship"
-          >Relationship to Player <span class="f-req">*</span></label
-        >
-        <select
-          class="f-select"
-          id="parent_relationship"
-          name="parent_relationship"
-          required
-        >
-          <option value="" disabled selected>Select relationship</option>
-          <option value="mother">Mother</option>
-          <option value="father">Father</option>
-          <option value="guardian">Legal Guardian</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="f">
-        <label class="f-label" for="parent_email"
-          >Email Address <span class="f-req">*</span></label
-        >
-        <input
-          class="f-input"
-          id="parent_email"
-          name="parent_email"
-          type="email"
-          placeholder="parent@email.com"
-          required
-        />
-      </div>
-      <div class="f">
-        <label class="f-label" for="parent_phone"
-          >Phone Number <span class="f-req">*</span></label
-        >
-        <input
-          class="f-input"
-          id="parent_phone"
-          name="parent_phone"
-          type="tel"
-          placeholder="+1 (604) 000-0000"
-          required
-        />
-      </div>
-    </div>
-  </div>
 
-  <!-- ── 04 PLAYER BACKGROUND ──────────────── -->
-  <div class="fsec">
-    <div class="fsec-head">
-      <span class="fsec-num">04</span>
-      <div>
-        <div class="fsec-label">Player Background</div>
-        <div class="fsec-hint">
-          Helps us tailor every session to where the player is right now.
+    <!-- ── 05 PLAYER BACKGROUND ───────────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">05</span>
+        <div>
+          <div class="fsec-label">Player Background</div>
+          <div class="fsec-hint">
+            Helps us tailor every session to where the player is right now.
+          </div>
+        </div>
+      </div>
+      <div class="fgrid fgrid-1">
+        <!-- Previous coaching -->
+        <div class="f">
+          <label class="f-label"
+            >Previous Structured Coaching <span class="f-req">*</span></label
+          >
+          <p class="f-hint">
+            Has the player received coaching outside of school or recreational
+            leagues?
+          </p>
+          <div class="foot-row">
+            {
+              [
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ].map(({ value, label }) => (
+                <label class="rtile">
+                  <input
+                    type="radio"
+                    name="previous_coaching"
+                    value={value}
+                    required
+                  />
+                  <span class="rtile-lbl">{label}</span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Injuries / physical notes -->
+        <div class="f">
+          <label class="f-label" for="injuries"
+            >Injuries or Physical Considerations <span class="f-opt"
+              >Recommended</span
+            ></label
+          >
+          <p class="f-hint">
+            Any current or recurring injuries, physical limitations, or medical
+            notes our coaches should know about.
+          </p>
+          <textarea
+            class="f-textarea"
+            id="injuries"
+            name="injuries"
+            rows="3"
+            placeholder="e.g. Recovering from a sprained ankle. No contact drills for 4 weeks..."
+          ></textarea>
+        </div>
+
+        <!-- Player strengths -->
+        <div class="f">
+          <label class="f-label" for="player_strengths"
+            >Player Strengths <span class="f-opt">Recommended</span></label
+          >
+          <p class="f-hint">What does this player do well on the pitch?</p>
+          <textarea
+            class="f-textarea"
+            id="player_strengths"
+            name="player_strengths"
+            rows="3"
+            placeholder="e.g. Strong in the air, good first touch, reads the game well under pressure..."
+          ></textarea>
+        </div>
+
+        <!-- Areas to improve -->
+        <div class="f">
+          <label class="f-label" for="areas_to_improve"
+            >Areas to Improve <span class="f-opt">Recommended</span></label
+          >
+          <p class="f-hint">
+            Where does the player feel they need the most development?
+          </p>
+          <textarea
+            class="f-textarea"
+            id="areas_to_improve"
+            name="areas_to_improve"
+            rows="3"
+            placeholder="e.g. Weak foot, defensive positioning, decision-making in tight spaces..."
+          ></textarea>
         </div>
       </div>
     </div>
-    <div class="fgrid fgrid-1">
-      <!-- Previous coaching -->
-      <div class="f">
-        <label class="f-label"
-          >Previous Structured Coaching <span class="f-req">*</span></label
-        >
-        <p class="f-hint">
-          Has the player received coaching outside of school or recreational
-          leagues?
-        </p>
-        <div class="foot-row">
-          {
-            [
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ].map(({ value, label }) => (
-              <label class="rtile">
-                <input
-                  type="radio"
-                  name="previous_coaching"
-                  value={value}
-                  required
-                />
-                <span class="rtile-lbl">{label}</span>
-              </label>
-            ))
-          }
+
+    <!-- ── 06 GOALS & AMBITIONS ───────────────── -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <span class="fsec-num">06</span>
+        <div>
+          <div class="fsec-label">Goals &amp; Ambitions</div>
+          <div class="fsec-hint">Tell us where this player wants to go.</div>
         </div>
       </div>
+      <div class="fgrid fgrid-1">
+        <!-- Long-term ambition -->
+        <div class="f">
+          <label class="f-label" for="long_term_goal"
+            >Long-term Football Ambition <span class="f-req">*</span></label
+          >
+          <select
+            class="f-select"
+            id="long_term_goal"
+            name="long_term_goal"
+            required
+          >
+            <option value="" disabled selected>Select an option</option>
+            <option value="recreational"
+              >Recreational — play for fun and fitness</option
+            >
+            <option value="local-competitive"
+              >Local competitive — play at a strong club level</option
+            >
+            <option value="provincial"
+              >Provincial — represent BC or compete provincially</option
+            >
+            <option value="national">National — national team pathway</option>
+            <option value="professional"
+              >Professional / semi-professional pathway</option
+            >
+          </select>
+        </div>
 
-      <!-- Injuries / physical notes -->
-      <div class="f">
-        <label class="f-label" for="injuries"
-          >Injuries or Physical Considerations <span class="f-opt"
-            >Recommended</span
-          ></label
-        >
-        <p class="f-hint">
-          Any current or recurring injuries, physical limitations, or medical
-          notes our coaches should know about.
-        </p>
-        <textarea
-          class="f-textarea"
-          id="injuries"
-          name="injuries"
-          rows="3"
-          placeholder="e.g. Recovering from a sprained ankle. No contact drills for 4 weeks..."
-        ></textarea>
-      </div>
+        <!-- Development goals -->
+        <div class="f">
+          <label class="f-label" for="goals"
+            >Development Goals <span class="f-opt">Recommended</span></label
+          >
+          <p class="f-hint">
+            What does the player want to achieve in the next 6 – 12 months?
+          </p>
+          <textarea
+            class="f-textarea"
+            id="goals"
+            name="goals"
+            rows="4"
+            placeholder="e.g. Earn a spot on a competitive U14 team by summer. Work on consistency when receiving under pressure..."
+          ></textarea>
+        </div>
 
-      <!-- Player strengths -->
-      <div class="f">
-        <label class="f-label" for="player_strengths"
-          >Player Strengths <span class="f-opt">Recommended</span></label
-        >
-        <p class="f-hint">What does this player do well on the pitch?</p>
-        <textarea
-          class="f-textarea"
-          id="player_strengths"
-          name="player_strengths"
-          rows="3"
-          placeholder="e.g. Strong in the air, good first touch, reads the game well under pressure..."
-        ></textarea>
-      </div>
-
-      <!-- Areas to improve -->
-      <div class="f">
-        <label class="f-label" for="areas_to_improve"
-          >Areas to Improve <span class="f-opt">Recommended</span></label
-        >
-        <p class="f-hint">
-          Where does the player feel they need the most development?
-        </p>
-        <textarea
-          class="f-textarea"
-          id="areas_to_improve"
-          name="areas_to_improve"
-          rows="3"
-          placeholder="e.g. Weak foot, defensive positioning, decision-making in tight spaces..."
-        ></textarea>
-      </div>
-
-      <!-- Response to feedback -->
-      <div class="f">
-        <label class="f-label" for="response_to_feedback"
-          >Response to Coaching Feedback <span class="f-req">*</span></label
-        >
-        <p class="f-hint">
-          How does this player typically respond when a coach corrects them
-          during training?
-        </p>
-        <select
-          class="f-select"
-          id="response_to_feedback"
-          name="response_to_feedback"
-          required
-        >
-          <option value="" disabled selected>Select an option</option>
-          <option value="adjusts-immediately"
-            >Adjusts immediately and tries again</option
+        <!-- Referral -->
+        <div class="f">
+          <label class="f-label" for="referral"
+            >How did you hear about us? <span class="f-opt">Optional</span
+            ></label
           >
-          <option value="needs-moment"
-            >Takes a moment to process, then responds positively</option
-          >
-          <option value="sometimes-pushback"
-            >Sometimes questions or pushes back</option
-          >
-          <option value="gets-frustrated"
-            >Tends to get frustrated or withdraw</option
-          >
-        </select>
-      </div>
-
-      <!-- Motivation / drive -->
-      <div class="f">
-        <label class="f-label" for="motivation_drive"
-          >Motivation to Improve <span class="f-req">*</span></label
-        >
-        <p class="f-hint">What best describes what drives this player?</p>
-        <select
-          class="f-select"
-          id="motivation_drive"
-          name="motivation_drive"
-          required
-        >
-          <option value="" disabled selected>Select an option</option>
-          <option value="self-driven"
-            >Highly self-motivated — pushes themselves without prompting</option
-          >
-          <option value="coach-driven"
-            >Responds well when challenged by coaches</option
-          >
-          <option value="competition-driven"
-            >Motivated by games and competition</option
-          >
-          <option value="needs-encouragement"
-            >Needs consistent encouragement to stay focused</option
-          >
-        </select>
-      </div>
-
-      <!-- Handles mistakes -->
-      <div class="f">
-        <label class="f-label" for="handles_mistakes"
-          >Handling Mistakes <span class="f-req">*</span></label
-        >
-        <p class="f-hint">
-          How does this player typically respond to making mistakes in training
-          or games?
-        </p>
-        <select
-          class="f-select"
-          id="handles_mistakes"
-          name="handles_mistakes"
-          required
-        >
-          <option value="" disabled selected>Select an option</option>
-          <option value="bounces-back"
-            >Bounces back quickly and refocuses</option
-          >
-          <option value="brief-frustration"
-            >Brief frustration, then moves on</option
-          >
-          <option value="lingers">Lingers on mistakes and loses focus</option>
-          <option value="shuts-down"
-            >Shuts down or becomes visibly upset</option
-          >
-        </select>
+          <select class="f-select" id="referral" name="referral">
+            <option value="" disabled selected>Select an option</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="google">Google Search</option>
+            <option value="friend">Friend or Family</option>
+            <option value="coach">Coach / Club</option>
+            <option value="southvanfc_website">South Van FC Website</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
+  </div><!-- /form-step[2] -->
 
-  <!-- ── 05 GOALS & REFERRAL ────────────────── -->
-  <div class="fsec">
-    <div class="fsec-head">
-      <span class="fsec-num">05</span>
-      <div>
-        <div class="fsec-label">Goals &amp; Ambitions</div>
-        <div class="fsec-hint">Tell us where this player wants to go.</div>
-      </div>
-    </div>
-    <div class="fgrid fgrid-1">
-      <!-- Long-term ambition -->
-      <div class="f">
-        <label class="f-label" for="long_term_goal"
-          >Long-term Football Ambition <span class="f-req">*</span></label
-        >
-        <select
-          class="f-select"
-          id="long_term_goal"
-          name="long_term_goal"
-          required
-        >
-          <option value="" disabled selected>Select an option</option>
-          <option value="recreational"
-            >Recreational — play for fun and fitness</option
-          >
-          <option value="local-competitive"
-            >Local competitive — play at a strong club level</option
-          >
-          <option value="provincial"
-            >Provincial — represent BC or compete provincially</option
-          >
-          <option value="national">National — national team pathway</option>
-          <option value="professional"
-            >Professional / semi-professional pathway</option
-          >
-        </select>
-      </div>
-
-      <!-- Development goals -->
-      <div class="f">
-        <label class="f-label" for="goals"
-          >Development Goals <span class="f-opt">Recommended</span></label
-        >
-        <p class="f-hint">
-          What does the player want to achieve in the next 6 – 12 months?
-        </p>
-        <textarea
-          class="f-textarea"
-          id="goals"
-          name="goals"
-          rows="4"
-          placeholder="e.g. Earn a spot on a competitive U14 team by summer. Work on consistency when receiving under pressure..."
-        ></textarea>
-      </div>
-
-      <!-- Referral -->
-      <div class="f">
-        <label class="f-label" for="referral"
-          >How did you hear about us? <span class="f-opt">Optional</span></label
-        >
-        <select class="f-select" id="referral" name="referral">
-          <option value="" disabled selected>Select an option</option>
-          <option value="instagram">Instagram</option>
-          <option value="facebook">Facebook</option>
-          <option value="google">Google Search</option>
-          <option value="friend">Friend or Family</option>
-          <option value="coach">Coach / Club</option>
-          <option value="southvanfc_website">South Van FC Website</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SUBMIT ─────────────────────────────── -->
-  <div class="f-submit">
+  <!-- ── STEP 2 NAV ─────────────────────────── -->
+  <div class="f-nav" id="step-nav-2" style="display:none">
+    <button type="button" class="f-btn f-btn--ghost" id="back-btn">
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+      </svg>
+      Back
+    </button>
     <div class="f-note">
       <p class="caption">
         Fields marked <span class="f-req">*</span> are required.
@@ -620,6 +598,86 @@
 </form>
 
 <style>
+  /* ── Step indicator ── */
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 16px 0;
+    border-bottom: 1px solid #eef0f7;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+  }
+  .step-pip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #d0d5e8;
+    background: #fff;
+    color: #6b7a9e;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Inter Variable", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 0.25s,
+      border-color 0.25s,
+      color 0.25s;
+  }
+  .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7a9e;
+    white-space: nowrap;
+    transition: color 0.25s;
+  }
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: #d0d5e8;
+    margin: 0 8px;
+    margin-bottom: 22px;
+    transition: background 0.25s;
+  }
+  .step-pip[data-active="true"] .step-circle {
+    background: #e8b430;
+    border-color: #e8b430;
+    color: #011f4a;
+  }
+  .step-pip[data-active="true"] .step-label {
+    color: #011f4a;
+  }
+  .step-pip[data-complete="true"] .step-circle {
+    background: #011f4a;
+    border-color: #011f4a;
+    color: #fff;
+  }
+  .step-pip[data-complete="true"] .step-label {
+    color: #011f4a;
+  }
+  .step-connector[data-complete="true"] {
+    background: #011f4a;
+  }
+
+  /* ── Step containers ── */
+  .form-step[data-step="2"] {
+    display: none;
+  }
+  .form-step[data-step="2"].is-active {
+    display: block;
+  }
+
   /* ── Section blocks ── */
   .fsec {
     padding: 32px 0;
@@ -708,6 +766,23 @@
     background: #eef0f7;
     padding: 2px 8px;
     border-radius: 100px;
+  }
+
+  /* ── Inline validation errors ── */
+  .f-err {
+    display: none;
+    font-size: 11px;
+    color: #c0392b;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+  .f-err.is-visible {
+    display: block;
+  }
+  .f-input.is-invalid,
+  .f-select.is-invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.09);
   }
 
   /* ── Inputs ── */
@@ -870,8 +945,8 @@
     color: #013478;
   }
 
-  /* ── Submit strip ── */
-  .f-submit {
+  /* ── Navigation strips ── */
+  .f-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -921,6 +996,15 @@
     cursor: not-allowed;
     transform: none;
   }
+  .f-btn--ghost {
+    background: transparent;
+    color: #011f4a;
+    border: 1.5px solid #011f4a;
+  }
+  .f-btn--ghost:hover {
+    background: #eef0f7;
+    transform: translateY(-2px);
+  }
 
   /* ── Responsive ── */
   @media (max-width: 960px) {
@@ -933,7 +1017,7 @@
     .pos-grid {
       grid-template-columns: repeat(3, 1fr);
     }
-    .f-submit {
+    .f-nav {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -955,18 +1039,186 @@
 </style>
 
 <script>
-  // Submitting state feedback
   const form = document.getElementById("eval-form") as HTMLFormElement | null;
-  const btn = document.getElementById("submit-btn") as HTMLButtonElement | null;
-  if (form && btn) {
-    form.addEventListener("submit", () => {
-      btn.disabled = true;
-      btn.innerHTML = `
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" style="animation:spin .7s linear infinite">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-        </svg>
-        Submitting...`;
-    });
+  const nextBtn = document.getElementById(
+    "next-btn",
+  ) as HTMLButtonElement | null;
+  const backBtn = document.getElementById(
+    "back-btn",
+  ) as HTMLButtonElement | null;
+  const submitBtn = document.getElementById(
+    "submit-btn",
+  ) as HTMLButtonElement | null;
+
+  if (!form || !nextBtn || !backBtn || !submitBtn)
+    throw new Error("Eval form elements missing");
+
+  const STEP1_REQUIRED: Array<{ id: string; type: string; msg: string }> = [
+    { id: "full_name", type: "text", msg: "Player's full name is required." },
+    { id: "dob", type: "text", msg: "Date of birth is required." },
+    { id: "age_group", type: "select", msg: "Please select an age group." },
+    {
+      id: "years_playing",
+      type: "select",
+      msg: "Please select years playing.",
+    },
+    {
+      id: "parent_name",
+      type: "text",
+      msg: "Parent or guardian name is required.",
+    },
+    {
+      id: "parent_relationship",
+      type: "select",
+      msg: "Please select your relationship to the player.",
+    },
+    {
+      id: "parent_email",
+      type: "email",
+      msg: "A valid email address is required.",
+    },
+    { id: "parent_phone", type: "text", msg: "A phone number is required." },
+    {
+      id: "positions",
+      type: "checkbox",
+      msg: "Please select at least one position.",
+    },
+    {
+      id: "preferred_foot",
+      type: "radio",
+      msg: "Please select a dominant foot.",
+    },
+  ];
+
+  function clearError(id: string) {
+    const el = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLSelectElement
+      | null;
+    if (el) el.classList.remove("is-invalid");
+    const errEl = document.getElementById(id + "-error");
+    if (errEl) errEl.classList.remove("is-visible");
   }
+
+  function validateStep1(): boolean {
+    let ok = true;
+    for (const { id, type, msg } of STEP1_REQUIRED) {
+      let invalid = false;
+      if (type === "checkbox") {
+        invalid =
+          form!.querySelectorAll('input[name="positions"]:checked').length ===
+          0;
+      } else if (type === "radio") {
+        invalid =
+          form!.querySelectorAll('input[name="preferred_foot"]:checked')
+            .length === 0;
+      } else if (type === "email") {
+        const val = (
+          (document.getElementById(id) as HTMLInputElement)?.value ?? ""
+        ).trim();
+        invalid = !val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      } else {
+        invalid = !(
+          (document.getElementById(id) as HTMLInputElement)?.value ?? ""
+        ).trim();
+      }
+      const errEl = document.getElementById(id + "-error");
+      const inputEl = document.getElementById(id) as
+        | HTMLInputElement
+        | HTMLSelectElement
+        | null;
+      if (invalid) {
+        ok = false;
+        if (errEl) {
+          errEl.textContent = msg;
+          errEl.classList.add("is-visible");
+        }
+        if (inputEl) inputEl.classList.add("is-invalid");
+      } else {
+        if (errEl) errEl.classList.remove("is-visible");
+        if (inputEl) inputEl.classList.remove("is-invalid");
+      }
+    }
+    return ok;
+  }
+
+  function goToStep(n: number) {
+    const s1 = document.querySelector('[data-step="1"]') as HTMLElement | null;
+    const s2 = document.querySelector('[data-step="2"]') as HTMLElement | null;
+    const nav1 = document.getElementById("step-nav-1") as HTMLElement | null;
+    const nav2 = document.getElementById("step-nav-2") as HTMLElement | null;
+    const pip1 = document.querySelector('[data-pip="1"]') as HTMLElement | null;
+    const pip2 = document.querySelector('[data-pip="2"]') as HTMLElement | null;
+    const conn = document.querySelector(
+      ".step-connector",
+    ) as HTMLElement | null;
+
+    if (n === 2) {
+      if (s1) s1.style.display = "none";
+      if (s2) s2.classList.add("is-active");
+      if (nav1) nav1.style.display = "none";
+      if (nav2) nav2.style.display = "flex";
+      if (pip1) {
+        pip1.setAttribute("data-active", "false");
+        pip1.setAttribute("data-complete", "true");
+      }
+      if (pip2) pip2.setAttribute("data-active", "true");
+      if (conn) conn.setAttribute("data-complete", "true");
+    } else {
+      if (s1) s1.style.display = "";
+      if (s2) s2.classList.remove("is-active");
+      if (nav1) nav1.style.display = "flex";
+      if (nav2) nav2.style.display = "none";
+      if (pip1) {
+        pip1.setAttribute("data-active", "true");
+        pip1.removeAttribute("data-complete");
+      }
+      if (pip2) pip2.removeAttribute("data-active");
+      if (conn) conn.removeAttribute("data-complete");
+    }
+
+    document
+      .getElementById("eval-form")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Real-time error clearing on input
+  for (const { id, type } of STEP1_REQUIRED) {
+    if (type === "checkbox") {
+      form
+        .querySelectorAll('input[name="positions"]')
+        .forEach((el) =>
+          el.addEventListener("change", () => clearError("positions")),
+        );
+    } else if (type === "radio") {
+      form
+        .querySelectorAll('input[name="preferred_foot"]')
+        .forEach((el) =>
+          el.addEventListener("change", () => clearError("preferred_foot")),
+        );
+    } else {
+      document
+        .getElementById(id)
+        ?.addEventListener("input", () => clearError(id));
+    }
+  }
+
+  // Init — step 1 active
+  document.querySelector('[data-pip="1"]')?.setAttribute("data-active", "true");
+
+  nextBtn.addEventListener("click", () => {
+    if (validateStep1()) goToStep(2);
+  });
+  backBtn.addEventListener("click", () => goToStep(1));
+
+  // Submit loading state
+  form.addEventListener("submit", () => {
+    submitBtn!.disabled = true;
+    submitBtn!.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" style="animation:spin .7s linear infinite">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+      </svg>
+      Submitting...`;
+  });
 </script>

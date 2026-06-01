@@ -91,9 +91,6 @@ export interface PlayerEvaluationInsert {
   injuries?:            string;
   player_strengths?:    string;
   areas_to_improve?:    string;
-  response_to_feedback: string;
-  motivation_drive:     string;
-  handles_mistakes:     string;
   long_term_goal:       string;
   goals?:               string;
   referral?:            string;
