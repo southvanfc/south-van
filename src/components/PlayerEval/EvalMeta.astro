@@ -2,6 +2,7 @@
 // src/components/academy/EvalMeta.astro
 
 const eligibility = [
+  "First evaluation session is free",
   "Open to all ages and ability levels",
   "Any club or no club affiliation",
   "Players must bring their own kit",
@@ -40,8 +41,8 @@ const pillars = [
       <div class="col-eyebrow">Eligibility</div>
       <ul class="elig-list">
         {
-          eligibility.map((item) => (
-            <li class="elig-item">
+          eligibility.map((item, i) => (
+            <li class={`elig-item${i === 0 ? " elig-item-free" : ""}`}>
               <svg
                 width="12"
                 height="12"
@@ -186,6 +187,13 @@ const pillars = [
     flex-shrink: 0;
     color: #013478;
     margin-top: 2px;
+  }
+  .elig-item-free {
+    color: #b8860b;
+    font-weight: 600;
+  }
+  .elig-item-free svg {
+    color: #e8b430;
   }
 
   /* Pillars */

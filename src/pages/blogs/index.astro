@@ -49,11 +49,16 @@ function readingTime(body: string) {
 
   <section class="blog-list-section section">
     <div class="blog-controls">
-      <div class="blog-select-wrap">
-        <label for="category-select" class="sr-only">Filter by category</label>
-        <select id="category-select" class="blog-select">
-          {categories.map((cat) => <option value={cat}>{cat}</option>)}
-        </select>
+      <div class="blog-category-pills" role="group" aria-label="Filter by category">
+        {categories.map((cat, i) => (
+          <button
+            class={`blog-pill${i === 0 ? " blog-pill-active" : ""}`}
+            data-category={cat}
+            type="button"
+          >
+            {cat}
+          </button>
+        ))}
       </div>
       <div class="blog-select-wrap">
         <label for="sort-select" class="sr-only">Sort by date</label>
@@ -126,16 +131,15 @@ function readingTime(body: string) {
 
   <script>
     const grid = document.getElementById("blog-grid");
-    const categorySelect = document.getElementById(
-      "category-select",
-    ) as HTMLSelectElement;
     const sortSelect = document.getElementById(
       "sort-select",
     ) as HTMLSelectElement;
+    const pills = document.querySelectorAll<HTMLButtonElement>(".blog-pill");
+
+    let activeCategory = "All";
 
     function applyFiltersAndSort() {
       if (!grid) return;
-      const category = categorySelect.value;
       const sort = sortSelect.value;
 
       const cards = Array.from(
@@ -150,13 +154,21 @@ function readingTime(body: string) {
 
       cards.forEach((card) => {
         const visible =
-          category === "All" || card.dataset.category === category;
+          activeCategory === "All" || card.dataset.category === activeCategory;
         card.style.display = visible ? "" : "none";
         grid.appendChild(card);
       });
     }
 
-    categorySelect?.addEventListener("change", applyFiltersAndSort);
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        pills.forEach((p) => p.classList.remove("blog-pill-active"));
+        pill.classList.add("blog-pill-active");
+        activeCategory = pill.dataset.category ?? "All";
+        applyFiltersAndSort();
+      });
+    });
+
     sortSelect?.addEventListener("change", applyFiltersAndSort);
   </script>
 </BaseLayout>
@@ -182,13 +194,51 @@ function readingTime(body: string) {
 
   .blog-controls {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     margin-bottom: 36px;
     flex-wrap: wrap;
   }
 
+  .blog-category-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .blog-pill {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--lt-gray);
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .blog-pill:hover {
+    border-color: var(--navy-dark);
+    color: var(--navy-dark);
+  }
+
+  .blog-pill-active {
+    background: var(--navy-dark);
+    border-color: var(--navy-dark);
+    color: #fff;
+  }
+
+  .blog-pill-active:hover {
+    background: var(--navy-dark);
+    color: #fff;
+  }
+
   .blog-select-wrap {
     position: relative;
+    flex-shrink: 0;
   }
 
   .blog-select {

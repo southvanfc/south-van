@@ -246,6 +246,10 @@ const comingSoon = [
       }
     </div>
 
+    <div class="free-session-note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Your first evaluation session is free. No commitment required.
+    </div>
     <p class="billing-note">
       * Monthly billing. No long-term contract required. Cancel with 30 days
       notice.
@@ -489,8 +493,26 @@ const comingSoon = [
     width: 100%;
   }
 
-  .billing-note {
+  .free-session-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin-top: 32px;
+    padding: 10px 18px;
+    background: #fdf8ec;
+    border: 1.5px solid rgba(232, 180, 48, 0.4);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a6200;
+  }
+  .free-session-note svg {
+    color: #e8b430;
+    flex-shrink: 0;
+  }
+
+  .billing-note {
+    margin-top: 16px;
     font-size: 13px;
     color: var(--text-light);
     font-style: italic;
