@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **South Van FC Youth Academy**
-**Last Updated: May 11, 2026**
+**Last Updated: June 5, 2026**
 
 ---
 
@@ -23,16 +23,29 @@ We collect personal information through two forms on our website:
 
 When you submit a request for a player evaluation, we may collect:
 
+**Player information:**
 - Player's full name
-- Date of birth and age group (U8–U11, U11–U15, U15–U18, or 18+)
-- Email address
-- Phone number (optional)
+- Date of birth and age group (U8–U11, U12–U15, or U15–U18)
 - Current club (optional)
+- Years playing soccer
+- School grade (optional)
 - Primary position(s) and dominant foot
-- Programs of interest
+- Weekly training hours and current competition level
+- Other sports played (optional)
+- Previous structured coaching experience
+- Injuries or physical considerations (optional, recommended)
+- Player strengths and areas to improve (optional, recommended)
+- Long-term football ambition
 - Development goals (optional)
-- **Parent or guardian name** (required if the player is under 18)
 - How you heard about us (optional)
+
+**Parent or guardian information (required for all youth players):**
+- Full name
+- Relationship to player
+- Email address
+- Phone number
+
+The parent or guardian is our primary contact for all youth player evaluations.
 
 ### Men's Team Application Form
 
@@ -59,11 +72,14 @@ When you subscribe to our email list through the website, we collect:
 
 ### Website Usage Data
 
-We also automatically collect certain non-personal information when you visit our website, including:
+We automatically collect certain information when you visit our website, including:
 
 - Pages visited and time spent on pages
-- Browser type and device type (collected in aggregate, not linked to individuals)
-- Referral source
+- General location (country/city level, derived from IP address)
+- Browser type and device type
+- Referral source and traffic medium
+
+This data is collected through Google Analytics and, where consent is given, Vercel Analytics and Speed Insights. See Section 6 and Section 7 for details on how these services work.
 
 ---
 
@@ -75,7 +91,7 @@ We use the personal information we collect for the following purposes:
 - **To communicate with you** — responding to your inquiry, scheduling evaluations, or providing information about programs
 - **To manage our programs** — organizing tryouts, evaluations, and player development activities
 - **To send you club updates and communications** — if you subscribe to our email list, we may send you news, program updates, and promotional content about South Van FC
-- **To improve our website and services** — using aggregated analytics data to understand how visitors use our site
+- **To improve our website and services** — using analytics data to understand how visitors use our site
 
 We will not use your personal information for purposes other than those listed above without your consent.
 
@@ -85,7 +101,8 @@ We will not use your personal information for purposes other than those listed a
 
 South Van FC provides programs for youth players, including children under the age of 18. We take the protection of minors' privacy seriously.
 
-- We **do not knowingly collect personal information directly from children under the age of 13** without verified parental or guardian consent. Our Player Evaluation Form requests a parent or guardian's name for all players under 18.
+- We **do not knowingly collect personal information directly from children under the age of 13** without verified parental or guardian consent. Our Player Evaluation Form requires a parent or guardian's name, email, phone number, and relationship for all youth players.
+- The parent or guardian is our sole contact for all youth evaluations and program communications — we do not communicate directly with minors.
 - If you are a parent or guardian and believe we have collected information about your child without appropriate consent, please contact us immediately at **southvanfc@gmail.com** and we will take steps to remove that information.
 - We do not sell, share, or use children's data for marketing purposes.
 
@@ -107,21 +124,26 @@ We retain your information only as long as necessary to fulfill the purposes out
 
 We use the following third-party services that may collect or process data on our behalf:
 
-| Service                          | Purpose                                        | Privacy Policy                                                   |
-| -------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
-| **Google Cloud / Google Sheets** | Secure storage of form submissions             | [Google Privacy Policy](https://policies.google.com/privacy)     |
-| **Vercel**                       | Website hosting and deployment                 | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Vercel Analytics**             | Aggregate, anonymized website traffic analysis | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Vercel Speed Insights**        | Aggregate website performance monitoring       | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
-| **Supabase**                     | Secure storage of email subscriber data        | [Supabase Privacy Policy](https://supabase.com/privacy)          |
+| Service                          | Purpose                                                             | Privacy Policy                                                   |
+| -------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Google Analytics**             | Website traffic analysis (page views, sessions, referral sources)   | [Google Privacy Policy](https://policies.google.com/privacy)     |
+| **Google Cloud / Google Sheets** | Secure storage of form submissions                                  | [Google Privacy Policy](https://policies.google.com/privacy)     |
+| **Vercel**                       | Website hosting and deployment                                      | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Vercel Analytics**             | Aggregate, anonymized website traffic analysis (consent-based)      | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Vercel Speed Insights**        | Aggregate website performance monitoring (consent-based)            | [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy) |
+| **Supabase**                     | Secure storage of email subscriber data                             | [Supabase Privacy Policy](https://supabase.com/privacy)          |
 
-We do not use advertising networks, Facebook Pixel, Google Ads tracking, or any other third-party marketing trackers.
+We do not use advertising networks, Facebook Pixel, Google Ads tracking, or any other third-party advertising trackers.
 
 ---
 
-## 7. Cookies
+## 7. Cookies and Analytics Consent
 
-Our website uses minimal cookies. Vercel Analytics and Speed Insights may use privacy-preserving, anonymized tracking to help us understand how our site is used in aggregate. No personally identifiable information is stored in cookies on our site.
+Our website uses cookies and local storage in the following ways:
+
+**Google Analytics** is active on all pages and uses cookies to measure traffic, page views, and referral sources. This runs without requiring consent, as it is used for basic website operation and improvement. Google Analytics data is aggregated and does not identify individual visitors.
+
+**Vercel Analytics and Speed Insights** are loaded only after you give consent via the cookie banner displayed on your first visit. If you decline, these services are not loaded and no data is sent to Vercel. Your preference is saved in your browser's local storage (`svfc_analytics_consent`). You can change your preference at any time by clearing your browser's local storage for this site.
 
 We do not use cookies for advertising or cross-site tracking.
 

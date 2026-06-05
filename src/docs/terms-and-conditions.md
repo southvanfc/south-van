@@ -1,7 +1,7 @@
 # Terms and Conditions
 
 **South Van FC Youth Academy**
-**Last Updated: May 11, 2026**
+**Last Updated: June 5, 2026**
 
 ---
 
@@ -15,16 +15,18 @@ If you are submitting information on behalf of a minor, you confirm that you are
 
 ## 2. About South Van FC Youth Academy
 
-South Van FC Youth Academy is a private, for-profit football (soccer) organization based in the Lower Mainland, Vancouver, British Columbia, Canada. We offer player evaluations, training programs, and competitive development pathways for youth and adult players.
+South Van FC Youth Academy is a private football (soccer) organization based in the Lower Mainland, Vancouver, British Columbia, Canada. We offer player evaluations, training programs, and competitive development pathways for youth and adult players.
 
 ---
 
 ## 3. Eligibility
 
-Our programs are open to players of various age groups as specified per program offering. By submitting an application or evaluation request, you confirm that:
+Our programs are open to players of various age groups as specified per program offering. Youth Academy evaluations and programs are available to players in the U8–U18 age range. Men's team programs are open to adult players.
+
+By submitting an application or evaluation request, you confirm that:
 
 - The information provided is accurate and complete to the best of your knowledge.
-- For youth players (under 18), a parent or legal guardian has reviewed and consented to the submission.
+- For youth players (under 18), a parent or legal guardian has reviewed and consented to the submission and will serve as the primary contact with South Van FC.
 - You or your child meets any age or skill eligibility criteria specified for the program.
 
 ---
@@ -39,7 +41,7 @@ Submitting a form does not create a contractual relationship between you and Sou
 
 ## 5. Program Fees and Refunds
 
-Fees for specific programs, evaluations, or sessions will be communicated separately at the time of enrollment. By agreeing to participate in a paid program:
+Some programs and services, including certain player evaluations, may be offered free of charge. Fees for paid programs, sessions, or services will be communicated separately at the time of enrollment. By agreeing to participate in a paid program:
 
 - Fees are due as outlined in the enrollment confirmation.
 - Refund requests must be submitted in writing to **southvanfc@gmail.com** prior to the program start date. Refunds are not guaranteed once a program has commenced.
@@ -53,6 +55,7 @@ For any player under the age of 18:
 
 - A parent or legal guardian must provide consent before the player participates in any evaluation, training session, or program.
 - By submitting the Player Evaluation Form, the parent or guardian confirms they have read these Terms and consent on behalf of their child.
+- The parent or guardian is the sole point of contact for all communications, scheduling, and program matters relating to a youth player.
 - South Van FC reserves the right to request written proof of parental or guardian consent before any in-person activity begins.
 
 ---
@@ -63,6 +66,7 @@ Participation in football and related physical activities carries inherent risks
 
 - You acknowledge and accept the inherent physical risks associated with sport and athletic training.
 - You confirm that the player is physically fit and has no medical condition that would prevent safe participation, or that a physician has cleared the player for physical activity.
+- Where an evaluation form is submitted noting injuries, physical limitations, or medical considerations, South Van FC will take reasonable steps to accommodate those notes. However, it remains the responsibility of the parent, guardian, or participant to ensure the information provided is accurate and current.
 - South Van FC staff are not medical professionals. Any health concerns should be directed to a qualified healthcare provider.
 - In the event of an on-field injury, South Van FC staff will take reasonable steps to assist and contact emergency services if required. Parents or guardians of youth players are responsible for providing updated emergency contact information.
 
