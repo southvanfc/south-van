@@ -94,7 +94,7 @@ If you're still figuring out whether South Van FC is the right fit for your fami
 
 ## Come Try Out With South Van FC
 
-Come out and show us what you've got. Any questions before tryouts, drop us a line through [southvanfc.com](https://southvanfc.com) or check the [player evaluation page](https://southvanfc.com/academy/player-evaluation) first so you know what you're walking into.
+Come out and show us what you've got. Any questions before tryouts, check out our youth soccer academy page [southvanfc.com/academy](https://southvanfc.com/academy) or register now for a free evaluation at the [player evaluation page](https://southvanfc.com/academy/player-evaluation) first so you know what you're walking into.
 
 See you out there.
 
