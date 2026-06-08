@@ -1,6 +1,6 @@
 ---
 title: "How Often Should Young Players Train?"
-seoTitle: "How Often Should Young Soccer Players Train? | South Van FC"
+seoTitle: "How Often Should Young Soccer Players Train? | South Van Soccer Academy"
 description: "More sessions doesn't mean more development. South Van FC's Dipinder Kainth breaks down the right training frequency for players at every age, and why rest is part of the plan."
 pubDate: 2026-05-11T00:00:00-08:00
 author: "Dipinder Kainth"

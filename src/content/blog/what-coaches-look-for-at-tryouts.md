@@ -1,6 +1,6 @@
 ---
 title: "What Our Coaches Look for at Soccer Tryouts in Vancouver"
-seoTitle: "What Our Coaches Look for at Soccer Tryouts in Vancouver"
+seoTitle: "What Our Coaches Look for at Soccer Tryouts in Vancouver | South Van Soccer Academy"
 description: "Wondering what youth soccer coaches look for at tryouts in Vancouver? South Van FC breaks down exactly what gets a player selected, no guesswork needed."
 pubDate: 2026-06-04T00:00:00-08:00
 author: "Dipinder Kainth"

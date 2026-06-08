@@ -1,6 +1,6 @@
 ---
 title: "Game Day Prep for Youth Soccer Players: What to Do the Night Before and the Morning Of"
-seoTitle: "Game Day Prep for Youth Soccer Players: What to Do the Night Before and the Morning Of"
+seoTitle: "Game Day Prep for Youth Soccer Players | South Van Soccer Academy"
 description: "Help your young player show up ready to perform. A practical game day prep checklist covering sleep, nutrition, warm-up, and mindset for youth soccer players in Vancouver."
 pubDate: 2026-05-19T00:00:00-08:00
 author: "Harjit Kainth"

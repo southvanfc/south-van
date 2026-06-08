@@ -1,6 +1,6 @@
 ---
 title: "What Young Soccer Players Should Actually Do This Summer"
-seoTitle: "Summer Soccer Training for Youth Players Vancouver | South Van FC"
+seoTitle: "Summer Soccer Training for Youth Players Vancouver | South Van Soccer Academy"
 description: "School's out. Should your young player train all summer or take a break? South Van FC's Harjit Kainth breaks down what the right summer actually looks like."
 pubDate: 2026-05-25T00:00:00-08:00
 author: "Harjit Kainth"

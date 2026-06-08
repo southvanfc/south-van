@@ -1,6 +1,6 @@
 ---
 title: "What to Do in the First 48 Hours After a Soccer Injury"
-seoTitle: "What to Do in the First 48 Hours After a Soccer Injury"
+seoTitle: "What to Do in the First 48 Hours After a Soccer Injury | South Van Soccer Academy"
 description: "Your kid just got hurt at soccer practice. Here's what to do in the first 48 hours to reduce swelling, manage pain, and protect their recovery."
 pubDate: 2026-05-21T00:00:00-08:00
 author: "Shanil Sharma"

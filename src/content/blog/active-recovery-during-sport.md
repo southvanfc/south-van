@@ -1,6 +1,6 @@
 ---
 title: "Active Recovery in Soccer: Why You Shouldn't Sit During a Break"
-seoTitle: "Active Recovery in Soccer: Why You Shouldn't Sit During a Break"
+seoTitle: "Active Recovery in Soccer: Why You Shouldn't Sit During a Break | South Van Soccer Academy"
 description: "Why sitting during halftime hurts young Vancouver soccer players, and what active recovery should look like before, during, and after a match."
 pubDate: 2026-05-14T00:00:00-08:00
 author: "Shanil Sharma"

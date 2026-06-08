@@ -1,6 +1,6 @@
 ---
 title: "Why We Train Differently Than Most Soccer Clubs in Vancouver"
-seoTitle: "Why We Train Differently Than Most Soccer Clubs in Vancouver"
+seoTitle: "Why We Train Differently Than Most Soccer Clubs in Vancouver | South Van Soccer Academy"
 description: "Most Vancouver soccer clubs are built around winning. South Van FC is built around developing players. Here's what that actually means in practice."
 pubDate: 2026-06-01T00:00:00-08:00
 author: "Harjit Kainth"

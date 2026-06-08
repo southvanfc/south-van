@@ -1,6 +1,6 @@
 ---
 title: "How to Choose a Soccer Academy in Vancouver: A Parent's Guide"
-seoTitle: "How to Choose a Soccer Academy in Vancouver: A Parent's Guide"
+seoTitle: "How to Choose a Soccer Academy in Vancouver | South Van Soccer Academy"
 description: "Not sure which Vancouver soccer academy is right for your child? Use these 5 criteria and 10 questions to find the perfect fit and avoid costly mistakes."
 pubDate: 2026-05-01T00:00:00-08:00
 author: "Harjit Kainth"

@@ -1,6 +1,6 @@
 ---
 title: "Why Talent Alone Won't Get You There"
-seoTitle: "Why Talent Alone Won't Get You There"
+seoTitle: "Why Talent Alone Won't Get You There | South Van Soccer Academy"
 description: "Raw talent gets young players noticed. But the ones who last are the ones who are coachable. Here's why that distinction matters in youth football development."
 pubDate: 2026-05-28T00:00:00-08:00
 author: "Dipinder Kainth"

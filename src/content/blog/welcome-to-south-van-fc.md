@@ -1,6 +1,6 @@
 ---
 title: "Welcome to South Van FC"
-seoTitle: "Welcome to South Van FC | Soccer Club Vancouver"
+seoTitle: "Welcome to South Van FC | South Van Soccer Academy"
 description: "South Van FC is a new kind of soccer club in Vancouver; technical development, small-group training, and a clear pathway from youth academy to competitive men's team."
 pubDate: 2026-04-19T00:00:00-08:00
 author: "Harjit Kainth"
