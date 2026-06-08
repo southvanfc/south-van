@@ -2,7 +2,7 @@
 title: "Canada at the World Cup: What It Means for Youth Soccer Development in Vancouver"
 seoTitle: "Canada 2026 World Cup: What It Means for Youth Soccer in Vancouver | South Van Soccer Academy"
 description: "Canada is at the World Cup and Vancouver is hosting matches at BC Place. Here's what this moment really means for youth development and families in our city."
-pubDate: 2026-08-03T00:00:00-08:00
+pubDate: 2026-06-08T00:00:00-08:00
 author: "Harjit Kainth"
 category: "Player Development"
 image: "/assets/gold.png"
