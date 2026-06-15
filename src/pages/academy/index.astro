@@ -5,13 +5,12 @@ import Philosophy from "../../components/Academy/Philosophy.astro";
 import Programs from "../../components/Academy/Programs.astro";
 import Evaluation from "../../components/Academy/Evaluation.astro";
 import Cta from "../../components/Cta.astro";
+import { programs } from "../../data/programs-data";
 
 const seo = {
   title: "Youth Soccer Academy Vancouver | South Van FC",
   description:
-    "Technical soccer training for players U8–U18 in Vancouver. Small-group sessions, video analysis, and individual development plans. Serious development without the club politics.",
-  keywords:
-    "South Van FC Academy, soccer academy Vancouver, football academy Vancouver, player development Vancouver, technical soccer training, individual development plan soccer, youth football Vancouver",
+    "Technical soccer training for players U8 to U18 in Vancouver. Small-group sessions, video analysis, and individual development plans.",
   ogImage: "/og/og-default.png",
 };
 
@@ -33,6 +32,43 @@ const breadcrumbSchema = {
     },
   ],
 };
+
+const programsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "South Van FC Academy Programs",
+  itemListElement: programs.map((program, i) => {
+    const course = {
+      "@type": "Course",
+      name: program.name,
+      description: program.overview,
+      provider: {
+        "@type": "Organization",
+        "@id": "https://www.southvanfc.com/#organization",
+        name: "South Van FC",
+      },
+      audience: {
+        "@type": "EducationalAudience",
+        educationalRole: program.bestFor,
+      },
+      ...(program.price
+        ? {
+            offers: {
+              "@type": "Offer",
+              price: program.price.replace(/[^0-9.]/g, ""),
+              priceCurrency: "CAD",
+            },
+          }
+        : {}),
+    };
+
+    return {
+      "@type": "ListItem",
+      position: i + 1,
+      item: course,
+    };
+  }),
+};
 ---
 
 <BaseLayout seo={seo}>
@@ -41,6 +77,12 @@ const breadcrumbSchema = {
     slot="head"
     type="application/ld+json"
     set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(programsSchema)}
   />
   <AcademyHero />
   <Philosophy />

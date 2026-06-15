@@ -17,20 +17,36 @@ const rowTwo = programs.slice(3);
         Our Focused<br />Programs
       </h2>
     </div>
-    <a href="/academy/player-evaluation/" class="btn btn-navy">
-      Request an Evaluation
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-      >
-        <path d="M5 12h14M12 5l7 7-7 7"></path>
-      </svg>
-    </a>
+    <div class="programs-actions">
+      <a href="/academy/pricing/" class="btn btn-outline-navy">
+        View Pricing
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+      <a href="/academy/player-evaluation/" class="btn btn-navy">
+        Request an Evaluation
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
   </div>
 
   <div class="prog-grid prog-grid-3">
@@ -54,6 +70,12 @@ const rowTwo = programs.slice(3);
     flex-wrap: wrap;
     gap: 24px;
     margin-bottom: 56px;
+  }
+
+  .programs-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
   .prog-grid {
