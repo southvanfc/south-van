@@ -30,7 +30,7 @@ Players show up to youth soccer tryouts in Vancouver every season not quite know
 
 A kid can be the fastest one out there and still not make the cut. What we're looking for is a player who chases down a ball after they just gave it away, or attempts to motivate and show leadership when the game is falling apart. That stuff tells us a lot more than raw talent ever could. We're looking for players who are willing and able to grow.
 
-That's the foundation of how we run our [youth soccer academy in South Vancouver](https://southvanfc.com/academy). We're not looking for the best eleven-year-old in the room. We're trying to spot who's got two or three more gears still in them.
+That's the foundation of how we run our [youth soccer academy in South Vancouver](https://southvanfc.com/soccer-academy/). We're not looking for the best eleven-year-old in the room. We're trying to spot who's got two or three more gears still in them.
 
 ---
 
@@ -46,7 +46,7 @@ Effort and attitude are things we watch from the very first drill to the very la
 
 First touch, passing, shooting, defending. Those are the basics and yes, we watch all of them. But not in isolation. A cone drill on its own tells us almost nothing. We want to see that technique hold up when someone's closing you down and the game is actually happening around you. That's also at the core of [Canada Soccer's long-term player development](https://canadasoccer.com/play-programs/) model, and it shapes how we evaluate and coach year-round.
 
-We work with players at all stages of technical development across our Vancouver youth soccer program, so don't let imperfection hold you back from trying out. What we're assessing is your starting point and your ceiling, not whether you've already arrived. If you want to understand how we evaluate that more formally, our [player evaluation process](https://southvanfc.com/academy/player-evaluation) walks through exactly what we track.
+We work with players at all stages of technical development across our Vancouver youth soccer program, so don't let imperfection hold you back from trying out. What we're assessing is your starting point and your ceiling, not whether you've already arrived. If you want to understand how we evaluate that more formally, our [player evaluation process](https://southvanfc.com/soccer-academy/player-evaluation/) walks through exactly what we track.
 
 ---
 
@@ -94,7 +94,7 @@ If you're still figuring out whether South Van FC is the right fit for your fami
 
 ## Come Try Out With South Van FC
 
-Come out and show us what you've got. Any questions before tryouts, check out our youth soccer academy page [southvanfc.com/academy](https://southvanfc.com/academy) or register now for a free evaluation at the [player evaluation page](https://southvanfc.com/academy/player-evaluation) first so you know what you're walking into.
+Come out and show us what you've got. Any questions before tryouts, check out our youth soccer academy page [southvanfc.com/soccer-academy](https://southvanfc.com/soccer-academy/) or register now for a free evaluation at the [player evaluation page](https://southvanfc.com/soccer-academy/player-evaluation/) first so you know what you're walking into.
 
 See you out there.
 

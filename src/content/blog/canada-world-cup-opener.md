@@ -59,7 +59,7 @@ The kids who are still playing seriously two years later tend to be the ones who
 
 First, find an environment focused on development, not just results. At South Van FC we build players around four pillars: technical, tactical, physical, and mental. A nine year old does not need to win a league title. They need thousands of quality touches, [coaches who teach them to think](https://southvanfc.com/our-coaches), and a standard that follows them to every session.
 
-Second, commit to the long game. Player development is measured in years, not seasons. The clubs that promise shortcuts are selling something else. The honest version is that consistent, well designed training over a long period is what separates players who make it from players who almost did. That philosophy is the entire foundation of [our academy](https://southvanfc.com/academy).
+Second, commit to the long game. Player development is measured in years, not seasons. The clubs that promise shortcuts are selling something else. The honest version is that consistent, well designed training over a long period is what separates players who make it from players who almost did. That philosophy is the entire foundation of [our academy](https://southvanfc.com/soccer-academy/).
 
 Third, don't wait until they're "good enough" to join a proper program. Some kids come to us having never done a structured session in their lives. Others arrive already playing at a decent level. Five years in, you often can't tell which was which.
 
@@ -75,7 +75,7 @@ That is the work we have committed to at South Van FC. A youth academy built on 
 
 Canada plays at BC Place next week. Watch it with your kids. Let them feel what today felt like. Then give that feeling somewhere to go.
 
-If your child watched today's match and something lit up in them, [reach out to us](https://southvanfc.com) or book a [free player evaluation](https://southvanfc.com/academy/player-evaluation) so we can see where they're at. The first step toward any World Cup is a good training session, and those happen every week in South Vancouver.
+If your child watched today's match and something lit up in them, [reach out to us](https://southvanfc.com) or book a [free player evaluation](https://southvanfc.com/soccer-academy/player-evaluation/) so we can see where they're at. The first step toward any World Cup is a good training session, and those happen every week in South Vancouver.
 
 ---
 

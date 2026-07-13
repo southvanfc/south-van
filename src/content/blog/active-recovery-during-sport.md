@@ -66,7 +66,7 @@ This matters even more if you are about to sit in a car for the drive home. Goin
 
 ## Building Recovery Into Your Weekly Routine
 
-Match day habits only get you so far. Recovery between sessions is where the real gap opens up between players, and it's something we hammer at the [South Van FC academy](https://southvanfc.com/academy) every chance we get. The kids who get this stuff right aren't always the most talented. They're the ones who keep developing while everyone else hits a wall.
+Match day habits only get you so far. Recovery between sessions is where the real gap opens up between players, and it's something we hammer at the [South Van FC academy](https://southvanfc.com/soccer-academy/) every chance we get. The kids who get this stuff right aren't always the most talented. They're the ones who keep developing while everyone else hits a wall.
 
 The boring stuff matters the most. Sleep eight to ten hours, drink plenty of water, not just before kickoff. Have some protein and carbs in within an hour to replenish your nutrients and help the recovery process.
 

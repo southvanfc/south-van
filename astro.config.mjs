@@ -8,6 +8,11 @@ export default defineConfig({
   integrations: [icon()],
   output: "server",
   adapter: vercel(),
+  redirects: {
+    "/academy/": "/soccer-academy/",
+    "/academy/pricing/": "/soccer-academy/pricing/",
+    "/academy/player-evaluation/": "/soccer-academy/player-evaluation/",
+  },
   image: {
     service: {
       entrypoint: "astro/assets/services/sharp",

@@ -62,7 +62,7 @@ That matters for how we talk to players here too. A club from South Vancouver, b
 
 If your kid's been watching this tournament, point them to Canada's rocky group stage before that Round of 16 breakthrough, or to Cape Verde. Upsets aren't really the story here. The habits built long before anyone was watching are the story.
 
-That's what we're building toward at South Van FC too, one session at a time, not because talent doesn't matter but because it's rarely the thing that decides where a player ends up. If you want to see what that looks like in practice, our [academy](https://southvanfc.com/academy) is a good place to start.
+That's what we're building toward at South Van FC too, one session at a time, not because talent doesn't matter but because it's rarely the thing that decides where a player ends up. If you want to see what that looks like in practice, our [academy](https://southvanfc.com/soccer-academy/) is a good place to start.
 
 ---
 

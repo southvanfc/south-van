@@ -86,7 +86,7 @@ A sprain or strain at soccer practice doesn't have to mean a long time off. Rest
 
 That's the whole approach. It's not complicated. The difference is actually doing it instead of hoping the injury sorts itself out.
 
-At South Vancouver FC, player health is built into how we run every program. Whether your child is just starting out in youth football or developing through a competitive stream in Vancouver, we want them training safely and recovering smart. Learn more about our approach at [southvanfc.com/academy](https://southvanfc.com/academy).
+At South Vancouver FC, player health is built into how we run every program. Whether your child is just starting out in youth football or developing through a competitive stream in Vancouver, we want them training safely and recovering smart. Learn more about our approach at [southvanfc.com/soccer-academy](https://southvanfc.com/soccer-academy/).
 
 ---
 

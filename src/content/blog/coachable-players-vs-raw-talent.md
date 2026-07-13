@@ -51,7 +51,7 @@ That's when you see the gap.
 
 Talent and coachability are not in opposition. The players who last tend to carry both.
 
-But in training environments, it changes how we approach things. A player who is genuinely open to feedback needs coaches who give good feedback. Vague encouragement doesn't help a coachable player; it actually does them a disservice. They need specific, honest input that they can act on. That's the environment we try to build in the [South Van FC academy](https://www.southvanfc.com/academy).
+But in training environments, it changes how we approach things. A player who is genuinely open to feedback needs coaches who give good feedback. Vague encouragement doesn't help a coachable player; it actually does them a disservice. They need specific, honest input that they can act on. That's the environment we try to build in the [South Van FC academy](https://www.southvanfc.com/soccer-academy/).
 
 For parents, it's worth thinking about how you talk about your player's development at home. Praising effort and improvement over ability tends to build the right relationship with feedback. A player who hears "you worked hard on that" internalizes something different than one who only hears "you're so talented."
 

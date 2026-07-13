@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import AcademyHero from "../../components/Academy/AcademyHero.astro";
-import Philosophy from "../../components/Academy/Philosophy.astro";
-import Programs from "../../components/Academy/Programs.astro";
-import Evaluation from "../../components/Academy/Evaluation.astro";
+import AcademyHero from "../../components/SoccerAcademy/AcademyHero.astro";
+import Philosophy from "../../components/SoccerAcademy/Philosophy.astro";
+import Programs from "../../components/SoccerAcademy/Programs.astro";
+import Evaluation from "../../components/SoccerAcademy/Evaluation.astro";
 import Cta from "../../components/Cta.astro";
 import { programs } from "../../data/programs-data";
 
@@ -27,8 +27,8 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Academy",
-      item: "https://www.southvanfc.com/academy/",
+      name: "Soccer Academy",
+      item: "https://www.southvanfc.com/soccer-academy/",
     },
   ],
 };
@@ -36,7 +36,7 @@ const breadcrumbSchema = {
 const programsSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "South Van FC Academy Programs",
+  name: "South Van FC Soccer Academy Programs",
   itemListElement: programs.map((program, i) => {
     const course = {
       "@type": "Course",
@@ -93,7 +93,7 @@ const programsSchema = {
     body="Join South Van FC and unlock your full potential. Discover the right program or book a personalised evaluation."
     links={[
       {
-        href: "/academy/player-evaluation/",
+        href: "/soccer-academy/player-evaluation/",
         label: "Request Player Evaluation",
         style: "navy",
       },

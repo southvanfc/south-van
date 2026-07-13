@@ -52,7 +52,7 @@ Professional athletes are the group best equipped to manage their own hydration 
 
 Kids are also worse than adults at regulating body temperature, and they often don't notice the early signs of dehydration until performance has already dropped off. On the handful of days a summer when it actually gets hot here, a mandatory break matters more for a young player than it does for a pro. On a normal 18-degree evening in September, that same kid doesn't need it.
 
-It's part of why our own [youth academy](https://southvanfc.com/academy) builds heat awareness into training from day one, not just match day.
+It's part of why our own [youth academy](https://southvanfc.com/soccer-academy/) builds heat awareness into training from day one, not just match day.
 
 ---
 

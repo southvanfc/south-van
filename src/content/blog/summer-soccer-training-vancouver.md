@@ -54,7 +54,7 @@ We covered training load by age in [how often young players should train](https:
 
 One coached session a week is the anchor. Something structured, with a proper training environment, where a coach is actually watching and working with your player rather than just running them through drills. That's what keeps development moving through the summer without overdoing it.
 
-At South Van FC our [LTAD academy](https://www.southvanfc.com/academy) runs through the summer for exactly this reason. One session a week, focused on the individual, building on what players worked on during the season. Enough to keep things progressing without burning anyone out before September.
+At South Van FC our [LTAD academy](https://www.southvanfc.com/soccer-academy/) runs through the summer for exactly this reason. One session a week, focused on the individual, building on what players worked on during the season. Enough to keep things progressing without burning anyone out before September.
 
 On top of that, a kickabout with friends, a passing session against a wall, a pick-up game at the park. The ball just needs to be around the rest of the week too.
 
@@ -88,7 +88,7 @@ Keep a ball in the garden or the hallway. Go outside and pass with them when the
 
 September comes around faster than it looks from here. One session a week with us, a bit of individual work on the side, and a proper break somewhere in the middle. That's the summer.
 
-If you want your player to be part of the South Van FC LTAD academy this summer, [get in touch](https://www.southvanfc.com/academy/player-evaluation) or find out more about the [academy programme](https://www.southvanfc.com/academy).
+If you want your player to be part of the South Van FC LTAD academy this summer, [get in touch](https://www.southvanfc.com/soccer-academy/player-evaluation/) or find out more about the [academy programme](https://www.southvanfc.com/soccer-academy/).
 
 ---
 

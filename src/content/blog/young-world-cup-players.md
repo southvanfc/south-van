@@ -99,7 +99,7 @@ Watch Bouaddi's body shape before he receives. Watch whether anything in Mora's 
 
 The interesting stuff is not in the highlights. It is in what these players do when the ball is somewhere else, and in the habits they have built so deeply that the biggest stage in soccer does not shake them.
 
-That is what long-term development looks like. At [South Van FC Soccer Academy](https://southvanfc.com/academy), that is what we are building in every player we work with across South Vancouver. If you want to see whether it is the right fit, start with a [free evaluation](https://southvanfc.com/academy/player-evaluation).
+That is what long-term development looks like. At [South Van FC Soccer Academy](https://southvanfc.com/soccer-academy/), that is what we are building in every player we work with across South Vancouver. If you want to see whether it is the right fit, start with a [free evaluation](https://southvanfc.com/soccer-academy/player-evaluation/).
 
 ---
 

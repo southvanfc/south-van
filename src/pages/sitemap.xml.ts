@@ -5,9 +5,9 @@ const SITE = "https://www.southvanfc.com";
 
 const staticRoutes = [
   { url: "/", priority: "1.0", changefreq: "weekly" },
-  { url: "/academy/", priority: "0.9", changefreq: "weekly" },
-  { url: "/academy/pricing/", priority: "0.8", changefreq: "monthly" },
-  { url: "/academy/player-evaluation/", priority: "0.8", changefreq: "monthly" },
+  { url: "/soccer-academy/", priority: "0.9", changefreq: "weekly" },
+  { url: "/soccer-academy/pricing/", priority: "0.8", changefreq: "monthly" },
+  { url: "/soccer-academy/player-evaluation/", priority: "0.8", changefreq: "monthly" },
   { url: "/blogs/", priority: "0.8", changefreq: "weekly" },
   { url: "/our-coaches/", priority: "0.7", changefreq: "monthly" },
   { url: "/mens-team/", priority: "0.8", changefreq: "monthly" },

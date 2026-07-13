@@ -66,7 +66,7 @@ Small-sided games with a twist, like saying goals only count from inside the box
 
 A single good game in one position isn't proof of fit. Maybe they just had a good matchup that day, or maybe it was a lucky bounce here and there. Either way, one game doesn't tell you much. What actually works is moving a promising player through two or three realistic roles over several weeks and just paying attention. Are their touches actually leading to something in one spot more than another? Are they making fewer mistakes there? Do they seem more switched on and confident once they settle in?
 
-How teammates respond matters too. Data over time beats a gut call from a single match, and it's exactly what we look at during [free player evaluations](https://www.southvanfc.com/academy/player-evaluation/) at South Van FC.
+How teammates respond matters too. Data over time beats a gut call from a single match, and it's exactly what we look at during [free player evaluations](https://www.southvanfc.com/soccer-academy/player-evaluation/) at South Van FC.
 
 ---
 
@@ -84,9 +84,9 @@ We see this a lot with our more athletic kids: they can play four or five positi
 
 There's no single test that tells you exactly where a young player belongs. It comes from watching how they're built, how they think, what they do when the ball's nowhere near them, how they perform over weeks rather than one game, and honestly, just asking them where they feel good.
 
-We don't treat position as something you decide once and move on from. Kids grow, bodies change, and the right spot for a 12-year-old isn't always the right spot at 15. That [ongoing, patient approach](https://www.southvanfc.com/blog/the-long-game-player-development) is part of why families across South Vancouver trust our [youth academy](https://www.southvanfc.com/academy/) with their child's development.
+We don't treat position as something you decide once and move on from. Kids grow, bodies change, and the right spot for a 12-year-old isn't always the right spot at 15. That [ongoing, patient approach](https://www.southvanfc.com/blog/the-long-game-player-development) is part of why families across South Vancouver trust our [youth academy](https://www.southvanfc.com/soccer-academy/) with their child's development.
 
-If you're curious where your young player's best position might be, [book a free player evaluation](https://www.southvanfc.com/academy/player-evaluation/) with our [coaching team](https://www.southvanfc.com/our-coaches) and see what our coaches find.
+If you're curious where your young player's best position might be, [book a free player evaluation](https://www.southvanfc.com/soccer-academy/player-evaluation/) with our [coaching team](https://www.southvanfc.com/our-coaches) and see what our coaches find.
 
 ---
 

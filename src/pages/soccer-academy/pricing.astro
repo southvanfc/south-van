@@ -7,7 +7,7 @@ const seo = {
   description:
     "Soccer training for all ages in Vancouver, from $100/month for youth academy players to $200/month for adults. No long-term contracts, join any time and train at your level.",
   keywords:
-    "South Van FC pricing, youth academy cost Vancouver, adult soccer training Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 adult academy",
+    "South Van FC pricing, soccer academy cost Vancouver, adult soccer training Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 adult soccer academy",
   ogImage: "/og/og-default.png",
 };
 
@@ -87,20 +87,20 @@ const comingSoon = [
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "South Van FC Academy & Adult Program Pricing",
-        url: "https://www.southvanfc.com/academy/pricing",
+        name: "South Van FC Soccer Academy & Adult Program Pricing",
+        url: "https://www.southvanfc.com/soccer-academy/pricing",
         itemListElement: tiers.map((tier, i) => ({
           "@type": "ListItem",
           position: i + 1,
           item: {
             "@type": "Service",
-            name: `South Van FC Academy: ${tier.age}`,
+            name: `South Van FC Soccer Academy: ${tier.age}`,
             description: tier.focus,
             image: "https://www.southvanfc.com/og/og-default.png",
             brand: { "@type": "Brand", name: "South Van FC" },
             offers: {
               "@type": "Offer",
-              url: "https://www.southvanfc.com/academy/pricing",
+              url: "https://www.southvanfc.com/soccer-academy/pricing",
               priceCurrency: "CAD",
               price: tier.price,
               priceSpecification: {
@@ -140,7 +140,7 @@ const comingSoon = [
         >
           <path d="M9 18l6-6-6-6"></path>
         </svg>
-        <a href="/academy/">Academy</a>
+        <a href="/soccer-academy/">Soccer Academy</a>
         <svg
           width="12"
           height="12"
@@ -232,7 +232,7 @@ const comingSoon = [
             <p class="tier-born">{tier.born}</p>
             <p class="tier-focus">{tier.focus}</p>
             <a
-              href="/academy/player-evaluation/"
+              href="/soccer-academy/player-evaluation/"
               class="btn btn-outline-navy tier-cta"
             >
               Get Started
@@ -296,7 +296,7 @@ const comingSoon = [
     body="Players begin with a 1–3 session evaluation so we can build their Individual Development Plan. Reach out to register or ask any questions."
     links={[
       {
-        href: "/academy/player-evaluation/",
+        href: "/soccer-academy/player-evaluation/",
         label: "Request Player Evaluation",
         style: "navy",
       },

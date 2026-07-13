@@ -75,7 +75,7 @@ This is the move Iniesta made famous, and it's the one on this list that actuall
 
 ## Why the Reps Nobody Sees Matter Most
 
-None of these drills need a coach standing over you, and that's the point. The players who improve fastest tend to be the ones who've banked reps nobody was watching. If you want a program built around habits like these instead of highlight reels, our [academy](https://southvanfc.com/academy) is a good place to start.
+None of these drills need a coach standing over you, and that's the point. The players who improve fastest tend to be the ones who've banked reps nobody was watching. If you want a program built around habits like these instead of highlight reels, our [academy](https://southvanfc.com/soccer-academy/) is a good place to start.
 
 > **Next in the series:** Part 2 covers the physical pillar, with speed, agility, and conditioning work a player can do at home. Subscribe below and we'll let you know when it goes live.
 

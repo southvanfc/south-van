@@ -27,7 +27,7 @@ That belief is not just motivational. Players who genuinely believe in a future 
 
 ## The Pipeline Is Longer Than You Think
 
-The players representing Canada right now did not appear fully formed. They came through [youth academies](https://southvanfc.com/academy/) and development programmes that stretched back ten, twelve, fifteen years. They had [coaches](https://southvanfc.com/our-coaches/) who saw something early and built it properly. They had parents who kept them in the sport when it was not going well.
+The players representing Canada right now did not appear fully formed. They came through [youth academies](https://southvanfc.com/soccer-academy/) and development programmes that stretched back ten, twelve, fifteen years. They had [coaches](https://southvanfc.com/our-coaches/) who saw something early and built it properly. They had parents who kept them in the sport when it was not going well.
 
 The World Cup creates pressure in the opposite direction. Parents see elite players and want shortcuts. Clubs feel the pull to win tournaments and get noticed. The game starts to look like something that can be rushed. It cannot. These players are proof that [the long approach works](https://southvanfc.com/blogs/the-long-game-player-development/).
 
@@ -45,7 +45,7 @@ That environment matters. Soccer means something different when the city around 
 
 The games will be over before the summer ends. But the effect on a young player who is paying attention can last much longer. If there is ever a time to have a real conversation with your kid about the game, who they look up to, what they want to get better at, where they see themselves, it is right now. They are watching. Ask them what they see.
 
-Canada got here because someone built something real at the grassroots level. At [South Van Youth Soccer Academy](https://southvanfc.com/academy/), we are trying to do that in [South Vancouver](https://southvanfc.com/south-vancouver/). If your young player is ready to take development seriously, [we would love to talk](https://southvanfc.com/academy/player-evaluation/). Reach out and let's talk about what's next for them.
+Canada got here because someone built something real at the grassroots level. At [South Van Youth Soccer Academy](https://southvanfc.com/soccer-academy/), we are trying to do that in [South Vancouver](https://southvanfc.com/south-vancouver/). If your young player is ready to take development seriously, [we would love to talk](https://southvanfc.com/soccer-academy/player-evaluation/). Reach out and let's talk about what's next for them.
 
 ---
 

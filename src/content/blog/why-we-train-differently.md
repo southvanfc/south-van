@@ -64,7 +64,7 @@ The part most clubs skip is how a player carries a bad moment. A kid gives the b
 
 ## There's somewhere to go from here
 
-One thing that's genuinely different about South Van FC is that the [youth academy](https://southvanfc.com/academy) connects to something. Players who come through the programme have a pathway into our VMSL men's team. That isn't window dressing. It shapes how we develop players from day one, because we know where they're going and what they'll need when they get there.
+One thing that's genuinely different about South Van FC is that the [youth academy](https://southvanfc.com/soccer-academy/) connects to something. Players who come through the programme have a pathway into our VMSL men's team. That isn't window dressing. It shapes how we develop players from day one, because we know where they're going and what they'll need when they get there.
 
 A lot of academies in Vancouver operate in a bubble. Develop the kid, and then what? We built this club so that question has an answer.
 
@@ -74,7 +74,7 @@ A lot of academies in Vancouver operate in a bubble. Develop the kid, and then w
 
 There are plenty of good soccer options in Vancouver. If your priority is winning youth tournaments and playing a lot of competitive games, there are clubs better suited to that than us.
 
-What we offer is a specific approach: small groups, individual attention, a real development philosophy, and a programme that's built around where a player can be at 18, not at 10. If that's what you're looking for, the [academy evaluation](https://southvanfc.com/academy/player-evaluation) is where it starts.
+What we offer is a specific approach: small groups, individual attention, a real development philosophy, and a programme that's built around where a player can be at 18, not at 10. If that's what you're looking for, the [academy evaluation](https://southvanfc.com/soccer-academy/player-evaluation/) is where it starts.
 
 ---
 

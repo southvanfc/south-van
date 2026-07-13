@@ -91,7 +91,7 @@ Start with one thing. Sleep is usually the easiest win. Then the food, then arri
 
 Game day prep is one piece of a bigger picture. If you want to see how it fits into how we develop players week to week and season to season, [The Four Pillars](https://southvanfc.com/blog/four-pillars) is a good overview of our whole approach.
 
-Want to learn more about what we work on at South Van FC? Visit [our player development page](https://southvanfc.com/academy) to see what we do week in and week out in South Vancouver.
+Want to learn more about what we work on at South Van FC? Visit [our player development page](https://southvanfc.com/soccer-academy/) to see what we do week in and week out in South Vancouver.
 
 ---
 

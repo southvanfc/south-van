@@ -101,7 +101,7 @@ For any player learning to read the game from a deeper role, this is the most in
 
 Before the game, pick one player and give your kid one thing to watch. At halftime, ask what they noticed, do not tell them first. Connect it to their own game if you can, even just a quick question. And remind them to track the player when they do not have the ball. That is where most of it is.
 
-At [South Van FC Soccer Academy](https://southvanfc.com/academy), long-term player development is the whole point. The World Cup runs through June and July. Games are on across Vancouver and the rest of the country. Use it.
+At [South Van FC Soccer Academy](https://southvanfc.com/soccer-academy/), long-term player development is the whole point. The World Cup runs through June and July. Games are on across Vancouver and the rest of the country. Use it.
 
 ---
 

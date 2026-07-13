@@ -74,7 +74,7 @@ A good academy isn't just a program for right now. It should have somewhere for 
 
 Ask whether developing players can progress into higher-level competition. Do youth players have a route into senior or competitive football as they get older? A club that's genuinely invested in your child's development has thought about this already.
 
-At South Van FC, the youth academy feeds into our competitive teams. Players who come through the academy have a real route into the senior men's and women's programs. It's not a separate thing. You can read more about [how we approach development](https://southvanfc.com/academy) and where the pathway leads.
+At South Van FC, the youth academy feeds into our competitive teams. Players who come through the academy have a real route into the senior men's and women's programs. It's not a separate thing. You can read more about [how we approach development](https://southvanfc.com/soccer-academy/) and where the pathway leads.
 
 ---
 
@@ -117,7 +117,7 @@ Before you sign up for anything, go back through those five areas: coaching cred
 
 Vancouver has no shortage of talented young players. The ones who actually develop into something rarely stood out at eight years old above everyone else. They just found the right environment early and stayed in it long enough for the work to accumulate.
 
-If you'd like to see how South Van FC measures up, [book a free player evaluation](https://southvanfc.com/academy/player-evaluation). Our coaches will assess your child and give you honest, direct feedback. No commitment required.
+If you'd like to see how South Van FC measures up, [book a free player evaluation](https://southvanfc.com/soccer-academy/player-evaluation/). Our coaches will assess your child and give you honest, direct feedback. No commitment required.
 
 ---
 
