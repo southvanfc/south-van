@@ -17,7 +17,7 @@ export type SEOProps = {
 export const SITE_SEO = {
   siteName: "South Van FC",
   defaultDescription:
-    "South Van FC Youth Academy in Vancouver — technical-first player development, game intelligence, and high-performance training.",
+    "South Van FC Academy in Vancouver: technical-first player development, game intelligence, and high-performance training for youth and adult players.",
   defaultOgImage: "/og-default.jpg",
   defaultOgType: "website" as const,
   defaultTwitterCard: "summary_large_image" as const,

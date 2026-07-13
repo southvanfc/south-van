@@ -74,7 +74,7 @@ export interface SEO {
 export interface PlayerEvaluationInsert {
   full_name:            string;
   dob:                  string;
-  age_group:            "u8-u11" | "u12-u15" | "u15-u18" | string;
+  age_group:            "u8-u11" | "u12-u15" | "u15-u18" | "adult-18-plus" | string;
   current_club?:        string;
   years_playing:        "less-than-1" | "1-2" | "3-5" | "6-9" | "10+" | string;
   school_grade?:        string;

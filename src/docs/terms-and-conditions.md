@@ -1,27 +1,27 @@
 # Terms and Conditions
 
-**South Van FC Youth Academy**
+**South Van FC Academy**
 **Last Updated: June 5, 2026**
 
 ---
 
 ## 1. Acceptance of Terms
 
-By accessing or using the South Van FC Youth Academy website at [www.southvanfc.com](https://www.southvanfc.com), submitting any form, or participating in any South Van FC program, you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our website or services.
+By accessing or using the South Van FC website at [www.southvanfc.com](https://www.southvanfc.com), submitting any form, or participating in any South Van FC program, you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our website or services.
 
 If you are submitting information on behalf of a minor, you confirm that you are the parent or legal guardian of that minor and that you accept these Terms on their behalf.
 
 ---
 
-## 2. About South Van FC Youth Academy
+## 2. About South Van FC Academy
 
-South Van FC Youth Academy is a private football (soccer) organization based in the Lower Mainland, Vancouver, British Columbia, Canada. We offer player evaluations, training programs, and competitive development pathways for youth and adult players.
+South Van FC Academy is a private football (soccer) organization based in the Lower Mainland, Vancouver, British Columbia, Canada. We offer player evaluations, training programs, and competitive development pathways for youth and adult players.
 
 ---
 
 ## 3. Eligibility
 
-Our programs are open to players of various age groups as specified per program offering. Youth Academy evaluations and programs are available to players in the U8–U18 age range. Men's team programs are open to adult players.
+Our programs are open to players of various age groups as specified per program offering. Academy evaluations and programs are available to players from U8 through adult (18+). Men's team programs are open to adult players.
 
 By submitting an application or evaluation request, you confirm that:
 
@@ -142,7 +142,7 @@ These Terms are governed by and interpreted in accordance with the laws of the P
 
 If you have any questions about these Terms and Conditions, please contact us:
 
-**South Van FC Youth Academy**
+**South Van FC Academy**
 Lower Mainland, Vancouver, BC
 **Email:** southvanfc@gmail.com
 

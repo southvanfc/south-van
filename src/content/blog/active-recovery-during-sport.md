@@ -84,4 +84,4 @@ If you want your kid coached in a program that takes development and recovery se
 
 _Shanil Sharma is a Kinesiologist at [SNS Fitness Rehab](https://www.snsfitnessrehab.ca/) and contributes to South Van FC on player development, recovery, and injury prevention._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth development academy and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._

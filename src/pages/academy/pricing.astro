@@ -3,11 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Cta from "../../components/Cta.astro";
 
 const seo = {
-  title: "Youth Soccer Academy Pricing in Vancouver | South Van FC",
+  title: "Soccer Academy & Adult Pricing in Vancouver | South Van FC",
   description:
-    "Youth soccer academy training from $100/month in Vancouver. Programs for U8–U18 players. No long-term contracts — join any time and train at your level.",
+    "Soccer training for all ages in Vancouver, from $100/month for youth academy players to $200/month for adults. No long-term contracts, join any time and train at your level.",
   keywords:
-    "South Van FC pricing, youth academy cost Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 academy",
+    "South Van FC pricing, youth academy cost Vancouver, adult soccer training Vancouver, soccer academy fees, youth football development price, U8 U10 U11 U13 U14 U18 adult academy",
   ogImage: "/og/og-default.png",
 };
 
@@ -30,6 +30,13 @@ const tiers = [
     born: "Born 2008 – 2012",
     focus:
       "Tactical sophistication, physical conditioning, and competitive preparation.",
+  },
+  {
+    age: "Adults 18+",
+    price: 200,
+    born: "18 years & older",
+    focus:
+      "Competitive training and fitness for adult players, whether stepping up from the academy or joining fresh.",
   },
 ];
 
@@ -80,14 +87,14 @@ const comingSoon = [
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "South Van FC Youth Academy Pricing",
+        name: "South Van FC Academy & Adult Program Pricing",
         url: "https://www.southvanfc.com/academy/pricing",
         itemListElement: tiers.map((tier, i) => ({
           "@type": "ListItem",
           position: i + 1,
           item: {
             "@type": "Service",
-            name: `South Van FC Youth Academy — ${tier.age}`,
+            name: `South Van FC Academy: ${tier.age}`,
             description: tier.focus,
             image: "https://www.southvanfc.com/og/og-default.png",
             brand: { "@type": "Brand", name: "South Van FC" },
@@ -133,7 +140,7 @@ const comingSoon = [
         >
           <path d="M9 18l6-6-6-6"></path>
         </svg>
-        <a href="/academy/">Youth Academy</a>
+        <a href="/academy/">Academy</a>
         <svg
           width="12"
           height="12"
@@ -152,7 +159,7 @@ const comingSoon = [
       <h1 class="hero-title fu d2">
         One Program.<br />
         <em>Every Age.</em>
-        <span class="hero-title-kw">Youth Soccer Academy Pricing in Vancouver</span>
+        <span class="hero-title-kw">Soccer Academy & Adult Pricing in Vancouver</span>
       </h1>
       <p class="hero-sub fu d3">
         Every player gets the same curriculum, the same professional coaching,
@@ -412,9 +419,9 @@ const comingSoon = [
 
   .tier-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    max-width: 960px;
+    max-width: 1240px;
     margin: 0 auto;
   }
 
@@ -422,7 +429,7 @@ const comingSoon = [
     background: #fff;
     border: 1.5px solid var(--lt-gray);
     border-radius: 16px;
-    padding: 40px 36px 44px;
+    padding: 40px 28px 44px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -447,6 +454,7 @@ const comingSoon = [
   .tier-price {
     display: flex;
     align-items: baseline;
+    flex-wrap: nowrap;
     gap: 4px;
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -457,6 +465,7 @@ const comingSoon = [
     font-weight: 700;
     color: var(--navy);
     margin-top: 6px;
+    flex-shrink: 0;
   }
   .tier-amount {
     font-size: 72px;
@@ -464,11 +473,14 @@ const comingSoon = [
     line-height: 1;
     color: var(--navy);
     letter-spacing: -2px;
+    flex-shrink: 0;
   }
   .tier-per {
     font-size: 15px;
     color: var(--text-light);
     margin-left: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tier-born {
@@ -650,6 +662,13 @@ const comingSoon = [
   }
 
   /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .tier-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 640px;
+    }
+  }
+
   @media (max-width: 960px) {
     .pricing-hero {
       padding: 64px 28px;

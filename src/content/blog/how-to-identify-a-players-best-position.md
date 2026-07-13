@@ -92,4 +92,4 @@ If you're curious where your young player's best position might be, [book a free
 
 _Dipinder Kainth is a coach at South Van FC, working with players in the youth academy in South Vancouver. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth development academy and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://www.southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://www.southvanfc.com)._
