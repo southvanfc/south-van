@@ -18,7 +18,7 @@ coverImage: "/assets/blog/stadium.webp"
 coverImageAlt: "South Van FC youth soccer academy in Vancouver BC, soccer field with mountain backdrop, player development program for kids"
 ---
 
-# How to Choose a Soccer Academy in Vancouver
+## How to Choose a Soccer Academy in Vancouver
 
 Location and price. That's what most parents go on. And it makes sense, those are the things you can actually compare side by side. But nearest and cheapest don't mean much if the program isn't actually developing your child.
 
@@ -36,7 +36,7 @@ When you're evaluating any Vancouver soccer academy, ask directly about coaching
 
 Licences are a starting point. Also ask whether the coaches have actually played at a high level. Someone who has been in the game reads situations differently, and that comes through when they're coaching your kid. The ratio matters too. Once you're past 1:10 in a technical session, your child is basically waiting their turn. Real feedback becomes the exception rather than the norm.
 
-Sessions are deliberately capped to protect that ratio. You can [meet our coaching team](https://southvanfc.com/our-coaches) to see exactly who will be working with your child.
+Sessions are deliberately capped to protect that ratio. You can [meet our coaching team](/our-coaches/) to see exactly who will be working with your child.
 
 ---
 
@@ -62,7 +62,7 @@ Players develop by getting touches, lots of them, and by getting corrected in th
 
 Ask the coach to run you through a typical session. Start to finish. If the answer is vague or they tell you it depends on the group, take note. Coaches who plan well can describe their sessions clearly. Ones who can't usually don't have much of a plan.
 
-One thing we've introduced at [South Van FC](https://southvanfc.com) is video review within training. After certain sessions, players watch footage of themselves. Their own positioning, their own decisions on the ball. A kid watching themselves misread a situation gets it in a way that's hard to replicate by just telling them. Top academies in Europe have built this into their programs for years. There's no reason it shouldn't be part of youth development in Vancouver.
+One thing we've introduced at [South Van FC](/) is video review within training. After certain sessions, players watch footage of themselves. Their own positioning, their own decisions on the ball. A kid watching themselves misread a situation gets it in a way that's hard to replicate by just telling them. Top academies in Europe have built this into their programs for years. There's no reason it shouldn't be part of youth development in Vancouver.
 
 ---
 
@@ -74,7 +74,7 @@ A good academy isn't just a program for right now. It should have somewhere for 
 
 Ask whether developing players can progress into higher-level competition. Do youth players have a route into senior or competitive football as they get older? A club that's genuinely invested in your child's development has thought about this already.
 
-At South Van FC, the youth academy feeds into our competitive teams. Players who come through the academy have a real route into the senior men's and women's programs. It's not a separate thing. You can read more about [how we approach development](https://southvanfc.com/soccer-academy/) and where the pathway leads.
+At South Van FC, the youth academy feeds into our competitive teams. Players who come through the academy have a real route into the senior men's and women's programs. It's not a separate thing. You can read more about [how we approach development](/soccer-academy/) and where the pathway leads.
 
 ---
 
@@ -117,10 +117,10 @@ Before you sign up for anything, go back through those five areas: coaching cred
 
 Vancouver has no shortage of talented young players. The ones who actually develop into something rarely stood out at eight years old above everyone else. They just found the right environment early and stayed in it long enough for the work to accumulate.
 
-If you'd like to see how South Van FC measures up, [book a free player evaluation](https://southvanfc.com/soccer-academy/player-evaluation/). Our coaches will assess your child and give you honest, direct feedback. No commitment required.
+If you'd like to see how South Van FC measures up, [book a free player evaluation](/soccer-academy/player-evaluation/). Our coaches will assess your child and give you honest, direct feedback. No commitment required.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

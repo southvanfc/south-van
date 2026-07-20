@@ -31,7 +31,7 @@ Being coachable doesn't mean nodding along to everything. The real tell is what 
 
 The coachable players we've worked with at South Van FC share a few things. These players don't need feedback wrapped up carefully. They hear it plainly, take what's useful, and apply it without making it a bigger deal than it is.
 
-That mentality compounds. A player who takes one piece of feedback per session and actually uses it is getting better in ways that don't show up in any one session but become obvious over a season. We covered how that long-term thinking applies to development generally in [The Long Game](https://www.southvanfc.com/blogs/the-long-game-player-development).
+That mentality compounds. A player who takes one piece of feedback per session and actually uses it is getting better in ways that don't show up in any one session but become obvious over a season. We covered how that long-term thinking applies to development generally in [The Long Game](/blogs/the-long-game-player-development/).
 
 ---
 
@@ -51,7 +51,7 @@ That's when you see the gap.
 
 Talent and coachability are not in opposition. The players who last tend to carry both.
 
-But in training environments, it changes how we approach things. A player who is genuinely open to feedback needs coaches who give good feedback. Vague encouragement doesn't help a coachable player; it actually does them a disservice. They need specific, honest input that they can act on. That's the environment we try to build in the [South Van FC academy](https://www.southvanfc.com/soccer-academy/).
+But in training environments, it changes how we approach things. A player who is genuinely open to feedback needs coaches who give good feedback. Vague encouragement doesn't help a coachable player; it actually does them a disservice. They need specific, honest input that they can act on. That's the environment we try to build in the [South Van FC academy](/soccer-academy/).
 
 For parents, it's worth thinking about how you talk about your player's development at home. Praising effort and improvement over ability tends to build the right relationship with feedback. A player who hears "you worked hard on that" internalizes something different than one who only hears "you're so talented."
 
@@ -75,4 +75,4 @@ Talent gets you noticed. Coachability is what you do with that.
 
 _Dipinder Kainth is a coach at South Van FC, working with players in the youth academy in South Vancouver. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

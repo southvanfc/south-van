@@ -64,7 +64,7 @@ The part most clubs skip is how a player carries a bad moment. A kid gives the b
 
 ## There's somewhere to go from here
 
-One thing that's genuinely different about South Van FC is that the [youth academy](https://southvanfc.com/soccer-academy/) connects to something. Players who come through the programme have a pathway into our VMSL men's team. That isn't window dressing. It shapes how we develop players from day one, because we know where they're going and what they'll need when they get there.
+One thing that's genuinely different about South Van FC is that the [youth academy](/soccer-academy/) connects to something. Players who come through the programme have a pathway into our VMSL men's team. That isn't window dressing. It shapes how we develop players from day one, because we know where they're going and what they'll need when they get there.
 
 A lot of academies in Vancouver operate in a bubble. Develop the kid, and then what? We built this club so that question has an answer.
 
@@ -74,10 +74,10 @@ A lot of academies in Vancouver operate in a bubble. Develop the kid, and then w
 
 There are plenty of good soccer options in Vancouver. If your priority is winning youth tournaments and playing a lot of competitive games, there are clubs better suited to that than us.
 
-What we offer is a specific approach: small groups, individual attention, a real development philosophy, and a programme that's built around where a player can be at 18, not at 10. If that's what you're looking for, the [academy evaluation](https://southvanfc.com/soccer-academy/player-evaluation/) is where it starts.
+What we offer is a specific approach: small groups, individual attention, a real development philosophy, and a programme that's built around where a player can be at 18, not at 10. If that's what you're looking for, the [academy evaluation](/soccer-academy/player-evaluation/) is where it starts.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

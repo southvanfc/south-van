@@ -20,7 +20,7 @@ tags:
 
 We've all seen it happen. A player looks average at left back for a whole season, then you try them at right wing and suddenly they look like a different athlete. Or that kid who's been "fine" in midfield for years turns out to be your best center back the first time someone actually puts them there. It happens more than parents realize, and it usually comes down to one thing: nobody had tried them anywhere else yet.
 
-Finding the right position isn't about filling a formation. It's about figuring out where a young player's natural instincts actually do the most damage on the field. At South Van FC, [our coaches](https://www.southvanfc.com/our-coaches) treat this as an ongoing evaluation, not a one-time decision, and it's one of the things we focus on most with youth soccer players across Vancouver.
+Finding the right position isn't about filling a formation. It's about figuring out where a young player's natural instincts actually do the most damage on the field. At South Van FC, [our coaches](/our-coaches/) treat this as an ongoing evaluation, not a one-time decision, and it's one of the things we focus on most with youth soccer players across Vancouver.
 
 ---
 
@@ -66,7 +66,7 @@ Small-sided games with a twist, like saying goals only count from inside the box
 
 A single good game in one position isn't proof of fit. Maybe they just had a good matchup that day, or maybe it was a lucky bounce here and there. Either way, one game doesn't tell you much. What actually works is moving a promising player through two or three realistic roles over several weeks and just paying attention. Are their touches actually leading to something in one spot more than another? Are they making fewer mistakes there? Do they seem more switched on and confident once they settle in?
 
-How teammates respond matters too. Data over time beats a gut call from a single match, and it's exactly what we look at during [free player evaluations](https://www.southvanfc.com/soccer-academy/player-evaluation/) at South Van FC.
+How teammates respond matters too. Data over time beats a gut call from a single match, and it's exactly what we look at during [free player evaluations](/soccer-academy/player-evaluation/) at South Van FC.
 
 ---
 
@@ -84,12 +84,12 @@ We see this a lot with our more athletic kids: they can play four or five positi
 
 There's no single test that tells you exactly where a young player belongs. It comes from watching how they're built, how they think, what they do when the ball's nowhere near them, how they perform over weeks rather than one game, and honestly, just asking them where they feel good.
 
-We don't treat position as something you decide once and move on from. Kids grow, bodies change, and the right spot for a 12-year-old isn't always the right spot at 15. That [ongoing, patient approach](https://www.southvanfc.com/blog/the-long-game-player-development) is part of why families across South Vancouver trust our [youth academy](https://www.southvanfc.com/soccer-academy/) with their child's development.
+We don't treat position as something you decide once and move on from. Kids grow, bodies change, and the right spot for a 12-year-old isn't always the right spot at 15. That [ongoing, patient approach](/blogs/the-long-game-player-development/) is part of why families across South Vancouver trust our [youth academy](/soccer-academy/) with their child's development.
 
-If you're curious where your young player's best position might be, [book a free player evaluation](https://www.southvanfc.com/soccer-academy/player-evaluation/) with our [coaching team](https://www.southvanfc.com/our-coaches) and see what our coaches find.
+If you're curious where your young player's best position might be, [book a free player evaluation](/soccer-academy/player-evaluation/) with our [coaching team](/our-coaches/) and see what our coaches find.
 
 ---
 
 _Dipinder Kainth is a coach at South Van FC, working with players in the youth academy in South Vancouver. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://www.southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

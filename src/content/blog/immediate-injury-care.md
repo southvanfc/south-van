@@ -86,10 +86,10 @@ A sprain or strain at soccer practice doesn't have to mean a long time off. Rest
 
 That's the whole approach. It's not complicated. The difference is actually doing it instead of hoping the injury sorts itself out.
 
-At South Vancouver FC, player health is built into how we run every program. Whether your child is just starting out in youth football or developing through a competitive stream in Vancouver, we want them training safely and recovering smart. Learn more about our approach at [southvanfc.com/soccer-academy](https://southvanfc.com/soccer-academy/).
+At South Vancouver FC, player health is built into how we run every program. Whether your child is just starting out in youth football or developing through a competitive stream in Vancouver, we want them training safely and recovering smart. Learn more about our approach at [southvanfc.com/soccer-academy](/soccer-academy/).
 
 ---
 
 _Shanil Sharma is a Kinesiologist at [SNS Fitness Rehab](https://www.snsfitnessrehab.ca/) and contributes to South Van FC on player development, recovery, and injury prevention._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

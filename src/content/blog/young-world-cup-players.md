@@ -99,10 +99,10 @@ Watch Bouaddi's body shape before he receives. Watch whether anything in Mora's 
 
 The interesting stuff is not in the highlights. It is in what these players do when the ball is somewhere else, and in the habits they have built so deeply that the biggest stage in soccer does not shake them.
 
-That is what long-term development looks like. At [South Van FC Soccer Academy](https://southvanfc.com/soccer-academy/), that is what we are building in every player we work with across South Vancouver. If you want to see whether it is the right fit, start with a [free evaluation](https://southvanfc.com/soccer-academy/player-evaluation/).
+That is what long-term development looks like. At [South Van FC Soccer Academy](/soccer-academy/), that is what we are building in every player we work with across South Vancouver. If you want to see whether it is the right fit, start with a [free evaluation](/soccer-academy/player-evaluation/).
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

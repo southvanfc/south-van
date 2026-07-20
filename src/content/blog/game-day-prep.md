@@ -27,7 +27,7 @@ Dinner should be straightforward. Carbs, protein, water. Pasta, rice, chicken. N
 
 Before you sleep, sort your bag. Kit, boots, shin pads, water bottle. You do not want to be hunting for a shin pad at 8am on a Saturday.
 
-Training load through the week matters too. If you're not sure whether your player is doing too much or too little going into a game, our post on [how often young players should train](https://southvanfc.com/blog/how-often-should-young-players-train) breaks it down by age group.
+Training load through the week matters too. If you're not sure whether your player is doing too much or too little going into a game, our post on [how often young players should train](/blogs/training-frequency/) breaks it down by age group.
 
 ---
 
@@ -65,7 +65,7 @@ Take it seriously. If you arrive and the team is already mid-way through, don't 
 
 Dynamic movement, short passing sequences, some light running. Save the long static stretches for after the game.
 
-If you want to understand more about how we think about physical conditioning at South Van FC, we covered it in [our post on physical development](https://southvanfc.com/blog/physical-pillar), including why running laps is one of the least effective things a coach can do.
+If you want to understand more about how we think about physical conditioning at South Van FC, we covered it in our post on physical development, including why running laps is one of the least effective things a coach can do.
 
 ---
 
@@ -79,7 +79,7 @@ Some players want music right up to kickoff. Others want quiet. Find what works 
 
 At South Van FC we push players to back themselves on the pitch. That comes from somewhere: the session on Tuesday, packing the bag the night before, showing up when you were supposed to. The prep is what earns it.
 
-We wrote about the mental side in detail in [our post on mental development](https://southvanfc.com/blog/mental-pillar) if you want to go further.
+We wrote about the mental side in detail in our post on mental development if you want to go further.
 
 ---
 
@@ -89,12 +89,12 @@ None of this works if you only do it before a big game. A random March league ma
 
 Start with one thing. Sleep is usually the easiest win. Then the food, then arriving earlier. Do it every week and at some point it just becomes what you do.
 
-Game day prep is one piece of a bigger picture. If you want to see how it fits into how we develop players week to week and season to season, [The Four Pillars](https://southvanfc.com/blog/four-pillars) is a good overview of our whole approach.
+Game day prep is one piece of a bigger picture. If you want to see how it fits into how we develop players week to week and season to season, our overall development approach ties it all together.
 
-Want to learn more about what we work on at South Van FC? Visit [our player development page](https://southvanfc.com/soccer-academy/) to see what we do week in and week out in South Vancouver.
+Want to learn more about what we work on at South Van FC? Visit [our player development page](/soccer-academy/) to see what we do week in and week out in South Vancouver.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

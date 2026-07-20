@@ -11,7 +11,7 @@ coverImageAlt: "Young soccer player watching the 2026 FIFA World Cup in Vancouve
 tags: ["World Cup 2026", "Vancouver", "Canada Soccer", "Youth Development"]
 ---
 
-Right now, Canada is at the [World Cup](https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026). Games are being played at BC Place, twenty minutes from [South Vancouver](https://southvanfc.com/south-vancouver/). That is as close as most kids in this city will ever get to the World Cup. For a kid who is serious about soccer, having it this close matters.
+Right now, Canada is at the [World Cup](https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026). Games are being played at BC Place, twenty minutes from [South Vancouver](/south-vancouver/). That is as close as most kids in this city will ever get to the World Cup. For a kid who is serious about soccer, having it this close matters.
 
 Most players who went on to compete seriously had a moment, a tournament they watched, a player they locked onto, that made it feel real. For a generation of young Canadians, this is that moment.
 
@@ -27,9 +27,9 @@ That belief is not just motivational. Players who genuinely believe in a future 
 
 ## The Pipeline Is Longer Than You Think
 
-The players representing Canada right now did not appear fully formed. They came through [youth academies](https://southvanfc.com/soccer-academy/) and development programmes that stretched back ten, twelve, fifteen years. They had [coaches](https://southvanfc.com/our-coaches/) who saw something early and built it properly. They had parents who kept them in the sport when it was not going well.
+The players representing Canada right now did not appear fully formed. They came through [youth academies](/soccer-academy/) and development programmes that stretched back ten, twelve, fifteen years. They had [coaches](/our-coaches/) who saw something early and built it properly. They had parents who kept them in the sport when it was not going well.
 
-The World Cup creates pressure in the opposite direction. Parents see elite players and want shortcuts. Clubs feel the pull to win tournaments and get noticed. The game starts to look like something that can be rushed. It cannot. These players are proof that [the long approach works](https://southvanfc.com/blogs/the-long-game-player-development/).
+The World Cup creates pressure in the opposite direction. Parents see elite players and want shortcuts. Clubs feel the pull to win tournaments and get noticed. The game starts to look like something that can be rushed. It cannot. These players are proof that [the long approach works](/blogs/the-long-game-player-development/).
 
 ---
 
@@ -45,10 +45,10 @@ That environment matters. Soccer means something different when the city around 
 
 The games will be over before the summer ends. But the effect on a young player who is paying attention can last much longer. If there is ever a time to have a real conversation with your kid about the game, who they look up to, what they want to get better at, where they see themselves, it is right now. They are watching. Ask them what they see.
 
-Canada got here because someone built something real at the grassroots level. At [South Van Youth Soccer Academy](https://southvanfc.com/soccer-academy/), we are trying to do that in [South Vancouver](https://southvanfc.com/south-vancouver/). If your young player is ready to take development seriously, [we would love to talk](https://southvanfc.com/soccer-academy/player-evaluation/). Reach out and let's talk about what's next for them.
+Canada got here because someone built something real at the grassroots level. At [South Van Youth Soccer Academy](/soccer-academy/), we are trying to do that in [South Vancouver](/south-vancouver/). If your young player is ready to take development seriously, [we would love to talk](/soccer-academy/player-evaluation/). Reach out and let's talk about what's next for them.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

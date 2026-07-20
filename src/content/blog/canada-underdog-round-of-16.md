@@ -62,10 +62,10 @@ That matters for how we talk to players here too. A club from South Vancouver, b
 
 If your kid's been watching this tournament, point them to Canada's rocky group stage before that Round of 16 breakthrough, or to Cape Verde. Upsets aren't really the story here. The habits built long before anyone was watching are the story.
 
-That's what we're building toward at South Van FC too, one session at a time, not because talent doesn't matter but because it's rarely the thing that decides where a player ends up. If you want to see what that looks like in practice, our [academy](https://southvanfc.com/soccer-academy/) is a good place to start.
+That's what we're building toward at South Van FC too, one session at a time, not because talent doesn't matter but because it's rarely the thing that decides where a player ends up. If you want to see what that looks like in practice, our [academy](/soccer-academy/) is a good place to start.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

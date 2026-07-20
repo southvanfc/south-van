@@ -66,7 +66,7 @@ This matters even more if you are about to sit in a car for the drive home. Goin
 
 ## Building Recovery Into Your Weekly Routine
 
-Match day habits only get you so far. Recovery between sessions is where the real gap opens up between players, and it's something we hammer at the [South Van FC academy](https://southvanfc.com/soccer-academy/) every chance we get. The kids who get this stuff right aren't always the most talented. They're the ones who keep developing while everyone else hits a wall.
+Match day habits only get you so far. Recovery between sessions is where the real gap opens up between players, and it's something we hammer at the [South Van FC academy](/soccer-academy/) every chance we get. The kids who get this stuff right aren't always the most talented. They're the ones who keep developing while everyone else hits a wall.
 
 The boring stuff matters the most. Sleep eight to ten hours, drink plenty of water, not just before kickoff. Have some protein and carbs in within an hour to replenish your nutrients and help the recovery process.
 
@@ -78,10 +78,10 @@ A real recovery day looks like an easy bike ride or a swim. Maybe a long walk. N
 
 Recovery isn't doing nothing. It's doing small, easy things consistently. Move on the sideline, stay warm, cool down after a game or practice, sleep the suggested amount and drink a lot of water. The young Vancouver soccer players who figure this out at 11 or 12 are the ones still playing at 16, 18, and beyond. The ones who don't usually pick up an injury that takes them out of the game.
 
-If you want your kid coached in a program that takes development and recovery seriously, come meet [our coaches](https://southvanfc.com/our-coaches) at southvanfc.com. We're building South Vancouver players who can actually back up week after week.
+If you want your kid coached in a program that takes development and recovery seriously, come meet [our coaches](/our-coaches/) at southvanfc.com. We're building South Vancouver players who can actually back up week after week.
 
 ---
 
 _Shanil Sharma is a Kinesiologist at [SNS Fitness Rehab](https://www.snsfitnessrehab.ca/) and contributes to South Van FC on player development, recovery, and injury prevention._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

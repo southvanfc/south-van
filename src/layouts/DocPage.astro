@@ -4,12 +4,13 @@ import BaseLayout from "./BaseLayout.astro";
 type Props = {
   title: string;
   eyebrow?: string;
+  description?: string;
 };
 
-const { title, eyebrow = "Legal" } = Astro.props;
+const { title, eyebrow = "Legal", description } = Astro.props;
 ---
 
-<BaseLayout seo={{ title: `${title} — South Van FC` }}>
+<BaseLayout seo={{ title: `${title} — South Van FC`, description }}>
   <section class="doc-hero">
     <div class="accent-bar" aria-hidden="true"></div>
     <div class="hero-inner">

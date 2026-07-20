@@ -75,7 +75,7 @@ This is the move Iniesta made famous, and it's the one on this list that actuall
 
 ## Why the Reps Nobody Sees Matter Most
 
-None of these drills need a coach standing over you, and that's the point. The players who improve fastest tend to be the ones who've banked reps nobody was watching. If you want a program built around habits like these instead of highlight reels, our [academy](https://southvanfc.com/soccer-academy/) is a good place to start.
+None of these drills need a coach standing over you, and that's the point. The players who improve fastest tend to be the ones who've banked reps nobody was watching. If you want a program built around habits like these instead of highlight reels, our [academy](/soccer-academy/) is a good place to start.
 
 > **Next in the series:** Part 2 covers the physical pillar, with speed, agility, and conditioning work a player can do at home. Subscribe below and we'll let you know when it goes live.
 
@@ -83,4 +83,4 @@ None of these drills need a coach standing over you, and that's the point. The p
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

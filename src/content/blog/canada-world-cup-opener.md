@@ -57,9 +57,9 @@ That is the window that opened today. It stays open for kids who start now.
 
 The kids who are still playing seriously two years later tend to be the ones whose parents did three things with that first burst of interest.
 
-First, find an environment focused on development, not just results. At South Van FC we build players around four pillars: technical, tactical, physical, and mental. A nine year old does not need to win a league title. They need thousands of quality touches, [coaches who teach them to think](https://southvanfc.com/our-coaches), and a standard that follows them to every session.
+First, find an environment focused on development, not just results. At South Van FC we build players around four pillars: technical, tactical, physical, and mental. A nine year old does not need to win a league title. They need thousands of quality touches, [coaches who teach them to think](/our-coaches/), and a standard that follows them to every session.
 
-Second, commit to the long game. Player development is measured in years, not seasons. The clubs that promise shortcuts are selling something else. The honest version is that consistent, well designed training over a long period is what separates players who make it from players who almost did. That philosophy is the entire foundation of [our academy](https://southvanfc.com/soccer-academy/).
+Second, commit to the long game. Player development is measured in years, not seasons. The clubs that promise shortcuts are selling something else. The honest version is that consistent, well designed training over a long period is what separates players who make it from players who almost did. That philosophy is the entire foundation of [our academy](/soccer-academy/).
 
 Third, don't wait until they're "good enough" to join a proper program. Some kids come to us having never done a structured session in their lives. Others arrive already playing at a decent level. Five years in, you often can't tell which was which.
 
@@ -75,10 +75,10 @@ That is the work we have committed to at South Van FC. A youth academy built on 
 
 Canada plays at BC Place next week. Watch it with your kids. Let them feel what today felt like. Then give that feeling somewhere to go.
 
-If your child watched today's match and something lit up in them, [reach out to us](https://southvanfc.com) or book a [free player evaluation](https://southvanfc.com/soccer-academy/player-evaluation/) so we can see where they're at. The first step toward any World Cup is a good training session, and those happen every week in South Vancouver.
+If your child watched today's match and something lit up in them, [reach out to us](/) or book a [free player evaluation](/soccer-academy/player-evaluation/) so we can see where they're at. The first step toward any World Cup is a good training session, and those happen every week in South Vancouver.
 
 ---
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

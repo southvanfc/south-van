@@ -13,7 +13,7 @@ coverImageAlt: "Youth soccer players practicing on a training field"
 
 ## How Often Should Young Players Train?
 
-The training frequency question comes up constantly. The answer changes pretty significantly with age. What makes sense for an 8-year-old is completely wrong for a 15-year-old. What we've found at [South Van FC](https://southvanfc.com) probably isn't what most people assume going in.
+The training frequency question comes up constantly. The answer changes pretty significantly with age. What makes sense for an 8-year-old is completely wrong for a 15-year-old. What we've found at [South Van FC](/) probably isn't what most people assume going in.
 
 The players who develop the most aren't always the ones training the most. They're the ones training smart. The pressure to keep up is real, especially when another kid is adding sessions or joining a second team. But piling on sessions without the right structure around them just leads to tired, disengaged kids who stop improving.
 
@@ -45,7 +45,7 @@ Three or four sessions a week makes sense here, sometimes more depending on the 
 
 A focused 45-minute session where a player is genuinely working on a real weakness will do more than two hours of just showing up. Intent matters. A player going through the motions without thinking about the decisions they're making isn't developing, they're just accumulating time. Without the right guidance, a lot of players assume the answer is more training. Usually it's the last thing they need.
 
-At [South Van FC](https://southvanfc.com), every player in the [academy](https://southvanfc.com) has an Individual Development Plan that helps identify where focused work will actually move the needle. Training harder is easy. Training with purpose takes coaching.
+At [South Van FC](/), every player in the [academy](/) has an Individual Development Plan that helps identify where focused work will actually move the needle. Training harder is easy. Training with purpose takes coaching.
 
 ---
 
@@ -69,4 +69,4 @@ There's no shortcut. Development takes years and it needs players who still want
 
 _Dipinder Kainth is a coach at South Van FC, working with players in the youth academy in South Vancouver. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

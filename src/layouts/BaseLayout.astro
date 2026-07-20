@@ -33,7 +33,6 @@ const description = seo?.description ?? DEFAULT_DESCRIPTION;
 const robots = seo?.robots ?? "index,follow";
 const ogType = seo?.ogType ?? "website";
 const twitterCard = seo?.twitterCard ?? "summary_large_image";
-const keywords = seo?.keywords;
 const author = seo?.author;
 
 // Build absolute URLs (works best when you set `site` in astro.config.mjs)
@@ -101,14 +100,12 @@ const organizationSchema = {
 
     <!-- Favicons / PWA -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content={THEME_COLOR} />
 
     <!-- SEO -->
     <link rel="canonical" href={canonicalUrl} />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
-    {keywords && <meta name="keywords" content={keywords} />}
     {author && <meta name="author" content={author} />}
 
     <!-- Open Graph -->

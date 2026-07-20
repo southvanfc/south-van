@@ -52,7 +52,7 @@ Professional athletes are the group best equipped to manage their own hydration 
 
 Kids are also worse than adults at regulating body temperature, and they often don't notice the early signs of dehydration until performance has already dropped off. On the handful of days a summer when it actually gets hot here, a mandatory break matters more for a young player than it does for a pro. On a normal 18-degree evening in September, that same kid doesn't need it.
 
-It's part of why our own [youth academy](https://southvanfc.com/soccer-academy/) builds heat awareness into training from day one, not just match day.
+It's part of why our own [youth academy](/soccer-academy/) builds heat awareness into training from day one, not just match day.
 
 ---
 
@@ -60,7 +60,7 @@ It's part of why our own [youth academy](https://southvanfc.com/soccer-academy/)
 
 Nobody needs a mandatory water break for a mild April fixture on a South Vancouver field. What would help is a simple heat policy that leagues here already lean on in principle but rarely formalize. Once temperatures cross a set threshold, a three-minute hydration stop becomes automatic in both halves. The rest of the season, games run exactly as they do now.
 
-There's a coaching bonus buried in this too. Managers at the World Cup, like Carlo Ancelotti, have used the pause to make in-game adjustments they'd otherwise save for halftime. Our own [coaching staff](https://southvanfc.com/our-coaches) already build water breaks into training sessions during heat waves, so folding the same logic into match day for VMSL and youth leagues across the city wouldn't take much.
+There's a coaching bonus buried in this too. Managers at the World Cup, like Carlo Ancelotti, have used the pause to make in-game adjustments they'd otherwise save for halftime. Our own [coaching staff](/our-coaches/) already build water breaks into training sessions during heat waves, so folding the same logic into match day for VMSL and youth leagues across the city wouldn't take much.
 
 ---
 
@@ -74,4 +74,4 @@ The actual mechanism, a scheduled pause for water on a genuinely hot day, is a g
 
 _Dipinder Kainth is a coach at South Van FC, working with players in the youth academy in South Vancouver. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://www.southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

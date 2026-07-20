@@ -77,6 +77,7 @@ const articleSchema = {
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
   url: `https://www.southvanfc.com/blogs/${post.id}/`,
   image:
     post.data.coverImage ??
@@ -112,7 +113,13 @@ const articleSchema = {
   <article class="post-page">
     <header class="post-hero">
       <div class="post-hero-inner">
-        <a href="/blogs/" class="post-back">← All Posts</a>
+        <nav class="post-crumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="post-crumb-sep" aria-hidden="true">›</span>
+          <a href="/blogs/">Blog</a>
+          <span class="post-crumb-sep" aria-hidden="true">›</span>
+          <span class="post-crumb-cur">{post.data.title}</span>
+        </nav>
         {
           post.data.category && (
             <span class="blog-card-cat">{post.data.category}</span>
@@ -320,17 +327,33 @@ const articleSchema = {
     gap: 14px;
   }
 
-  .post-back {
+  .post-crumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
     font-size: 13px;
     font-weight: 600;
+    letter-spacing: 0.3px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .post-crumb a {
     color: rgba(255, 255, 255, 0.55);
     text-decoration: none;
-    letter-spacing: 0.3px;
     transition: color 0.2s;
-    width: fit-content;
   }
-  .post-back:hover {
+  .post-crumb a:hover {
     color: var(--gold);
+  }
+  .post-crumb-sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .post-crumb-cur {
+    color: var(--gold);
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .blog-card-cat {

@@ -17,7 +17,7 @@ Ask any coach what they want for their players, and you'll hear the same things:
 
 The gap between what we want for players and what we actually build our sessions around is one of the biggest challenges in youth soccer player development. It isn't something that just happens when kids show up and kick a ball around. It's intentional. It's consistent. And it looks a lot different than most people expect.
 
-At [South Van FC](https://southvanfc.com), we think about developing young soccer players across four pillars: Technical, Tactical, Physical, and Mental. Every session touches all four. Here's what real development in each one actually involves, and how coaches and players can approach it with purpose.
+At [South Van FC](/), we think about developing young soccer players across four pillars: Technical, Tactical, Physical, and Mental. Every session touches all four. Here's what real development in each one actually involves, and how coaches and players can approach it with purpose.
 
 ---
 
@@ -65,7 +65,7 @@ Mental resilience, self-awareness, and a growth mindset are just as trainable as
 
 Does your training environment celebrate effort as much as outcome? Do players feel safe making mistakes? Is feedback honest but encouraging? These aren't soft questions. They're development questions.
 
-At South Van FC, every player in the [academy](https://southvanfc.com) has an Individual Development Plan (IDP) that tracks mental development alongside the technical, tactical, and physical pillars. A player's response to a hard session, a mistake, or critical feedback is part of their development story, and it gets coached as seriously as anything else on the field.
+At South Van FC, every player in the [academy](/) has an Individual Development Plan (IDP) that tracks mental development alongside the technical, tactical, and physical pillars. A player's response to a hard session, a mistake, or critical feedback is part of their development story, and it gets coached as seriously as anything else on the field.
 
 The players who push through hard sessions, who ask for feedback, who watch their own mistakes without making excuses: those are the players who keep improving year after year.
 
@@ -87,9 +87,9 @@ Progress is rarely dramatic. It's usually quiet. A first touch that felt awkward
 
 Youth soccer player development isn't a shortcut. There's no drill that fixes everything, no single session that transforms a player overnight. But there is a clear path: build technique in context, develop tactical intelligence through playing, take physical development seriously, create a culture where the mental game is valued, and show up consistently.
 
-That's the framework [South Van FC](https://southvanfc.com) builds every program around. Four pillars, developed intentionally, for every player, every session.
+That's the framework [South Van FC](/) builds every program around. Four pillars, developed intentionally, for every player, every session.
 
-Whether you're a coach designing [training sessions](https://southvanfc.com) or a player looking to get better, the formula is simple. It's just not always easy. Start this week with one thing you can do better, and then do it again next week.
+Whether you're a coach designing [training sessions](/) or a player looking to get better, the formula is simple. It's just not always easy. Start this week with one thing you can do better, and then do it again next week.
 
 That's the long game. And it's worth playing.
 
@@ -97,4 +97,4 @@ That's the long game. And it's worth playing.
 
 _Harjit Kainth is the founder, head coach, and academy director at South Van FC. He built the club from the ground up in South Vancouver with a focus on long-term player development, and oversees both the youth academy and the VMSL men's team. If you have questions about the programme or want to talk development, reach out at southvanfc@gmail.com._
 
-_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](https://southvanfc.com)._
+_South Van FC is a community football club based in South Vancouver, BC. We run a youth academy, an adult 18+ program, and a VMSL Men's team, built around one philosophy: develop real players, technically sharp, tactically aware, and mentally tough. Learn more at [southvanfc.com](/)._

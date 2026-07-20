@@ -1,9 +1,16 @@
 ---
 // src/pages/success.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const seo = {
+  title: "Submission Received | South Van FC",
+  description:
+    "Thanks for reaching out to South Van FC. Our coaching staff will review your submission and follow up within 48 hours.",
+  robots: "noindex,follow",
+};
 ---
 
-<BaseLayout>
+<BaseLayout seo={seo}>
   <section class="success-hero">
     <div class="field-pattern" aria-hidden="true"></div>
     <div class="accent-bar" aria-hidden="true"></div>
