@@ -28,7 +28,7 @@ It doesn't need a full pitch, a full squad, or even a coach standing over it. Tw
 
 Soccer tennis is exactly what it sounds like. Take the format of tennis or volleyball, a net, a court, points scored by landing the ball in your opponent's side, and play it entirely with your feet, thighs, chest, and head. No hands allowed, ever.
 
-The ball gets served over the net and one bounce is allowed between touches. Most ofen we play with ulimited touches, to increase the challenge add a limited number of touches. It rewards a soft first touch and quick decision making far more than raw power, which is exactly the kind of habit we want young players building.
+The ball gets served over the net and one bounce is allowed between touches. Most often we play with ulimited touches, to increase the challenge add a limited number of touches. It rewards a soft first touch and quick decision making far more than raw power, which is exactly the kind of habit we want young players building.
 
 It's been a staple warm-up and cooldown game for professional clubs for years, and for good reason. It's fun enough that everyone asks to keep playing after training ends, which is the best sign a game is doing its job.
 
