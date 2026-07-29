@@ -3,17 +3,59 @@ import { getCollection } from "astro:content";
 
 const SITE = "https://www.southvanfc.com";
 
+// `lastmod` is maintained by hand for static pages. Update the date on a route
+// when you meaningfully change that page's content.
 const staticRoutes = [
-  { url: "/", priority: "1.0", changefreq: "weekly" },
-  { url: "/soccer-academy/", priority: "0.9", changefreq: "weekly" },
-  { url: "/soccer-academy/pricing/", priority: "0.8", changefreq: "monthly" },
-  { url: "/soccer-academy/player-evaluation/", priority: "0.8", changefreq: "monthly" },
-  { url: "/blogs/", priority: "0.8", changefreq: "weekly" },
-  { url: "/our-coaches/", priority: "0.7", changefreq: "monthly" },
-  { url: "/mens-team/", priority: "0.8", changefreq: "monthly" },
-{ url: "/south-vancouver/", priority: "0.7", changefreq: "monthly" },
-  { url: "/privacy-policy/", priority: "0.3", changefreq: "yearly" },
-  { url: "/terms-and-conditions/", priority: "0.3", changefreq: "yearly" },
+  { url: "/", priority: "1.0", changefreq: "weekly", lastmod: "2026-07-20" },
+  {
+    url: "/soccer-academy/",
+    priority: "0.9",
+    changefreq: "weekly",
+    lastmod: "2026-07-28",
+  },
+  {
+    url: "/soccer-academy/pricing/",
+    priority: "0.8",
+    changefreq: "monthly",
+    lastmod: "2026-07-14",
+  },
+  {
+    url: "/soccer-academy/player-evaluation/",
+    priority: "0.8",
+    changefreq: "monthly",
+    lastmod: "2026-07-28",
+  },
+  { url: "/blogs/", priority: "0.8", changefreq: "weekly", lastmod: "2026-07-28" },
+  {
+    url: "/our-coaches/",
+    priority: "0.7",
+    changefreq: "monthly",
+    lastmod: "2026-07-20",
+  },
+  {
+    url: "/mens-team/",
+    priority: "0.8",
+    changefreq: "monthly",
+    lastmod: "2026-07-20",
+  },
+  {
+    url: "/south-vancouver/",
+    priority: "0.7",
+    changefreq: "monthly",
+    lastmod: "2026-07-20",
+  },
+  {
+    url: "/privacy-policy/",
+    priority: "0.3",
+    changefreq: "yearly",
+    lastmod: "2026-07-20",
+  },
+  {
+    url: "/terms-and-conditions/",
+    priority: "0.3",
+    changefreq: "yearly",
+    lastmod: "2026-07-20",
+  },
 ];
 
 export const GET: APIRoute = async () => {
@@ -26,10 +68,7 @@ export const GET: APIRoute = async () => {
     changefreq: "monthly",
   }));
 
-  const allRoutes = [
-    ...staticRoutes.map((r) => ({ ...r, lastmod: undefined })),
-    ...blogEntries,
-  ];
+  const allRoutes = [...staticRoutes, ...blogEntries];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

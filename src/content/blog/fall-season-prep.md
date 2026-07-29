@@ -84,7 +84,7 @@ Honestly, it's the small logistics stuff that wrecks more tryouts than people ex
 
 At the end of the day, tryouts are one evaluation on one day, not the whole story of where you're headed. Honestly, how you handle the weeks leading up to it says almost as much about long-term potential as the tryout itself.
 
-If you want another set of eyes on where you're at before the season starts, our [free player evaluations](https://southvanfc.com/soccer-academy/player-evaluation) are open right now for youth and adult players across Vancouver.
+If you want another set of eyes on where you're at before the season starts, our [free player evaluations](/soccer-academy/player-evaluation/) are open right now for youth and adult players across Vancouver.
 
 ---
 

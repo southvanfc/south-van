@@ -34,11 +34,11 @@
        ════════════════════════════════════════════ -->
   <div class="form-step" data-step="1">
     <!-- ── 01 PLAYER DETAILS ──────────────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-01-label">
       <div class="fsec-head">
         <span class="fsec-num">01</span>
         <div>
-          <div class="fsec-label">Player Details</div>
+          <h3 class="fsec-label" id="fsec-01-label">Player Details</h3>
           <div class="fsec-hint">
             Basic information about the player being evaluated.
           </div>
@@ -127,14 +127,14 @@
           </select>
         </div>
       </div>
-    </div>
+    </fieldset>
 
     <!-- ── 02 PARENT / GUARDIAN ───────────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-02-label">
       <div class="fsec-head">
         <span class="fsec-num">02</span>
         <div>
-          <div class="fsec-label">Parent / Guardian</div>
+          <h3 class="fsec-label" id="fsec-02-label">Parent / Guardian</h3>
           <div class="fsec-hint">
             Required for all players under 18. This is our primary contact for
             scheduling and updates.
@@ -200,14 +200,14 @@
           <span class="f-err" id="parent_phone-error" aria-live="polite"></span>
         </div>
       </div>
-    </div>
+    </fieldset>
 
     <!-- ── 03 PLAYING POSITION ────────────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-03-label">
       <div class="fsec-head">
         <span class="fsec-num">03</span>
         <div>
-          <div class="fsec-label">Playing Position</div>
+          <h3 class="fsec-label" id="fsec-03-label">Playing Position</h3>
           <div class="fsec-hint">
             Select primary position(s) and dominant foot.
           </div>
@@ -276,7 +276,7 @@
           ></span>
         </div>
       </div>
-    </div>
+    </fieldset>
   </div><!-- /form-step[1] -->
 
   <!-- ── STEP 1 NAV ─────────────────────────── -->
@@ -308,11 +308,11 @@
        ════════════════════════════════════════════ -->
   <div class="form-step" data-step="2">
     <!-- ── 04 TRAINING & COMPETITION ──────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-04-label">
       <div class="fsec-head">
         <span class="fsec-num">04</span>
         <div>
-          <div class="fsec-label">Training &amp; Competition</div>
+          <h3 class="fsec-label" id="fsec-04-label">Training &amp; Competition</h3>
           <div class="fsec-hint">
             Current training load and competitive level.
           </div>
@@ -324,7 +324,7 @@
             >Weekly Training Hours <span class="f-req">*</span></label
           >
           <p class="f-hint">
-            Outside of school PE — include all club sessions, personal training,
+            Outside of school PE, including all club sessions, personal training,
             and pickup.
           </p>
           <select
@@ -385,14 +385,14 @@
           />
         </div>
       </div>
-    </div>
+    </fieldset>
 
     <!-- ── 05 PLAYER BACKGROUND ───────────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-05-label">
       <div class="fsec-head">
         <span class="fsec-num">05</span>
         <div>
-          <div class="fsec-label">Player Background</div>
+          <h3 class="fsec-label" id="fsec-05-label">Player Background</h3>
           <div class="fsec-hint">
             Helps us tailor every session to where the player is right now.
           </div>
@@ -480,14 +480,14 @@
           ></textarea>
         </div>
       </div>
-    </div>
+    </fieldset>
 
     <!-- ── 06 GOALS & AMBITIONS ───────────────── -->
-    <div class="fsec">
+    <fieldset class="fsec" aria-labelledby="fsec-06-label">
       <div class="fsec-head">
         <span class="fsec-num">06</span>
         <div>
-          <div class="fsec-label">Goals &amp; Ambitions</div>
+          <h3 class="fsec-label" id="fsec-06-label">Goals &amp; Ambitions</h3>
           <div class="fsec-hint">Tell us where this player wants to go.</div>
         </div>
       </div>
@@ -505,15 +505,15 @@
           >
             <option value="" disabled selected>Select an option</option>
             <option value="recreational"
-              >Recreational — play for fun and fitness</option
+              >Recreational: play for fun and fitness</option
             >
             <option value="local-competitive"
-              >Local competitive — play at a strong club level</option
+              >Local competitive: play at a strong club level</option
             >
             <option value="provincial"
-              >Provincial — represent BC or compete provincially</option
+              >Provincial: represent BC or compete provincially</option
             >
-            <option value="national">National — national team pathway</option>
+            <option value="national">National: national team pathway</option>
             <option value="professional"
               >Professional / semi-professional pathway</option
             >
@@ -555,7 +555,7 @@
           </select>
         </div>
       </div>
-    </div>
+    </fieldset>
   </div><!-- /form-step[2] -->
 
   <!-- ── STEP 2 NAV ─────────────────────────── -->
@@ -680,6 +680,11 @@
 
   /* ── Section blocks ── */
   .fsec {
+    /* fieldset UA resets: strip the groove border, default padding/margin
+       and min-inline-size, which would otherwise break the field grids. */
+    border: 0;
+    margin: 0;
+    min-inline-size: 0;
     padding: 32px 0;
     border-bottom: 1px solid #eef0f7;
   }
@@ -710,6 +715,8 @@
   .fsec-label {
     font-family: "Inter Variable", sans-serif;
     font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
     letter-spacing: 1px;
     color: #011f4a;
     margin-bottom: 3px;
@@ -1203,7 +1210,7 @@
     }
   }
 
-  // Init — step 1 active
+  // Init: step 1 active
   document.querySelector('[data-pip="1"]')?.setAttribute("data-active", "true");
 
   nextBtn.addEventListener("click", () => {

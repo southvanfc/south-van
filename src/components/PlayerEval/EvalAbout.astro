@@ -1,0 +1,148 @@
+---
+// src/components/PlayerEval/EvalAbout.astro
+// Long-form context for the evaluation. Sits below the form so the form stays
+// immediately reachable from the hero.
+---
+
+<section class="about">
+  <div class="about-inner">
+    <div class="about-head">
+      <span class="eyebrow-sm">About the Session</span>
+      <h2 class="about-title">What a Player Evaluation Actually Involves</h2>
+    </div>
+
+    <div class="about-cols">
+      <div class="about-col">
+        <h3 class="about-sub">On the day</h3>
+        <p>
+          A South Van FC evaluation is a training session, not a queue and a
+          clipboard. Players warm up, work through technical work with the ball,
+          and then play. Most of what we learn comes from the small-sided games
+          at the end, because that is where decisions get made under real
+          pressure. If you have been searching for soccer tryouts in Vancouver,
+          this is our version of one: the same look at your ability, without
+          cutting anyone at the end of it.
+        </p>
+        <p>
+          Sessions run in South Vancouver and are led by our <a
+            href="/our-coaches/">coaching staff</a
+          >, not an assistant with a checklist. Bring boots, shin pads, and a
+          ball if you have one. Players under 18 need a parent or guardian to
+          confirm consent on the form above.
+        </p>
+      </div>
+
+      <div class="about-col">
+        <h3 class="about-sub">What you get back</h3>
+        <p>
+          Every player is scored 1 to 5 across the four pillars: technical,
+          tactical, physical, and mental. You receive that as a written report,
+          along with the two or three things we would work on first and an
+          honest view of where the player currently sits. The scores are
+          development tools. They are not used to rank players against each
+          other or to gatekeep entry.
+        </p>
+        <p>
+          There is no obligation after the session. If the fit is right, the
+          report becomes the starting point for an individual development plan
+          inside the <a href="/soccer-academy/">academy programme</a>, and you
+          can review <a href="/soccer-academy/pricing/">programme pricing</a> at
+          your own pace. If it is not the right fit, you keep the feedback
+          anyway.
+        </p>
+      </div>
+    </div>
+
+    <p class="about-foot">
+      Curious what coaches are actually watching for before you book? Our guide
+      to <a href="/blogs/what-coaches-look-for-at-tryouts/"
+        >what coaches look for at tryouts</a
+      > breaks it down.
+    </p>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: #fff;
+    padding: 64px 80px;
+    border-top: 1px solid #eef0f7;
+  }
+  .about-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .about-head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .eyebrow-sm {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e8b430;
+  }
+  .about-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(24px, 2.6vw, 34px);
+    letter-spacing: 0.5px;
+    color: #011f4a;
+    line-height: 1.2;
+  }
+
+  .about-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .about-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .about-sub {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #013478;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eef0f7;
+  }
+  .about-col p,
+  .about-foot {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #3d4d6e;
+  }
+  .about-foot {
+    padding-top: 24px;
+    border-top: 1px solid #eef0f7;
+    font-size: 13px;
+    color: #6b7a9e;
+  }
+
+  .about a {
+    color: #013478;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(1, 52, 120, 0.3);
+    transition: text-decoration-color 0.2s;
+  }
+  .about a:hover {
+    text-decoration-color: #013478;
+  }
+
+  @media (max-width: 960px) {
+    .about {
+      padding: 48px 28px;
+    }
+    .about-cols {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

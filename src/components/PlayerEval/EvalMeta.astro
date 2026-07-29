@@ -38,7 +38,7 @@ const pillars = [
   <div class="meta-grid">
     <!-- Eligibility -->
     <div class="meta-col">
-      <div class="col-eyebrow">Eligibility</div>
+      <h2 class="col-eyebrow">Eligibility</h2>
       <ul class="elig-list">
         {
           eligibility.map((item, i) => (
@@ -66,7 +66,7 @@ const pillars = [
 
     <!-- What we assess -->
     <div class="meta-col">
-      <div class="col-eyebrow">What We Assess</div>
+      <h2 class="col-eyebrow">What We Assess</h2>
       <p class="assess-note">
         Every player is scored 1–5 across four pillars. Results are used for
         development only.
@@ -77,7 +77,7 @@ const pillars = [
             <div class="pillar">
               <div class="pillar-top">
                 <span class="pillar-icon">{icon}</span>
-                <span class="pillar-label">{label}</span>
+                <h3 class="pillar-label">{label}</h3>
               </div>
               <p class="pillar-desc">{desc}</p>
             </div>
@@ -91,7 +91,7 @@ const pillars = [
 
     <!-- Contact -->
     <div class="meta-col meta-col-sm">
-      <div class="col-eyebrow">Questions?</div>
+      <h2 class="col-eyebrow">Questions?</h2>
       <p class="contact-body">
         Have a question before submitting? Reach out directly and a coach will
         respond.
@@ -161,6 +161,7 @@ const pillars = [
   .col-eyebrow {
     font-size: 10px;
     font-weight: 700;
+    line-height: 1;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #e8b430;
@@ -228,6 +229,7 @@ const pillars = [
   .pillar-label {
     font-size: 12px;
     font-weight: 700;
+    line-height: 1;
     color: #011f4a;
   }
   .pillar-desc {
