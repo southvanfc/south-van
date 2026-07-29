@@ -13,22 +13,65 @@
 
     <div class="about-cols">
       <div class="about-col">
-        <h3 class="about-sub">On the day</h3>
+        <h3 class="about-sub">One player, one session</h3>
         <p>
-          A South Van FC evaluation is a training session, not a queue and a
-          clipboard. Players warm up, work through technical work with the ball,
-          and then play. Most of what we learn comes from the small-sided games
-          at the end, because that is where decisions get made under real
-          pressure. If you have been searching for soccer tryouts in Vancouver,
-          this is our version of one: the same look at your ability, without
-          cutting anyone at the end of it.
+          An evaluation is a private session between one player and our coaches,
+          built to understand that player in depth. Nobody is competing for a
+          place and nobody is being measured against the player next to them.
+          The only benchmark that matters is where this player is now against
+          where they could be.
         </p>
         <p>
-          Sessions run in South Vancouver and are led by our <a
+          We start by talking. How long they have played, what position they
+          think suits them, what they enjoy, what frustrates them, and what they
+          actually want out of the game. A player who feels relaxed shows you
+          far more than one who is auditioning, and most of that first
+          conversation ends up shaping how we run the rest of the session.
+        </p>
+        <p>
+          Sessions run anywhere in the Lower Mainland and are led by our <a
             href="/our-coaches/">coaching staff</a
-          >, not an assistant with a checklist. Bring boots, shin pads, and a
-          ball if you have one. Players under 18 need a parent or guardian to
-          confirm consent on the form above.
+          > directly. Bring boots, shin pads, and water. Players under 18 need a parent
+          or guardian to confirm consent on the form above, and parents are welcome
+          to stay and watch.
+        </p>
+      </div>
+
+      <div class="about-col">
+        <h3 class="about-sub">What we watch</h3>
+        <p>
+          These are areas, not a checklist we run top to bottom on everyone.
+          Players arrive at very different points in each one, and the session
+          adapts to that in real time. If a first touch is not yet reliable with
+          no defender anywhere near it, there is nothing to learn from testing
+          it under pressure, so we work at the level that actually tells us
+          something and spend the time there instead.
+        </p>
+        <p>
+          <strong>On the ball.</strong> Where the touch genuinely lives. Whether the
+          ball sticks, identifying weaker balance and foot, how control holds up as
+          speed and pressure rise. We keep raising the demand until it breaks down,
+          because the breaking point is the useful information.
+        </p>
+        <p>
+          <strong>Off the ball.</strong> Often where the real information is, and
+          the first thing to go unlooked at. Is their body open or closed? Do they
+          move to create an angle for the pass, recognizing time and space. A player
+          can be well ahead here and raw on the ball, or the reverse, and that gap
+          is worth knowing about.
+        </p>
+        <p>
+          <strong>Body mechanics.</strong> How they run, accelerate and, more importantly,
+          decelerate. Balance through contact, how they change direction, and whether
+          there are asymmetries or movement patterns quietly limiting them or setting
+          up an injury later. Coaches rarely look at this. It is often the fastest
+          thing to improve.
+        </p>
+        <p>
+          <strong>Temperament.</strong> How they respond when something is corrected,
+          when a rep goes badly, and when they are asked to try something unfamiliar.
+          Coachability tells us more about a player's ceiling than any single skill
+          does.
         </p>
       </div>
 
@@ -38,26 +81,43 @@
           Every player is scored 1 to 5 across the four pillars: technical,
           tactical, physical, and mental. You receive that as a written report,
           along with the two or three things we would work on first and an
-          honest view of where the player currently sits. The scores are
-          development tools. They are not used to rank players against each
-          other or to gatekeep entry.
+          honest view of where the player currently sits.
         </p>
         <p>
-          There is no obligation after the session. If the fit is right, the
-          report becomes the starting point for an individual development plan
-          inside the <a href="/soccer-academy/">academy programme</a>, and you
-          can review <a href="/soccer-academy/pricing/">programme pricing</a> at
-          your own pace. If it is not the right fit, you keep the feedback
-          anyway.
+          The scores are development tools. They are not used to rank players
+          against each other or to gatekeep entry, and we would rather tell you
+          something uncomfortable and useful than something flattering and
+          vague. If a player is a long way from where they want to be, the
+          report says so, and it says what to do about it.
+        </p>
+      </div>
+
+      <div class="about-col">
+        <h3 class="about-sub">After the session</h3>
+        <p>
+          There is no obligation. If the fit is right, the report becomes the
+          starting point for an individual development plan inside the <a
+            href="/soccer-academy/">academy programme</a
+          >, and you can review <a href="/soccer-academy/pricing/"
+            >programme pricing</a
+          > in your own time. If it is not the right fit, you keep the feedback anyway,
+          and you are welcome to come back and be reassessed once the player has put
+          in some work.
+        </p>
+        <p>
+          Submit the form above and a coach will be in touch within 48 hours to
+          find a time. The first session is free, and it stays free whether or
+          not you join.
         </p>
       </div>
     </div>
 
     <p class="about-foot">
-      Curious what coaches are actually watching for before you book? Our guide
+      Preparing for a trial or selection day at another club as well? Our guide
       to <a href="/blogs/what-coaches-look-for-at-tryouts/"
         >what coaches look for at tryouts</a
-      > breaks it down.
+      > covers what gets assessed in that setting, which is a different exercise to
+      the one described above.
     </p>
   </div>
 </section>
@@ -93,10 +153,13 @@
     line-height: 1.2;
   }
 
+  /* Four blocks auto-flow into a 2x2. Row gap is larger than column gap so the
+     stacked rows stay visually separate. */
   .about-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 56px 48px;
+    align-items: start;
   }
   .about-col {
     display: flex;
@@ -122,6 +185,13 @@
     border-top: 1px solid #eef0f7;
     font-size: 13px;
     color: #6b7a9e;
+  }
+
+  /* The global Meyer reset applies `font: inherit` to <strong>, so the lead-in
+     labels need their weight and colour restored explicitly. */
+  .about strong {
+    font-weight: 700;
+    color: #011f4a;
   }
 
   .about a {
