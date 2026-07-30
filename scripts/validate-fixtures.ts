@@ -8,6 +8,10 @@
  * Run it with `npm run validate:fixtures`. `npm run build` runs it first, so a
  * broken data file cannot deploy.
  *
+ * An optional file path argument checks a different file instead of the real
+ * one. scrape-vmsl.ts uses that to hold its proposed file to exactly the same
+ * standard as a hand edit, before deciding whether to put it in place.
+ *
  * The arithmetic is not reimplemented here. It comes from src/lib/fixtures.ts,
  * which is the same code the page itself uses.
  */
@@ -19,8 +23,11 @@ import type { FixturesData, Match } from "../src/types/types";
 import { OUR_SLUG, isPlayed, seasonSummary } from "../src/lib/fixtures.ts";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const DATA_PATH = path.join(ROOT, "src", "data", "fixtures.json");
-const DISPLAY_PATH = "src/data/fixtures.json";
+const TARGET = process.argv[2];
+const DATA_PATH = TARGET
+  ? path.resolve(process.cwd(), TARGET)
+  : path.join(ROOT, "src", "data", "fixtures.json");
+const DISPLAY_PATH = TARGET ? path.relative(ROOT, DATA_PATH) : "src/data/fixtures.json";
 
 /** Statuses where an empty scoreline is legitimate. */
 const SCORELESS_STATUSES = ["postponed", "cancelled", "incomplete"];

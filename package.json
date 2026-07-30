@@ -9,7 +9,8 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:fixtures": "node scripts/validate-fixtures.ts"
+    "validate:fixtures": "node scripts/validate-fixtures.ts",
+    "scrape:vmsl": "node scripts/scrape-vmsl.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.2",
