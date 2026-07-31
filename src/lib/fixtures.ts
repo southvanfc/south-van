@@ -132,6 +132,29 @@ export function formatLongDate(date: string): string {
   return `${weekday} ${day} ${MONTH_NAMES[month - 1]}`;
 }
 
+export interface DateParts {
+  /** "Sun" */
+  weekday: string;
+  /** 1 to 31, unpadded */
+  day: number;
+  /** "Nov" */
+  monthShort: string;
+}
+
+/**
+ * A stored date split into the three pieces the fixture list's date rail
+ * stacks vertically. Kept here rather than in the component so the weekday and
+ * month tables have one home.
+ */
+export function dateParts(date: string): DateParts {
+  const [year, month, day] = date.split("-").map(Number);
+  return {
+    weekday: DAY_SHORT[new Date(Date.UTC(year, month - 1, day)).getUTCDay()],
+    day,
+    monthShort: MONTH_SHORT[month - 1],
+  };
+}
+
 /** "15 Feb 26", the compact form used in the head to head list. */
 export function formatShortDate(date: string): string {
   const [year, month, day] = date.split("-").map(Number);

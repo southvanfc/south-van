@@ -1,4 +1,4 @@
-import type { FixturesData } from "../types/types";
+import type { FixturesData, LeagueZone } from "../types/types";
 import data from "./fixtures.json" with { type: "json" };
 
 /*
@@ -16,3 +16,17 @@ import data from "./fixtures.json" with { type: "json" };
  * time, so the assertion is backed by a runtime check rather than a hope.
  */
 export const fixturesData = data as FixturesData;
+
+/*
+ * What each end of the league table means, for the standings zone bars and
+ * their legend.
+ *
+ * Division 4 is the bottom tier of the VMSL, so there is no relegation zone
+ * and none is listed. The table reads this list rather than testing positions
+ * itself, so moving up a division is an edit here: widen the promotion band,
+ * add a relegation entry, and the bars and the legend both follow.
+ */
+export const leagueZones: LeagueZone[] = [
+  { from: 1, to: 1, colour: "var(--gold)", label: "Division champions" },
+  { from: 2, to: 3, colour: "var(--promo)", label: "Promotion to Division 3" },
+];

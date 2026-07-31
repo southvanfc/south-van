@@ -1,0 +1,131 @@
+---
+import type { FixturesData, LeagueZone } from "../../types/types";
+import Crest from "./Crest.astro";
+import { OUR_SLUG, getClub, sortedStandings } from "../../lib/fixtures";
+import { leagueZones } from "../../data/fixtures";
+
+/*
+ * The league table. Order comes from `sortedStandings()`, which owns the
+ * points, goal difference and goals for tiebreak chain, so nothing here sorts.
+ */
+
+interface Props {
+  data: FixturesData;
+  /** Defaults to the division's own zones from `src/data/fixtures.ts` */
+  zones?: LeagueZone[];
+}
+
+const { data, zones = leagueZones } = Astro.props;
+
+const rows = sortedStandings(data);
+
+const zoneAt = (position: number): LeagueZone | null =>
+  zones.find((zone) => position >= zone.from && position <= zone.to) ?? null;
+
+/* Only zones that actually land on a row are explained. A ten club division
+   has two of them, so the legend has two entries and not a relegation band
+   that does not exist down here. */
+const usedZones = zones.filter((zone) =>
+  rows.some((row) => zoneAt(row.position) === zone),
+);
+
+const COLUMNS: { key: string; label: string; full: string }[] = [
+  { key: "p", label: "P", full: "Played" },
+  { key: "w", label: "W", full: "Won" },
+  { key: "d", label: "D", full: "Drawn" },
+  { key: "l", label: "L", full: "Lost" },
+  { key: "gf", label: "GF", full: "Goals for" },
+  { key: "ga", label: "GA", full: "Goals against" },
+  { key: "gd", label: "GD", full: "Goal difference" },
+  { key: "pts", label: "Pts", full: "Points" },
+];
+---
+
+<div class="fx-table-wrap">
+  <div class="fx-table-scroll" tabindex="0" role="group" aria-label="League table, scrolls sideways">
+    <table class="fx-standings">
+      <caption class="fx-sr">
+        {data.division} standings for the {data.season} season, ordered by
+        points, then goal difference, then goals for.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Pos</th>
+          <th scope="col" class="fx-st-club-head">Club</th>
+          {
+            COLUMNS.map((column) => (
+              <th scope="col">
+                <span aria-hidden="true">{column.label}</span>
+                <span class="fx-sr">{column.full}</span>
+              </th>
+            ))
+          }
+          <th scope="col" class="fx-st-form-head">
+            Form<span class="fx-sr">, last five matches, most recent last</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => {
+            const club = getClub(data, row.clubSlug);
+            const zone = zoneAt(row.position);
+            const isUs = row.clubSlug === OUR_SLUG;
+            const goalDifference =
+              row.goalDifference > 0 ? `+${row.goalDifference}` : `${row.goalDifference}`;
+
+            return (
+              <tr class:list={[isUs && "is-us"]}>
+                <td
+                  class="fx-st-pos"
+                  style={zone ? `--fx-zone: ${zone.colour}` : undefined}
+                >
+                  {row.position}
+                  {zone && <span class="fx-sr">, {zone.label}</span>}
+                </td>
+                <th scope="row" class="fx-st-club">
+                  {/* The flex box is inside the cell, not the cell itself: a
+                      `display: flex` table cell drops out of the column layout
+                      and takes the row's borders with it. */}
+                  <span class="fx-st-club-inner">
+                    <Crest club={club} slug={row.clubSlug} />
+                    <span class="fx-st-name">{club?.name ?? row.clubSlug}</span>
+                  </span>
+                </th>
+                <td>{row.played}</td>
+                <td>{row.won}</td>
+                <td>{row.drawn}</td>
+                <td>{row.lost}</td>
+                <td>{row.goalsFor}</td>
+                <td>{row.goalsAgainst}</td>
+                <td class="fx-st-gd">{goalDifference}</td>
+                <td class="fx-st-pts">{row.points}</td>
+                <td class="fx-st-form">
+                  {row.form.split("").map((letter) => (
+                    <span class:list={["fx-fp", `is-${letter.toLowerCase()}`]}>
+                      {letter}
+                    </span>
+                  ))}
+                  {row.form === "" && (
+                    <span class="fx-sr">No matches played yet</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fx-legend">
+    {
+      usedZones.map((zone) => (
+        <span>
+          <i style={`background: ${zone.colour}`} aria-hidden="true" />
+          {zone.label}
+        </span>
+      ))
+    }
+  </div>
+</div>

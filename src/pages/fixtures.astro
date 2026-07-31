@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FixturesHero from "../components/Fixtures/FixturesHero.astro";
 import MatchHero from "../components/Fixtures/MatchHero.astro";
 import SeasonStats from "../components/Fixtures/SeasonStats.astro";
+import FixtureList from "../components/Fixtures/FixtureList.astro";
 import { fixturesData } from "../data/fixtures";
 import { seasonSummary } from "../lib/fixtures";
 import type { SEO } from "../types/types";
@@ -68,5 +69,5 @@ const breadcrumbSchema = {
 
   <SeasonStats summary={summary} />
 
-  {/* PLACEHOLDER, prompt 07: <FixtureList /> and the standings table go here */}
+  <FixtureList data={fixturesData} now={now} />
 </BaseLayout>

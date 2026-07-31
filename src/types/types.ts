@@ -185,6 +185,23 @@ export interface StandingsRow {
   form: string;
 }
 
+/**
+ * A band of league positions that means something, e.g. the champions spot or
+ * the promotion places. The standings table draws these as a coloured bar on
+ * the position cell and explains them in a legend, so which zones exist is a
+ * property of the division we are in rather than of the component.
+ */
+export interface LeagueZone {
+  /** First position in the band, 1 based and inclusive */
+  from: number;
+  /** Last position in the band, inclusive */
+  to: number;
+  /** Any CSS colour, including a `var()` reference to a design token */
+  colour: string;
+  /** Legend text, e.g. "Promotion to Division 3" */
+  label: string;
+}
+
 export interface FixturesData {
   /** e.g. "2026-27" */
   season: string;

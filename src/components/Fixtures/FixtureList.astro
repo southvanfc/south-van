@@ -1,0 +1,398 @@
+---
+import type { FixturesData } from "../../types/types";
+import MatchRow from "./MatchRow.astro";
+import StandingsTable from "./StandingsTable.astro";
+import { groupByMonth, isPlayed, nextMatch } from "../../lib/fixtures";
+
+/*
+ * The body of the fixtures page: a sticky tab bar with filters, two lists of
+ * matches and the league table.
+ *
+ * All three panels are rendered on the server and the tabs toggle `hidden`.
+ * Building panels in the browser would mean shipping the fixtures data to the
+ * client, re-rendering on every filter change and rebinding afterwards; this
+ * way the markup exists once, the helpers stay on the server, and switching a
+ * tab or a filter only ever sets an attribute.
+ */
+
+interface Props {
+  data: FixturesData;
+  /** Request time, used to pick out the next fixture */
+  now: Date;
+}
+
+const { data, now } = Astro.props;
+
+/* A match with both scores filled in is a result, anything else is still to be
+   played. That is what puts a postponed match under Fixtures, where it
+   belongs, rather than under Results with no score. */
+const fixtures = data.matches.filter((match) => !isPlayed(match));
+const results = data.matches.filter(isPlayed);
+
+/* Results run newest month first and newest match first inside the month. The
+   latest score is the thing people came for, so it should not be at the bottom
+   of a season's scrolling. */
+const resultGroups = groupByMonth(results)
+  .reverse()
+  .map((group) => ({ ...group, matches: [...group.matches].reverse() }));
+
+const nextId = nextMatch(data, now)?.id ?? null;
+
+const monthKey = (date: string): string => date.slice(0, 7);
+
+/*
+ * The month dropdown only offers months that hold matches. Each option also
+ * records which tabs it applies to, because November has both results and
+ * fixtures while March has only fixtures, and offering a month that cannot
+ * match anything on the current tab is a dead end.
+ */
+const monthOptions = groupByMonth(data.matches).map((group) => {
+  const key = `${group.year}-${String(group.month).padStart(2, "0")}`;
+  const scopes: string[] = [];
+  if (fixtures.some((match) => monthKey(match.date) === key)) scopes.push("fixtures");
+  if (results.some((match) => monthKey(match.date) === key)) scopes.push("results");
+  return { key, label: group.label, scopes: scopes.join(" ") };
+});
+
+const panels = [
+  {
+    view: "fixtures",
+    label: "Fixtures",
+    count: fixtures.length,
+    groups: groupByMonth(fixtures),
+  },
+  {
+    view: "results",
+    label: "Results",
+    count: results.length,
+    groups: resultGroups,
+  },
+];
+
+const venueFilters = [
+  { value: "all", label: "All" },
+  { value: "H", label: "Home" },
+  { value: "A", label: "Away" },
+];
+
+const compFilters = [
+  { value: "all", label: "All comps" },
+  { value: "league", label: "League" },
+  { value: "cup", label: "Cup" },
+];
+---
+
+<section class="fx-list" data-fx-list>
+  <div class="fx-controls">
+    <div class="fx-shell">
+      <div class="fx-tabs" role="tablist" aria-label="Fixtures, results and league table">
+        {
+          panels.map((panel, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`fx-tab-${panel.view}`}
+              class:list={["fx-tab", index === 0 && "is-active"]}
+              data-fx-tab={panel.view}
+              aria-controls={`fx-panel-${panel.view}`}
+              aria-selected={index === 0 ? "true" : "false"}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              {panel.label}
+              <span class="fx-tab-count">{panel.count}</span>
+            </button>
+          ))
+        }
+        <button
+          type="button"
+          role="tab"
+          id="fx-tab-table"
+          class="fx-tab"
+          data-fx-tab="table"
+          aria-controls="fx-panel-table"
+          aria-selected="false"
+          tabindex="-1"
+        >
+          Table
+        </button>
+      </div>
+
+      <div class="fx-filters" data-fx-filters>
+        <span class="fx-filters-label" aria-hidden="true">Filter</span>
+
+        <div class="fx-chips" role="group" aria-label="Filter by venue">
+          {
+            venueFilters.map((filter, index) => (
+              <button
+                type="button"
+                class:list={["fx-chip", index === 0 && "is-on"]}
+                data-fx-filter="venue"
+                data-fx-value={filter.value}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                {filter.label}
+              </button>
+            ))
+          }
+        </div>
+
+        <span class="fx-filters-rule" aria-hidden="true"></span>
+
+        <div class="fx-chips" role="group" aria-label="Filter by competition">
+          {
+            compFilters.map((filter, index) => (
+              <button
+                type="button"
+                class:list={["fx-chip", index === 0 && "is-on"]}
+                data-fx-filter="comp"
+                data-fx-value={filter.value}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                {filter.label}
+              </button>
+            ))
+          }
+        </div>
+
+        <span class="fx-filters-rule" aria-hidden="true"></span>
+
+        <label class="fx-sr" for="fx-month">Filter by month</label>
+        <select class="fx-month" id="fx-month" data-fx-month-filter>
+          <option value="all">All months</option>
+          {
+            monthOptions.map((option) => (
+              <option value={option.key} data-fx-scope={option.scopes}>
+                {option.label}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="fx-panels">
+    <div class="fx-shell">
+      {
+        panels.map((panel, index) => (
+          <div
+            class="fx-panel-view"
+            id={`fx-panel-${panel.view}`}
+            data-fx-tabpanel={panel.view}
+            role="tabpanel"
+            aria-labelledby={`fx-tab-${panel.view}`}
+            tabindex="0"
+            hidden={index !== 0}
+          >
+            <h2 class="fx-sr fx-panel-title">{panel.label}</h2>
+
+            {panel.groups.map((group) => (
+              <div class="fx-month-group" data-fx-group>
+                <div class="fx-month-head">
+                  <h3>{group.label}</h3>
+                  <span class="fx-month-rule" aria-hidden="true" />
+                </div>
+                {group.matches.map((match) => (
+                  <MatchRow match={match} data={data} isNext={match.id === nextId} />
+                ))}
+              </div>
+            ))}
+
+            <div class="fx-empty" data-fx-empty hidden={panel.count > 0}>
+              <b>Nothing to show</b>
+              <p>
+                No matches meet those filters. Try a wider selection, or another
+                tab.
+              </p>
+            </div>
+          </div>
+        ))
+      }
+
+      <div
+        class="fx-panel-view"
+        id="fx-panel-table"
+        data-fx-tabpanel="table"
+        role="tabpanel"
+        aria-labelledby="fx-tab-table"
+        tabindex="0"
+        hidden
+      >
+        <h2 class="fx-sr fx-panel-title">League table</h2>
+        <StandingsTable data={data} />
+      </div>
+    </div>
+  </div>
+
+  {/*
+    Without JavaScript the tabs and chips do nothing, so the panels stop being
+    panels and become three sections stacked down the page, each under its own
+    heading. Everything is in the document already, so this costs one rule set.
+  */}
+  <noscript>
+    <style>
+      .fx-tabs,
+      .fx-filters {
+        display: none;
+      }
+      .fx-panel-view[hidden] {
+        display: block;
+      }
+      .fx-panel-view + .fx-panel-view {
+        margin-top: 56px;
+      }
+      .fx-panel-title {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0 0 22px;
+        clip: auto;
+        overflow: visible;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.4px;
+        color: var(--navy);
+      }
+    </style>
+  </noscript>
+</section>
+
+<script>
+  /*
+   * Progressive enhancement. Every panel, row and month heading is already in
+   * the page; this only ever sets `hidden`, a class or an ARIA attribute.
+   */
+  const root = document.querySelector<HTMLElement>("[data-fx-list]");
+
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-fx-tab]"));
+    const views = Array.from(root.querySelectorAll<HTMLElement>("[data-fx-tabpanel]"));
+    const filterRow = root.querySelector<HTMLElement>("[data-fx-filters]");
+    const monthSelect = root.querySelector<HTMLSelectElement>("[data-fx-month-filter]");
+    const monthOptions = monthSelect
+      ? Array.from(monthSelect.querySelectorAll<HTMLOptionElement>("option[data-fx-scope]"))
+      : [];
+
+    const state = { view: "fixtures", venue: "all", comp: "all", month: "all" };
+
+    /** Hide rows that fail the filters, then any month heading left with none. */
+    function applyFilters(): void {
+      for (const view of views) {
+        if (view.dataset.fxTabpanel === "table") continue;
+
+        let shown = 0;
+
+        for (const row of Array.from(
+          view.querySelectorAll<HTMLElement>("[data-fx-match]"),
+        )) {
+          const venueOk = state.venue === "all" || row.dataset.fxVenue === state.venue;
+          const compOk = state.comp === "all" || row.dataset.fxComp === state.comp;
+          const monthOk = state.month === "all" || row.dataset.fxMonth === state.month;
+          const visible = venueOk && compOk && monthOk;
+
+          row.hidden = !visible;
+          if (visible) shown += 1;
+        }
+
+        for (const group of Array.from(
+          view.querySelectorAll<HTMLElement>("[data-fx-group]"),
+        )) {
+          const rows = Array.from(group.querySelectorAll<HTMLElement>("[data-fx-match]"));
+          group.hidden = rows.every((row) => row.hidden);
+        }
+
+        const empty = view.querySelector<HTMLElement>("[data-fx-empty]");
+        if (empty) empty.hidden = shown > 0;
+      }
+    }
+
+    /*
+     * A month with results but no fixtures is not worth offering on the
+     * Fixtures tab. Options out of scope are hidden and disabled, and a
+     * selection that just went out of scope falls back to all months.
+     */
+    function syncMonthOptions(): void {
+      if (!monthSelect) return;
+
+      for (const option of monthOptions) {
+        const scopes = (option.dataset.fxScope ?? "").split(" ");
+        const inScope = scopes.includes(state.view);
+        option.hidden = !inScope;
+        option.disabled = !inScope;
+        if (!inScope && monthSelect.value === option.value) {
+          monthSelect.value = "all";
+          state.month = "all";
+        }
+      }
+    }
+
+    function setView(view: string): void {
+      state.view = view;
+
+      for (const tab of tabs) {
+        const on = tab.dataset.fxTab === view;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", String(on));
+        tab.tabIndex = on ? 0 : -1;
+      }
+
+      for (const panel of views) {
+        panel.hidden = panel.dataset.fxTabpanel !== view;
+      }
+
+      /* The filters apply to matches, and the table has none */
+      if (filterRow) filterRow.hidden = view === "table";
+
+      if (view !== "table") {
+        syncMonthOptions();
+        applyFilters();
+      }
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => setView(tab.dataset.fxTab ?? "fixtures"));
+
+      /* Arrow keys move between tabs, which is what a tablist is expected to
+         do once the tabs are out of the tab order */
+      tab.addEventListener("keydown", (event: KeyboardEvent) => {
+        const step =
+          event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+        if (step === 0) return;
+
+        event.preventDefault();
+        const next = tabs[(index + step + tabs.length) % tabs.length];
+        setView(next.dataset.fxTab ?? "fixtures");
+        next.focus();
+      });
+    });
+
+    for (const chip of Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-fx-filter]"),
+    )) {
+      chip.addEventListener("click", () => {
+        const group = chip.dataset.fxFilter;
+        if (group !== "venue" && group !== "comp") return;
+
+        state[group] = chip.dataset.fxValue ?? "all";
+
+        for (const other of Array.from(
+          root.querySelectorAll<HTMLButtonElement>(`[data-fx-filter="${group}"]`),
+        )) {
+          const on = other === chip;
+          other.classList.toggle("is-on", on);
+          other.setAttribute("aria-pressed", String(on));
+        }
+
+        applyFilters();
+      });
+    }
+
+    monthSelect?.addEventListener("change", () => {
+      state.month = monthSelect.value;
+      applyFilters();
+    });
+
+    syncMonthOptions();
+    applyFilters();
+  }
+</script>
