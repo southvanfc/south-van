@@ -3,7 +3,13 @@ import type { FixturesData, Match, StandingsRow } from "../types/types";
 import { fixturesData } from "../data/fixtures";
 import {
   OUR_SLUG,
+  calendarRange,
+  formatLongDate,
+  formatShortDate,
   groupByMonth,
+  kickoffAt,
+  localDate,
+  ordinal,
   headToHead,
   isPlayed,
   lastResult,
@@ -411,5 +417,97 @@ describe("the seed data itself", () => {
     for (const club of fixturesData.clubs) {
       expect(club.vmslName, club.slug).toBeTruthy();
     }
+  });
+});
+
+describe("kickoffAt", () => {
+  it("reads a winter kickoff as Pacific Standard Time", () => {
+    const at = kickoffAt(match({ date: "2026-11-22", time: "12:00" }));
+    expect(at.toISOString()).toBe("2026-11-22T20:00:00.000Z");
+  });
+
+  it("reads an autumn kickoff as Pacific Daylight Time", () => {
+    const at = kickoffAt(match({ date: "2026-09-13", time: "14:00" }));
+    expect(at.toISOString()).toBe("2026-09-13T21:00:00.000Z");
+  });
+
+  it("is right on the day the clocks go back", () => {
+    // Daylight time ends at 02:00 on 1 November 2026, so a 14:00 kickoff
+    // that day is already on -08:00 rather than the -07:00 of the day before.
+    const at = kickoffAt(match({ date: "2026-11-01", time: "14:00" }));
+    expect(at.toISOString()).toBe("2026-11-01T22:00:00.000Z");
+  });
+
+  it("is right on the day the clocks go forward", () => {
+    // Daylight time starts at 02:00 on 14 March 2027.
+    const at = kickoffAt(match({ date: "2027-03-14", time: "14:00" }));
+    expect(at.toISOString()).toBe("2027-03-14T21:00:00.000Z");
+  });
+
+  it("does not drift a day at a Vancouver midnight", () => {
+    const at = kickoffAt(match({ date: "2027-01-10", time: "00:00" }));
+    expect(at.toISOString()).toBe("2027-01-10T08:00:00.000Z");
+  });
+});
+
+describe("localDate", () => {
+  it("reports the Vancouver date, not the UTC one", () => {
+    // 04:00 UTC on 23 November is still the evening of the 22nd here.
+    expect(localDate(new Date("2026-11-23T04:00:00Z"))).toBe("2026-11-22");
+  });
+});
+
+describe("date formatting", () => {
+  it("writes a long date with its weekday", () => {
+    expect(formatLongDate("2026-11-22")).toBe("Sun 22 November");
+  });
+
+  it("writes a short date for the head to head list", () => {
+    expect(formatShortDate("2026-02-15")).toBe("15 Feb 26");
+  });
+
+  it("writes ordinals, including the teens", () => {
+    expect(ordinal(1)).toBe("1st");
+    expect(ordinal(2)).toBe("2nd");
+    expect(ordinal(3)).toBe("3rd");
+    expect(ordinal(4)).toBe("4th");
+    expect(ordinal(11)).toBe("11th");
+    expect(ordinal(12)).toBe("12th");
+    expect(ordinal(13)).toBe("13th");
+    expect(ordinal(21)).toBe("21st");
+  });
+});
+
+describe("calendarRange", () => {
+  it("covers every month from the first fixture to the last", () => {
+    const range = calendarRange(fixturesData);
+    expect(range[0]).toMatchObject({ year: 2026, month: 9, label: "September 2026" });
+    expect(range[range.length - 1]).toMatchObject({
+      year: 2027,
+      month: 3,
+      label: "March 2027",
+    });
+    expect(range).toHaveLength(7);
+  });
+
+  it("includes months with no matches, so the arrows step through them", () => {
+    const range = calendarRange(
+      dataWith({
+        matches: [
+          match({ id: "a", date: "2026-09-13" }),
+          match({ id: "b", date: "2026-12-06" }),
+        ],
+      }),
+    );
+    expect(range.map((m) => m.label)).toEqual([
+      "September 2026",
+      "October 2026",
+      "November 2026",
+      "December 2026",
+    ]);
+  });
+
+  it("is empty when there are no matches", () => {
+    expect(calendarRange(dataWith())).toEqual([]);
   });
 });

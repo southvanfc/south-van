@@ -1,0 +1,206 @@
+---
+import type { FixturesData, Match } from "../../types/types";
+import Crest from "./Crest.astro";
+import {
+  OUR_SLUG,
+  formatLongDate,
+  formatShortDate,
+  getClub,
+  headToHead,
+  ordinal,
+  sortedStandings,
+} from "../../lib/fixtures";
+
+interface Props {
+  data: FixturesData;
+  /** Null once the fixture list is finished for the season */
+  match: Match | null;
+}
+
+const { data, match } = Astro.props;
+
+const us = getClub(data, OUR_SLUG);
+const opponent = match ? getClub(data, match.opponentSlug) : undefined;
+
+/* Home team on the left, away on the right, whichever of the two we are. */
+const home = match?.isHome ? us : opponent;
+const away = match?.isHome ? opponent : us;
+const homeSlug = match?.isHome ? OUR_SLUG : match?.opponentSlug;
+const awaySlug = match?.isHome ? match?.opponentSlug : OUR_SLUG;
+
+/*
+ * The standings entry carries the position `positionOf()` would report along
+ * with the points and goal difference the form row also needs, so the row is
+ * read once rather than sorting the table again per figure.
+ */
+const table = sortedStandings(data);
+const entryOf = (slug: string | undefined) =>
+  table.find((row) => row.clubSlug === slug) ?? null;
+
+const formRows = match
+  ? [
+      { slug: OUR_SLUG, club: us, entry: entryOf(OUR_SLUG) },
+      {
+        slug: match.opponentSlug,
+        club: opponent,
+        entry: entryOf(match.opponentSlug),
+      },
+    ]
+  : [];
+
+const record = match ? headToHead(data, match.opponentSlug) : null;
+const meetings = record ? record.meetings.slice(0, 4) : [];
+
+const h2hCells = record
+  ? [
+      { value: record.played, label: "Played" },
+      { value: record.won, label: "Won" },
+      { value: record.drawn, label: "Drawn" },
+      { value: record.lost, label: "Lost" },
+    ]
+  : [];
+---
+
+{
+  !match ? (
+    <p class="fx-none">
+      The {data.season} fixture list is complete. Pre-season friendlies are announced
+      over the summer, and the new schedule is published by the VMSL in August.
+    </p>
+  ) : (
+    <div class="fx-next">
+      <div class="fx-teams">
+        <div class="fx-side">
+          <Crest club={home} slug={homeSlug} size="lg" onDark />
+          <div>
+            <div class="fx-side-name">{home?.name ?? homeSlug}</div>
+            <div class="fx-side-sub">Home</div>
+          </div>
+        </div>
+        <div class="fx-vs" aria-hidden="true">VS</div>
+        <div class="fx-side is-away">
+          <Crest club={away} slug={awaySlug} size="lg" onDark />
+          <div>
+            <div class="fx-side-name">{away?.name ?? awaySlug}</div>
+            <div class="fx-side-sub">Away</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fx-switch">
+        <div class="fx-seg is-sm" role="group" aria-label="Match detail">
+          <button
+            type="button"
+            class="fx-seg-btn is-on"
+            data-fx-panel="info"
+            aria-pressed="true"
+            aria-controls="fx-panel-info"
+          >
+            Match info
+          </button>
+          <button
+            type="button"
+            class="fx-seg-btn"
+            data-fx-panel="form"
+            aria-pressed="false"
+            aria-controls="fx-panel-form"
+          >
+            Form and H2H
+          </button>
+        </div>
+        <a class="btn btn-gold fx-add-btn" href="/fixtures/next-match.ics">
+          Add to calendar
+        </a>
+      </div>
+
+      <div class="fx-panel" id="fx-panel-info">
+        <dl class="fx-meta">
+          <div>
+            <dt>Date</dt>
+            <dd>{formatLongDate(match.date)}</dd>
+          </div>
+          <div>
+            <dt>Kickoff</dt>
+            <dd>{match.time}</dd>
+          </div>
+          <div>
+            <dt>Venue</dt>
+            <dd>{match.venue}</dd>
+          </div>
+        </dl>
+        {match.note && <p class="fx-note">{match.note}</p>}
+      </div>
+
+      <div class="fx-panel fx-preview" id="fx-panel-form" hidden>
+        <div>
+          <h3 class="fx-pv-title">Form guide, last 5</h3>
+          {formRows.map(({ slug, club, entry }) => (
+            <div class="fx-pv-row">
+              <div class:list={["fx-pv-club", slug === OUR_SLUG && "is-us"]}>
+                <Crest club={club} slug={slug} onDark />
+                <div class="fx-pv-club-text">
+                  <div class="fx-pv-name">{club?.name ?? slug}</div>
+                  {entry && (
+                    <div class="fx-pv-pos">
+                      {ordinal(entry.position)} &middot; {entry.points} pts &middot;{" "}
+                      {entry.goalDifference > 0 ? "+" : ""}
+                      {entry.goalDifference} GD
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div class="fx-pv-pills">
+                {entry &&
+                  entry.form
+                    .split("")
+                    .map((letter) => (
+                      <span class:list={["fx-fp", `is-${letter.toLowerCase()}`]}>
+                        {letter}
+                      </span>
+                    ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div>
+          <h3 class="fx-pv-title">Head to head, South Van record</h3>
+          {meetings.length === 0 ? (
+            <p class="fx-none">First competitive meeting between the two clubs.</p>
+          ) : (
+            <>
+              <div class="fx-h2h-record">
+                {h2hCells.map(({ value, label }) => (
+                  <div>
+                    <b>{value}</b>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+              <ul class="fx-h2h-list">
+                {meetings.map((meeting) => (
+                  <li>
+                    <div class="fx-h2h-row">
+                      <span class="fx-h2h-date">{formatShortDate(meeting.date)}</span>
+                      <span class="fx-h2h-score">
+                        {meeting.us}&ndash;{meeting.them}
+                      </span>
+                      <span class="fx-h2h-venue">
+                        {meeting.isHome ? "H" : "A"} &middot; {meeting.venue}
+                      </span>
+                      <span class:list={["fx-fp", `is-${meeting.result.toLowerCase()}`]}>
+                        {meeting.result}
+                      </span>
+                    </div>
+                    {/* A cup tie won on penalties reads as a draw without this */}
+                    {meeting.note && <p class="fx-h2h-note">{meeting.note}</p>}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

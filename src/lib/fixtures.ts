@@ -35,6 +35,10 @@ const MONTH_NAMES = [
   "December",
 ];
 
+const MONTH_SHORT = MONTH_NAMES.map((name) => name.slice(0, 3));
+
+const DAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 /** Sortable "YYYY-MM-DD HH:MM" key for a match kickoff. */
 function kickoffKey(match: Match): string {
   return `${match.date} ${match.time}`;
@@ -58,6 +62,126 @@ function momentKey(now: Date): string {
   // Some ICU builds render midnight as hour 24. Normalise so string compare holds.
   const hour = part("hour") === "24" ? "00" : part("hour");
   return `${part("year")}-${part("month")}-${part("day")} ${hour}:${part("minute")}`;
+}
+
+/**
+ * Vancouver's UTC offset in milliseconds at a given instant, worked out by
+ * formatting the instant as Vancouver wall clock and reading that clock back
+ * as if it were UTC. Positive in Vancouver's case would mean ahead of UTC, so
+ * in practice this returns a negative number, -8h or -7h.
+ */
+function offsetAt(instant: number): number {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date(instant));
+
+  const part = (type: Intl.DateTimeFormatPartTypes): number =>
+    Number(parts.find((p) => p.type === type)?.value ?? "0");
+
+  const hour = part("hour") === 24 ? 0 : part("hour");
+  const asIfUtc = Date.UTC(
+    part("year"),
+    part("month") - 1,
+    part("day"),
+    hour,
+    part("minute"),
+    part("second"),
+  );
+
+  return asIfUtc - instant;
+}
+
+/**
+ * The actual moment a match kicks off, as an instant rather than a wall clock
+ * reading. Needed for the countdown, which has to tick down to the same instant
+ * for a visitor in Vancouver and one in Toronto.
+ *
+ * The stored date and time are Vancouver local, and Vancouver is on -08:00 for
+ * some of the season and -07:00 for the rest, so the offset is resolved for the
+ * day in question rather than hardcoded. The second pass matters on the two
+ * days a year the clocks change: the first guess uses the offset in force at
+ * the wrong side of the change, and re-resolving with that guess lands on the
+ * right one.
+ */
+export function kickoffAt(match: Match): Date {
+  const [year, month, day] = match.date.split("-").map(Number);
+  const [hour, minute] = match.time.split(":").map(Number);
+  const wallClock = Date.UTC(year, month - 1, day, hour, minute);
+
+  let instant = wallClock - offsetAt(wallClock);
+  instant = wallClock - offsetAt(instant);
+  return new Date(instant);
+}
+
+/** Today's date in Vancouver, as "YYYY-MM-DD". */
+export function localDate(now: Date): string {
+  return momentKey(now).slice(0, 10);
+}
+
+/** "Sun 22 November", from a stored "YYYY-MM-DD" date. */
+export function formatLongDate(date: string): string {
+  const [year, month, day] = date.split("-").map(Number);
+  const weekday = DAY_SHORT[new Date(Date.UTC(year, month - 1, day)).getUTCDay()];
+  return `${weekday} ${day} ${MONTH_NAMES[month - 1]}`;
+}
+
+/** "15 Feb 26", the compact form used in the head to head list. */
+export function formatShortDate(date: string): string {
+  const [year, month, day] = date.split("-").map(Number);
+  return `${day} ${MONTH_SHORT[month - 1]} ${String(year).slice(2)}`;
+}
+
+/** 1 to "1st", 2 to "2nd", 11 to "11th". Used for league positions. */
+export function ordinal(value: number): string {
+  const lastTwo = Math.abs(value) % 100;
+  const last = lastTwo % 10;
+  if (lastTwo >= 11 && lastTwo <= 13) return `${value}th`;
+  if (last === 1) return `${value}st`;
+  if (last === 2) return `${value}nd`;
+  if (last === 3) return `${value}rd`;
+  return `${value}th`;
+}
+
+export interface CalendarMonth {
+  year: number;
+  /** 1 to 12, matching the stored date rather than JavaScript's 0 based month */
+  month: number;
+  /** e.g. "November 2026" */
+  label: string;
+}
+
+/**
+ * Every month from the first fixture to the last, with no gaps. Unlike
+ * `groupByMonth`, months with no matches are included, because the calendar
+ * navigates through them rather than skipping them. The ends of this list are
+ * what the calendar arrows clamp to, so a visitor cannot page off into empty
+ * months either side of the season.
+ */
+export function calendarRange(data: FixturesData): CalendarMonth[] {
+  const keys = data.matches.map((match) => match.date.slice(0, 7)).sort();
+  if (keys.length === 0) return [];
+
+  const index = (key: string): number =>
+    Number(key.slice(0, 4)) * 12 + Number(key.slice(5, 7)) - 1;
+
+  const first = index(keys[0]);
+  const last = index(keys[keys.length - 1]);
+  const months: CalendarMonth[] = [];
+
+  for (let i = first; i <= last; i += 1) {
+    const year = Math.floor(i / 12);
+    const month = (i % 12) + 1;
+    months.push({ year, month, label: `${MONTH_NAMES[month - 1]} ${year}` });
+  }
+
+  return months;
 }
 
 /** Statuses that mean the match is not going ahead on the date shown. */

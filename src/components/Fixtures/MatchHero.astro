@@ -1,0 +1,165 @@
+---
+import type { FixturesData } from "../../types/types";
+import { nextMatch } from "../../lib/fixtures";
+import CalendarPanel from "./CalendarPanel.astro";
+import NextMatchPanel from "./NextMatchPanel.astro";
+
+/*
+ * The match card in the fixtures hero. Two views, next match and calendar,
+ * and inside the first view two more panels, match info and form / H2H.
+ *
+ * Both views and both panels are rendered here on the server and switched by
+ * toggling `hidden`. Nothing is rebuilt in the browser, so the card is complete
+ * and correct without JavaScript, there is no flash of empty content, and the
+ * click handlers are bound once to nodes that stay put. Re-rendering a panel on
+ * every switch, which is what the prototype did, is what left its inner toggle
+ * dead after a round trip through the calendar.
+ *
+ * The prototype's kickoff countdown is deliberately not here. It was the only
+ * part of the card that needed a running timer, and a timer that has to be
+ * cleared on every view switch and guarded against a detached node is a lot of
+ * moving parts for a number nobody needs. The kickoff date and time are in the
+ * match info panel, and the Add to calendar button covers the rest.
+ */
+
+interface Props {
+  data: FixturesData;
+  /** Request time. Passed in rather than read here so the card stays a pure function of its props. */
+  now: Date;
+}
+
+const { data, now } = Astro.props;
+
+const match = nextMatch(data, now);
+const focus = match
+  ? { year: Number(match.date.slice(0, 4)), month: Number(match.date.slice(5, 7)) }
+  : null;
+---
+
+<div class="fx-card" data-fx-card>
+  <div class="fx-card-head">
+    <div class="fx-card-label">
+      <span class="fx-dot" aria-hidden="true"></span>
+      <h2 class="fx-eyebrow fx-card-eyebrow">{match ? "Next Match" : "Season"}</h2>
+      {match && <span class="fx-card-comp">{match.competitionLabel}</span>}
+    </div>
+
+    <div class="fx-seg" role="group" aria-label="Match card view">
+      <button
+        type="button"
+        class="fx-seg-btn is-on"
+        data-fx-view="match"
+        aria-pressed="true"
+        aria-controls="fx-view-match"
+      >
+        Next match
+      </button>
+      <button
+        type="button"
+        class="fx-seg-btn"
+        data-fx-view="calendar"
+        aria-pressed="false"
+        aria-controls="fx-view-calendar"
+      >
+        Calendar
+      </button>
+    </div>
+  </div>
+
+  <div id="fx-view-match">
+    <NextMatchPanel data={data} match={match} />
+  </div>
+
+  <div id="fx-view-calendar" hidden>
+    <CalendarPanel data={data} now={now} focus={focus} />
+  </div>
+</div>
+
+<script>
+  /*
+   * Progressive enhancement only. Everything below switches what is already in
+   * the page or advances the countdown; nothing here builds markup.
+   */
+  const card = document.querySelector<HTMLElement>("[data-fx-card]");
+
+  if (card) {
+    /* ── Top level view switch ────────────────────────────────────── */
+
+    const views: Record<string, HTMLElement | null> = {
+      match: card.querySelector<HTMLElement>("#fx-view-match"),
+      calendar: card.querySelector<HTMLElement>("#fx-view-calendar"),
+    };
+
+    card.querySelectorAll<HTMLButtonElement>("[data-fx-view]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const wanted = button.dataset.fxView;
+
+        card.querySelectorAll<HTMLButtonElement>("[data-fx-view]").forEach((other) => {
+          const on = other === button;
+          other.classList.toggle("is-on", on);
+          other.setAttribute("aria-pressed", String(on));
+        });
+
+        for (const [name, view] of Object.entries(views)) {
+          if (view) view.hidden = name !== wanted;
+        }
+      });
+    });
+
+    /* ── Match info / form and H2H ────────────────────────────────── */
+
+    const panels: Record<string, HTMLElement | null> = {
+      info: card.querySelector<HTMLElement>("#fx-panel-info"),
+      form: card.querySelector<HTMLElement>("#fx-panel-form"),
+    };
+
+    card.querySelectorAll<HTMLButtonElement>("[data-fx-panel]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const wanted = button.dataset.fxPanel;
+
+        card.querySelectorAll<HTMLButtonElement>("[data-fx-panel]").forEach((other) => {
+          const on = other === button;
+          other.classList.toggle("is-on", on);
+          other.setAttribute("aria-pressed", String(on));
+        });
+
+        for (const [name, panel] of Object.entries(panels)) {
+          if (panel) panel.hidden = name !== wanted;
+        }
+      });
+    });
+
+    /* ── Calendar month stepping ──────────────────────────────────── */
+
+    const grids = Array.from(card.querySelectorAll<HTMLElement>("[data-fx-month]"));
+    const monthLabel = card.querySelector<HTMLElement>("[data-fx-month-label]");
+    const arrows = card.querySelectorAll<HTMLButtonElement>("[data-fx-month-step]");
+    let current = grids.findIndex((grid) => !grid.hidden);
+
+    function showMonth(index: number): void {
+      if (index < 0 || index >= grids.length) return;
+      current = index;
+
+      grids.forEach((grid, i) => {
+        grid.hidden = i !== index;
+      });
+
+      if (monthLabel) {
+        monthLabel.textContent = grids[index].dataset.fxLabel ?? "";
+      }
+
+      /* Clamped to the months that hold matches, so the arrows go dead at each
+         end rather than paging into empty months either side of the season. */
+      arrows.forEach((arrow) => {
+        const step = Number(arrow.dataset.fxMonthStep);
+        arrow.disabled = index + step < 0 || index + step >= grids.length;
+      });
+    }
+
+    arrows.forEach((arrow) => {
+      arrow.addEventListener("click", () => {
+        showMonth(current + Number(arrow.dataset.fxMonthStep));
+      });
+    });
+  }
+</script>

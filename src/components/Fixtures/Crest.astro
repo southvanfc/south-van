@@ -1,0 +1,50 @@
+---
+import type { Club } from "../../types/types";
+import { OUR_SLUG } from "../../lib/fixtures";
+
+/*
+ * One crest, used by the match card and reused by anything else on the
+ * fixtures page that lists a club.
+ *
+ * No opponent in the VMSL supplies a logo file, so every club except us falls
+ * back to a monogram badge: the club's tag on the club's colour, clipped to a
+ * shield. That keeps ten clubs looking like a set rather than nine gaps and
+ * one real crest.
+ */
+
+interface Props {
+  /** Undefined when a match references a club slug that is not in the data */
+  club: Club | undefined;
+  /** Fallback slug, used for the monogram when `club` is missing */
+  slug?: string;
+  size?: "sm" | "lg";
+  /** True on the navy card, which needs the white version of our crest */
+  onDark?: boolean;
+}
+
+const { club, slug, size = "sm", onDark = false } = Astro.props;
+
+const OUR_CREST_LIGHT = "/assets/blue.png";
+const OUR_CREST_DARK = "/assets/white.png";
+
+const isUs = club?.slug === OUR_SLUG || slug === OUR_SLUG;
+const src = isUs ? (onDark ? OUR_CREST_DARK : OUR_CREST_LIGHT) : club?.crest;
+
+/* Three letters off the slug is a readable last resort, e.g. "joyous-fc" to "JOY" */
+const monogram = club?.tag ?? (slug ?? "").slice(0, 3).toUpperCase();
+const colour = club?.colour ?? "#4a4a52";
+---
+
+{
+  src ? (
+    <img class:list={["fx-crest-img", size === "lg" && "is-lg"]} src={src} alt="" aria-hidden="true" width="66" height="66" />
+  ) : (
+    <span
+      class:list={["fx-crest", size === "lg" && "is-lg"]}
+      style={`background:${colour}`}
+      aria-hidden="true"
+    >
+      {monogram}
+    </span>
+  )
+}

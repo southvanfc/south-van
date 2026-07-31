@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FixturesHero from "../components/Fixtures/FixturesHero.astro";
+import MatchHero from "../components/Fixtures/MatchHero.astro";
 import SeasonStats from "../components/Fixtures/SeasonStats.astro";
 import { fixturesData } from "../data/fixtures";
 import { seasonSummary } from "../lib/fixtures";
@@ -12,6 +13,10 @@ import type { SEO } from "../types/types";
  */
 const { season, division } = fixturesData;
 const summary = seasonSummary(fixturesData);
+
+/* One clock for the whole render, so the countdown and the calendar's "today"
+   cannot disagree by a second at a midnight boundary. */
+const now = new Date();
 
 const seo: SEO = {
   title: "Fixtures and Results | VMSL | South Van FC",
@@ -58,7 +63,7 @@ const breadcrumbSchema = {
   />
 
   <FixturesHero season={season} division={division}>
-    {/* PLACEHOLDER, prompt 06: <MatchHero /> goes here, inside the hero panel */}
+    <MatchHero data={fixturesData} now={now} />
   </FixturesHero>
 
   <SeasonStats summary={summary} />
