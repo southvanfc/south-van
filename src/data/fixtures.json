@@ -1,0 +1,252 @@
+{
+  "season": "2026-27",
+  "division": "VMSL Division 4A",
+  "updatedAt": "2026-07-30T22:22:15-07:00",
+  "clubs": [
+    {
+      "name": "South Van FC",
+      "vmslName": "SouthVan FC",
+      "tag": "SVFC",
+      "slug": "south-van-fc",
+      "colour": "#013478"
+    },
+    {
+      "name": "CMFSC Caproni",
+      "vmslName": "CMFSC Caproni",
+      "tag": "CAP",
+      "slug": "cmfsc-caproni",
+      "colour": "#7a1f2b"
+    },
+    {
+      "name": "Dinamo Anatolia",
+      "vmslName": "Dinamo Anatolia",
+      "tag": "DIN",
+      "slug": "dinamo-anatolia",
+      "colour": "#b02020"
+    },
+    {
+      "name": "West Hounds FC B",
+      "vmslName": "West Hounds FC B",
+      "tag": "WHB",
+      "slug": "west-hounds-fc-b",
+      "colour": "#1d5fa8"
+    },
+    {
+      "name": "New Wells City FC",
+      "vmslName": "New Wells City FC",
+      "tag": "NWC",
+      "slug": "new-wells-city-fc",
+      "colour": "#d97919"
+    },
+    {
+      "name": "Royal City Rangers B",
+      "vmslName": "Royal City Rangers B",
+      "tag": "RCR",
+      "slug": "royal-city-rangers-b",
+      "colour": "#2b2f45"
+    },
+    {
+      "name": "Hibernians FC",
+      "vmslName": "Hibernians FC",
+      "tag": "HIB",
+      "slug": "hibernians-fc",
+      "colour": "#0e5c7a"
+    },
+    {
+      "name": "Vancouver Harps FC C",
+      "vmslName": "Vancouver Harps FC C",
+      "tag": "HAR",
+      "slug": "vancouver-harps-fc-c",
+      "colour": "#1e7a4a"
+    },
+    {
+      "name": "Metropolitan FC C",
+      "vmslName": "Metropolitan FC C",
+      "tag": "MET",
+      "slug": "metropolitan-fc-c",
+      "colour": "#5f3a95"
+    },
+    {
+      "name": "Joyous FC",
+      "vmslName": "Joyous FC",
+      "tag": "JOY",
+      "slug": "joyous-fc",
+      "colour": "#4a4a52"
+    },
+    {
+      "name": "Bby Spartans FC Hades",
+      "vmslName": "Bby Spartans FC Hades",
+      "tag": "BSFH",
+      "slug": "bby-spartans-fc-hades",
+      "colour": "#1e7a4a",
+      "crest": "/assets/crests/bby-spartans-fc-hades.jpg"
+    },
+    {
+      "name": "Burnaby FC Chelsea",
+      "vmslName": "Burnaby FC Chelsea",
+      "tag": "BFC",
+      "slug": "burnaby-fc-chelsea",
+      "colour": "#5b3a8c",
+      "crest": "/assets/crests/burnaby-fc-chelsea.jpg"
+    },
+    {
+      "name": "FC Kova",
+      "vmslName": "FC Kova",
+      "tag": "FK",
+      "slug": "fc-kova",
+      "colour": "#5b3a8c",
+      "crest": "/assets/crests/fc-kova.jpg"
+    },
+    {
+      "name": "Highlands VFC",
+      "vmslName": "Highlands VFC",
+      "tag": "HV",
+      "slug": "highlands-vfc",
+      "colour": "#2b2f45",
+      "crest": "/assets/crests/highlands-vfc.jpg"
+    },
+    {
+      "name": "AC Phantoms",
+      "vmslName": "AC Phantoms",
+      "tag": "AP",
+      "slug": "ac-phantoms",
+      "colour": "#7a1f2b"
+    },
+    {
+      "name": "Coastal FC C",
+      "vmslName": "Coastal FC C",
+      "tag": "CFC",
+      "slug": "coastal-fc-c",
+      "colour": "#5b3a8c",
+      "crest": "/assets/crests/coastal-fc-c.jpg"
+    },
+    {
+      "name": "New Wells City SC B",
+      "vmslName": "New Wells City SC B",
+      "tag": "NWCS",
+      "slug": "new-wells-city-sc-b",
+      "colour": "#1e7a4a",
+      "crest": "/assets/crests/new-wells-city-sc-b.jpg"
+    },
+    {
+      "name": "NorthStars VFC",
+      "vmslName": "NorthStars VFC",
+      "tag": "NV",
+      "slug": "northstars-vfc",
+      "colour": "#1e7a4a",
+      "crest": "/assets/crests/northstars-vfc.jpg"
+    },
+    {
+      "name": "Vancouver Grizzlies FC",
+      "vmslName": "Vancouver Grizzlies FC",
+      "tag": "VGF",
+      "slug": "vancouver-grizzlies-fc",
+      "colour": "#7a1f2b",
+      "crest": "/assets/crests/vancouver-grizzlies-fc.jpg"
+    }
+  ],
+  "matches": [],
+  "standings": [
+    {
+      "clubSlug": "bby-spartans-fc-hades",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "burnaby-fc-chelsea",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "fc-kova",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "highlands-vfc",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "ac-phantoms",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "coastal-fc-c",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "new-wells-city-sc-b",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "northstars-vfc",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "south-van-fc",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "vancouver-grizzlies-fc",
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    }
+  ],
+  "history": []
+}

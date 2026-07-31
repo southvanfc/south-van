@@ -1,0 +1,180 @@
+---
+import type { FixturesData } from "../../types/types";
+import {
+  calendarRange,
+  getClub,
+  isPlayed,
+  localDate,
+  matchesInMonth,
+  ourScore,
+  outcome,
+  theirScore,
+} from "../../lib/fixtures";
+
+interface Props {
+  data: FixturesData;
+  /** Request time, used for the today outline */
+  now: Date;
+  /** Month to open on, normally the one holding the next match */
+  focus: { year: number; month: number } | null;
+}
+
+const { data, now, focus } = Astro.props;
+
+const months = calendarRange(data);
+const focusIndex = Math.max(
+  0,
+  months.findIndex(
+    (entry) => entry.year === focus?.year && entry.month === focus?.month,
+  ),
+);
+const today = localDate(now);
+
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+/*
+ * Every month in the range is rendered server side and all but one is hidden.
+ * The alternative, shipping the fixture list to the browser and building the
+ * grid there, would mean the calendar only exists once JavaScript has run and
+ * would duplicate the data in the page. Seven months of cells is small, and
+ * stepping months then costs nothing but a `hidden` toggle.
+ */
+const grids = months.map((entry) => {
+  const first = new Date(Date.UTC(entry.year, entry.month - 1, 1)).getUTCDay();
+  const days = new Date(Date.UTC(entry.year, entry.month, 0)).getUTCDate();
+  const matches = matchesInMonth(data, entry.year, entry.month);
+
+  const cells = Array.from({ length: days }, (_, index) => {
+    const day = index + 1;
+    const date = `${entry.year}-${String(entry.month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    return {
+      day,
+      isToday: date === today,
+      matches: matches.filter((match) => match.date === date),
+    };
+  });
+
+  return {
+    ...entry,
+    monthName: entry.label.split(" ")[0],
+    leadingBlanks: first,
+    cells,
+    count: matches.length,
+  };
+});
+---
+
+<div class="fx-cal">
+  <div class="fx-cal-head">
+    <button
+      type="button"
+      class="fx-cal-nav"
+      data-fx-month-step="-1"
+      aria-label="Previous month"
+      disabled={focusIndex <= 0}
+    >
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">
+        <path
+          d="M6 1L1 6l5 5"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="fx-cal-nav"
+      data-fx-month-step="1"
+      aria-label="Next month"
+      disabled={focusIndex >= grids.length - 1}
+    >
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">
+        <path
+          d="M1 1l5 5-5 5"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <p class="fx-cal-month" data-fx-month-label>{grids[focusIndex]?.label}</p>
+    <div class="fx-cal-key">
+      <span><i style="background:var(--gold)"></i> Home</span>
+      <span><i style="background:rgba(255,255,255,0.35)"></i> Away</span>
+      <span><i style="background:rgba(255,255,255,0.16)"></i> Played</span>
+    </div>
+  </div>
+
+  {
+    grids.map((grid, index) => (
+      <div
+        class="fx-cal-grid"
+        data-fx-month={index}
+        data-fx-label={grid.label}
+        hidden={index !== focusIndex}
+      >
+        {DAY_NAMES.map((name) => (
+          <div class="fx-cal-dow" aria-hidden="true">
+            {name}
+          </div>
+        ))}
+
+        {Array.from({ length: grid.leadingBlanks }, () => (
+          <div class="fx-cal-cell is-blank" aria-hidden="true" />
+        ))}
+
+        {grid.cells.map((cell) => (
+          <div
+            class:list={[
+              "fx-cal-cell",
+              cell.isToday && "is-today",
+              cell.matches.length === 0 && "is-empty",
+            ]}
+          >
+            <span class="fx-cal-day">{cell.day}</span>
+            {cell.matches.map((match) => {
+              const opponent = getClub(data, match.opponentSlug);
+              const played = isPlayed(match);
+              const result = outcome(match);
+              return (
+                <div
+                  class:list={[
+                    "fx-cal-chip",
+                    match.isHome ? "is-home" : "is-away",
+                    played && "is-played",
+                  ]}
+                >
+                  <span class="fx-cal-chip-op">
+                    <span class="fx-cal-chip-ha">{match.isHome ? "H" : "A"}</span>
+                    {opponent?.tag ?? match.opponentSlug.slice(0, 3).toUpperCase()}
+                  </span>
+                  {/* Our goals first, not the home team's. A chip reading
+                      "3-2 L" next to an away defeat is the exact confusion the
+                      stored home-first scores are there to be read out of. */}
+                  <span class="fx-cal-chip-tm">
+                    {played
+                      ? `${ourScore(match)}-${theirScore(match)} ${result}`
+                      : match.time}
+                  </span>
+                  <span class="fx-sr">
+                    {match.isHome ? "Home" : "Away"} against{" "}
+                    {opponent?.name ?? match.opponentSlug}, {cell.day} {grid.monthName},{" "}
+                    {played
+                      ? `full time, South Van ${ourScore(match)}, ${opponent?.name ?? "opponent"} ${theirScore(match)}`
+                      : `kickoff ${match.time}`}
+                    , {match.venue}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+
+        {grid.count === 0 && (
+          <p class="fx-cal-empty">No matches scheduled this month.</p>
+        )}
+      </div>
+    ))
+  }
+</div>

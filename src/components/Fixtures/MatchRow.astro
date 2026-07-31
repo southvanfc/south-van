@@ -1,0 +1,174 @@
+---
+import type { FixturesData, Match } from "../../types/types";
+import Crest from "./Crest.astro";
+import {
+  OUR_SLUG,
+  dateParts,
+  getClub,
+  isAwaitingResult,
+  isPlayed,
+  outcome,
+} from "../../lib/fixtures";
+
+/*
+ * One row of the fixture list, used for both a fixture and a result. The
+ * difference between the two is whether the scores are filled in, not a prop.
+ *
+ * Everything the filter script needs is on the article as a data attribute, so
+ * filtering is a matter of hiding rows that are already in the page and the
+ * fixtures data never has to be shipped to the browser.
+ */
+
+interface Props {
+  match: Match;
+  /** Needed for the club lookups, since a match only stores an opponent slug */
+  data: FixturesData;
+  /** True for the next fixture still to be played, which gets the gold rail */
+  isNext?: boolean;
+  /** Request time, used to tell a kicked-off-but-unscored match from a future one */
+  now: Date;
+}
+
+const { match, data, isNext = false, now } = Astro.props;
+
+const ourClub = getClub(data, OUR_SLUG);
+const opponent = getClub(data, match.opponentSlug);
+
+/* Home team on the left, away team on the right, always. The stored scores are
+   home team first, so a row for an away defeat reads "3-2 L" and the result
+   letter is what disambiguates it. */
+const homeClub = match.isHome ? ourClub : opponent;
+const awayClub = match.isHome ? opponent : ourClub;
+const homeSlug = match.isHome ? OUR_SLUG : match.opponentSlug;
+const awaySlug = match.isHome ? match.opponentSlug : OUR_SLUG;
+
+const { weekday, day, monthShort } = dateParts(match.date);
+const played = isPlayed(match);
+const result = outcome(match);
+
+const RESULT_WORDS: Record<"W" | "D" | "L", string> = {
+  W: "Win",
+  D: "Draw",
+  L: "Loss",
+};
+
+/*
+ * Four of last season's 23 fixtures carried one of these, so they are the
+ * normal case rather than an edge case. Postponed and cancelled matches have
+ * no kickoff any more, so the badge takes the time's place; the rest sit
+ * alongside whatever the row would otherwise show.
+ */
+const STATUS_LABELS: Record<NonNullable<Match["status"]>, string> = {
+  postponed: "Postponed",
+  cancelled: "Cancelled",
+  forfeited: "Forfeit",
+  incomplete: "Abandoned",
+  completion: "Completed later",
+};
+
+const statusLabel = match.status ? STATUS_LABELS[match.status] : null;
+const notScheduled = match.status === "postponed" || match.status === "cancelled";
+
+/* Kickoff has passed with no score and no status, most often a day or two of
+   lag before VMSL posts the result. The row stays under Fixtures, since it is
+   not a result yet, but a bare kickoff time that has already passed would be
+   wrong to show as the plan for the match. */
+const awaitingResult = !played && !statusLabel && isAwaitingResult(match, now);
+---
+
+<article
+  class:list={["fx-match", isNext && "is-next"]}
+  data-fx-match
+  data-fx-venue={match.isHome ? "H" : "A"}
+  data-fx-comp={match.competition}
+  data-fx-month={match.date.slice(0, 7)}
+>
+  <div class="fx-m-date">
+    <div class="fx-m-dow">{weekday}</div>
+    <div class="fx-m-day">{day}</div>
+    <div class="fx-m-mon">{monthShort}</div>
+  </div>
+
+  <div class:list={["fx-m-team", match.isHome && "is-us"]}>
+    <Crest club={homeClub} slug={homeSlug} />
+    <span class="fx-m-name">{homeClub?.name ?? homeSlug}</span>
+  </div>
+
+  <div class="fx-m-centre">
+    {
+      notScheduled ? (
+        <span class="fx-m-badge">{statusLabel}</span>
+      ) : played ? (
+        <>
+          {/* The two digits either side of an aria-hidden dash read as "2 1"
+              with no relationship stated, or worse, run together as "21".
+              aria-label on the whole pill gives the sentence a screen reader
+              needs; the digits inside step out of the way for it. */}
+          <span
+            class="fx-m-score"
+            aria-label={`Full time, ${homeClub?.name ?? homeSlug} ${match.homeScore}, ${awayClub?.name ?? awaySlug} ${match.awayScore}`}
+          >
+            <span aria-hidden="true">{match.homeScore}</span>
+            <span class="fx-m-sep" aria-hidden="true">
+              -
+            </span>
+            <span aria-hidden="true">{match.awayScore}</span>
+          </span>
+          {result && (
+            <span class:list={["fx-m-outcome", `is-${result.toLowerCase()}`]}>
+              <span aria-hidden="true">{result}</span>
+              <span class="fx-sr">{RESULT_WORDS[result]} for South Van FC</span>
+            </span>
+          )}
+          {statusLabel && <span class="fx-m-badge">{statusLabel}</span>}
+        </>
+      ) : awaitingResult ? (
+        <span class="fx-m-badge">Awaiting result</span>
+      ) : (
+        <>
+          <span class="fx-m-time">
+            {match.time}
+            <small>Kickoff</small>
+          </span>
+          {statusLabel && <span class="fx-m-badge">{statusLabel}</span>}
+        </>
+      )
+    }
+  </div>
+
+  <div class:list={["fx-m-team", "is-away", !match.isHome && "is-us"]}>
+    <Crest club={awayClub} slug={awaySlug} />
+    <span class="fx-m-name">{awayClub?.name ?? awaySlug}</span>
+  </div>
+
+  <div class="fx-m-venue">
+    <div class="fx-m-place">
+      <span class:list={["fx-m-ha", match.isHome ? "is-home" : "is-away"]}>
+        <span aria-hidden="true">{match.isHome ? "H" : "A"}</span>
+        <span class="fx-sr">{match.isHome ? "Home" : "Away"}</span>
+      </span>
+      {match.venue}
+    </div>
+    <div class="fx-m-comp">{match.competitionLabel}</div>
+  </div>
+
+  {/* Nothing to click through to yet, so the chevron is decoration that moves
+      on hover and the row gets no tabindex. */}
+  <div class="fx-m-arrow" aria-hidden="true">
+    <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+      <path
+        d="M1 1l5.5 5.5L1 12"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </div>
+
+  {/*
+    The note spans the row rather than sitting inside the venue cell. VMSL
+    writes full sentences here, the cup tie won on penalties being the case
+    that matters, and the venue column is 190px wide and hidden on tablet.
+  */}
+  {match.note && <p class="fx-m-note">{match.note}</p>}
+</article>

@@ -1,0 +1,105 @@
+name: Scrape VMSL
+
+# src/data/fixtures.json is hand maintained and stays the source of truth. This
+# workflow only ever proposes changes through a pull request that a human merges.
+# It must never push to main and it must never auto merge.
+#
+# The schedule is deliberately left commented out. vmslsoccer.com's robots.txt is
+# "User-agent: * / Disallow: /webapps", and /webapps covers every endpoint the
+# scraper touches. A club member running the scraper by hand is one thing. An
+# unattended bot hitting disallowed paths on a timer is another, and the file is
+# what gets pointed at if it ever matters. Uncomment the two schedule lines once
+# one of these is true, and commit the evidence next to the scraper:
+#
+#   1. Written permission from VMSL. An email from admin@vmslsoccer.com is fine.
+#   2. Better, VMSL add "User-agent: SouthVanFC-fixtures" with "Allow: /webapps".
+#
+# Until then workflow_dispatch keeps this runnable on demand, which is the same
+# act as running "npm run scrape:vmsl" on a laptop, just with the output shaped
+# into a reviewable pull request.
+
+on:
+  workflow_dispatch:
+
+  # 17:00 UTC every Tuesday. VMSL matches are played at weekends and results post
+  # over the following day or two, so Tuesday morning catches the week cleanly.
+  # GitHub cron is UTC only, so the effective local time shifts by an hour across
+  # the DST boundary: 09:00 in Vancouver on standard time, 10:00 on daylight time.
+  # The season runs mostly through standard time and an hour of drift changes
+  # nothing here, so this is left alone rather than worked around.
+  # schedule:
+  #   - cron: "0 17 * * 2"
+
+# The built in GITHUB_TOKEN is the only credential involved. No secrets needed.
+permissions:
+  contents: write
+  pull-requests: write
+
+# One refresh at a time. Two overlapping runs would fight over the same branch.
+concurrency:
+  group: scrape-vmsl
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh fixture data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The scraper reads VMSL over plain fetch and parses the HTML itself, so
+      # there is no headless browser to install. It runs the shared validator on
+      # its own output and exits non zero if anything fails, which is what keeps
+      # a bad scrape from ever reaching the pull request step below.
+      #
+      # pipefail matters: without it the exit code of the tee pipeline would be
+      # tee's, and a failed scrape would look like a green run.
+      - name: Run the scraper
+        run: |
+          set -o pipefail
+          npm run scrape:vmsl -- --allow-empty-season | tee "${RUNNER_TEMP}/scrape.log"
+
+      # Most weeks out of season nothing moves. That is a normal, quiet, green run.
+      - name: Look for changes
+        id: check
+        run: |
+          if git diff --quiet -- src/data/fixtures.json; then
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
+            echo "src/data/fixtures.json is unchanged. Nothing to propose."
+          else
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
+            echo "date=$(TZ=America/Vancouver date +'%Y-%m-%d')" >> "${GITHUB_OUTPUT}"
+            git --no-pager diff --stat -- src/data/fixtures.json
+          fi
+
+      # The body is built from the scraper's own diff output, not written by hand.
+      - name: Write the pull request body
+        if: steps.check.outputs.changed == 'true'
+        run: node scripts/pr-body.ts "${RUNNER_TEMP}/scrape.log" > "${RUNNER_TEMP}/pr-body.md"
+
+      - name: Open a pull request
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: data/vmsl-refresh-${{ github.run_number }}
+          # Closing or merging the pull request takes the branch with it, so
+          # refreshes do not pile up as stale branches.
+          delete-branch: true
+          add-paths: src/data/fixtures.json
+          commit-message: "Refresh fixture data from VMSL"
+          title: "Fixture data refresh, week of ${{ steps.check.outputs.date }}"
+          body-path: ${{ runner.temp }}/pr-body.md
+          labels: data
+          draft: false

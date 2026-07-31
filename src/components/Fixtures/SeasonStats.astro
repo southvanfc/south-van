@@ -1,0 +1,33 @@
+---
+import type { SeasonSummary } from "../../lib/fixtures";
+
+interface Props {
+  /** League record from `seasonSummary()`, never a hardcoded figure */
+  summary: SeasonSummary;
+}
+
+const { summary } = Astro.props;
+
+const cells: { value: number; label: string }[] = [
+  { value: summary.played, label: "Played" },
+  { value: summary.won, label: "Won" },
+  { value: summary.drawn, label: "Drawn" },
+  { value: summary.lost, label: "Lost" },
+  { value: summary.goalsFor, label: "Goals For" },
+  { value: summary.goalsAgainst, label: "Goals Against" },
+  { value: summary.points, label: "Points" },
+];
+---
+
+<section class="fx-stats" aria-label="Season record">
+  <div class="fx-stats-inner">
+    {
+      cells.map(({ value, label }) => (
+        <div class="fx-stat">
+          <div class="fx-stat-num">{value}</div>
+          <div class="fx-stat-lbl">{label}</div>
+        </div>
+      ))
+    }
+  </div>
+</section>

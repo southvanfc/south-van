@@ -39,7 +39,10 @@ const highlights = [
         promotions, relegations, and consequences. If you want to test yourself
         against the best adult players in the region, this is the level.
       </p>
-      <a href="#apply" class="league-cta">Apply for Trials</a>
+      <div class="league-ctas">
+        <a href="#apply" class="league-cta">Apply for Trials</a>
+        <a href="/fixtures/" class="league-cta-alt">See Fixtures and Results</a>
+      </div>
     </div>
 
     <div class="league-right">
@@ -110,6 +113,13 @@ const highlights = [
     margin-bottom: 32px;
   }
 
+  .league-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
   .league-cta {
     display: inline-block;
     background: #013478;
@@ -124,6 +134,25 @@ const highlights = [
   }
   .league-cta:hover {
     background: #011f4a;
+  }
+
+  .league-cta-alt {
+    display: inline-block;
+    border: 1.5px solid #d0d5e8;
+    color: #013478;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 11.5px 26px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .league-cta-alt:hover {
+    border-color: #013478;
+    background: #f7f8fc;
   }
 
   /* Right column */

@@ -1,0 +1,252 @@
+
+
+  <style>
+  .lw { width:20px; display:inline-block; }
+  </style>
+  <script>
+    function DisplayHelp(obj) 
+    {
+      var menu_help_text = obj.attr('help');
+      $(".modal").html(menu_help_text).modal();
+    }
+  </script>
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- HtmlHeader Start -->
+<html lang=en>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="CodeCopyright" content="Spappz Sports Applications 2000-2022" />
+<meta name="CodeContact" content="https://spappz.com" />
+<meta name="Authors" content="Randy Wrixon, Bill Maurer" />
+<meta name="Title" content="Vancouver Metro Soccer League" />
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1" />
+<title>Vancouver Metro Soccer League</title>
+<link rel=icon type=image/jpg href=/upload/img/logo_sm.jpg>
+<link rel=stylesheet type=text/css href=/webapps/master.css>
+<link rel=stylesheet type=text/css href=/upload/master.css>
+<link rel=stylesheet type=text/css href=/upload/custom.css>
+<script src="/webapps/jquery/jquery-1.9.1.min.js"></script>
+<script src="/webapps/common/utils.js"></script>
+<script>site_root='';</script>
+</head>
+<!-- HtmlHeader End -->
+<!-- Header Start -->
+<body id="home">
+<div style=width:100%; id=page>
+<!-- Heading Start -->
+<!-- HEADER CONTENT START -->
+
+<table width="1140" height="219" align="left" style="position: relative;" border="0" class="hdr"><tbody><tr valign="top"><td class="hdr"><div class="mobhide" style="left: 170px; top: 30px; position: absolute;"><a href=""><img width="928" src="/upload/img/vmsl-strapline.jpg" border="0"></a></div><div class="mobhide" style="left: 180px; top: 90px; position: absolute;"><!-- BADisplayAds Start -->
+<div style=display:inline-block; width=100% ><a href="/webapps/bannerad/linkit?eventid=8" target=_blank>
+<img class="badisplayads" style="z-index:-1;" title="Discipline via Zoom 2022-23" border=0 width="690" src="/upload/baimages/vmsl_hdr/Discipline Online 2022-23 Banner.jpg"></a>
+</div>
+<!-- BADisplayAds End -->
+</div><div style="left: 0px; top: 5px; position: absolute;"><a href="/home"><img src="/upload/img/vmsl-logo.jpg"></a></div><div style="left: 780px; top: 5px; position: absolute;"><form method=POST action=/webapps/newz/newz_archive_view><input class=search type=text name=keyword value="SEARCH" onKeyPress="return submitenter(this)"></form></div><div style="left: 1000px; top: 5px; position: absolute;"><!-- Menu Start : topright -->
+<ul class=topmenu>
+<li><a href="/webapps/common/admin_menu">Admin</a></li>
+<li class=menusep>|</li>
+<li><a href="/webapps/common/logoff">Logoff</a></li>
+</ul>
+<!-- Menu End : topright -->
+</div><div style="left: 0px; top: 200px; position: absolute;"><!-- Menu Start : topleft -->
+<div id=navicon></div><div id=listmenu></div>
+<ul id=menu class=menu>
+<li class="submenu current"><a href=javascript:; onclick=menu_group('home','/home')>HOME</a></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('lschedule','/lschedule')>WEEKLY SCHEDULE</a></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('standings','/webapps/spappz_live/div_stats')>STANDINGS/SCHEDULE</a></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('teams','/webapps/team_pages')>TEAMS</a></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><span>CUP PLAY</span>
+<ul>
+<li><a href=javascript:; onclick=menu_group('cupplay','/1928')>Imperial Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/u21cupplay')>U21 Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/DIV2CUP')>Division 2 Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/DIV3CUP')>Division 3 Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/DIV4CUP')>Division 4 Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/MASTACUP')>Masters A Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/MASTBCUP')>Masters B Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/MASTCCUP')>Masters C Cup</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/spappz_live/playoff_schedule')>Playoffs</a></li>
+<li><a href=javascript:; onclick=menu_group('cupplay','/PL-OFFINFO')>Playoff Information</a></li>
+</ul></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><span>DISCIPLINE</span>
+<ul>
+<li><a href=javascript:; onclick=menu_group('discipline','/dischear')>Discipline Hearing Info</a></li>
+<li><a href=javascript:; onclick=menu_group('discipline','/webapps/spappz_live/discipline_stats')>Discipline List</a></li>
+<li><a href=javascript:; onclick=menu_group('discipline','/Fines')>Team Fine Schedule</a></li>
+<li><a href=javascript:; onclick=menu_group('discipline','/webapps/faq_appz/faq_default?category=DISC')>FAQ</a></li>
+</ul></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('fields','/webapps/spappz_live/field_status')>FIELDS</a></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><span>REGISTRATION</span>
+<ul>
+<li><a href=javascript:; onclick=menu_group('registrate','/webapps/event?id=27')>Club Appl/Change</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/webapps/event?id=95')>Team Registration</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/webapps/event?id=94')>U21 Spring Team Reg</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/register')>Player Registration</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/doc?category=TFRS')>Transfer/Permit Docs</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/crc')>Criminal Record Check</a></li>
+<li><a href=javascript:; onclick=menu_group('registrate','/faq_appz/faq_default?category=PLYRREG')>FAQ</a></li>
+</ul></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('about','/about')>ABOUT US</a>
+<ul>
+<li><a href=javascript:; onclick=menu_group('about','/webapps/contentmgr/contact_form_list')>Contact Us</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/Rules')>Rules and Regulations</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/Constitut')>VMSL Constitution</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/1931')>VMSL Board of Directors</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/doc?category=general')>General Documents</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/Champs')>Premier Div Champions</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/PRovchamps')>BC Prov Cup Champions</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/Impchamps')>Imperial Cup Champions</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/Goldboot')>Golden  Boot Award</a></li>
+<li><a href=javascript:; onclick=menu_group('about','/webapps/bulkemail/esubscribe?appid=vmsl_bm')>Weekly Reports</a></li>
+</ul></li>
+<li class=menusep>&nbsp;</li>
+<li class="submenu"><a href=javascript:; onclick=menu_group('member','/webapps/buysell/buy_sell_admin')>NOTICE BOARD</a></li>
+</ul>
+<!-- Menu End : topleft -->
+<script>
+var dropdown=new TINY.dropdown.init("dropdown", {id:'menu', active:'menuhover', fade:false, slide:false, timeout:0});
+</script>
+</div></td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HEADER CONTENT END -->
+<!-- Heading End -->
+<div id=main width=100% valign=top>
+<table width=100% align=center id=pagecontent  border=0 cellpadding=0 cellspacing=0>
+<style>
+#hold, .side { display:inline-block; vertical-align:text-top;}
+</style>
+<tr><td valign=top 1>
+<div id=hold valign=top><script>
+if (self == top)
+  $('#hold').width('1120px');
+else
+  $('#hold').width('100%');
+$('#stat').detach().prependTo('.hdr');
+if (self !== top) $('.hdr,.side').remove();
+if (self !== top) $('body,#pagecontent').css('background','none');
+if (self !== top) $('#pagecontent,#hold').css('padding',0);
+if (self !== top) $('#page').css('margin',0);
+</script>
+<!-- Header End -->
+<div class="newsright col"><a href=team_page?id=827&suffix=_old&excelsched=1>Excel</a>
+&nbsp;<a href=team_page?id=827&suffix=_old&htmlsched=1>HTML</a>
+<br>
+<table align=center style=border-spacing:1px;border-collapse:separate; class="linebox smart_table">
+<tr class=colhead><td>Date</font></td><td class=mobhide>Division</font></td><td>Home Team</font></td><td>Result</font></td><td>Visiting Team</font></td><td>Field</font></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League <span class=red>(Forfeited)</span><tr bgcolor=#FFFFFF><td>Sat 9/6/2025 6:00PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=935&filesuffix=_old><img title="NVFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_935.jpg" width=20 height=20> NVFC Norvan Lions</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21810&suffix=_old>3 - 0</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC <a href=JavaScript:void() title=Forfeit>(FF)</a></a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=246>Fen Burdett Mahon Turf - NVAN</a></td></tr><tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Forfeited by SouthVan FC</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 9/14/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21811&suffix=_old>1 - 5</a></td><td><a href=/webapps/spappz_live/team_page?id=861&filesuffix=_old><img title="DIA" class=tcicon valign=middle src="/upload/img/teamcrest_861.jpg" width=20 height=20> Dinamo Anatolia</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sat 9/20/2025 8:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=890&filesuffix=_old><img title="ATLX                                              " class=tcicon valign=middle src="/upload/img/teamcrest_890.jpg" width=20 height=20> Atlixco</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21820&suffix=_old>5 - 5</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=236>University Hill Sec Turf - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 9/28/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21821&suffix=_old>0 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=940&filesuffix=_old><img title="COSM" class=tcicon valign=middle src="/upload/img/teamcrest_940.jpg" width=20 height=20> Cosmos FC B</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sat 10/4/2025 8:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=908&filesuffix=_old><img title="RCFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_908.jpg" width=20 height=20> Royal City Rangers B</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21830&suffix=_old>1 - 1</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=228>Queens Pk East Turf - NWEST</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 10/12/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21831&suffix=_old>2 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=976&filesuffix=_old><img title="BSPAR                                             " class=tcicon valign=middle src="/upload/img/teamcrest_976.jpg" width=20 height=20> Bby Spartans FC Hades</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Fri 10/17/2025 8:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=943&filesuffix=_old><img title="CAFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_943.jpg" width=20 height=20> Burnaby FC Chelsea</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21840&suffix=_old>5 - 1</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=59>Cariboo Oval Turf - NWEST</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 10/26/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21841&suffix=_old>4 - 0</a></td><td><a href=/webapps/spappz_live/team_page?id=902&filesuffix=_old><img title="NORS                                              " class=tcicon valign=middle src="/upload/img/teamcrest_902.jpg" width=20 height=20> NorthStars VFC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 11/2/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21846&suffix=_old>4 - 1</a></td><td><a href=/webapps/spappz_live/team_page?id=977&filesuffix=_old><img title="HVFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_977.jpg" width=20 height=20> Highlands VFC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League <span class=red>(Incomplete)</span><tr bgcolor=#E0E0E0><td>Sun 11/9/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21855&suffix=_old>1 - 1</a></td><td><a href=/webapps/spappz_live/team_page?id=935&filesuffix=_old><img title="NVFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_935.jpg" width=20 height=20> NVFC Norvan Lions</a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr><tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Deemed incomplete. Referee LOTG error. Last 75 minutes COMPLETED Feb 22</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sat 11/15/2025 8:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=861&filesuffix=_old><img title="DIA" class=tcicon valign=middle src="/upload/img/teamcrest_861.jpg" width=20 height=20> Dinamo Anatolia</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21856&suffix=_old>8 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=235>Trillium Turf West - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 11/23/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21865&suffix=_old>2 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=890&filesuffix=_old><img title="ATLX                                              " class=tcicon valign=middle src="/upload/img/teamcrest_890.jpg" width=20 height=20> Atlixco</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sat 11/29/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=940&filesuffix=_old><img title="COSM" class=tcicon valign=middle src="/upload/img/teamcrest_940.jpg" width=20 height=20> Cosmos FC B</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21866&suffix=_old>4 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 12/7/2025 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21875&suffix=_old>4 - 3</a></td><td><a href=/webapps/spappz_live/team_page?id=908&filesuffix=_old><img title="RCFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_908.jpg" width=20 height=20> Royal City Rangers B</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Fri 12/12/2025 8:00PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=976&filesuffix=_old><img title="BSPAR                                             " class=tcicon valign=middle src="/upload/img/teamcrest_976.jpg" width=20 height=20> Bby Spartans FC Hades</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21876&suffix=_old>3 - 0</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=231>SFU Fox Turf - BBY</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 1/4/2026 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21885&suffix=_old>4 - 3</a></td><td><a href=/webapps/spappz_live/team_page?id=943&filesuffix=_old><img title="CAFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_943.jpg" width=20 height=20> Burnaby FC Chelsea</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 1/11/2026 8:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=902&filesuffix=_old><img title="NORS                                              " class=tcicon valign=middle src="/upload/img/teamcrest_902.jpg" width=20 height=20> NorthStars VFC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21886&suffix=_old>3 - 1</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=235>Trillium Turf West - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League<tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;>Sun 1/18/2026 10:10AM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=977&filesuffix=_old><img title="HVFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_977.jpg" width=20 height=20> Highlands VFC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21891&suffix=_old>1 - 3</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td style=padding-bottom:5px;border-bottom-right-radius:10px;><a href=/webapps/spappz_live/field_detail_display?field_ref=235>Trillium Turf West - VAN</a></td></tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - Cup Group<tr bgcolor=#FFFFFF><td>Sun 1/25/2026 10:10AM</td><td class=mobhide>Div 4 Cup</td><td><a href=/webapps/spappz_live/team_page?id=922&filesuffix=_old><img title="PHOE                                              " class=tcicon valign=middle src="/upload/img/teamcrest_922.jpg" width=20 height=20> Phoenix FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=21982&suffix=_old>4 - 0</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=248>Empire Turf South - VAN</a></td></tr><tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Group B</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - Cup Group<tr bgcolor=#E0E0E0><td>Sun 2/1/2026 2:05PM</td><td class=mobhide>Div 4 Cup</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=22132&suffix=_old>1 - 2</a></td><td><a href=/webapps/spappz_live/team_page?id=815&filesuffix=_old><img title="MFC                                               " class=tcicon valign=middle src="/upload/img/teamcrest_815.jpg" width=20 height=20> Metropolitan FC C</a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr><tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Group B. PK win (4-5)</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - Cup Group<tr bgcolor=#FFFFFF><td>Sun 2/8/2026 2:05PM</td><td class=mobhide>Div 4 Cup</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=22140&suffix=_old>3 - 8</a></td><td><a href=/webapps/spappz_live/team_page?id=989&filesuffix=_old><img title="WH" class=tcicon valign=middle src="/upload/img/teamcrest_989.jpg" width=20 height=20> West Hounds FC B</a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr><tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Group B</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#E0E0E0><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - Cup Group <span class=red>(Forfeited)</span><tr bgcolor=#E0E0E0><td>Sat 2/14/2026 8:05PM</td><td class=mobhide>Div 4 Cup</td><td><a href=/webapps/spappz_live/team_page?id=945&filesuffix=_old><img title="KOVA" class=tcicon valign=middle src="/upload/img/teamcrest_945.jpg" width=20 height=20> FC Kova</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=22149&suffix=_old>3 - 0</a></td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC <a href=JavaScript:void() title=Forfeit>(FF)</a></a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=210>Town Ctr PP Stad Turf 1 - COQ</a></td></tr><tr bgcolor=#E0E0E0><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Group B. Forfeited by SouthVan FC</i></font></td></tr>
+</tr>
+<tr><td style=font-size:1px;padding:1px; colspan=6><hr style="border-top:3px dashed black;"></td></tr>
+<tr bgcolor=#FFFFFF><td style="padding-top:5px;border-top-left-radius:10px;border-top-right-radius:10px;" colspan=6>Winter - League <span class=red>(Completion)</span><tr bgcolor=#FFFFFF><td>Sun 2/22/2026 2:05PM</td><td class=mobhide>Division 4</td><td><a href=/webapps/spappz_live/team_page?id=827&filesuffix=_old><img title="UNFC" class=tcicon valign=middle src="/upload/img/teamcrest_827.jpg" width=20 height=20> SouthVan FC</a></td><td align=center><a title="Game Report" href=/webapps/spappz_live/gamerepinfo?reg_year=2026&sched_seq_no=22374&suffix=_old>3 - 3</a></td><td><a href=/webapps/spappz_live/team_page?id=935&filesuffix=_old><img title="NVFC                                              " class=tcicon valign=middle src="/upload/img/teamcrest_935.jpg" width=20 height=20> NVFC Norvan Lions</a></td><td><a href=/webapps/spappz_live/field_detail_display?field_ref=129>Empire Turf North - VAN</a></td></tr><tr bgcolor=#FFFFFF><td style=padding-bottom:5px;border-bottom-left-radius:10px;border-bottom-right-radius:10px; colspan=6><font color=red><i>Last 75 minutes completed from a score of 1-1</i></font></td></tr>
+</tr>
+<tr><td colspan=6>23 Records Listed</td></tr></table>
+</div>
+<!-- Footer Start -->
+</div> <!-- hold -->
+</td></tr></table> <!-- pagecontent -->
+</div><!-- main -->
+<div class=contentbottom></div>
+<div class=footer>
+<!-- FOOTER CONTENT START -->
+
+
+<div class="socialicons"><a href="http://facebook.com/vmslsoccer" target="_blank"><img src="/upload/img/facebookicon.png"></a><a href="http://twitter.com/vmslsoccer" target="_blank"><img src="/upload/img/twittericon.png"></a><a href="http://instagram.com/vmslsoccer" target="_blank"><img src="/upload/img/instagramicon.png"></a><a href="/contentmgr/contact_form_list"><img src="/upload/img/emailicon.png"></a></div>
+<!-- Copyright Start -->
+<div style=text-align:center;><p class=copy><a href="http://spappz.com" target="_blank"> Copyright © Spappz Sports Applications, All Rights Reserved. 2000-2024</a> - Spappz v0.9
+ (0)<br><br><span id=view_mode></span>
+</p></div>
+<!-- Copyright End -->
+
+<!-- FOOTER CONTENT END -->
+
+</div><!-- footer -->
+</div><!-- page -->
+<div class="hdr_fsbk fsbk"></div>
+<div class="main_fsbk fsbk"></div>
+<div class="footer_fsbk fsbk"></div>
+</body>
+</html>
+<script>
+if (self !== top) {
+  $('.contentbottom').remove();
+  $('.footer').remove();
+} else {
+console.log('page_width: 1140');
+setup_page(320,1140);
+}
+</script>
+<!-- Footer End -->
