@@ -1,8 +1,9 @@
 ---
 import type { FixturesData } from "../../types/types";
+import Crest from "./Crest.astro";
 import MatchRow from "./MatchRow.astro";
 import StandingsTable from "./StandingsTable.astro";
-import { groupByMonth, isPlayed, nextMatch } from "../../lib/fixtures";
+import { getClub, groupByMonth, isPlayed, nextMatch, sortedStandings } from "../../lib/fixtures";
 
 /*
  * The body of the fixtures page: a sticky tab bar with filters, two lists of
@@ -38,6 +39,26 @@ const resultGroups = groupByMonth(results)
 
 const nextId = nextMatch(data, now)?.id ?? null;
 
+/*
+ * No matches at all, as opposed to none upcoming: this is the state before a
+ * schedule exists, not the state after one finishes. `fixtures.length === 0`
+ * is true in both cases, so it cannot tell them apart on its own; matches
+ * being genuinely empty is what marks "not started" specifically.
+ *
+ * The roster is read from `standings` rather than `clubs`, since `clubs`
+ * accumulates every opponent ever faced, including clubs from a previous
+ * season that promotion or relegation may have moved out of this division.
+ * `standings` is rebuilt from VMSL's own pool table each scrape, so it is
+ * always this season's division, never last season's.
+ */
+const seasonNotStarted = data.matches.length === 0;
+const divisionRoster = seasonNotStarted
+  ? sortedStandings(data)
+      .map((row) => getClub(data, row.clubSlug))
+      .filter((club): club is NonNullable<typeof club> => Boolean(club))
+      .sort((a, b) => a.name.localeCompare(b.name))
+  : [];
+
 const monthKey = (date: string): string => date.slice(0, 7);
 
 /*
@@ -54,18 +75,44 @@ const monthOptions = groupByMonth(data.matches).map((group) => {
   return { key, label: group.label, scopes: scopes.join(" ") };
 });
 
+/*
+ * `count` here is the raw total for the tab, before any filter runs, so it
+ * never flips at runtime the way a filtered-to-zero state does. That makes it
+ * safe to pick the empty copy at build time: a tab that is empty because the
+ * season has not started, or because it is already over, gets copy that says
+ * so, and a tab that is only empty because of the filters gets the generic
+ * "try a wider selection" message. The filter script only ever toggles
+ * whether this block shows, never which copy it holds.
+ */
 const panels = [
   {
     view: "fixtures",
     label: "Fixtures",
     count: fixtures.length,
     groups: groupByMonth(fixtures),
+    emptyTitle: seasonNotStarted
+      ? `${data.division} clubs`
+      : fixtures.length === 0
+        ? "Season complete"
+        : "Nothing to show",
+    emptyBody: seasonNotStarted
+      ? `The ${data.season} fixture list has not been published yet. VMSL usually releases it in August. Here's who's in ${data.division} this season:`
+      : fixtures.length === 0
+        ? `The ${data.season} fixture list is complete. Pre-season friendlies are announced over the summer, and the new schedule is published by the VMSL in August.`
+        : "No matches meet those filters. Try a wider selection, or another tab.",
   },
   {
     view: "results",
     label: "Results",
     count: results.length,
     groups: resultGroups,
+    emptyTitle: results.length === 0 ? "Season not underway yet" : "Nothing to show",
+    emptyBody:
+      results.length === 0
+        ? seasonNotStarted
+          ? "No results to show yet. Check back once the fixture list is published and the first match is played."
+          : "No results to show yet. Check back after the first match of the season, or see the Fixtures tab for what's coming up."
+        : "No matches meet those filters. Try a wider selection, or another tab.",
   },
 ];
 
@@ -193,17 +240,24 @@ const compFilters = [
                   <span class="fx-month-rule" aria-hidden="true" />
                 </div>
                 {group.matches.map((match) => (
-                  <MatchRow match={match} data={data} isNext={match.id === nextId} />
+                  <MatchRow match={match} data={data} isNext={match.id === nextId} now={now} />
                 ))}
               </div>
             ))}
 
             <div class="fx-empty" data-fx-empty hidden={panel.count > 0}>
-              <b>Nothing to show</b>
-              <p>
-                No matches meet those filters. Try a wider selection, or another
-                tab.
-              </p>
+              <b>{panel.emptyTitle}</b>
+              <p>{panel.emptyBody}</p>
+              {panel.view === "fixtures" && seasonNotStarted && (
+                <ul class="fx-roster">
+                  {divisionRoster.map((club) => (
+                    <li class="fx-roster-item">
+                      <Crest club={club} slug={club.slug} />
+                      <span>{club.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         ))

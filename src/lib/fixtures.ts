@@ -120,6 +120,24 @@ export function kickoffAt(match: Match): Date {
   return new Date(instant);
 }
 
+/**
+ * A match's kickoff as an ISO 8601 string with an explicit Vancouver offset,
+ * e.g. "2026-11-22T12:00:00-08:00". Schema.org's `startDate` on a
+ * `SportsEvent` wants a timezone-qualified instant, and Vancouver's offset
+ * flips between -08:00 and -07:00 twice a year, so it cannot be hardcoded.
+ * Built from the stored date and time directly rather than round-tripped
+ * through `kickoffAt()`'s UTC instant, so the calendar date in the string is
+ * never at risk of shifting a day either side of midnight.
+ */
+export function isoKickoff(match: Match): string {
+  const offsetMs = offsetAt(kickoffAt(match).getTime());
+  const sign = offsetMs < 0 ? "-" : "+";
+  const abs = Math.abs(offsetMs);
+  const hours = String(Math.floor(abs / 3_600_000)).padStart(2, "0");
+  const minutes = String(Math.floor((abs % 3_600_000) / 60_000)).padStart(2, "0");
+  return `${match.date}T${match.time}:00${sign}${hours}:${minutes}`;
+}
+
 /** Today's date in Vancouver, as "YYYY-MM-DD". */
 export function localDate(now: Date): string {
   return momentKey(now).slice(0, 10);
@@ -261,14 +279,37 @@ export function outcome(match: Match): "W" | "D" | "L" | null {
  * Returns null once the season is over.
  */
 export function nextMatch(data: FixturesData, now: Date): Match | null {
+  return upcomingMatches(data, now)[0] ?? null;
+}
+
+/**
+ * Every fixture still to be played at `now`, earliest first. The same rule as
+ * `nextMatch()`, minus the "just the first one" part: this is what the
+ * SportsEvent structured data loops over, since Google wants one entry per
+ * upcoming match rather than only the next.
+ */
+export function upcomingMatches(data: FixturesData, now: Date): Match[] {
   const cutoff = momentKey(now);
-  const upcoming = data.matches
+  return data.matches
     .filter((match) => !isPlayed(match))
     .filter((match) => match.status === undefined || !NOT_SCHEDULED.has(match.status))
     .filter((match) => kickoffKey(match) >= cutoff)
     .sort((a, b) => kickoffKey(a).localeCompare(kickoffKey(b)));
+}
 
-  return upcoming[0] ?? null;
+/**
+ * True when a match's kickoff has passed but neither score is filled in and it
+ * carries no status. VMSL posts results a day or two late, so this is the
+ * ordinary state of a just-finished match rather than a rare one. Once true,
+ * the match has already dropped out of `nextMatch()`/`upcomingMatches()`
+ * because their cutoff is the same kickoff instant; this is what lets the
+ * fixture row explain why it is neither a fixture nor a result, rather than
+ * showing a kickoff time that has already passed.
+ */
+export function isAwaitingResult(match: Match, now: Date): boolean {
+  if (isPlayed(match)) return false;
+  if (match.status !== undefined) return false;
+  return kickoffKey(match) < momentKey(now);
 }
 
 /** Most recent played match at `now`, or null before the season starts. */

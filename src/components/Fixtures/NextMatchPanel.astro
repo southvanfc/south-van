@@ -150,6 +150,9 @@ const h2hCells = record
                 </div>
               </div>
               <div class="fx-pv-pills">
+                {entry && entry.form === "" && (
+                  <span class="fx-pv-noform">No matches yet</span>
+                )}
                 {entry &&
                   entry.form
                     .split("")
@@ -182,8 +185,11 @@ const h2hCells = record
                   <li>
                     <div class="fx-h2h-row">
                       <span class="fx-h2h-date">{formatShortDate(meeting.date)}</span>
-                      <span class="fx-h2h-score">
-                        {meeting.us}&ndash;{meeting.them}
+                      <span
+                        class="fx-h2h-score"
+                        aria-label={`South Van ${meeting.us}, ${getClub(data, meeting.opponentSlug)?.name ?? meeting.opponentSlug} ${meeting.them}`}
+                      >
+                        <span aria-hidden="true">{meeting.us}&ndash;{meeting.them}</span>
                       </span>
                       <span class="fx-h2h-venue">
                         {meeting.isHome ? "H" : "A"} &middot; {meeting.venue}

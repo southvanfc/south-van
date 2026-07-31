@@ -101,11 +101,15 @@ const COLUMNS: { key: string; label: string; full: string }[] = [
                 <td class="fx-st-gd">{goalDifference}</td>
                 <td class="fx-st-pts">{row.points}</td>
                 <td class="fx-st-form">
-                  {row.form.split("").map((letter) => (
-                    <span class:list={["fx-fp", `is-${letter.toLowerCase()}`]}>
-                      {letter}
-                    </span>
-                  ))}
+                  {row.form === "" ? (
+                    <span aria-hidden="true">&ndash;</span>
+                  ) : (
+                    row.form.split("").map((letter) => (
+                      <span class:list={["fx-fp", `is-${letter.toLowerCase()}`]}>
+                        {letter}
+                      </span>
+                    ))
+                  )}
                   {row.form === "" && (
                     <span class="fx-sr">No matches played yet</span>
                   )}

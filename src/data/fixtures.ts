@@ -27,6 +27,9 @@ export const fixturesData = data as FixturesData;
  * add a relegation entry, and the bars and the legend both follow.
  */
 export const leagueZones: LeagueZone[] = [
-  { from: 1, to: 1, colour: "var(--gold)", label: "Division champions" },
+  /* var(--champ), not var(--gold): brand gold is 1.91:1 against the table's
+     white background, under the 3:1 a colour needs when it is the only thing
+     marking the zone. var(--champ) is a darker gold at 3.47:1. */
+  { from: 1, to: 1, colour: "var(--champ)", label: "Division champions" },
   { from: 2, to: 3, colour: "var(--promo)", label: "Promotion to Division 3" },
 ];

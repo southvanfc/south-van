@@ -5,7 +5,7 @@ import MatchHero from "../components/Fixtures/MatchHero.astro";
 import SeasonStats from "../components/Fixtures/SeasonStats.astro";
 import FixtureList from "../components/Fixtures/FixtureList.astro";
 import { fixturesData } from "../data/fixtures";
-import { seasonSummary } from "../lib/fixtures";
+import { OUR_SLUG, getClub, isoKickoff, seasonSummary, upcomingMatches } from "../lib/fixtures";
 import type { SEO } from "../types/types";
 
 /*
@@ -28,6 +28,39 @@ const seo: SEO = {
     "South Van FC fixtures, VMSL fixtures, VMSL results, VMSL Division 4 standings, Vancouver Metro Soccer League, men's soccer Vancouver",
   ogImage: "https://www.southvanfc.com/og/og-default.png",
 };
+
+/*
+ * SportsEvent JSON-LD, one entry per upcoming fixture. Postponed and
+ * cancelled matches are already excluded by `upcomingMatches()`, since a
+ * postponement with no confirmed date has nothing real to put in `startDate`.
+ */
+const ourClub = getClub(fixturesData, OUR_SLUG);
+
+const sportsEventSchema = upcomingMatches(fixturesData, now).map((match) => {
+  const opponent = getClub(fixturesData, match.opponentSlug);
+  const home = match.isHome ? ourClub : opponent;
+  const away = match.isHome ? opponent : ourClub;
+  const homeName = home?.name ?? "TBC";
+  const awayName = away?.name ?? "TBC";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    name: `${homeName} vs ${awayName}`,
+    sport: "Soccer",
+    startDate: isoKickoff(match),
+    location: {
+      "@type": "Place",
+      name: match.venue,
+    },
+    homeTeam: { "@type": "SportsTeam", name: homeName },
+    awayTeam: { "@type": "SportsTeam", name: awayName },
+    competitor: [
+      { "@type": "SportsTeam", name: homeName },
+      { "@type": "SportsTeam", name: awayName },
+    ],
+  };
+});
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -62,6 +95,11 @@ const breadcrumbSchema = {
     type="application/ld+json"
     set:html={JSON.stringify(breadcrumbSchema)}
   />
+  {
+    sportsEventSchema.map((schema) => (
+      <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))
+  }
 
   <FixturesHero season={season} division={division}>
     <MatchHero data={fixturesData} now={now} />

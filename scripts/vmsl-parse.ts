@@ -62,6 +62,18 @@ export interface RawStandingsRow {
   goalsAgainst: number;
   goalDifference: number;
   points: number;
+  /**
+   * The crest VMSL shows next to the club in the standings table, as the path
+   * from the response, e.g. "/upload/img/teamcrest_827.jpg". Null when the
+   * row carries no crest `<img>` at all.
+   *
+   * A club with no badge uploaded still gets an `<img>`, just pointing at a
+   * shared placeholder rather than a file named for that team, so this is a
+   * straight read of whatever src is there. Deciding which src values count
+   * as a real, team specific crest is scrape-vmsl.ts's job, not this file's:
+   * this module only reports what is on the page.
+   */
+  crestUrl: string | null;
 }
 
 export interface RawPool {
@@ -282,6 +294,10 @@ function parseStandingsRows(section: string): RawStandingsRow[] {
       number,
     ];
 
+    // The crest sits earlier in the row than the <td> cells, as
+    // <img title="TAG" class=tcicon valign=middle src="/upload/img/...">.
+    const crest = chunk.match(/<img[^>]*class=tcicon[^>]*\bsrc="([^"]+)"/i);
+
     rows.push({
       position: Number.isFinite(position) ? position : rows.length + 1,
       team: team.name,
@@ -294,6 +310,7 @@ function parseStandingsRows(section: string): RawStandingsRow[] {
       goalsAgainst,
       goalDifference,
       points,
+      crestUrl: crest?.[1] ?? null,
     });
   }
 

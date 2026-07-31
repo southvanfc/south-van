@@ -420,6 +420,20 @@ describe("standings", () => {
     expect(pool?.rows.every((row) => row.played === 0)).toBe(true);
   });
 
+  it("reads a club's crest as the src VMSL served for its row", () => {
+    const pool = findPoolForTeam(parseStandings(STANDINGS_2026_27), OUR_TEAM_ID);
+    const ours = pool?.rows.find((row) => row.teamId === OUR_TEAM_ID);
+
+    expect(ours?.crestUrl).toBe("/upload/img/teamcrest_827.jpg");
+  });
+
+  it("still reads a crest url for a club with no badge uploaded, since deciding what counts as real is not this file's job", () => {
+    const pool = findPoolForTeam(parseStandings(STANDINGS_2026_27), OUR_TEAM_ID);
+    const newEntrant = pool?.rows.find((row) => row.team.includes("AC Phantoms"));
+
+    expect(newEntrant?.crestUrl).toBe("/upload/img/logo_sm.jpg");
+  });
+
   it("agrees with the results we parsed, which is the check that catches reversed scores", () => {
     /*
      * VMSL's published row and our own arithmetic over the fixtures are two

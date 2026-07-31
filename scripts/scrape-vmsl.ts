@@ -27,7 +27,7 @@
  * agreement is in writing and robots.txt says so too.
  */
 
-import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -52,6 +52,8 @@ const DATA_PATH = path.join(ROOT, "src", "data", "fixtures.json");
 const VALIDATOR_PATH = path.join(ROOT, "scripts", "validate-fixtures.ts");
 const DISPLAY_PATH = "src/data/fixtures.json";
 const BASE = "https://vmslsoccer.com/webapps/spappz_live";
+const ORIGIN = new URL(BASE).origin;
+const CRESTS_DIR = path.join(ROOT, "public", "assets", "crests");
 
 /* ------------------------------------------------------------------ */
 /* Config                                                              */
@@ -181,8 +183,9 @@ function sleep(ms: number): Promise<void> {
 
 /**
  * One GET, rate limited to at most one request per second and retried twice
- * with backoff. Two requests per run against someone else's unpaid server is
- * already polite; the delay keeps it that way.
+ * with backoff. Two requests for the schedule and standings is already polite
+ * against someone else's unpaid server; the shared pacing here is what keeps
+ * any further requests, such as a club's crest, just as polite.
  */
 async function get(url: string, userAgent: string, verbose: boolean): Promise<string> {
   const attempts = 3;
@@ -211,6 +214,48 @@ async function get(url: string, userAgent: string, verbose: boolean): Promise<st
   }
 
   throw new Error(`Gave up on ${url} after ${attempts} attempts. Last error: ${lastError}`);
+}
+
+/**
+ * VMSL's shared "no crest uploaded" placeholder is served from a filename
+ * that does not name a team, unlike a real badge's `teamcrest_<id>.jpg`.
+ * Treating that shared file as nobody's crest, rather than downloading it and
+ * showing the same blank shield for every such club, is the whole reason this
+ * check exists rather than just trusting whatever url the row carries.
+ */
+function isRealCrestUrl(url: string): boolean {
+  return /\/teamcrest_\d+\.jpg(?:[?#].*)?$/i.test(url);
+}
+
+/**
+ * Downloads one club's crest and saves it under public/assets/crests, one GET
+ * through the same rate limiter as everything else here. Never fatal: a club
+ * whose crest cannot be fetched, is not an image, or 404s simply keeps its
+ * monogram badge, exactly as it did before this ran.
+ */
+async function downloadCrest(
+  url: string,
+  slug: string,
+  userAgent: string,
+  verbose: boolean,
+): Promise<string | null> {
+  const wait = Math.max(0, lastRequestAt + RATE_LIMIT_MS - Date.now());
+  if (wait > 0) await sleep(wait);
+  lastRequestAt = Date.now();
+
+  if (verbose) console.log(`  GET ${url}`);
+
+  try {
+    const response = await fetch(url, { headers: { "User-Agent": userAgent } });
+    if (!response.ok) return null;
+    if (!(response.headers.get("content-type") ?? "").startsWith("image/")) return null;
+
+    mkdirSync(CRESTS_DIR, { recursive: true });
+    writeFileSync(path.join(CRESTS_DIR, `${slug}.jpg`), Buffer.from(await response.arrayBuffer()));
+    return `/assets/crests/${slug}.jpg`;
+  } catch {
+    return null;
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -252,6 +297,7 @@ function readExisting(): FixturesData {
 class ClubRegistry {
   private readonly bySlug = new Map<string, Club>();
   private readonly byVmslName = new Map<string, Club>();
+  private readonly crestUrlBySlug = new Map<string, string>();
   readonly added: Club[] = [];
 
   constructor(existing: Club[]) {
@@ -294,6 +340,39 @@ class ClubRegistry {
   all(): Club[] {
     return [...this.bySlug.values()];
   }
+
+  /**
+   * Records the crest url VMSL showed for a club's standings row this run, so
+   * a club that turns out to have no local crest yet can be backfilled once
+   * every row has been read. Overwritten harmlessly on every call for a club
+   * already holding a local crest; `pendingCrests()` is what filters those out.
+   */
+  noteCrestUrl(slug: string, crestUrl: string | null): void {
+    if (crestUrl && isRealCrestUrl(crestUrl)) {
+      this.crestUrlBySlug.set(slug, new URL(crestUrl, ORIGIN).toString());
+    }
+  }
+
+  /**
+   * Clubs seen this run that have a crest url on file but no local crest path
+   * yet, excluding our own club, which keeps its own branded asset rather
+   * than VMSL's.
+   */
+  pendingCrests(): Array<{ slug: string; url: string }> {
+    return this.all()
+      .filter((club) => !club.crest && club.slug !== OUR_SLUG)
+      .map((club) => ({ slug: club.slug, url: this.crestUrlBySlug.get(club.slug) }))
+      .filter((entry): entry is { slug: string; url: string } => entry.url !== undefined);
+  }
+
+  /** Points a club at a crest that has been downloaded and saved locally. */
+  setCrestPath(slug: string, crestPath: string): void {
+    const club = this.bySlug.get(slug);
+    if (!club) return;
+    const updated: Club = { ...club, crest: crestPath };
+    this.bySlug.set(slug, updated);
+    this.byVmslName.set((updated.vmslName ?? updated.name).toLowerCase(), updated);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -327,6 +406,7 @@ function buildStandings(
 
   return rows.map((row) => {
     const clubSlug = clubs.slugFor(row.team);
+    clubs.noteCrestUrl(clubSlug, row.crestUrl);
     /*
      * Our own form comes from our own results. For every other club we keep
      * whatever a human last entered, because VMSL does not publish form and
@@ -798,7 +878,20 @@ async function main(): Promise<void> {
     divisionLabel: config.divisionLabel,
     slugFor: (vmslName) => clubs.slugFor(vmslName),
   });
-  const { matches, history, notes } = reconcile(existing, scraped, config);
+
+  /*
+   * With no schedule published, there is nothing to reconcile against.
+   * reconcile() assumes a VMSL id missing from `scraped` means VMSL dropped
+   * that match, which is true when `scraped` is a real, populated schedule
+   * and false when it is empty because nothing has been published yet, or
+   * because the page glitched. So it is not called at all in this branch:
+   * the schedule stays exactly as it was. Only `standings` below changes,
+   * built from VMSL's own pool table rather than reconciled from anything.
+   */
+  const noSchedulePublished = schedule.fixtures.length === 0;
+  const { matches, history, notes } = noSchedulePublished
+    ? { matches: existing.matches, history: existing.history, notes: [] as string[] }
+    : reconcile(existing, scraped, config);
   const standings = ourPool ? buildStandings(ourPool.rows, clubs, matches, existing.standings) : [];
 
   if (options.verbose) {
@@ -835,25 +928,59 @@ async function main(): Promise<void> {
   }
 
   /*
-   * The pre season case. Zero matches with the flag set is a real outcome, not
-   * a failure, but it must never replace a populated file with an empty one.
-   * This returns before the reconciliation notes are printed, because "these
-   * matches are no longer on VMSL" is true but misleading when the answer is
-   * simply that nothing has been published yet.
+   * Crests. Only for clubs the standings pass just saw a real teamcrest url
+   * for and that do not already have a local one, so a steady state run
+   * downloads nothing: this only fires for a club new to the file, or the
+   * first run after this feature existed. Skipped entirely on a dry run, so
+   * "nothing will be written" stays true of image files too, not only of
+   * fixtures.json.
    */
-  if (schedule.fixtures.length === 0) {
+  if (!options.dryRun) {
+    const pending = clubs.pendingCrests();
+    for (const { slug, url } of pending) {
+      const saved = await downloadCrest(url, slug, config.userAgent, options.verbose);
+      if (saved) {
+        clubs.setCrestPath(slug, saved);
+        console.log(`  Saved a crest for ${slug}.`);
+      } else {
+        console.log(`  Could not download a crest for ${slug} (${url}); it keeps its monogram badge.`);
+      }
+    }
+    // clubs.all() may have changed above, so the candidate has to catch up.
+    candidate.clubs = clubs.all();
+  }
+
+  /*
+   * The pre season case. Zero matches with the flag set is a real outcome, not
+   * a failure, but the schedule itself is left alone either way: `matches` and
+   * `history` above are already `existing.matches`/`existing.history`
+   * untouched, not reconciled down to nothing.
+   *
+   * What can still change here is the division roster. VMSL's standings page
+   * lists every club in the pool before a single fixture is scheduled, each
+   * at zero played, so `standings` above was built from that even though the
+   * schedule is empty. That is always safe to write regardless of what the
+   * existing match list holds: a pool with no fixtures yet is mathematically
+   * all zeros, so it can never disagree with, or overwrite, a real result.
+   * (If it does disagree, `runChecks` above already caught that and this
+   * point is never reached.)
+   */
+  if (noSchedulePublished) {
     console.log(
       `\nSeason ${config.season} is not published yet. VMSL returned no fixtures, which is expected before ` +
         `the schedule is released, usually mid to late August.`,
     );
-    if (existing.matches.length > 0) {
+    if (!ourPool) {
       console.log(
-        `${DISPLAY_PATH} already holds ${existing.matches.length} matches and has been left alone.\n`,
+        `VMSL's standings page did not return a pool for team ${config.teamId} either, so there is nothing ` +
+          `to refresh. ${DISPLAY_PATH} has been left alone.\n`,
       );
       return;
     }
-    console.log("The existing file is empty too, so there is nothing to change.\n");
-    return;
+    console.log(`The division roster is available though: ${standings.length} clubs in Pool ${ourPool.pool}.`);
+    /* Falls through to the diff, validate and write steps below. Only clubs
+       and standings can have changed from here on; matches and history are
+       exactly what they were. */
   }
 
   for (const warning of [...warnings, ...notes]) console.log(`  ! ${warning}`);

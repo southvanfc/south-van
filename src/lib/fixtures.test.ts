@@ -7,6 +7,8 @@ import {
   formatLongDate,
   formatShortDate,
   groupByMonth,
+  isAwaitingResult,
+  isoKickoff,
   kickoffAt,
   localDate,
   ordinal,
@@ -21,6 +23,7 @@ import {
   seasonSummary,
   sortedStandings,
   theirScore,
+  upcomingMatches,
 } from "./fixtures";
 
 /** Minimal match, overridden per test. Scores are HOME team first. */
@@ -237,22 +240,36 @@ describe("sortedStandings", () => {
     expect(data.standings.map((r) => r.clubSlug)).toEqual(before);
   });
 
-  it("places South Van in the seed data by points", () => {
-    const sorted = sortedStandings(fixturesData);
-    expect(sorted).toHaveLength(10);
-    expect(sorted[0]?.clubSlug).toBe("new-wells-city-fc");
-    expect(positionOf(fixturesData, OUR_SLUG)).toBe(3);
-    expect(positionOf(fixturesData, "not-a-club")).toBeNull();
+  it("finds a club's position via positionOf, and null when it is not in the table", () => {
+    const data = dataWith({
+      standings: [
+        standingsRow({ clubSlug: "leader", won: 8 }),
+        standingsRow({ clubSlug: OUR_SLUG, won: 4, drawn: 2, lost: 2 }),
+        standingsRow({ clubSlug: "bottom", lost: 8 }),
+      ],
+    });
+    expect(positionOf(data, OUR_SLUG)).toBe(2);
+    expect(positionOf(data, "not-a-club")).toBeNull();
   });
 });
 
 describe("headToHead", () => {
-  it("counts the seed data from South Van's perspective, newest first", () => {
-    const h2h = headToHead(fixturesData, "cmfsc-caproni");
+  it("counts across several meetings, newest first", () => {
+    const data = dataWith({
+      history: [
+        match({ id: "h1", opponentSlug: "rivals-fc", date: "2024-11-10", isHome: true, homeScore: 3, awayScore: 1 }),
+        match({ id: "h2", opponentSlug: "rivals-fc", date: "2025-03-02", isHome: true, homeScore: 2, awayScore: 2 }),
+        match({ id: "h3", opponentSlug: "rivals-fc", date: "2025-10-19", isHome: true, homeScore: 0, awayScore: 2 }),
+      ],
+      matches: [
+        match({ id: "m1", opponentSlug: "rivals-fc", date: "2026-09-13", isHome: true, homeScore: 2, awayScore: 1 }),
+      ],
+    });
+    const h2h = headToHead(data, "rivals-fc");
 
-    expect(h2h.played).toBe(5);
+    expect(h2h.played).toBe(4);
     expect(h2h.won).toBe(2);
-    expect(h2h.drawn).toBe(2);
+    expect(h2h.drawn).toBe(1);
     expect(h2h.lost).toBe(1);
     expect(h2h.won + h2h.drawn + h2h.lost).toBe(h2h.played);
 
@@ -262,12 +279,22 @@ describe("headToHead", () => {
   });
 
   it("reports an away defeat as a defeat", () => {
-    // 2025-10-19 was a 0-2 home defeat, 2026-02-15 a 1-1 away draw.
-    const h2h = headToHead(fixturesData, "cmfsc-caproni");
-    const away = h2h.meetings.find((m) => m.date === "2026-02-15");
-    expect(away?.us).toBe(1);
-    expect(away?.them).toBe(1);
-    expect(away?.result).toBe("D");
+    const data = dataWith({
+      history: [
+        match({
+          id: "h1",
+          opponentSlug: "rivals-fc",
+          date: "2025-10-19",
+          isHome: false,
+          homeScore: 2,
+          awayScore: 0,
+        }),
+      ],
+    });
+    const away = headToHead(data, "rivals-fc").meetings.find((m) => m.date === "2025-10-19");
+    expect(away?.us).toBe(0);
+    expect(away?.them).toBe(2);
+    expect(away?.result).toBe("L");
   });
 
   it("combines this season and history, and skips unplayed fixtures", () => {
@@ -295,35 +322,105 @@ describe("headToHead", () => {
 });
 
 describe("nextMatch and lastResult", () => {
+  const data = dataWith({
+    matches: [
+      match({ id: "r1", date: "2026-09-13", time: "14:00", opponentSlug: "a-fc", homeScore: 2, awayScore: 1 }),
+      match({ id: "r2", date: "2026-11-15", time: "14:00", opponentSlug: "b-fc", homeScore: 4, awayScore: 1 }),
+      match({ id: "u1", date: "2026-11-22", time: "12:00", opponentSlug: "c-fc" }),
+      match({ id: "u2", date: "2026-11-29", time: "14:00", opponentSlug: "d-fc" }),
+      match({ id: "p1", date: "2026-12-06", time: "13:00", opponentSlug: "e-fc", status: "postponed" }),
+      match({ id: "u3", date: "2026-12-12", time: "19:00", opponentSlug: "f-fc", competition: "cup" }),
+    ],
+  });
+
   it("returns the earliest unplayed match", () => {
-    const next = nextMatch(fixturesData, new Date("2026-11-18T20:15:00-08:00"));
+    const next = nextMatch(data, new Date("2026-11-18T20:15:00-08:00"));
     expect(next?.date).toBe("2026-11-22");
-    expect(next?.opponentSlug).toBe("cmfsc-caproni");
+    expect(next?.opponentSlug).toBe("c-fc");
   });
 
   it("skips a postponed fixture, since its date is no longer real", () => {
-    const next = nextMatch(fixturesData, new Date("2026-12-01T09:00:00-08:00"));
+    const next = nextMatch(data, new Date("2026-12-01T09:00:00-08:00"));
     expect(next?.date).toBe("2026-12-12");
     expect(next?.competition).toBe("cup");
   });
 
   it("returns null when the season is over", () => {
-    expect(nextMatch(fixturesData, new Date("2027-06-01T09:00:00-07:00"))).toBeNull();
+    expect(nextMatch(data, new Date("2027-06-01T09:00:00-07:00"))).toBeNull();
   });
 
   it("does not return a match that has already kicked off", () => {
-    const justAfter = nextMatch(fixturesData, new Date("2026-11-22T12:01:00-08:00"));
+    const justAfter = nextMatch(data, new Date("2026-11-22T12:01:00-08:00"));
     expect(justAfter?.date).toBe("2026-11-29");
   });
 
   it("returns the most recent result", () => {
-    const last = lastResult(fixturesData, new Date("2026-11-18T20:15:00-08:00"));
+    const last = lastResult(data, new Date("2026-11-18T20:15:00-08:00"));
     expect(last?.date).toBe("2026-11-15");
     expect(outcome(last ?? match())).toBe("W");
   });
 
   it("returns null for lastResult before the season starts", () => {
-    expect(lastResult(fixturesData, new Date("2026-08-01T09:00:00-07:00"))).toBeNull();
+    expect(lastResult(data, new Date("2026-08-01T09:00:00-07:00"))).toBeNull();
+  });
+});
+
+describe("upcomingMatches", () => {
+  it("agrees with nextMatch on the first entry", () => {
+    const now = new Date("2026-11-18T20:15:00-08:00");
+    expect(upcomingMatches(fixturesData, now)[0]?.id).toBe(nextMatch(fixturesData, now)?.id);
+  });
+
+  it("excludes a postponed fixture with no confirmed date, same as nextMatch", () => {
+    const now = new Date("2026-12-01T09:00:00-08:00");
+    expect(upcomingMatches(fixturesData, now).some((m) => m.status === "postponed")).toBe(false);
+  });
+
+  it("is empty once the season is over", () => {
+    expect(upcomingMatches(fixturesData, new Date("2027-06-01T09:00:00-07:00"))).toEqual([]);
+  });
+});
+
+describe("isAwaitingResult", () => {
+  it("is false for a match that has not kicked off yet", () => {
+    const m = match({ date: "2026-11-22", time: "12:00" });
+    expect(isAwaitingResult(m, new Date("2026-11-22T11:59:00-08:00"))).toBe(false);
+  });
+
+  it("is true once kickoff has passed with no score and no status", () => {
+    const m = match({ date: "2026-11-22", time: "12:00" });
+    expect(isAwaitingResult(m, new Date("2026-11-22T14:00:00-08:00"))).toBe(true);
+  });
+
+  it("is false once a score is recorded, even after kickoff", () => {
+    const m = match({ date: "2026-11-22", time: "12:00", homeScore: 2, awayScore: 1 });
+    expect(isAwaitingResult(m, new Date("2026-11-22T14:00:00-08:00"))).toBe(false);
+  });
+
+  it("is false for a match carrying a status, postponed or otherwise", () => {
+    const m = match({ date: "2026-11-22", time: "12:00", status: "postponed" });
+    expect(isAwaitingResult(m, new Date("2026-11-22T14:00:00-08:00"))).toBe(false);
+  });
+
+  it("agrees with nextMatch: once awaiting a result, the match is not upcoming", () => {
+    const m = match({ id: "awaiting-1", date: "2026-11-22", time: "12:00" });
+    const now = new Date("2026-11-22T14:00:00-08:00");
+    expect(isAwaitingResult(m, now)).toBe(true);
+    expect(upcomingMatches(dataWith({ matches: [m] }), now)).toEqual([]);
+  });
+});
+
+describe("isoKickoff", () => {
+  it("writes a winter kickoff with the -08:00 offset", () => {
+    expect(isoKickoff(match({ date: "2026-11-22", time: "12:00" }))).toBe(
+      "2026-11-22T12:00:00-08:00",
+    );
+  });
+
+  it("writes an autumn kickoff with the -07:00 offset, before the clocks change", () => {
+    expect(isoKickoff(match({ date: "2026-09-13", time: "14:00" }))).toBe(
+      "2026-09-13T14:00:00-07:00",
+    );
   });
 });
 
@@ -359,25 +456,27 @@ describe("league table integrity on the seed data", () => {
 });
 
 describe("matchesInMonth and groupByMonth", () => {
+  const data = dataWith({
+    matches: [
+      match({ id: "1", date: "2026-09-13", opponentSlug: "a-fc" }),
+      match({ id: "2", date: "2026-11-01", opponentSlug: "b-fc" }),
+      match({ id: "3", date: "2026-11-07", opponentSlug: "c-fc" }),
+      match({ id: "4", date: "2026-11-15", opponentSlug: "d-fc" }),
+      match({ id: "5", date: "2027-03-07", opponentSlug: "e-fc" }),
+    ],
+  });
+
   it("selects one calendar month, with month numbered 1 to 12", () => {
-    const november = matchesInMonth(fixturesData, 2026, 11);
-    expect(november.map((m) => m.date)).toEqual([
-      "2026-11-01",
-      "2026-11-07",
-      "2026-11-15",
-      "2026-11-22",
-      "2026-11-29",
-    ]);
-    expect(matchesInMonth(fixturesData, 2026, 7)).toEqual([]);
+    const november = matchesInMonth(data, 2026, 11);
+    expect(november.map((m) => m.date)).toEqual(["2026-11-01", "2026-11-07", "2026-11-15"]);
+    expect(matchesInMonth(data, 2026, 7)).toEqual([]);
   });
 
   it("groups into months oldest first with a readable label", () => {
-    const groups = groupByMonth(fixturesData.matches);
+    const groups = groupByMonth(data.matches);
     expect(groups[0]).toMatchObject({ year: 2026, month: 9, label: "September 2026" });
     expect(groups.at(-1)).toMatchObject({ year: 2027, month: 3, label: "March 2027" });
-    expect(groups.reduce((n, g) => n + g.matches.length, 0)).toBe(
-      fixturesData.matches.length,
-    );
+    expect(groups.reduce((n, g) => n + g.matches.length, 0)).toBe(data.matches.length);
   });
 
   it("does not mutate the array it is given", () => {
@@ -390,26 +489,40 @@ describe("matchesInMonth and groupByMonth", () => {
   });
 });
 
-describe("the seed data itself", () => {
+/*
+ * This describes the real, live src/data/fixtures.json, not a fixed sample,
+ * so it only asserts things that hold regardless of where the season is:
+ * before a schedule exists, mid season, or after it. A test that hardcodes
+ * today's match count would break the day a real result comes in, which is
+ * exactly the kind of test that broke here once already.
+ */
+describe("the real fixtures data", () => {
   it("has no duplicate match ids", () => {
     const ids = [...fixturesData.matches, ...fixturesData.history].map((m) => m.id);
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("has 18 league matches and one cup tie", () => {
+  it("splits every match into league, cup or friendly with nothing left over", () => {
     const league = fixturesData.matches.filter((m) => m.competition === "league");
     const cup = fixturesData.matches.filter((m) => m.competition === "cup");
-    expect(league).toHaveLength(18);
-    expect(cup).toHaveLength(1);
+    const friendly = fixturesData.matches.filter((m) => m.competition === "friendly");
+    expect(league.length + cup.length + friendly.length).toBe(fixturesData.matches.length);
   });
 
-  it("plays every opponent home and away in the league", () => {
-    for (const club of fixturesData.clubs.filter((c) => c.slug !== OUR_SLUG)) {
-      const league = fixturesData.matches.filter(
-        (m) => m.competition === "league" && m.opponentSlug === club.slug,
-      );
-      expect(league.filter((m) => m.isHome), club.slug).toHaveLength(1);
-      expect(league.filter((m) => !m.isHome), club.slug).toHaveLength(1);
+  it("plays every league opponent home and away, once a schedule exists", () => {
+    const league = fixturesData.matches.filter((m) => m.competition === "league");
+    if (league.length === 0) return; // 2026-27 schedule not published yet
+
+    const byOpponent = new Map<string, { home: number; away: number }>();
+    for (const m of league) {
+      const entry = byOpponent.get(m.opponentSlug) ?? { home: 0, away: 0 };
+      if (m.isHome) entry.home += 1;
+      else entry.away += 1;
+      byOpponent.set(m.opponentSlug, entry);
+    }
+    for (const [slug, { home, away }] of byOpponent) {
+      expect(home, `${slug} home`).toBeGreaterThan(0);
+      expect(away, `${slug} away`).toBeGreaterThan(0);
     }
   });
 
@@ -480,7 +593,13 @@ describe("date formatting", () => {
 
 describe("calendarRange", () => {
   it("covers every month from the first fixture to the last", () => {
-    const range = calendarRange(fixturesData);
+    const data = dataWith({
+      matches: [
+        match({ id: "1", date: "2026-09-13", opponentSlug: "a-fc" }),
+        match({ id: "2", date: "2027-03-07", opponentSlug: "b-fc" }),
+      ],
+    });
+    const range = calendarRange(data);
     expect(range[0]).toMatchObject({ year: 2026, month: 9, label: "September 2026" });
     expect(range[range.length - 1]).toMatchObject({
       year: 2027,

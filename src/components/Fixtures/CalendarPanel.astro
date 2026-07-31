@@ -140,19 +140,19 @@ const grids = months.map((entry) => {
               return (
                 <div
                   class:list={[
-                    "fx-chip",
+                    "fx-cal-chip",
                     match.isHome ? "is-home" : "is-away",
                     played && "is-played",
                   ]}
                 >
-                  <span class="fx-chip-op">
-                    <span class="fx-chip-ha">{match.isHome ? "H" : "A"}</span>
+                  <span class="fx-cal-chip-op">
+                    <span class="fx-cal-chip-ha">{match.isHome ? "H" : "A"}</span>
                     {opponent?.tag ?? match.opponentSlug.slice(0, 3).toUpperCase()}
                   </span>
                   {/* Our goals first, not the home team's. A chip reading
                       "3-2 L" next to an away defeat is the exact confusion the
                       stored home-first scores are there to be read out of. */}
-                  <span class="fx-chip-tm">
+                  <span class="fx-cal-chip-tm">
                     {played
                       ? `${ourScore(match)}-${theirScore(match)} ${result}`
                       : match.time}

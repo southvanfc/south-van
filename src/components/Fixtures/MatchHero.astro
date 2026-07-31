@@ -150,10 +150,23 @@ const focus = match
 
       /* Clamped to the months that hold matches, so the arrows go dead at each
          end rather than paging into empty months either side of the season. */
+      const focusedArrow = document.activeElement;
+      let stillFocusable = false;
+
       arrows.forEach((arrow) => {
         const step = Number(arrow.dataset.fxMonthStep);
         arrow.disabled = index + step < 0 || index + step >= grids.length;
+        if (arrow === focusedArrow && !arrow.disabled) stillFocusable = true;
       });
+
+      /* Disabling the arrow a keyboard user just activated, which happens on
+         reaching either end of the season, drops focus to the body with no
+         way back to the calendar. Sending it to the arrow that is still
+         enabled keeps a keyboard user in the control instead. */
+      if (!stillFocusable && arrows.length > 0 && Array.from(arrows).includes(focusedArrow as HTMLButtonElement)) {
+        const next = Array.from(arrows).find((arrow) => !arrow.disabled);
+        next?.focus();
+      }
     }
 
     arrows.forEach((arrow) => {
