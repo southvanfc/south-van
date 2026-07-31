@@ -1,0 +1,35 @@
+---
+interface Props {
+  /** Season label from the fixtures data, for example "2026-27" */
+  season: string;
+  /** Division label from the fixtures data, for example "VMSL Division 4A" */
+  division: string;
+}
+
+const { season, division } = Astro.props;
+---
+
+<section class="fx-hero">
+  <div class="fx-shell">
+    <div class="fx-hero-head">
+      <span class="eyebrow eyebrow-gold">{season} Season</span>
+      <h1 class="fx-hero-title">Fixtures and<br />Results</h1>
+      <p class="fx-hero-intro">
+        Every South Van FC men's fixture and result in the Vancouver Metro
+        Soccer League, along with the current league standings. Kickoff times
+        are local to Vancouver and can change at short notice, so check back
+        before you travel.
+      </p>
+      <div class="fx-hero-meta">
+        <span class="pill pill-white">{division}</span>
+        <span class="pill pill-white">Men's Team</span>
+      </div>
+    </div>
+
+    {/*
+      Prompt 06 slots the MatchHero card in here, inside the navy gradient.
+      Nothing is passed yet, so the intro block keeps its own bottom spacing.
+    */}
+    <slot />
+  </div>
+</section>

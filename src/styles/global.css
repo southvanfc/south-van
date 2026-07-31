@@ -259,6 +259,11 @@ a { color: inherit; }
   --text-dark:  #0a1428;
   --text-mid:   #3d4d6e;
   --text-light: #6b7a9e;
+
+  /* Match outcomes, used by the fixtures page and the league table */
+  --win:        #1e8a5a;
+  --draw:       #8a8fa3;
+  --loss:       #c0392b;
 }
 
 /* ── NAV ── */
@@ -587,4 +592,137 @@ a { color: inherit; }
 @media (max-width: 640px) {
   .section-title { font-size: 42px; }
   .stat-num { font-size: 44px; }
+}
+
+/* ================================================================
+   FIXTURES
+   Shared styles for the fixtures and results page. The hero and the
+   season stats band live here; the match card and the fixture list
+   reuse .fx-shell for their content width.
+
+   Inter is the only font on the site, so the display treatment on
+   scorelines and big numerals comes from weight, tight tracking and
+   tabular figures rather than a second family.
+   ================================================================ */
+
+/* Content shell, centred inside the section padding */
+.fx-shell { width: 100%; max-width: 1240px; margin: 0 auto; }
+
+/* ── FIXTURES HERO ── */
+.fx-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 80px 64px;
+  color: var(--white);
+  background:
+    radial-gradient(120% 90% at 78% 8%, rgba(1,52,120,0.95) 0%, rgba(1,31,74,0) 60%),
+    linear-gradient(150deg, #011f4a 0%, #012860 48%, #011a3f 100%);
+}
+/* Repeating vertical lines, like pitch markings */
+.fx-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 84px
+  );
+}
+/* Skewed gold panel on the right */
+.fx-hero::after {
+  content: '';
+  position: absolute; top: -30%; right: -14%;
+  width: 46%; height: 170%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(232,180,48,0.13), rgba(232,180,48,0));
+  transform: skewX(-16deg);
+}
+.fx-hero .fx-shell { position: relative; z-index: 2; }
+
+.fx-hero-head { margin-bottom: 44px; }
+/* No slotted match card yet, so do not leave a gap under the intro */
+.fx-hero-head:last-child { margin-bottom: 0; }
+
+.fx-hero-title {
+  font-size: clamp(38px, 6.4vw, 72px);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 0 0 16px;
+}
+.fx-hero-intro {
+  margin: 0;
+  max-width: 56ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.66);
+}
+.fx-hero-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  margin-top: 22px;
+}
+
+/* ── SEASON STATS BAND ── */
+.fx-stats {
+  background: var(--navy-dark);
+  border-top: 3px solid var(--gold);
+  padding: 0 80px;
+}
+.fx-stats-inner {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.fx-stat {
+  padding: 28px 10px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.fx-stat:last-child { border-right: none; }
+.fx-stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.fx-stat-lbl {
+  margin-top: 10px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.46);
+}
+
+/* Seven cells stop fitting before the site's 960px breakpoint, since
+   "Goals Against" wraps once a cell drops under about 140px */
+@media (max-width: 1080px) {
+  .fx-stats-inner { grid-template-columns: repeat(4, 1fr); }
+  .fx-stat:nth-child(4) { border-right: none; }
+  .fx-stat:nth-child(n+5) { border-top: 1px solid rgba(255,255,255,0.07); }
+}
+
+@media (max-width: 960px) {
+  .fx-hero { padding: 56px 28px 48px; }
+  .fx-hero-head { margin-bottom: 36px; }
+  .fx-stats { padding: 0 28px; }
+}
+
+@media (max-width: 640px) {
+  .fx-hero { padding: 44px 20px 40px; }
+  .fx-hero-intro { font-size: 15px; }
+  .fx-stats { padding: 0 20px; }
+  .fx-stats-inner { grid-template-columns: repeat(3, 1fr); }
+  .fx-stat { padding: 20px 6px; }
+  /* Rows of three, so the cell that ended row one at 4 columns needs its
+     divider back before the 3n rule takes over */
+  .fx-stat:nth-child(4) { border-right: 1px solid rgba(255,255,255,0.07); }
+  .fx-stat:nth-child(3n) { border-right: none; }
+  .fx-stat:nth-child(n+4) { border-top: 1px solid rgba(255,255,255,0.07); }
+  .fx-stat-num { font-size: 27px; }
+  .fx-stat-lbl { font-size: 9px; letter-spacing: 1.4px; }
 }

@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FixturesHero from "../components/Fixtures/FixturesHero.astro";
+import SeasonStats from "../components/Fixtures/SeasonStats.astro";
+import { fixturesData } from "../data/fixtures";
+import { seasonSummary } from "../lib/fixtures";
+import type { SEO } from "../types/types";
+
+/*
+ * SSR, so this runs per request. Nothing here is baked in at build time,
+ * which is what keeps the next match and the season record current.
+ */
+const { season, division } = fixturesData;
+const summary = seasonSummary(fixturesData);
+
+const seo: SEO = {
+  title: "Fixtures and Results | VMSL | South Van FC",
+  description: `South Van FC men's team fixtures and results in ${division} for the ${season} season. Kickoff times, venues and standings from the Vancouver Metro Soccer League.`,
+  canonical: "/fixtures/",
+  ogType: "website",
+  keywords:
+    "South Van FC fixtures, VMSL fixtures, VMSL results, VMSL Division 4 standings, Vancouver Metro Soccer League, men's soccer Vancouver",
+  ogImage: "https://www.southvanfc.com/og/og-default.png",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Men's Team",
+      item: "https://www.southvanfc.com/mens-team/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Fixtures and Results",
+      item: "https://www.southvanfc.com/fixtures/",
+    },
+  ],
+};
+---
+
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+
+  <FixturesHero season={season} division={division}>
+    {/* PLACEHOLDER, prompt 06: <MatchHero /> goes here, inside the hero panel */}
+  </FixturesHero>
+
+  <SeasonStats summary={summary} />
+
+  {/* PLACEHOLDER, prompt 07: <FixtureList /> and the standings table go here */}
+</BaseLayout>
