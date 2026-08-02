@@ -1,0 +1,113 @@
+---
+/*
+ * What used to be MensCulture: three emoji pillars, a five-item expectations
+ * checklist and a four-card playing time grid, about 325 words. The three
+ * pillars said all of it, so this is the three pillars and one line each.
+ */
+
+const pillars = [
+  {
+    num: "01",
+    name: "Compete",
+    body: "No guaranteed starts. Every player earns their place again each week.",
+  },
+  {
+    num: "02",
+    name: "Accountability",
+    body: "Turn up on time, do the work, take the feedback straight.",
+  },
+  {
+    num: "03",
+    name: "Improve",
+    body: "We pick players who want to get better, not players who think they are finished.",
+  },
+];
+---
+
+<section class="pillars">
+  <div class="pillars-head">
+    <span class="eyebrow eyebrow-navy">Standards</span>
+    <h2 class="section-title">What We Ask For</h2>
+  </div>
+
+  <div class="pillars-grid">
+    {
+      pillars.map(({ num, name, body }) => (
+        <div class="pillar">
+          <span class="pillar-num" aria-hidden="true">
+            {num}
+          </span>
+          <h3 class="pillar-name">{name}</h3>
+          <p class="pillar-body">{body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .pillars {
+    background: var(--off-white);
+    padding: 88px 80px;
+  }
+
+  .pillars-head {
+    margin-bottom: 44px;
+  }
+  .pillars-head :global(.section-title) {
+    margin-bottom: 0;
+  }
+
+  /* 2px of --lt-gray showing between white cards reads as a hairline rule,
+     the same trick Values.astro uses on the homepage */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--lt-gray);
+  }
+
+  .pillar {
+    background: #fff;
+    padding: 40px 36px 44px;
+    border-top: 3px solid transparent;
+    transition:
+      border-color 0.3s,
+      transform 0.3s;
+  }
+  .pillar:hover {
+    border-top-color: var(--gold);
+    transform: translateY(-4px);
+  }
+
+  .pillar-num {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+
+  .pillar-name {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    color: var(--navy-dark);
+    margin-bottom: 10px;
+  }
+
+  .pillar-body {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-mid);
+  }
+
+  @media (max-width: 960px) {
+    .pillars {
+      padding: 64px 28px;
+    }
+    .pillars-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -2,10 +2,10 @@
 const links = [
   { key: "home", href: "/", label: "Home" },
   { key: "academy", href: "/soccer-academy/", label: "Soccer Academy" },
-  { key: "pricing", href: "/soccer-academy/pricing/", label: "Pricing" },
-  { key: "coaches", href: "/our-coaches/", label: "Coaches" },
   { key: "mens-team", href: "/mens-team/", label: "Men's Team" },
+  { key: "coaches", href: "/our-coaches/", label: "Coaches" },
   { key: "fixtures", href: "/fixtures/", label: "Fixtures" },
+  { key: "pricing", href: "/soccer-academy/pricing/", label: "Pricing" },
   { key: "blog", href: "/blogs/", label: "Blogs" },
 ];
 
@@ -54,10 +54,11 @@ const activeKey = links.reduce(
       </button>
       <ul class="nav-dropdown-menu" role="menu">
         <li role="none">
-          <a href="/mens-team/" role="menuitem">Men's Squad</a>
+          <a href="/mens-team/apply/" role="menuitem">Men's Squad</a>
         </li>
         <li role="none">
-          <a href="/soccer-academy/player-evaluation/" role="menuitem">Soccer Academy</a
+          <a href="/soccer-academy/player-evaluation/" role="menuitem"
+            >Soccer Academy</a
           >
         </li>
       </ul>
@@ -85,7 +86,7 @@ const activeKey = links.reduce(
       </a>
     ))
   }
-  <a href="/mens-team/" class="drawer-cta">Apply: Men's Squad</a>
+  <a href="/mens-team/apply/" class="drawer-cta">Apply: Men's Squad</a>
   <a href="/soccer-academy/player-evaluation/" class="drawer-cta"
     >Apply: Soccer Academy</a
   >

@@ -1,0 +1,163 @@
+---
+/*
+ * Replaces MensEligibility: seven checkmark bullets and a four card schedule
+ * grid, about 260 words. Three requirements and three facts carry the same
+ * information.
+ *
+ * Matchdays are at Empire Field. The training venue is genuinely not settled
+ * yet, so this says who confirms it rather than naming a pitch that moves. The
+ * old copy hardcoded a Richmond high school as the one venue for everything,
+ * which was wrong on both counts.
+ */
+
+const eligibility = [
+  "18 or older.",
+  "Competitive club or league experience.",
+  "Free on training nights and fixture weekends, all season.",
+];
+
+const training = [
+  { label: "Training", value: "Wednesdays, 9:00 PM" },
+  { label: "Training venue", value: "Confirmed weekly with the squad" },
+  { label: "Home Matchdays", value: "Empire Field, Vancouver" },
+];
+---
+
+<section class="reqs">
+  <div class="reqs-inner">
+    <div class="reqs-col">
+      <span class="eyebrow eyebrow-navy">Who We Want</span>
+      <h2 class="col-title">Eligibility</h2>
+      <ul class="req-list">
+        {
+          eligibility.map((item) => (
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="reqs-col">
+      <span class="eyebrow eyebrow-navy">When we meet</span>
+      <h2 class="col-title">When and Where</h2>
+      <dl class="train-list">
+        {
+          training.map(({ label, value }) => (
+            <div class="train-row">
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reqs {
+    background: #fff;
+    padding: 88px 80px;
+  }
+
+  .reqs-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 64px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .divider {
+    background: var(--lt-gray);
+  }
+
+  .col-title {
+    font-size: clamp(32px, 3.2vw, 44px);
+    line-height: 0.98;
+    letter-spacing: 0.5px;
+    color: var(--navy-dark);
+    margin-bottom: 26px;
+  }
+
+  .req-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .req-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-mid);
+  }
+  .req-list svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .train-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .train-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--lt-gray);
+  }
+  .train-row:first-child {
+    border-top: 1px solid var(--lt-gray);
+  }
+  .train-row dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    flex-shrink: 0;
+  }
+  .train-row dd {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy-dark);
+    text-align: right;
+  }
+
+  @media (max-width: 960px) {
+    .reqs {
+      padding: 64px 28px;
+    }
+    .reqs-inner {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+    .divider {
+      height: 1px;
+    }
+  }
+</style>

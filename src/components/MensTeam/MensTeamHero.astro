@@ -1,11 +1,25 @@
 ---
+import { Image } from "astro:assets";
+import { heroImage } from "../../lib/team-images";
+
+/*
+ * The headline used to be painted at rgba(255,255,255,0.18), which made the
+ * page's only h1 a watermark. The ghosting now lives on a separate decorative
+ * span behind the grid, the same trick Squads.astro uses, so the effect stays
+ * and the headline is readable.
+ */
+
+const HERO_ALT = "South Van FC men's squad before a VMSL fixture";
+
+const pills = ["18 and over", "VMSL Division 4A", "Open Trials"];
 ---
 
 <section class="mens-hero">
   <div class="field-pattern" aria-hidden="true"></div>
   <div class="accent-bar" aria-hidden="true"></div>
+  <span class="hero-ghost" aria-hidden="true">SVFC</span>
 
-  <div class="hero-inner">
+  <div class:list={["hero-inner", !heroImage && "is-noimage"]}>
     <div class="hero-left">
       <nav class="crumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
@@ -20,41 +34,53 @@
         >
         <span class="crumb-cur">Men's Team</span>
       </nav>
-      <span class="eyebrow">Men's Training Squad</span>
-      <h1 class="hero-title">Vancouver <br /> Men's <br /> Soccer</h1>
-    </div>
 
-    <div class="hero-right">
+      <span class="eyebrow eyebrow-gold">Men's Team</span>
+      <h1 class="hero-title">Vancouver <br /> Men's Soccer</h1>
+
       <p class="hero-body">
-        South Van FC's men's team competes in the Vancouver Men's Soccer League.
-        We're a club built around competition, consistency, and development.
-        Adult soccer in Vancouver at a standard that demands more from you every
-        week.
+        South Van FC plays in the Vancouver Metro Soccer League. We train every
+        week, we select on merit, and we expect you to compete for your place.
+        If that reads right, apply.
       </p>
 
-      <div class="hero-stats">
-        <div class="hstat">
-          <div class="hstat-val">VMSL</div>
-          <div class="hstat-lbl">League</div>
-        </div>
-        <div class="hstat-divider" aria-hidden="true"></div>
-        <div class="hstat">
-          <div class="hstat-val">Weekly</div>
-          <div class="hstat-lbl">Training</div>
-        </div>
-        <div class="hstat-divider" aria-hidden="true"></div>
-        <div class="hstat">
-          <div class="hstat-val">Merit</div>
-          <div class="hstat-lbl">Based Selection</div>
-        </div>
+      <div class="hero-ctas">
+        <a href="/mens-team/apply/" class="btn btn-gold">
+          Apply for a Trial
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+          >
+        </a>
+        <a href="/fixtures/" class="btn btn-outline-white">
+          Fixtures and Results
+        </a>
       </div>
 
-      <div class="hero-tags">
-        <span class="tag">Open Trials</span>
-        <span class="tag">Adult Soccer Vancouver</span>
-        <span class="tag">South Vancouver</span>
+      <div class="hero-pills">
+        {pills.map((p) => <span class="pill pill-white">{p}</span>)}
       </div>
     </div>
+
+    {
+      heroImage && (
+        <div class="hero-photo">
+          <Image
+            src={heroImage}
+            alt={HERO_ALT}
+            widths={[640, 960, 1280, 1600]}
+            sizes="(max-width: 960px) 100vw, 46vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      )
+    }
   </div>
 
   <div class="hero-stripe" aria-hidden="true"></div>
@@ -98,14 +124,36 @@
     background: linear-gradient(180deg, #e8b430 0%, rgba(232, 180, 48, 0) 100%);
   }
 
+  .hero-ghost {
+    position: absolute;
+    right: 24px;
+    bottom: -40px;
+    font-size: 240px;
+    line-height: 1;
+    letter-spacing: -6px;
+    font-weight: 800;
+    color: #fff;
+    opacity: 0.05;
+    user-select: none;
+    pointer-events: none;
+  }
+
   .hero-inner {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 80px;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+    gap: 72px;
+    align-items: center;
     position: relative;
     z-index: 2;
     padding-bottom: 64px;
+  }
+  /* No photo dropped in yet, so the copy takes the full width rather than
+     leaving a column of empty navy */
+  .hero-inner.is-noimage {
+    grid-template-columns: 1fr;
+  }
+  .hero-inner.is-noimage .hero-left {
+    max-width: 720px;
   }
 
   .crumb {
@@ -128,87 +176,58 @@
     color: #e8b430;
   }
 
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: block;
-    color: #e8b430;
-    margin-bottom: 16px;
-  }
-
   .hero-title {
-    font-size: clamp(72px, 8vw, 120px);
-    line-height: 0.88;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.18);
-    white-space: nowrap;
-  }
-
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding-bottom: 8px;
+    font-size: clamp(46px, 5.4vw, 82px);
+    line-height: 0.94;
+    letter-spacing: -1px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 22px;
   }
 
   .hero-body {
     font-size: 16px;
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.55);
-    max-width: 480px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 46ch;
     border-left: 2px solid rgba(232, 180, 48, 0.4);
     padding-left: 20px;
   }
 
-  .hero-stats {
+  .hero-ctas {
     display: flex;
-    align-items: center;
-    gap: 0;
-  }
-  .hstat {
-    padding: 0 28px;
-    text-align: center;
-  }
-  .hstat:first-child {
-    padding-left: 0;
-  }
-  .hstat-val {
-    font-size: 28px;
-    letter-spacing: 1.5px;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .hstat-lbl {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-  }
-  .hstat-divider {
-    width: 1px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 32px;
   }
 
-  .hero-tags {
+  .hero-pills {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
   }
-  .tag {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 5px 13px;
-    border-radius: 4px;
-    background: rgba(232, 180, 48, 0.1);
-    border: 1px solid rgba(232, 180, 48, 0.25);
-    color: rgba(232, 180, 48, 0.85);
+
+  /* Landscape, so the photo sits beside the copy rather than setting the
+     hero's height. A portrait slot here made the section about 875px tall on a
+     1440px screen and cropped the sides off a wide source image. The
+     max-height stops the same thing happening again on very wide screens,
+     where 46% of the viewport gets tall enough to take over. */
+  .hero-photo {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    max-height: 440px;
+    margin-left: auto;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 3px solid #e8b430;
+  }
+  .hero-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .hero-stripe {
@@ -226,26 +245,19 @@
 
   @media (max-width: 960px) {
     .mens-hero {
-      padding: 60px 28px 0;
+      padding: 56px 28px 0;
     }
     .hero-inner {
       grid-template-columns: 1fr;
-      gap: 32px;
-      padding-bottom: 52px;
+      gap: 36px;
+      padding-bottom: 48px;
     }
-    .hero-title {
-      font-size: clamp(64px, 14vw, 96px);
+    .hero-ghost {
+      font-size: 160px;
+      bottom: -28px;
     }
-    .hero-stats {
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .hstat-divider {
-      display: none;
-    }
-    .hstat {
-      padding: 0;
-      text-align: left;
+    .hero-photo {
+      max-height: none;
     }
     .hero-body {
       font-size: 15px;

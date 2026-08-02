@@ -1,0 +1,178 @@
+---
+import type { FixturesData } from "../../types/types";
+import Crest from "../Fixtures/Crest.astro";
+import {
+  OUR_SLUG,
+  formatLongDate,
+  getClub,
+  nextMatch,
+  sortedStandings,
+} from "../../lib/fixtures";
+
+/*
+ * A read-only slice of the fixtures match card. NextMatchPanel.astro is the
+ * full version, but its segmented control is driven by a script that lives in
+ * MatchHero.astro and binds to [data-fx-card], so dropped in here the toggle
+ * would be dead and its second panel unreachable. It also carries standings,
+ * goal difference and a head to head table, which is exactly the density this
+ * page is shedding. This renders the fixture and nothing else, with no
+ * JavaScript at all.
+ *
+ * The section carries the .mens-next class so the --fx-* contrast tokens in
+ * global.css resolve outside the fixtures page.
+ */
+
+interface Props {
+  data: FixturesData;
+  /** Passed from the page so the whole render shares one clock */
+  now: Date;
+}
+
+const { data, now } = Astro.props;
+
+const match = nextMatch(data, now);
+
+const us = getClub(data, OUR_SLUG);
+const opponent = match ? getClub(data, match.opponentSlug) : undefined;
+
+/* Home team on the left, away on the right, whichever of the two we are. */
+const home = match?.isHome ? us : opponent;
+const away = match?.isHome ? opponent : us;
+const homeSlug = match?.isHome ? OUR_SLUG : match?.opponentSlug;
+const awaySlug = match?.isHome ? match?.opponentSlug : OUR_SLUG;
+
+/* Until VMSL publishes the schedule this is the only real figure there is */
+const clubCount = sortedStandings(data).length;
+---
+
+<section class="mens-next">
+  <div class="next-inner">
+    <div class="next-head">
+      <div>
+        <span class="eyebrow eyebrow-gold">Next Match</span>
+        <p class="next-line">
+          Kickoff times, standings and every result are on the fixtures page.
+          Come and watch one before you apply.
+        </p>
+      </div>
+      <a href="/fixtures/" class="btn btn-outline-white">
+        See all fixtures
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        >
+      </a>
+    </div>
+
+    <div class="fx-card">
+      {
+        !match ? (
+          <>
+            <div class="fx-card-head">
+              <div class="fx-card-label">
+                <span class="fx-eyebrow fx-card-eyebrow">{data.season} Season</span>
+                <span class="fx-card-comp">{data.division}</span>
+              </div>
+            </div>
+            <p class="fx-none">
+              The fixture list has not been published yet. VMSL releases it in
+              August. {clubCount} clubs in the division this season.
+            </p>
+          </>
+        ) : (
+          <>
+            <div class="fx-card-head">
+              <div class="fx-card-label">
+                <span class="fx-dot" aria-hidden="true" />
+                <span class="fx-eyebrow fx-card-eyebrow">Next Match</span>
+                <span class="fx-card-comp">{match.competitionLabel}</span>
+              </div>
+            </div>
+
+            <div class="fx-teams">
+              <div class="fx-side">
+                <Crest club={home} slug={homeSlug} size="lg" onDark />
+                <div>
+                  <div class="fx-side-name">{home?.name ?? homeSlug}</div>
+                  <div class="fx-side-sub">Home</div>
+                </div>
+              </div>
+              <div class="fx-vs" aria-hidden="true">
+                VS
+              </div>
+              <div class="fx-side is-away">
+                <Crest club={away} slug={awaySlug} size="lg" onDark />
+                <div>
+                  <div class="fx-side-name">{away?.name ?? awaySlug}</div>
+                  <div class="fx-side-sub">Away</div>
+                </div>
+              </div>
+            </div>
+
+            <dl class="fx-meta">
+              <div>
+                <dt>Date</dt>
+                <dd>{formatLongDate(match.date)}</dd>
+              </div>
+              <div>
+                <dt>Kickoff</dt>
+                <dd>{match.time}</dd>
+              </div>
+              <div>
+                <dt>Venue</dt>
+                <dd>{match.venue}</dd>
+              </div>
+            </dl>
+            {match.note && <p class="fx-note">{match.note}</p>}
+          </>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .mens-next {
+    padding: 64px 80px 72px;
+    background:
+      radial-gradient(120% 90% at 78% 8%, rgba(1, 52, 120, 0.95) 0%, rgba(1, 31, 74, 0) 60%),
+      linear-gradient(150deg, #011f4a 0%, #012860 48%, #011a3f 100%);
+  }
+
+  .next-inner {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .next-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .next-line {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 960px) {
+    .mens-next {
+      padding: 48px 28px 56px;
+    }
+    .next-head {
+      align-items: flex-start;
+    }
+  }
+</style>

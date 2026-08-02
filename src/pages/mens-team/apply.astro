@@ -1,0 +1,73 @@
+---
+import type { SEO } from "../../types/types";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MensApplyHero from "../../components/MensTeam/MensApplyHero.astro";
+import MensApplicationForm from "../../components/MensEval/MensApplicationForm.astro";
+
+/*
+ * No closing CTA on this page. Every other page ends with the shared Cta band,
+ * but a form page should not offer exits, which is the same call
+ * soccer-academy/player-evaluation.astro makes.
+ *
+ * The .form-wrap and .form-panel classes below are global, declared once in
+ * global.css. mens-team.astro used to carry a scoped copy of the same rules.
+ */
+
+const seo: SEO = {
+  title: "Apply for the Men's Team | Trials in Vancouver | South Van FC",
+  description:
+    "Apply for a trial with the South Van FC men's team. Open trials for adult players in Vancouver, VMSL Division 4A. We reply within 48 hours.",
+  canonical: "/mens-team/apply/",
+  keywords:
+    "soccer tryouts Vancouver, VMSL trials, men's soccer trials Vancouver, adult soccer team Vancouver, join soccer team Vancouver",
+  ogImage: "https://www.southvanfc.com/og/og-default.png",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Men's Team",
+      item: "https://www.southvanfc.com/mens-team/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Apply",
+      item: "https://www.southvanfc.com/mens-team/apply/",
+    },
+  ],
+};
+---
+
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <MensApplyHero />
+
+  <div class="form-wrap" id="apply">
+    <div class="form-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Squad Application Form</h2>
+        <p class="panel-sub">
+          All fields marked <strong>*</strong> are required. We review every application
+          personally and respond within 48 hours.
+        </p>
+      </div>
+      <MensApplicationForm />
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,119 @@
+---
+/*
+ * Deliberately short. This page exists to get the form filled in, so the hero
+ * says what the form is, sets the reply expectation and gets out of the way.
+ */
+---
+
+<section class="apply-hero">
+  <div class="accent-bar" aria-hidden="true"></div>
+
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+    >
+    <a href="/mens-team/">Men's Team</a>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+    >
+    <span class="crumb-cur">Apply</span>
+  </nav>
+
+  <span class="eyebrow eyebrow-gold">Men's Team</span>
+  <h1 class="apply-title">Apply for a Trial</h1>
+  <p class="apply-body">
+    Trials run through the season. Fill this in and a coach will come back to you
+    within 48 hours.
+  </p>
+
+  <div class="hero-stripe" aria-hidden="true"></div>
+</section>
+
+<style>
+  .apply-hero {
+    background: #011f4a;
+    padding: 56px 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #e8b430 0%, rgba(232, 180, 48, 0) 100%);
+  }
+
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 22px;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .crumb-cur {
+    color: #e8b430;
+  }
+
+  .apply-title {
+    font-size: clamp(38px, 4.6vw, 62px);
+    line-height: 0.96;
+    letter-spacing: -0.5px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .apply-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 48ch;
+    padding-bottom: 48px;
+  }
+
+  .hero-stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      #e8b430 0,
+      #e8b430 40px,
+      transparent 40px,
+      transparent 48px
+    );
+  }
+
+  @media (max-width: 960px) {
+    .apply-hero {
+      padding: 44px 28px 0;
+    }
+    .apply-body {
+      font-size: 15px;
+      padding-bottom: 36px;
+    }
+  }
+</style>

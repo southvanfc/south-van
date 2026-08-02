@@ -632,10 +632,12 @@ a { color: inherit; }
    from alpha now comes from size and weight instead, which is the real cost.
 
    Scoped to the fixtures sections rather than added to :root, so that nothing
-   else on the site moves. */
+   else on the site moves. .mens-next reuses the match card on the men's team
+   page and sits on the same navy gradient, so it needs the same tokens. */
 .fx-hero,
 .fx-stats,
-.fx-list {
+.fx-list,
+.mens-next {
   /* On the navy card: 5.1:1 and 6.0:1 at the worst point of the gradient */
   --fx-label: rgba(255,255,255,0.62);
   --fx-muted-on-navy: rgba(255,255,255,0.7);

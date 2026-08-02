@@ -36,7 +36,13 @@ const staticRoutes = [
     url: "/mens-team/",
     priority: "0.8",
     changefreq: "monthly",
-    lastmod: "2026-07-20",
+    lastmod: "2026-08-02",
+  },
+  {
+    url: "/mens-team/apply/",
+    priority: "0.8",
+    changefreq: "monthly",
+    lastmod: "2026-08-02",
   },
   {
     url: "/fixtures/",

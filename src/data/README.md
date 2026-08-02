@@ -176,7 +176,7 @@ with the same id is an error.
   and it is easy to get wrong in the first twelve days of a month.
 - `time` is 24 hour. 6:00PM is `"18:00"`. 12:30PM is `"12:30"`.
 - `opponentSlug` must exactly match a `slug` in the `clubs` list at the top of the file.
-- `venue` is our home ground `"Memorial South Park"` when `isHome` is true.
+- `venue` is our home ground `"Empire Field"` when `isHome` is true.
 - `competition` is `"league"`, `"cup"` or `"friendly"`.
 
 **Venue change only:** just edit `venue`. Nothing else moves.
