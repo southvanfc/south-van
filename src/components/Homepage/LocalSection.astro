@@ -1,133 +1,147 @@
 ---
 // src/components/Homepage/LocalSection.astro
+
+const claims = [
+  "Built by South Vancouver, for South Vancouver.",
+  "Development pathway from U8 through adult.",
+  "Competitive men's side in the VMSL.",
+];
+
+const facts = [
+  { label: "Location", value: "South Vancouver, BC" },
+  { label: "Academy Age Range", value: "U8 to Adult" },
+  { label: "League", value: "VMSL Men's Open" },
+  { label: "Founded", value: "2023" },
+];
+
+const links = [
+  { href: "/soccer-academy/", label: "Soccer Academy" },
+  { href: "/mens-team/", label: "Men's Team" },
+  { href: "/south-vancouver/", label: "Our Neighbourhood" },
+];
 ---
 
 <section class="local">
   <div class="local-inner">
-    <div class="local-copy">
-      <span class="eyebrow eyebrow-gold">South Vancouver</span>
-      <h2 class="local-title">South Vancouver's Football Club</h2>
-      <p class="local-body">
-        We train, play, and grow in South Vancouver. The neighbourhoods, parks,
-        and pitches here are what shaped us. From Fraserview to Killarney, South
-        Van FC is built by the community it represents.
-      </p>
-      <p class="local-body">
-        Whether you're a parent looking for a development pathway for your
-        child, or an adult player ready to compete in the VMSL, this is your
-        club.
-      </p>
+    <div class="local-col">
+      <span class="eyebrow eyebrow-navy">South Vancouver</span>
+      <h2 class="col-title">Our Neighbourhood</h2>
+      <ul class="claim-list">
+        {
+          claims.map((item) => (
+            <li>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+
       <div class="local-links">
-        <a href="/soccer-academy/" class="local-link">
-          Soccer Academy
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-          >
-        </a>
-        <a href="/mens-team/" class="local-link">
-          Men's Team
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-          >
-        </a>
-        <a href="/south-vancouver/" class="local-link">
-          Our Neighbourhood
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-          >
-        </a>
+        {
+          links.map(({ href, label }) => (
+            <a href={href} class="local-link">
+              {label}
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          ))
+        }
       </div>
     </div>
 
-    <div class="local-detail">
-      <div class="local-card">
-        <div class="lc-icon">📍</div>
-        <div>
-          <div class="lc-title">Based in South Vancouver, BC</div>
-          <div class="lc-desc">
-            Men's Team home fixtures at Empire Field, with training and Soccer
-            Academy sessions across South Vancouver
-          </div>
-        </div>
-      </div>
-      <div class="local-card">
-        <div class="lc-icon">⚽</div>
-        <div>
-          <div class="lc-title">Soccer Academy: U8 to Adult</div>
-          <div class="lc-desc">
-            Technical-first player development with Individual Development Plans
-            for every player
-          </div>
-        </div>
-      </div>
-      <div class="local-card">
-        <div class="lc-icon">🏆</div>
-        <div>
-          <div class="lc-title">Competitive Men's Team, VMSL</div>
-          <div class="lc-desc">
-            Adult players competing in the Vancouver Metro Soccer League
-          </div>
-        </div>
-      </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="local-col">
+      <span class="eyebrow eyebrow-navy">At a Glance</span>
+      <h2 class="col-title">The Facts</h2>
+      <dl class="fact-list">
+        {
+          facts.map(({ label, value }) => (
+            <div class="fact-row">
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
   </div>
 </section>
 
 <style>
   .local {
-    background: var(--navy-dark);
+    background: #fff;
     padding: 96px 80px;
   }
 
   .local-inner {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 64px;
   }
 
-  .local-title {
+  .divider {
+    background: var(--lt-gray);
+  }
+
+  .col-title {
     font-family: "Inter Variable", sans-serif;
-    font-size: clamp(32px, 3.5vw, 48px);
-    line-height: 1.08;
-    letter-spacing: 1px;
-    color: #fff;
-    margin: 12px 0 24px;
+    font-size: clamp(32px, 3.2vw, 44px);
+    line-height: 0.98;
+    letter-spacing: 0.5px;
+    color: var(--navy-dark);
+    margin-bottom: 26px;
   }
 
-  .local-body {
-    font-size: 15px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 16px;
-    max-width: 480px;
+  .claim-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .claim-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-mid);
+  }
+  .claim-list svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 3px;
   }
 
   .local-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
     margin-top: 32px;
-    flex-wrap: wrap;
   }
 
   .local-link {
@@ -137,54 +151,44 @@
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    color: var(--gold);
+    color: var(--navy);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
   }
   .local-link:hover {
-    border-bottom-color: var(--gold);
+    border-bottom-color: var(--navy);
   }
 
-  .local-detail {
+  .fact-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
   }
-
-  .local-card {
+  .fact-row {
     display: flex;
-    gap: 18px;
-    align-items: flex-start;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    padding: 24px 28px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--lt-gray);
   }
-  .local-card:hover {
-    background: rgba(255, 255, 255, 0.07);
+  .fact-row:first-child {
+    border-top: 1px solid var(--lt-gray);
   }
-
-  .lc-icon {
-    font-size: 22px;
+  .fact-row dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
     flex-shrink: 0;
-    margin-top: 2px;
   }
-
-  .lc-title {
-    font-family: "Inter Variable", sans-serif;
-    font-size: 15px;
+  .fact-row dd {
+    margin: 0;
+    font-size: 17px;
     font-weight: 600;
-    color: #fff;
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
-  }
-
-  .lc-desc {
-    font-size: 13px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--navy-dark);
+    text-align: right;
   }
 
   @media (max-width: 960px) {
@@ -193,10 +197,10 @@
     }
     .local-inner {
       grid-template-columns: 1fr;
-      gap: 48px;
+      gap: 44px;
     }
-    .local-body {
-      max-width: 100%;
+    .divider {
+      height: 1px;
     }
   }
 </style>

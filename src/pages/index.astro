@@ -4,6 +4,8 @@ import Hero from "../components/Homepage/Hero.astro";
 import StatsBand from "../components/Homepage/StatsBand.astro";
 import Squads from "../components/Homepage/Squads.astro";
 import Values from "../components/Homepage/Values.astro";
+import StatementBand from "../components/Homepage/StatementBand.astro";
+import ProcessStrip from "../components/Homepage/ProcessStrip.astro";
 import Faq from "../components/Homepage/Faq.astro";
 import Signup from "../components/Homepage/Signup.astro";
 import SubscribeSection from "../components/Homepage/SubscribeSection.astro";
@@ -96,12 +98,14 @@ const localBusinessSchema = {
     type="application/ld+json"
     set:html={JSON.stringify(localBusinessSchema)}
   />
-  <Hero bannerImage={"/assets/white.png"} />
+  <Hero />
   <StatsBand stats={stats} />
-  <Squads />
   <Values />
-  <LocalSection />
-  <Faq />
+  <StatementBand />
+  <Squads />
   <SubscribeSection />
+  <LocalSection />
+  <ProcessStrip />
+  <Faq />
   <Signup />
 </BaseLayout>

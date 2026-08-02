@@ -1,0 +1,89 @@
+---
+// src/components/Homepage/StatementBand.astro
+
+import { Image } from "astro:assets";
+import { bandImage } from "../../lib/home-images";
+
+const BAND_ALT = "South Van FC players and coaches on the pitch";
+---
+
+<section class:list={["statement-band", !bandImage && "is-noimage"]}>
+  {
+    bandImage && (
+      <div class="band-media" aria-hidden="true">
+        <Image
+          src={bandImage}
+          alt={BAND_ALT}
+          widths={[960, 1440, 1920]}
+          sizes="100vw"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  <p class="band-line">
+    One club, one standard: competitive on the pitch, developmental at every
+    age.
+  </p>
+</section>
+
+<style>
+  .statement-band {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-top: 3px solid var(--gold);
+    padding: 76px 80px;
+    display: flex;
+    align-items: center;
+  }
+  .statement-band.is-noimage {
+    background: linear-gradient(150deg, #011f4a 0%, #012860 52%, #011a3f 100%);
+  }
+
+  .band-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .band-media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Scrim, so the line clears 4.5:1 whatever the photo turns out to be */
+  .band-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(1, 31, 74, 0.92) 0%,
+      rgba(1, 31, 74, 0.78) 55%,
+      rgba(1, 31, 74, 0.5) 100%
+    );
+  }
+
+  .band-line {
+    position: relative;
+    max-width: 22ch;
+    font-size: clamp(30px, 3.6vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    color: #fff;
+    border-left: 3px solid var(--gold);
+    padding-left: 26px;
+  }
+
+  @media (max-width: 960px) {
+    .statement-band {
+      padding: 56px 28px;
+    }
+    .band-line {
+      max-width: none;
+      padding-left: 18px;
+    }
+  }
+</style>

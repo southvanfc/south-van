@@ -5,25 +5,25 @@ import type { Value } from "../../types/types";
 
 const values: Value[] = [
   {
-    icon: "⚽",
+    num: "01",
     name: "Ambition",
     description:
       "We compete with intent to win promotion and push our limits every season on the pitch.",
   },
   {
-    icon: "🏋️",
+    num: "02",
     name: "Discipline",
     description:
       "Hard work in training is non-negotiable. Performance on match day reflects daily effort.",
   },
   {
-    icon: "🤝",
+    num: "03",
     name: "Community",
     description:
       "Built by Vancouver, for Vancouver. Every player is part of something far bigger than themselves.",
   },
   {
-    icon: "📈",
+    num: "04",
     name: "Development",
     description:
       "Long-term growth over short-term wins. We invest in the full technical and mental player.",
@@ -39,9 +39,11 @@ const values: Value[] = [
 
   <div class="values-grid">
     {
-      values.map(({ icon, name, description }) => (
+      values.map(({ num, name, description }) => (
         <div class="value-card">
-          <div class="value-icon">{icon}</div>
+          <span class="value-num" aria-hidden="true">
+            {num}
+          </span>
           <h3 class="value-name">{name}</h3>
           <p class="value-desc">{description}</p>
         </div>
@@ -82,15 +84,12 @@ const values: Value[] = [
     transform: translateY(-4px);
   }
 
-  .value-icon {
-    width: 44px;
-    height: 44px;
-    background: var(--navy);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+  .value-num {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
     margin-bottom: 18px;
   }
 

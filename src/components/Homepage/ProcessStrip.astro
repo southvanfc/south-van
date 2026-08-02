@@ -1,0 +1,93 @@
+---
+// src/components/Homepage/ProcessStrip.astro
+
+const steps = [
+  { num: "01", title: "Pick Your Path", body: "Academy or Men's Team." },
+  { num: "02", title: "Reach Out", body: "Send the form." },
+  { num: "03", title: "Trial or Evaluate", body: "Train with us." },
+  { num: "04", title: "Join the Club", body: "Earn your place." },
+];
+---
+
+<section class="process">
+  <span class="eyebrow eyebrow-gold">How It Works</span>
+
+  <ol class="steps">
+    {
+      steps.map(({ num, title, body }) => (
+        <li class="step">
+          <span class="step-num" aria-hidden="true">
+            {num}
+          </span>
+          <h3 class="step-title">{title}</h3>
+          <p class="step-body">{body}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .process {
+    background: var(--navy);
+    padding: 56px 80px 60px;
+  }
+
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 8px;
+  }
+
+  .step {
+    background: var(--navy);
+    padding: 28px 28px 30px;
+  }
+  .step:first-child {
+    padding-left: 0;
+  }
+
+  .step-num {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-size: 21px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .step-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 960px) {
+    .process {
+      padding: 48px 28px 52px;
+    }
+    .steps {
+      grid-template-columns: 1fr 1fr;
+    }
+    .step,
+    .step:first-child {
+      padding: 24px 20px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -15,7 +15,7 @@ export interface Stat {
 }
 
 export interface Value {
-  icon: string;
+  num: string;
   name: string;
   description: string;
 }
