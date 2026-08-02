@@ -40,23 +40,44 @@ const steps = [
     gap: 1px;
     background: rgba(255, 255, 255, 0.1);
     margin-top: 8px;
+    position: relative;
+  }
+
+  .steps::before {
+    content: "";
+    position: absolute;
+    top: 46px;
+    left: 0;
+    right: 0;
+    border-top: 1.5px dashed rgba(232, 180, 48, 0.35);
+    z-index: 0;
   }
 
   .step {
     background: var(--navy);
     padding: 28px 28px 30px;
+    position: relative;
   }
   .step:first-child {
     padding-left: 0;
   }
 
   .step-num {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    background: var(--navy);
     font-size: 12px;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
     color: var(--gold);
     margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
   }
 
   .step-title {
@@ -78,6 +99,9 @@ const steps = [
     }
     .steps {
       grid-template-columns: 1fr 1fr;
+    }
+    .steps::before {
+      display: none;
     }
     .step,
     .step:first-child {

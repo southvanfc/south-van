@@ -463,7 +463,22 @@ a { color: inherit; }
 .stats-band {
   background: var(--navy-dark); border-top: 3px solid var(--gold);
   display: grid; grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  overflow: hidden;
 }
+.stats-band::before,
+.stats-band::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  width: 60px; height: 60px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.stats-band::before { left: -30px; }
+.stats-band::after  { right: -30px; }
 .stat-cell {
   padding: 44px 32px; text-align: center;
   border-right: 1px solid rgba(255,255,255,0.07);

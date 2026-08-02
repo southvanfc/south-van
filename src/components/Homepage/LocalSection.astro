@@ -94,6 +94,23 @@ const links = [
   .local {
     background: #fff;
     padding: 96px 80px;
+    position: relative;
+  }
+
+  .local::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--gold) 0,
+      var(--gold) 40px,
+      transparent 40px,
+      transparent 48px
+    );
   }
 
   .local-inner {
@@ -105,7 +122,27 @@ const links = [
   }
 
   .divider {
-    background: var(--lt-gray);
+    position: relative;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--lt-gray) 0,
+      var(--lt-gray) 10px,
+      transparent 10px,
+      transparent 16px
+    );
+  }
+
+  .divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    background: #fff;
+    transform: translate(-50%, -50%);
   }
 
   .col-title {
@@ -201,6 +238,13 @@ const links = [
     }
     .divider {
       height: 1px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--lt-gray) 0,
+        var(--lt-gray) 10px,
+        transparent 10px,
+        transparent 16px
+      );
     }
   }
 </style>
