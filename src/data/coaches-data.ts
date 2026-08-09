@@ -27,18 +27,18 @@ export const coaches = [
     bioFull: `Transitioning from youth to adult soccer, Dipinder began with a seven-a-side league. In his first season he helped his team place 1st in the division before going on to win the championship. He eventually joined Coach Harjit to compete in a competitive men's division within the Vancouver Metro Soccer League (VMSL).<br /><br />
       As a coach, Dipinder leads and coaches the men's team for South Van FC. He is currently pursuing his Canada Soccer C Diploma with aspirations of obtaining higher levels of coaching certification. His coaching philosophy revolves around developing confident, well-rounded players — focusing on resilience, game intelligence, and teamwork.`,
   },
-  {
-    id: "shanil",
-    initials: "SS",
-    name: "Shanil Sharma",
-    role: "Fitness & Conditioning Coach",
-    experience: "15 Years",
-    ageGroups: "U8 - 18+",
-     athletes: "Girls & Boys",
-    specialisms: ["Agility", "Strengthening", "Plyometrics"],
-    bioShort:
-      "Shanil played for Killarney Soccer from a young age through to U18 at the gold level, captaining his high school team to a city championship before moving into coaching and conditioning.",
-    bioFull: `After high school, Shanil underwent surgery and opted to coach the high school soccer team for two years. He has continued to play in the men's league and plays for South Van FC's men's team, where he also helps coach.<br /><br />
-      Shanil is a Kinesiologist who graduated from the University of British Columbia. He specialises in strength and conditioning training as well as injury rehabilitation. He is a member of the National Coaching Certification Program and is pursuing further certification through the Canada Soccer program.`,
-  },
+  // {
+  //   id: "shanil",
+  //   initials: "SS",
+  //   name: "Shanil Sharma",
+  //   role: "Fitness & Conditioning Coach",
+  //   experience: "15 Years",
+  //   ageGroups: "U8 - 18+",
+  //    athletes: "Girls & Boys",
+  //   specialisms: ["Agility", "Strengthening", "Plyometrics"],
+  //   bioShort:
+  //     "Shanil played for Killarney Soccer from a young age through to U18 at the gold level, captaining his high school team to a city championship before moving into coaching and conditioning.",
+  //   bioFull: `After high school, Shanil underwent surgery and opted to coach the high school soccer team for two years. He has continued to play in the men's league and plays for South Van FC's men's team, where he also helps coach.<br /><br />
+  //     Shanil is a Kinesiologist who graduated from the University of British Columbia. He specialises in strength and conditioning training as well as injury rehabilitation. He is a member of the National Coaching Certification Program and is pursuing further certification through the Canada Soccer program.`,
+  // },
 ];
