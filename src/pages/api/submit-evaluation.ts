@@ -2,6 +2,19 @@ import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
 import type { PlayerEvaluationInsert } from "../../types/types";
 
+function calcAge(dobStr: string): number | null {
+  if (!dobStr) return null;
+  const dob = new Date(dobStr);
+  if (Number.isNaN(dob.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+  return age;
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     // 4) Parse form data
@@ -28,11 +41,18 @@ export const POST: APIRoute = async ({ request }) => {
     const competitionLevel = String(form.get("competition_level") ?? "").trim();
     const otherSports      = String(form.get("other_sports")      ?? "").trim();
 
-    // ── 03 Parent / Guardian ────────────────────────────────────
+    // ── 03 Parent / Guardian (under 18) ─────────────────────────
     const parentName         = String(form.get("parent_name")         ?? "").trim();
     const parentRelationship = String(form.get("parent_relationship") ?? "").trim();
     const parentEmail        = String(form.get("parent_email")        ?? "").trim();
     const parentPhone        = String(form.get("parent_phone")        ?? "").trim();
+
+    // ── 03b Player Contact (18+) ─────────────────────────────────
+    const playerEmail = String(form.get("player_email") ?? "").trim();
+    const playerPhone = String(form.get("player_phone") ?? "").trim();
+
+    // Age is derived server-side from DOB — never trust client-side branching.
+    const isAdult = (calcAge(dob) ?? 0) >= 18;
 
     // ── 04 Player Background ────────────────────────────────────
     const previousCoaching    = String(form.get("previous_coaching")    ?? "").trim();
@@ -54,10 +74,15 @@ export const POST: APIRoute = async ({ request }) => {
     if (!dominantFoot)       missing.push("preferred_foot");
     if (!trainingHours)      missing.push("training_hours");
     if (!competitionLevel)   missing.push("competition_level");
-    if (!parentName)         missing.push("parent_name");
-    if (!parentRelationship) missing.push("parent_relationship");
-    if (!parentEmail)        missing.push("parent_email");
-    if (!parentPhone)        missing.push("parent_phone");
+    if (isAdult) {
+      if (!playerEmail) missing.push("player_email");
+      if (!playerPhone) missing.push("player_phone");
+    } else {
+      if (!parentName)         missing.push("parent_name");
+      if (!parentRelationship) missing.push("parent_relationship");
+      if (!parentEmail)        missing.push("parent_email");
+      if (!parentPhone)        missing.push("parent_phone");
+    }
     if (!previousCoaching)   missing.push("previous_coaching");
     if (!longTermGoal)       missing.push("long_term_goal");
 
@@ -68,16 +93,18 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(parentEmail)) {
+    const contactEmail = isAdult ? playerEmail : parentEmail;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
       return new Response(
-        JSON.stringify({ ok: false, error: "Please enter a valid parent email address." }),
+        JSON.stringify({ ok: false, error: "Please enter a valid email address." }),
         { status: 400, headers: { "content-type": "application/json" } }
       );
     }
 
     if (
       fullName.length > 200 || parentName.length > 200 || parentEmail.length > 200 ||
-      parentPhone.length > 50 || longTermGoal.length > 5000
+      parentPhone.length > 50 || playerEmail.length > 200 || playerPhone.length > 50 ||
+      longTermGoal.length > 5000
     ) {
       return new Response(
         JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
@@ -98,10 +125,12 @@ export const POST: APIRoute = async ({ request }) => {
       training_hours:       trainingHours,
       competition_level:    competitionLevel,
       other_sports:         otherSports || undefined,
-      parent_name:          parentName,
-      parent_relationship:  parentRelationship,
-      parent_email:         parentEmail,
-      parent_phone:         parentPhone,
+      parent_name:          isAdult ? undefined : parentName,
+      parent_relationship:  isAdult ? undefined : parentRelationship,
+      parent_email:         isAdult ? undefined : parentEmail,
+      parent_phone:         isAdult ? undefined : parentPhone,
+      player_email:         isAdult ? playerEmail : undefined,
+      player_phone:         isAdult ? playerPhone : undefined,
       previous_coaching:    previousCoaching,
       injuries:             injuries || undefined,
       player_strengths:     playerStrengths || undefined,

@@ -83,10 +83,12 @@ export interface PlayerEvaluationInsert {
   training_hours:       "less-than-2" | "2-4" | "4-6" | "6-8" | "8+" | string;
   competition_level:    "bcspl" | "metro" | "gold" | "silver" | "bronze" | "recreational" | "school-only" | "no-team" | string;
   other_sports?:        string;
-  parent_name:          string;
-  parent_relationship:  string;
-  parent_email:         string;
-  parent_phone:         string;
+  parent_name?:         string;
+  parent_relationship?: string;
+  parent_email?:        string;
+  parent_phone?:        string;
+  player_email?:        string;
+  player_phone?:        string;
   previous_coaching:    string;
   injuries?:            string;
   player_strengths?:    string;

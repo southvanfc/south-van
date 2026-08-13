@@ -130,7 +130,7 @@
     </fieldset>
 
     <!-- ── 02 PARENT / GUARDIAN ───────────────── -->
-    <fieldset class="fsec" aria-labelledby="fsec-02-label">
+    <fieldset class="fsec" id="parent-section" aria-labelledby="fsec-02-label">
       <div class="fsec-head">
         <span class="fsec-num">02</span>
         <div>
@@ -198,6 +198,53 @@
             placeholder="+1 (604) 000-0000"
           />
           <span class="f-err" id="parent_phone-error" aria-live="polite"></span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── 02b YOUR CONTACT INFO (18+) ─────────── -->
+    <fieldset
+      class="fsec"
+      id="player-contact-section"
+      style="display:none"
+      aria-labelledby="fsec-02b-label"
+    >
+      <div class="fsec-head">
+        <span class="fsec-num">02</span>
+        <div>
+          <h3 class="fsec-label" id="fsec-02b-label">Your Contact Info</h3>
+          <div class="fsec-hint">
+            Since you're registering as an adult (18+), this is how we'll reach
+            you for scheduling and updates.
+          </div>
+        </div>
+      </div>
+      <div class="fgrid fgrid-2">
+        <div class="f">
+          <label class="f-label" for="player_email"
+            >Email Address <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="player_email"
+            name="player_email"
+            type="email"
+            placeholder="you@email.com"
+          />
+          <span class="f-err" id="player_email-error" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label class="f-label" for="player_phone"
+            >Phone Number <span class="f-req">*</span></label
+          >
+          <input
+            class="f-input"
+            id="player_phone"
+            name="player_phone"
+            type="tel"
+            placeholder="+1 (604) 000-0000"
+          />
+          <span class="f-err" id="player_phone-error" aria-live="polite"></span>
         </div>
       </div>
     </fieldset>
@@ -1060,7 +1107,44 @@
   if (!form || !nextBtn || !backBtn || !submitBtn)
     throw new Error("Eval form elements missing");
 
-  const STEP1_REQUIRED: Array<{ id: string; type: string; msg: string }> = [
+  const dobInput = document.getElementById("dob") as HTMLInputElement | null;
+  const parentSection = document.getElementById(
+    "parent-section",
+  ) as HTMLElement | null;
+  const playerContactSection = document.getElementById(
+    "player-contact-section",
+  ) as HTMLElement | null;
+
+  function calcAge(dobStr: string): number | null {
+    if (!dobStr) return null;
+    const dob = new Date(dobStr);
+    if (Number.isNaN(dob.getTime())) return null;
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  function isAdult(): boolean {
+    const age = calcAge(dobInput?.value ?? "");
+    return age !== null && age >= 18;
+  }
+
+  function updateContactSection() {
+    const adult = isAdult();
+    if (parentSection) parentSection.style.display = adult ? "none" : "";
+    if (playerContactSection)
+      playerContactSection.style.display = adult ? "" : "none";
+  }
+
+  dobInput?.addEventListener("change", updateContactSection);
+  dobInput?.addEventListener("input", updateContactSection);
+  updateContactSection();
+
+  const ALWAYS_REQUIRED: Array<{ id: string; type: string; msg: string }> = [
     { id: "full_name", type: "text", msg: "Player's full name is required." },
     { id: "dob", type: "text", msg: "Date of birth is required." },
     { id: "age_group", type: "select", msg: "Please select an age group." },
@@ -1069,6 +1153,19 @@
       type: "select",
       msg: "Please select years playing.",
     },
+    {
+      id: "positions",
+      type: "checkbox",
+      msg: "Please select at least one position.",
+    },
+    {
+      id: "preferred_foot",
+      type: "radio",
+      msg: "Please select a dominant foot.",
+    },
+  ];
+
+  const PARENT_REQUIRED: Array<{ id: string; type: string; msg: string }> = [
     {
       id: "parent_name",
       type: "text",
@@ -1085,17 +1182,31 @@
       msg: "A valid email address is required.",
     },
     { id: "parent_phone", type: "text", msg: "A phone number is required." },
-    {
-      id: "positions",
-      type: "checkbox",
-      msg: "Please select at least one position.",
-    },
-    {
-      id: "preferred_foot",
-      type: "radio",
-      msg: "Please select a dominant foot.",
-    },
   ];
+
+  const PLAYER_CONTACT_REQUIRED: Array<{
+    id: string;
+    type: string;
+    msg: string;
+  }> = [
+    {
+      id: "player_email",
+      type: "email",
+      msg: "A valid email address is required.",
+    },
+    { id: "player_phone", type: "text", msg: "A phone number is required." },
+  ];
+
+  function currentStep1Required(): Array<{
+    id: string;
+    type: string;
+    msg: string;
+  }> {
+    return [
+      ...ALWAYS_REQUIRED,
+      ...(isAdult() ? PLAYER_CONTACT_REQUIRED : PARENT_REQUIRED),
+    ];
+  }
 
   function clearError(id: string) {
     const el = document.getElementById(id) as
@@ -1109,7 +1220,7 @@
 
   function validateStep1(): boolean {
     let ok = true;
-    for (const { id, type, msg } of STEP1_REQUIRED) {
+    for (const { id, type, msg } of currentStep1Required()) {
       let invalid = false;
       if (type === "checkbox") {
         invalid =
@@ -1190,7 +1301,12 @@
   }
 
   // Real-time error clearing on input
-  for (const { id, type } of STEP1_REQUIRED) {
+  const ALL_STEP1_FIELDS = [
+    ...ALWAYS_REQUIRED,
+    ...PARENT_REQUIRED,
+    ...PLAYER_CONTACT_REQUIRED,
+  ];
+  for (const { id, type } of ALL_STEP1_FIELDS) {
     if (type === "checkbox") {
       form
         .querySelectorAll('input[name="positions"]')
