@@ -55,6 +55,20 @@ export interface Programs {
     overview: string;
 }
 
+export interface AppCardItem {
+  index: string;
+  badge: string;
+  title: string;
+  description: string;
+  meta?: { label: string; value: string }[];
+}
+
+export interface AppShowcaseItem {
+  slug: string;
+  role: string;
+  caption: string;
+}
+
 export interface SEO {
   title: string;
   description?: string;

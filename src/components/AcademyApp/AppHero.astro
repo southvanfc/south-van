@@ -1,0 +1,179 @@
+---
+// src/components/AcademyApp/AppHero.astro
+import DeviceFrame from "./DeviceFrame.astro";
+import { heroImage } from "../../lib/academy-app-images";
+---
+
+<section class="app-hero">
+  <div class="field-pattern" aria-hidden="true"></div>
+
+  <!-- Left: copy -->
+  <div class="app-hero-left">
+    <nav class="crumb fu d1" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg
+      >
+      <span class="crumb-cur">Academy App</span>
+    </nav>
+
+    <span class="eyebrow eyebrow-gold fu d1">Built In-House</span>
+
+    <h1 class="hero-title fu d2">The Software Behind Our Academy</h1>
+
+    <p class="hero-sub fu d3">
+      A platform we built ourselves to run sessions, track development and
+      keep coaches, players and parents on the same page.
+    </p>
+
+    <div class="hero-actions fu d4">
+      <a href="#features" class="btn btn-gold">
+        See the Features
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        >
+      </a>
+      <a href="#showcase" class="btn btn-outline-white">
+        See It In Action
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"></path></svg
+        >
+      </a>
+    </div>
+  </div>
+
+  <!-- Right: hero device frame -->
+  <div class="app-hero-right fu d3">
+    <DeviceFrame
+      label="Academy App"
+      image={heroImage}
+      alt="South Van FC Academy App dashboard"
+    />
+  </div>
+</section>
+
+<style>
+  .app-hero {
+    min-height: calc(100vh - 72px);
+    background: var(--navy-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  /* ── Left ── */
+  .app-hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 32px;
+    list-style: none;
+  }
+  .crumb a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .crumb a:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .crumb-cur {
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(46px, 5vw, 76px);
+    line-height: 0.98;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.62);
+    max-width: 460px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Right ── */
+  .app-hero-right {
+    padding: 40px 80px 40px 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .app-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .app-hero-left {
+      padding: 60px 28px;
+    }
+    .app-hero-right {
+      padding: 0 28px 60px;
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AppHero from "../../components/AcademyApp/AppHero.astro";
+import AppWhy from "../../components/AcademyApp/AppWhy.astro";
+import AppFeatures from "../../components/AcademyApp/AppFeatures.astro";
+import AppRoles from "../../components/AcademyApp/AppRoles.astro";
+import AppShowcase from "../../components/AcademyApp/AppShowcase.astro";
+import AppCta from "../../components/AcademyApp/AppCta.astro";
+
+const seo = {
+  title: "Academy App | South Van FC",
+  description:
+    "South Van FC built its own academy management software: sessions, attendance, player assessments, coach notes and development milestones in one platform.",
+  ogImage: "/og/og-default.png",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.southvanfc.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Academy App",
+      item: "https://www.southvanfc.com/academy-app/",
+    },
+  ],
+};
+---
+
+<BaseLayout seo={seo}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <AppHero />
+  <AppWhy />
+  <AppFeatures />
+  <AppRoles />
+  <AppShowcase />
+  <AppCta />
+</BaseLayout>

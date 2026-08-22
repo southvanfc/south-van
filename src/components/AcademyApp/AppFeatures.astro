@@ -1,0 +1,57 @@
+---
+// src/components/AcademyApp/AppFeatures.astro
+import { appFeatures } from "../../data/academy-app-data";
+import AppCard from "./AppCard.astro";
+
+const rowOne = appFeatures.slice(0, 3);
+const rowTwo = appFeatures.slice(3);
+---
+
+<section class="app-features" id="features">
+  <div class="app-section-header">
+    <span class="eyebrow eyebrow-navy">What It Does</span>
+    <h2 class="section-title" style="margin-bottom: 0">
+      Everything Our<br />Coaches Need
+    </h2>
+  </div>
+
+  <div class="app-grid app-grid-3">
+    {rowOne.map((item) => <AppCard {...item} />)}
+  </div>
+
+  <div class="app-grid app-grid-3">
+    {rowTwo.map((item) => <AppCard {...item} />)}
+  </div>
+</section>
+
+<style>
+  .app-features {
+    padding: 96px 80px;
+  }
+
+  .app-section-header {
+    margin-bottom: 56px;
+  }
+
+  .app-grid {
+    display: grid;
+    gap: 2px;
+    background: var(--lt-gray);
+    margin-bottom: 2px;
+  }
+  .app-grid:last-child {
+    margin-bottom: 0;
+  }
+  .app-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 960px) {
+    .app-features {
+      padding: 64px 28px;
+    }
+    .app-grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

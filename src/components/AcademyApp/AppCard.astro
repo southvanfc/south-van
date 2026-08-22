@@ -1,0 +1,125 @@
+---
+// src/components/AcademyApp/AppCard.astro
+interface Props {
+  index: string;
+  badge: string;
+  title: string;
+  description: string;
+  meta?: { label: string; value: string }[];
+}
+
+const { index, badge, title, description, meta } = Astro.props;
+---
+
+<div class="app-card">
+  <div class="app-idx">{index}</div>
+  <div class="app-badge">{badge}</div>
+  <h3 class="app-name">{title}</h3>
+  {
+    meta && meta.length > 0 && (
+      <div class="app-meta">
+        {meta.map(({ label, value }) => (
+          <div>
+            <div class="app-meta-lbl">{label}</div>
+            <div class="app-meta-val">{value}</div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  <p class="app-desc">{description}</p>
+</div>
+
+<style>
+  .app-card {
+    background: var(--white);
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .app-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--navy);
+    transition: width 0.35s ease;
+  }
+  .app-card:hover::before {
+    width: 4px;
+  }
+  .app-card:hover {
+    background: var(--off-white);
+  }
+
+  .app-idx {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--lt-gray);
+    margin-bottom: 12px;
+    transition: color 0.3s;
+    user-select: none;
+  }
+  .app-card:hover .app-idx {
+    color: rgba(1, 52, 120, 0.07);
+  }
+
+  .app-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .app-badge::before {
+    content: "";
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+    display: block;
+  }
+
+  .app-name {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 22px;
+    color: var(--navy-dark);
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+
+  .app-meta {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 18px;
+  }
+
+  .app-meta-lbl {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .app-meta-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 3px;
+  }
+
+  .app-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+</style>

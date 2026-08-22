@@ -45,6 +45,12 @@ const staticRoutes = [
     lastmod: "2026-08-02",
   },
   {
+    url: "/academy-app/",
+    priority: "0.6",
+    changefreq: "monthly",
+    lastmod: "2026-08-21",
+  },
+  {
     url: "/fixtures/",
     priority: "0.8",
     changefreq: "daily",

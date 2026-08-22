@@ -1,0 +1,152 @@
+---
+// src/components/AcademyApp/AppTeaser.astro
+// A promo card for the Academy App, distinct in style from Cta.astro
+// (navy card with a screenshot, not an off-white band with buttons) so it
+// never reads as a second stacked CTA band on pages that already close
+// with one.
+import DeviceFrame from "./DeviceFrame.astro";
+import { academyAppImage } from "../../lib/academy-app-images";
+
+const previewImage = academyAppImage("player-mobile");
+---
+
+<div class="app-teaser">
+  <div class="field-pattern" aria-hidden="true"></div>
+
+  <div class="teaser-content">
+    <span class="eyebrow eyebrow-gold">Built In-House</span>
+    <h3 class="teaser-title">See What's Running Behind the Scenes</h3>
+    <p class="teaser-text">
+      We built our own academy management software: sessions, attendance,
+      assessments and coach notes, all in one platform.
+    </p>
+    <a href="/academy-app/" class="btn btn-gold btn-sm">
+      See the Academy App
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+      >
+    </a>
+  </div>
+
+  {
+    previewImage && (
+      <div class="teaser-preview">
+        <DeviceFrame
+          variant="phone"
+          image={previewImage}
+          alt="Academy App player portal preview"
+        />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .app-teaser {
+    background: var(--navy-dark);
+    border-top: 3px solid var(--gold);
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  .teaser-content {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+  }
+
+  .teaser-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.1;
+    letter-spacing: 0.3px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .teaser-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 28px;
+  }
+
+  .teaser-preview {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transform: rotate(-5deg);
+    transition: transform 0.35s ease;
+  }
+  .app-teaser:hover .teaser-preview {
+    transform: rotate(-1deg);
+  }
+  .teaser-preview::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    background: radial-gradient(
+      closest-side,
+      rgba(232, 180, 48, 0.16),
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+  .teaser-preview :global(.device-frame.is-phone) {
+    max-width: 140px;
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  @media (max-width: 960px) {
+    .app-teaser {
+      padding: 48px 28px;
+      flex-direction: column;
+      text-align: center;
+      gap: 32px;
+    }
+    .teaser-content {
+      max-width: none;
+    }
+    .teaser-preview {
+      transform: rotate(0deg);
+    }
+    .app-teaser:hover .teaser-preview {
+      transform: rotate(0deg);
+    }
+  }
+</style>

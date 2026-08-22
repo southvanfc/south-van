@@ -1,0 +1,168 @@
+---
+// src/components/AcademyApp/AppCta.astro
+// Closing CTA for the Academy App page itself. Same visual language as
+// AppTeaser (navy card, screenshot, gold accents) but its own screenshot
+// slot and two buttons, since this is the page's final conversion moment
+// rather than a cross-link teaser.
+import DeviceFrame from "./DeviceFrame.astro";
+import { academyAppImage } from "../../lib/academy-app-images";
+
+const previewImage = academyAppImage("admin-mobile");
+---
+
+<div class="app-cta">
+  <div class="field-pattern" aria-hidden="true"></div>
+
+  <div class="cta-content">
+    <span class="eyebrow eyebrow-gold">Get In Touch</span>
+    <h2 class="cta-title">Want to See It<br />For Yourself</h2>
+    <p class="cta-body">
+      Reach out and we'll walk you through the platform running our academy.
+    </p>
+    <div class="cta-actions">
+      <a href="/soccer-academy/" class="btn btn-gold">
+        See Our Soccer Academy
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+        >
+      </a>
+      <a
+        href="mailto:southvanfc@gmail.com?subject=Academy%20App"
+        class="btn btn-outline-white"
+      >
+        Ask About the Platform
+      </a>
+    </div>
+  </div>
+
+  {
+    previewImage && (
+      <div class="cta-preview">
+        <DeviceFrame
+          variant="phone"
+          image={previewImage}
+          alt="Academy App admin portal preview"
+        />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .app-cta {
+    background: var(--navy-dark);
+    border-top: 3px solid var(--gold);
+    padding: 96px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .field-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 59px,
+        rgba(255, 255, 255, 0.025) 59px,
+        rgba(255, 255, 255, 0.025) 60px
+      );
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+  }
+
+  .cta-title {
+    font-family: "Inter Variable", sans-serif;
+    font-size: clamp(36px, 4vw, 58px);
+    line-height: 0.98;
+    letter-spacing: 0.5px;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+
+  .cta-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.62);
+    margin-bottom: 32px;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .cta-preview {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transform: rotate(-5deg);
+    transition: transform 0.35s ease;
+  }
+  .app-cta:hover .cta-preview {
+    transform: rotate(-1deg);
+  }
+  .cta-preview::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    background: radial-gradient(
+      closest-side,
+      rgba(232, 180, 48, 0.16),
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+  .cta-preview :global(.device-frame.is-phone) {
+    max-width: 160px;
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  @media (max-width: 960px) {
+    .app-cta {
+      padding: 64px 28px;
+      flex-direction: column;
+      text-align: center;
+      gap: 40px;
+    }
+    .cta-content {
+      max-width: none;
+    }
+    .cta-actions {
+      justify-content: center;
+    }
+    .cta-preview {
+      transform: rotate(0deg);
+    }
+    .app-cta:hover .cta-preview {
+      transform: rotate(0deg);
+    }
+  }
+</style>

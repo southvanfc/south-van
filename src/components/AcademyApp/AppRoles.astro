@@ -1,0 +1,53 @@
+---
+// src/components/AcademyApp/AppRoles.astro
+import { appRoles } from "../../data/academy-app-data";
+import AppCard from "./AppCard.astro";
+---
+
+<section class="app-roles" id="roles">
+  <div class="app-section-header">
+    <span class="eyebrow eyebrow-navy">Who It's For</span>
+    <h2 class="section-title" style="margin-bottom: 0">
+      A Portal For<br />Every Role
+    </h2>
+  </div>
+
+  <div class="app-grid app-grid-4">
+    {appRoles.map((item) => <AppCard {...item} />)}
+  </div>
+</section>
+
+<style>
+  .app-roles {
+    background: var(--off-white);
+    padding: 96px 80px;
+  }
+
+  .app-section-header {
+    margin-bottom: 56px;
+  }
+
+  .app-grid {
+    display: grid;
+    gap: 2px;
+    background: var(--lt-gray);
+  }
+  .app-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 960px) {
+    .app-roles {
+      padding: 64px 28px;
+    }
+    .app-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .app-grid-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

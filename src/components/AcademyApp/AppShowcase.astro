@@ -1,0 +1,119 @@
+---
+// src/components/AcademyApp/AppShowcase.astro
+import { appShowcase } from "../../data/academy-app-data";
+import { academyAppImage } from "../../lib/academy-app-images";
+import DeviceFrame from "./DeviceFrame.astro";
+---
+
+<section class="app-showcase" id="showcase">
+  <div class="app-section-header">
+    <span class="eyebrow eyebrow-navy">See It In Action</span>
+    <h2 class="section-title" style="margin-bottom: 8px;">
+      A Look Inside
+    </h2>
+    <p class="showcase-note">
+      Screens without a screenshot yet show a placeholder. Real screenshots
+      land here as they're ready.
+    </p>
+  </div>
+
+  <div class="showcase-list">
+    {
+      appShowcase.map(({ slug, role, caption }) => (
+        <div class="showcase-item">
+          <div class="showcase-frames">
+            <div class="showcase-frame is-desktop">
+              <DeviceFrame
+                label={role}
+                variant="browser"
+                image={academyAppImage(`${slug}-desktop`)}
+                alt={`${role}, desktop view`}
+              />
+            </div>
+            <div class="showcase-frame is-mobile">
+              <DeviceFrame
+                label={role}
+                variant="phone"
+                image={academyAppImage(`${slug}-mobile`)}
+                alt={`${role}, mobile view`}
+              />
+            </div>
+          </div>
+          <h3 class="showcase-role">{role}</h3>
+          <p class="showcase-caption">{caption}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .app-showcase {
+    padding: 96px 80px;
+  }
+
+  .app-section-header {
+    margin-bottom: 56px;
+  }
+
+  .showcase-note {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  .showcase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .showcase-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .showcase-frames {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .showcase-frame.is-desktop {
+    min-width: 0;
+  }
+
+  .showcase-frame.is-mobile {
+    width: 220px;
+  }
+
+  .showcase-role {
+    font-family: "Inter Variable", sans-serif;
+    font-size: 20px;
+    color: var(--navy-dark);
+    margin-top: 24px;
+  }
+
+  .showcase-caption {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-mid);
+    margin-top: 6px;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 960px) {
+    .app-showcase {
+      padding: 64px 28px;
+    }
+    .showcase-frames {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 28px;
+    }
+    .showcase-frame.is-desktop {
+      width: 100%;
+    }
+  }
+</style>
