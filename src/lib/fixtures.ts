@@ -179,6 +179,18 @@ export function formatShortDate(date: string): string {
   return `${day} ${MONTH_SHORT[month - 1]} ${String(year).slice(2)}`;
 }
 
+/**
+ * "14:05" to "2:05 PM", "10:10" to "10:10 AM". VMSL's schedule and the stored
+ * `time` field are both 24 hour; every place a kickoff is shown to a visitor
+ * reads this instead so the hour is never ambiguous.
+ */
+export function formatTime(time: string): string {
+  const [hour, minute] = time.split(":").map(Number);
+  const period = hour < 12 ? "AM" : "PM";
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:${String(minute).padStart(2, "0")} ${period}`;
+}
+
 /** 1 to "1st", 2 to "2nd", 11 to "11th". Used for league positions. */
 export function ordinal(value: number): string {
   const lastTwo = Math.abs(value) % 100;

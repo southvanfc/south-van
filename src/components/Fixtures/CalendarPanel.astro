@@ -2,6 +2,7 @@
 import type { FixturesData } from "../../types/types";
 import {
   calendarRange,
+  formatTime,
   getClub,
   isPlayed,
   localDate,
@@ -155,14 +156,14 @@ const grids = months.map((entry) => {
                   <span class="fx-cal-chip-tm">
                     {played
                       ? `${ourScore(match)}-${theirScore(match)} ${result}`
-                      : match.time}
+                      : formatTime(match.time)}
                   </span>
                   <span class="fx-sr">
                     {match.isHome ? "Home" : "Away"} against{" "}
                     {opponent?.name ?? match.opponentSlug}, {cell.day} {grid.monthName},{" "}
                     {played
                       ? `full time, South Van ${ourScore(match)}, ${opponent?.name ?? "opponent"} ${theirScore(match)}`
-                      : `kickoff ${match.time}`}
+                      : `kickoff ${formatTime(match.time)}`}
                     , {match.venue}
                   </span>
                 </div>

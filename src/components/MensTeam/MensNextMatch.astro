@@ -5,6 +5,7 @@ import LocationButton from "../Fixtures/LocationButton.astro";
 import {
   OUR_SLUG,
   formatLongDate,
+  formatTime,
   getClub,
   nextMatch,
   sortedStandings,
@@ -122,7 +123,7 @@ const clubCount = sortedStandings(data).length;
               </div>
               <div>
                 <dt>Kickoff</dt>
-                <dd>{match.time}</dd>
+                <dd>{formatTime(match.time)}</dd>
               </div>
               <div>
                 <dt>Venue</dt>

@@ -5,6 +5,7 @@ import LocationButton from "./LocationButton.astro";
 import {
   OUR_SLUG,
   dateParts,
+  formatTime,
   getClub,
   isAwaitingResult,
   isPlayed,
@@ -128,7 +129,7 @@ const awaitingResult = !played && !statusLabel && isAwaitingResult(match, now);
       ) : (
         <>
           <span class="fx-m-time">
-            {match.time}
+            {formatTime(match.time)}
             <small>Kickoff</small>
           </span>
           {statusLabel && <span class="fx-m-badge">{statusLabel}</span>}

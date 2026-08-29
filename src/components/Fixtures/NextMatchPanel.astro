@@ -6,6 +6,7 @@ import {
   OUR_SLUG,
   formatLongDate,
   formatShortDate,
+  formatTime,
   getClub,
   headToHead,
   ordinal,
@@ -122,7 +123,7 @@ const h2hCells = record
           </div>
           <div>
             <dt>Kickoff</dt>
-            <dd>{match.time}</dd>
+            <dd>{formatTime(match.time)}</dd>
           </div>
           <div>
             <dt>Venue</dt>

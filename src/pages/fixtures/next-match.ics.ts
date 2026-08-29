@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { fixturesData } from "../../data/fixtures";
-import { OUR_SLUG, getClub, kickoffAt, nextMatch } from "../../lib/fixtures";
+import { OUR_SLUG, formatTime, getClub, kickoffAt, nextMatch } from "../../lib/fixtures";
 
 /*
  * The "Add to calendar" button on the match card points here. An .ics file is
@@ -70,7 +70,7 @@ export const GET: APIRoute = () => {
     `DTEND:${stamp(end)}`,
     `SUMMARY:${escapeText(summary)}`,
     `LOCATION:${escapeText(match.venue)}`,
-    `DESCRIPTION:${escapeText(`${match.competitionLabel}. Kickoff ${match.time} Vancouver time.`)}`,
+    `DESCRIPTION:${escapeText(`${match.competitionLabel}. Kickoff ${formatTime(match.time)} Vancouver time.`)}`,
     "URL:https://www.southvanfc.com/fixtures/",
     "END:VEVENT",
     "END:VCALENDAR",

@@ -6,6 +6,7 @@ import {
   calendarRange,
   formatLongDate,
   formatShortDate,
+  formatTime,
   groupByMonth,
   isAwaitingResult,
   isoKickoff,
@@ -588,6 +589,17 @@ describe("date formatting", () => {
     expect(ordinal(12)).toBe("12th");
     expect(ordinal(13)).toBe("13th");
     expect(ordinal(21)).toBe("21st");
+  });
+
+  it("writes a 24 hour kickoff as 12 hour with AM or PM", () => {
+    expect(formatTime("00:00")).toBe("12:00 AM");
+    expect(formatTime("00:05")).toBe("12:05 AM");
+    expect(formatTime("10:10")).toBe("10:10 AM");
+    expect(formatTime("11:59")).toBe("11:59 AM");
+    expect(formatTime("12:00")).toBe("12:00 PM");
+    expect(formatTime("14:05")).toBe("2:05 PM");
+    expect(formatTime("20:00")).toBe("8:00 PM");
+    expect(formatTime("23:30")).toBe("11:30 PM");
   });
 });
 
