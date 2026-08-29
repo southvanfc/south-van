@@ -233,6 +233,18 @@ export function getClub(data: FixturesData, slug: string): Club | undefined {
 }
 
 /**
+ * A Google Maps search link for a stored venue, e.g. "Memorial South Turf -
+ * VAN" to a search for "Memorial South Turf, Metro Vancouver, BC". The
+ * trailing " - CODE" VMSL appends is its own municipality shorthand, not a
+ * place name, so it is dropped rather than passed through to the search.
+ */
+export function venueMapUrl(venue: string): string {
+  const name = venue.replace(/\s*-\s*[A-Z]+$/, "").trim();
+  const query = `${name}, Metro Vancouver, BC`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+/**
  * True when both scores are filled in. The type predicate lets callers read
  * `homeScore` and `awayScore` as numbers afterwards without a non-null
  * assertion, which is why it is written this way rather than returning a plain

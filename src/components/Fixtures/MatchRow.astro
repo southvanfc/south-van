@@ -1,6 +1,7 @@
 ---
 import type { FixturesData, Match } from "../../types/types";
 import Crest from "./Crest.astro";
+import LocationButton from "./LocationButton.astro";
 import {
   OUR_SLUG,
   dateParts,
@@ -147,7 +148,8 @@ const awaitingResult = !played && !statusLabel && isAwaitingResult(match, now);
         <span aria-hidden="true">{match.isHome ? "H" : "A"}</span>
         <span class="fx-sr">{match.isHome ? "Home" : "Away"}</span>
       </span>
-      {match.venue}
+      <span class="fx-m-place-text">{match.venue}</span>
+      <LocationButton venue={match.venue} />
     </div>
     <div class="fx-m-comp">{match.competitionLabel}</div>
   </div>

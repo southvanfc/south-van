@@ -948,6 +948,7 @@ a { color: inherit; }
   color: var(--fx-label);
 }
 .fx-meta dd { margin: 0; font-size: 15px; font-weight: 600; color: var(--white); }
+.fx-meta-venue { display: inline-flex; align-items: center; gap: 8px; }
 .fx-note {
   margin: 16px 0 0;
   font-size: 12.5px; line-height: 1.55;
@@ -1425,10 +1426,11 @@ a { color: inherit; }
 
 .fx-m-venue { min-width: 0; }
 .fx-m-place {
+  display: flex; align-items: center; gap: 5px;
   font-size: 12.5px;
   color: var(--text-mid);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.fx-m-place-text { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fx-m-comp {
   margin-top: 3px;
   font-size: 9.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
@@ -1442,6 +1444,59 @@ a { color: inherit; }
 }
 .fx-m-ha.is-home { background: var(--navy); color: var(--white); }
 .fx-m-ha.is-away { background: var(--lt-gray); color: var(--text-mid); }
+
+/* ── VENUE LOCATION BUTTON ──
+   Icon only, so the pin shape alone has to read as a place and the bordered
+   pill has to read as a button rather than a stray icon. Both jobs fall to
+   the same treatment: a filled background at rest, not just on hover. */
+.fx-loc-btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: var(--lt-gray);
+  color: var(--text-mid);
+  transition: background 0.16s, color 0.16s;
+}
+.fx-loc-btn:hover, .fx-loc-btn:focus-visible {
+  background: var(--gold);
+  color: var(--navy-dark);
+}
+.fx-loc-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.fx-loc-btn.is-on-dark {
+  background: rgba(255,255,255,0.14);
+  color: var(--white);
+}
+.fx-loc-btn.is-on-dark:hover, .fx-loc-btn.is-on-dark:focus-visible {
+  background: var(--gold);
+  color: var(--navy-dark);
+}
+
+/* Custom rather than the native `title` tooltip, which is slow to appear and
+   cannot be restricted to devices with a hover to trigger it. Off by default
+   and only switched on for a fine pointer that can hover, so a tap on touch
+   opens Maps directly instead of leaving a tooltip stuck open. */
+.fx-loc-tip {
+  position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 9px; border-radius: 4px;
+  background: var(--navy-dark);
+  font-size: 11px; font-weight: 600; white-space: nowrap;
+  color: var(--white);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.16s, transform 0.16s;
+}
+.fx-loc-tip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent; border-top-color: var(--navy-dark);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fx-loc-btn:hover .fx-loc-tip, .fx-loc-btn:focus-visible .fx-loc-tip {
+    opacity: 1; transform: translateX(-50%) translateY(0);
+  }
+}
 
 .fx-m-arrow {
   text-align: right;

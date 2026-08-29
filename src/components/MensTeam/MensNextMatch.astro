@@ -1,6 +1,7 @@
 ---
 import type { FixturesData } from "../../types/types";
 import Crest from "../Fixtures/Crest.astro";
+import LocationButton from "../Fixtures/LocationButton.astro";
 import {
   OUR_SLUG,
   formatLongDate,
@@ -125,7 +126,10 @@ const clubCount = sortedStandings(data).length;
               </div>
               <div>
                 <dt>Venue</dt>
-                <dd>{match.venue}</dd>
+                <dd class="fx-meta-venue">
+                  {match.venue}
+                  <LocationButton venue={match.venue} onDark />
+                </dd>
               </div>
             </dl>
             {match.note && <p class="fx-note">{match.note}</p>}

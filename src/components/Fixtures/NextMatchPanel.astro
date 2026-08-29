@@ -1,6 +1,7 @@
 ---
 import type { FixturesData, Match } from "../../types/types";
 import Crest from "./Crest.astro";
+import LocationButton from "./LocationButton.astro";
 import {
   OUR_SLUG,
   formatLongDate,
@@ -125,7 +126,10 @@ const h2hCells = record
           </div>
           <div>
             <dt>Venue</dt>
-            <dd>{match.venue}</dd>
+            <dd class="fx-meta-venue">
+              {match.venue}
+              <LocationButton venue={match.venue} onDark />
+            </dd>
           </div>
         </dl>
         {match.note && <p class="fx-note">{match.note}</p>}

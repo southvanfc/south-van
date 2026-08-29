@@ -1,0 +1,44 @@
+---
+import { venueMapUrl } from "../../lib/fixtures";
+
+/*
+ * A small pin button that sits beside a venue name and opens it in Google
+ * Maps. The tooltip is desktop only: on a touch device there is no hover to
+ * show it and no pointer to leave, so it would otherwise stick open after a
+ * tap. `aria-label` carries the same text to screen readers on every device.
+ */
+
+interface Props {
+  venue: string;
+  /** True beside white text on the navy next match card */
+  onDark?: boolean;
+}
+
+const { venue, onDark = false } = Astro.props;
+const href = venueMapUrl(venue);
+---
+
+<a
+  class:list={["fx-loc-btn", onDark && "is-on-dark"]}
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Get directions to ${venue}`}
+>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linejoin="round"></path>
+    <circle cx="12" cy="9" r="2.3" stroke="currentColor" stroke-width="2"
+    ></circle>
+  </svg>
+  <span class="fx-loc-tip" role="tooltip">Get directions</span>
+</a>
