@@ -6,6 +6,8 @@ pubDate: 2026-08-20T00:00:00-08:00
 author: "Dipinder Kainth"
 category: "Player Development"
 image: "/assets/gold.png"
+coverImage: "/assets/blog/tactics-compact.webp"
+coverImageAlt: "A South Van FC soccer field showing tactics"
 tags: ["Player Development", "Coaching", "Team Tactics"]
 ---
 
