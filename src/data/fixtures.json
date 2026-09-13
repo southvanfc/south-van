@@ -1,7 +1,7 @@
 {
   "season": "2026-27",
   "division": "VMSL Division 4A",
-  "updatedAt": "2026-08-28T23:54:42-07:00",
+  "updatedAt": "2026-09-13T08:09:10-07:00",
   "clubs": [
     {
       "name": "South Van FC",
@@ -167,6 +167,22 @@
       "slug": "coastal-fc-c-new",
       "colour": "#1e7a4a",
       "crest": "/assets/crests/coastal-fc-c-new.jpg"
+    },
+    {
+      "name": "New Wells City FC Royals",
+      "vmslName": "New Wells City FC Royals",
+      "tag": "NWCF",
+      "slug": "new-wells-city-fc-royals",
+      "colour": "#5b3a8c",
+      "crest": "/assets/crests/new-wells-city-fc-royals.jpg"
+    },
+    {
+      "name": "Ross Street Raiders",
+      "vmslName": "Ross Street Raiders",
+      "tag": "RSR",
+      "slug": "ross-street-raiders",
+      "colour": "#1e7a4a",
+      "crest": "/assets/crests/ross-street-raiders.jpg"
     }
   ],
   "matches": [
@@ -198,7 +214,7 @@
       "id": "24196",
       "date": "2026-09-27",
       "time": "14:05",
-      "opponentSlug": "new-wells-city-fc-royals-new",
+      "opponentSlug": "new-wells-city-fc-royals",
       "isHome": false,
       "venue": "Empire Turf South - VAN",
       "competition": "league",
@@ -210,7 +226,7 @@
       "id": "24203",
       "date": "2026-10-04",
       "time": "14:05",
-      "opponentSlug": "ross-st-raiders-new",
+      "opponentSlug": "ross-street-raiders",
       "isHome": true,
       "venue": "Empire Turf North - VAN",
       "competition": "league",
@@ -222,7 +238,7 @@
       "id": "24206",
       "date": "2026-10-10",
       "time": "20:00",
-      "opponentSlug": "coastal-fc-c-new",
+      "opponentSlug": "coastal-fc-c",
       "isHome": false,
       "venue": "South Surrey Athl 9 Turf - SRY",
       "competition": "league",
@@ -306,7 +322,7 @@
       "id": "24241",
       "date": "2026-11-29",
       "time": "14:05",
-      "opponentSlug": "new-wells-city-fc-royals-new",
+      "opponentSlug": "new-wells-city-fc-royals",
       "isHome": true,
       "venue": "Empire Turf North - VAN",
       "competition": "league",
@@ -318,7 +334,7 @@
       "id": "24248",
       "date": "2026-12-05",
       "time": "16:05",
-      "opponentSlug": "ross-st-raiders-new",
+      "opponentSlug": "ross-street-raiders",
       "isHome": false,
       "venue": "Memorial South Turf - VAN",
       "competition": "league",
@@ -330,7 +346,7 @@
       "id": "24251",
       "date": "2026-12-13",
       "time": "14:05",
-      "opponentSlug": "coastal-fc-c-new",
+      "opponentSlug": "coastal-fc-c",
       "isHome": true,
       "venue": "Empire Turf North - VAN",
       "competition": "league",
@@ -368,12 +384,12 @@
       "time": "20:00",
       "opponentSlug": "bby-spartans-fc-hades",
       "isHome": false,
-      "venue": "SFU Fox Turf - BBY",
+      "venue": "SFU Field 4 Turf - BBY",
       "competition": "league",
       "competitionLabel": "VMSL Division 4A",
       "homeScore": null,
       "awayScore": null,
-      "note": "VMSL marker: Conflict"
+      "note": "Conflict at SFU Fox"
     },
     {
       "id": "24271",
@@ -390,30 +406,30 @@
   ],
   "standings": [
     {
-      "clubSlug": "bby-spartans-fc-hades",
-      "played": 0,
-      "won": 0,
+      "clubSlug": "new-wells-city-fc-royals",
+      "played": 1,
+      "won": 1,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "goalsFor": 5,
+      "goalsAgainst": 1,
       "form": ""
     },
     {
-      "clubSlug": "burnaby-fc-chelsea",
-      "played": 0,
-      "won": 0,
+      "clubSlug": "ross-street-raiders",
+      "played": 1,
+      "won": 1,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "goalsFor": 5,
+      "goalsAgainst": 1,
       "form": ""
     },
     {
-      "clubSlug": "coastal-fc-c-new",
-      "played": 0,
+      "clubSlug": "coastal-fc-c",
+      "played": 1,
       "won": 0,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
       "goalsFor": 0,
       "goalsAgainst": 0,
@@ -421,6 +437,16 @@
     },
     {
       "clubSlug": "fc-kova",
+      "played": 1,
+      "won": 0,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "form": ""
+    },
+    {
+      "clubSlug": "bby-spartans-fc-hades",
       "played": 0,
       "won": 0,
       "drawn": 0,
@@ -440,27 +466,7 @@
       "form": ""
     },
     {
-      "clubSlug": "new-wells-city-fc-royals-new",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
       "clubSlug": "northstars-vfc",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
-      "clubSlug": "ross-st-raiders-new",
       "played": 0,
       "won": 0,
       "drawn": 0,
@@ -480,13 +486,23 @@
       "form": ""
     },
     {
-      "clubSlug": "vancouver-grizzlies-fc",
-      "played": 0,
+      "clubSlug": "burnaby-fc-chelsea",
+      "played": 1,
       "won": 0,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 5,
+      "form": ""
+    },
+    {
+      "clubSlug": "vancouver-grizzlies-fc",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 5,
       "form": ""
     }
   ],
