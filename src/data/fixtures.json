@@ -1,7 +1,7 @@
 {
   "season": "2026-27",
   "division": "VMSL Division 4A",
-  "updatedAt": "2026-09-13T08:09:10-07:00",
+  "updatedAt": "2026-09-13T20:31:56-07:00",
   "clubs": [
     {
       "name": "South Van FC",
@@ -195,8 +195,8 @@
       "venue": "Trillium Turf East - VAN",
       "competition": "league",
       "competitionLabel": "VMSL Division 4A",
-      "homeScore": null,
-      "awayScore": null
+      "homeScore": 9,
+      "awayScore": 1
     },
     {
       "id": "24192",
@@ -406,6 +406,26 @@
   ],
   "standings": [
     {
+      "clubSlug": "northstars-vfc",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 9,
+      "goalsAgainst": 1,
+      "form": ""
+    },
+    {
+      "clubSlug": "highlands-vfc",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 6,
+      "goalsAgainst": 1,
+      "form": ""
+    },
+    {
       "clubSlug": "new-wells-city-fc-royals",
       "played": 1,
       "won": 1,
@@ -446,46 +466,6 @@
       "form": ""
     },
     {
-      "clubSlug": "bby-spartans-fc-hades",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
-      "clubSlug": "highlands-vfc",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
-      "clubSlug": "northstars-vfc",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
-      "clubSlug": "south-van-fc",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
       "clubSlug": "burnaby-fc-chelsea",
       "played": 1,
       "won": 0,
@@ -504,6 +484,26 @@
       "goalsFor": 1,
       "goalsAgainst": 5,
       "form": ""
+    },
+    {
+      "clubSlug": "bby-spartans-fc-hades",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 6,
+      "form": ""
+    },
+    {
+      "clubSlug": "south-van-fc",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 9,
+      "form": "L"
     }
   ],
   "history": []
