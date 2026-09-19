@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
+import { BLOCKED_CONTENT_MESSAGE, findBlockedField } from "../../lib/profanity";
 import type { MensApplicationInsert } from "../../types/types";
 
 export const POST: APIRoute = async ({ request }) => {
@@ -42,9 +43,29 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    if (fullName.length > 200 || email.length > 200 || phone.length > 50 || whySouthVan.length > 5000) {
+    if (fullName.length > 200 || email.length > 200 || phone.length > 50 || whySouthVan.length > 5000 || currentClub.length > 200) {
       return new Response(
         JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    // Content check on free-text fields only. Selects, radios, checkboxes and
+    // dates are not user typed, so there is nothing to screen there.
+    // The client runs the same check first; this is the authoritative gate for
+    // anything that bypasses it.
+    const blocked = findBlockedField({
+      full_name:    fullName,
+      email,
+      current_club: currentClub,
+      why_southvan: whySouthVan,
+    });
+
+    if (blocked) {
+      // Field and term only. The applicant's own text stays out of the logs.
+      console.warn(`[submit-application] blocked content: field=${blocked.field} term=${blocked.term}`);
+      return new Response(
+        JSON.stringify({ ok: false, error: BLOCKED_CONTENT_MESSAGE }),
         { status: 400, headers: { "content-type": "application/json" } }
       );
     }

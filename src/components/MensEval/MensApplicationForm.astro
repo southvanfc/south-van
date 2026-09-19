@@ -6,17 +6,18 @@
 //   League Experience | Availability | Why South Van | Referral
 ---
 
-<!-- Honeypot -->
-<input
-  type="text"
-  name="company"
-  autocomplete="off"
-  tabindex="-1"
-  aria-hidden="true"
-  style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
-/>
-
 <form action="/api/submit-application/" method="POST" id="mens-form">
+  <!-- Honeypot — inside the form so it actually submits with the POST.
+       It used to sit above the <form> tag, which meant it was never sent and
+       the honeypot check in /api/submit-application could never fire. -->
+  <input
+    type="text"
+    name="company"
+    autocomplete="off"
+    tabindex="-1"
+    aria-hidden="true"
+    style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+  />
   <!-- ── 01 PERSONAL DETAILS ──────────────────── -->
   <div class="fsec">
     <div class="fsec-head">
@@ -39,6 +40,7 @@
           placeholder="Your full name"
           required
         />
+        <span class="f-err" id="full_name-error" aria-live="polite"></span>
       </div>
       <div class="f">
         <label class="f-label" for="dob"
@@ -58,6 +60,7 @@
           placeholder="your@email.com"
           required
         />
+        <span class="f-err" id="email-error" aria-live="polite"></span>
       </div>
       <div class="f">
         <label class="f-label" for="phone"
@@ -161,6 +164,7 @@
             type="text"
             placeholder="e.g. FVSL, Parks & Rec, None"
           />
+          <span class="f-err" id="current_club-error" aria-live="polite"></span>
         </div>
         <div class="f">
           <label class="f-label" for="league_experience"
@@ -298,6 +302,7 @@
           rows="5"
           placeholder="e.g. I've been playing VMSL for 3 years and I'm looking for a club that takes training seriously. I'm competitive, I want to be pushed, and I'm willing to work for my place in the starting eleven..."
           required></textarea>
+        <span class="f-err" id="why_southvan-error" aria-live="polite"></span>
       </div>
       <div class="f">
         <label class="f-label" for="referral"
@@ -762,10 +767,72 @@
 </style>
 
 <script>
+  import {
+    BLOCKED_CONTENT_MESSAGE,
+    containsBlockedContent,
+  } from "../../lib/profanity";
+
   const form = document.getElementById("mens-form") as HTMLFormElement | null;
   const btn = document.getElementById("submit-btn") as HTMLButtonElement | null;
+
+  /*
+   * Content screening. The same check runs server-side in
+   * /api/submit-application and that is the authoritative one; this copy exists
+   * so a real applicant sees an inline error instead of losing the form to a
+   * raw JSON error page.
+   */
+  const TEXT_FIELDS = ["full_name", "email", "current_club", "why_southvan"];
+
+  function clearError(id: string) {
+    document.getElementById(id)?.classList.remove("is-invalid");
+    document.getElementById(id + "-error")?.classList.remove("is-visible");
+  }
+
+  /** Flags any field containing blocked content. Returns true when all clean. */
+  function checkContent(): boolean {
+    let ok = true;
+    let firstBad: HTMLElement | null = null;
+
+    for (const id of TEXT_FIELDS) {
+      const el = document.getElementById(id) as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null;
+      if (!el) continue;
+
+      if (!containsBlockedContent(el.value ?? "")) {
+        clearError(id);
+        continue;
+      }
+
+      ok = false;
+      if (!firstBad) firstBad = el;
+      const errEl = document.getElementById(id + "-error");
+      if (errEl) {
+        errEl.textContent = BLOCKED_CONTENT_MESSAGE;
+        errEl.classList.add("is-visible");
+      }
+      el.classList.add("is-invalid");
+    }
+
+    firstBad?.scrollIntoView({ behavior: "smooth", block: "center" });
+    firstBad?.focus({ preventScroll: true });
+    return ok;
+  }
+
+  for (const id of TEXT_FIELDS) {
+    document.getElementById(id)?.addEventListener("input", () => clearError(id));
+  }
+
   if (form && btn) {
-    form.addEventListener("submit", () => {
+    // The content check runs BEFORE the button is disabled. Reversing these two
+    // leaves a blocked applicant looking at a spinner that never resolves.
+    form.addEventListener("submit", (e) => {
+      if (!checkContent()) {
+        e.preventDefault();
+        return;
+      }
+
       btn.disabled = true;
       btn.innerHTML = `
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"

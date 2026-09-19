@@ -232,6 +232,14 @@ export interface FixturesData {
   history: Match[];
 }
 
+/** A blocked term found in a submitted form field. See src/lib/profanity.ts. */
+export interface ProfanityHit {
+  /** The form field name, e.g. "why_southvan". */
+  field: string;
+  /** The matched term. For server logs only, never shown to the user. */
+  term: string;
+}
+
 export interface MensApplicationInsert {
   full_name:          string;
   email:              string;

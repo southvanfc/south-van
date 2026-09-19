@@ -430,6 +430,7 @@
             type="text"
             placeholder="e.g. Basketball, ice hockey, swimming"
           />
+          <span class="f-err" id="other_sports-error" aria-live="polite"></span>
         </div>
       </div>
     </fieldset>
@@ -493,6 +494,7 @@
             rows="3"
             placeholder="e.g. Recovering from a sprained ankle. No contact drills for 4 weeks..."
           ></textarea>
+          <span class="f-err" id="injuries-error" aria-live="polite"></span>
         </div>
 
         <!-- Player strengths -->
@@ -508,6 +510,8 @@
             rows="3"
             placeholder="e.g. Strong in the air, good first touch, reads the game well under pressure..."
           ></textarea>
+          <span class="f-err" id="player_strengths-error" aria-live="polite"
+          ></span>
         </div>
 
         <!-- Areas to improve -->
@@ -525,6 +529,8 @@
             rows="3"
             placeholder="e.g. Weak foot, defensive positioning, decision-making in tight spaces..."
           ></textarea>
+          <span class="f-err" id="areas_to_improve-error" aria-live="polite"
+          ></span>
         </div>
       </div>
     </fieldset>
@@ -582,6 +588,7 @@
             rows="4"
             placeholder="e.g. Earn a spot on a competitive U14 team by summer. Work on consistency when receiving under pressure..."
           ></textarea>
+          <span class="f-err" id="goals-error" aria-live="polite"></span>
         </div>
 
         <!-- Referral -->
@@ -822,22 +829,8 @@
     border-radius: 100px;
   }
 
-  /* ── Inline validation errors ── */
-  .f-err {
-    display: none;
-    font-size: 11px;
-    color: #c0392b;
-    font-weight: 600;
-    margin-top: 1px;
-  }
-  .f-err.is-visible {
-    display: block;
-  }
-  .f-input.is-invalid,
-  .f-select.is-invalid {
-    border-color: #c0392b;
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.09);
-  }
+  /* Inline validation error styles (.f-err, .is-invalid) are global, in
+     global.css, so this form and MensApplicationForm stay in step. */
 
   /* ── Inputs ── */
   .f-input,
@@ -1093,6 +1086,11 @@
 </style>
 
 <script>
+  import {
+    BLOCKED_CONTENT_MESSAGE,
+    containsBlockedContent,
+  } from "../../lib/profanity";
+
   const form = document.getElementById("eval-form") as HTMLFormElement | null;
   const nextBtn = document.getElementById(
     "next-btn",
@@ -1257,6 +1255,60 @@
         if (inputEl) inputEl.classList.remove("is-invalid");
       }
     }
+    return ok && checkContent(STEP1_TEXT_FIELDS);
+  }
+
+  /*
+   * Content screening. The same check runs server-side in
+   * /api/submit-evaluation and that is the authoritative one; this copy exists
+   * so a real applicant sees an inline error instead of losing a long two-step
+   * form to a raw JSON error page.
+   */
+  const STEP1_TEXT_FIELDS = [
+    "full_name",
+    "club",
+    "parent_name",
+    "parent_email",
+    "player_email",
+  ];
+
+  const STEP2_TEXT_FIELDS = [
+    "other_sports",
+    "injuries",
+    "player_strengths",
+    "areas_to_improve",
+    "goals",
+  ];
+
+  /** Flags any field containing blocked content. Returns true when all clean. */
+  function checkContent(ids: string[]): boolean {
+    let ok = true;
+    let firstBad: HTMLElement | null = null;
+
+    for (const id of ids) {
+      const el = document.getElementById(id) as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null;
+      if (!el) continue;
+
+      if (!containsBlockedContent(el.value ?? "")) {
+        clearError(id);
+        continue;
+      }
+
+      ok = false;
+      if (!firstBad) firstBad = el;
+      const errEl = document.getElementById(id + "-error");
+      if (errEl) {
+        errEl.textContent = BLOCKED_CONTENT_MESSAGE;
+        errEl.classList.add("is-visible");
+      }
+      el.classList.add("is-invalid");
+    }
+
+    firstBad?.scrollIntoView({ behavior: "smooth", block: "center" });
+    firstBad?.focus({ preventScroll: true });
     return ok;
   }
 
@@ -1326,6 +1378,12 @@
     }
   }
 
+  // Step 2 fields are optional, so they carry no required-field error, but they
+  // can still raise a content error that should clear as the user edits it.
+  for (const id of STEP2_TEXT_FIELDS) {
+    document.getElementById(id)?.addEventListener("input", () => clearError(id));
+  }
+
   // Init: step 1 active
   document.querySelector('[data-pip="1"]')?.setAttribute("data-active", "true");
 
@@ -1334,8 +1392,24 @@
   });
   backBtn.addEventListener("click", () => goToStep(1));
 
-  // Submit loading state
-  form.addEventListener("submit", () => {
+  // Submit loading state.
+  // The content check runs BEFORE the button is disabled. Reversing these two
+  // leaves a blocked applicant looking at a spinner that never resolves.
+  form.addEventListener("submit", (e) => {
+    // Step 1 is hidden by the time this fires, so a blocked field there has to
+    // pull the user back to it or the error would be flagged out of sight.
+    if (!checkContent(STEP1_TEXT_FIELDS)) {
+      e.preventDefault();
+      goToStep(1);
+      checkContent(STEP1_TEXT_FIELDS);
+      return;
+    }
+
+    if (!checkContent(STEP2_TEXT_FIELDS)) {
+      e.preventDefault();
+      return;
+    }
+
     submitBtn!.disabled = true;
     submitBtn!.innerHTML = `
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"

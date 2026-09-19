@@ -432,6 +432,34 @@ a { color: inherit; }
     }
   }
 
+/* ── INLINE VALIDATION ERRORS ──
+   Shared by MensApplicationForm and EvalRequestForm. These used to live in a
+   scoped block inside EvalRequestForm only; they are global now so both
+   application forms show identical errors instead of drifting apart.
+   Markup convention: <span class="f-err" id="<field>-error" aria-live="polite">
+   sits under the field, and the field itself gets .is-invalid. */
+.f-err {
+    display: none;
+    font-size: 11px;
+    color: #c0392b;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+  .f-err.is-visible {
+    display: block;
+  }
+  /* The `form` prefix is load-bearing, do not drop it. Astro scopes component
+     styles to `.f-input[data-astro-cid-...]`, which has the same specificity as
+     a bare `.f-input.is-invalid` but loads after global.css, so the normal grey
+     border would win and the field would never turn red. The element selector
+     puts this rule one step ahead. */
+  form .f-input.is-invalid,
+  form .f-select.is-invalid,
+  form .f-textarea.is-invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.09);
+  }
+
 
 /* ── TYPOGRAPHY ── */
 .eyebrow {

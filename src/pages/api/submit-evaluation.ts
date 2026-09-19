@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
+import { BLOCKED_CONTENT_MESSAGE, findBlockedField } from "../../lib/profanity";
 import type { PlayerEvaluationInsert } from "../../types/types";
 
 function calcAge(dobStr: string): number | null {
@@ -104,10 +105,38 @@ export const POST: APIRoute = async ({ request }) => {
     if (
       fullName.length > 200 || parentName.length > 200 || parentEmail.length > 200 ||
       parentPhone.length > 50 || playerEmail.length > 200 || playerPhone.length > 50 ||
-      longTermGoal.length > 5000
+      longTermGoal.length > 5000 || club.length > 200 || otherSports.length > 200 ||
+      injuries.length > 5000 || playerStrengths.length > 5000 ||
+      areasToImprove.length > 5000 || goals.length > 5000
     ) {
       return new Response(
         JSON.stringify({ ok: false, error: "One or more fields exceed the maximum allowed length." }),
+        { status: 400, headers: { "content-type": "application/json" } }
+      );
+    }
+
+    // Content check on free-text fields only. Selects, radios, checkboxes and
+    // dates are not user typed, so there is nothing to screen there.
+    // The client runs the same check first; this is the authoritative gate for
+    // anything that bypasses it.
+    const blocked = findBlockedField({
+      full_name:        fullName,
+      club,
+      other_sports:     otherSports,
+      parent_name:      parentName,
+      parent_email:     parentEmail,
+      player_email:     playerEmail,
+      injuries,
+      player_strengths: playerStrengths,
+      areas_to_improve: areasToImprove,
+      goals,
+    });
+
+    if (blocked) {
+      // Field and term only. The applicant's own text stays out of the logs.
+      console.warn(`[submit-evaluation] blocked content: field=${blocked.field} term=${blocked.term}`);
+      return new Response(
+        JSON.stringify({ ok: false, error: BLOCKED_CONTENT_MESSAGE }),
         { status: 400, headers: { "content-type": "application/json" } }
       );
     }
