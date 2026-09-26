@@ -1,0 +1,130 @@
+---
+import type { PlayersData } from "../../types/types";
+import { leadersBy } from "../../lib/players";
+
+interface Props {
+  data: PlayersData;
+}
+
+const { data } = Astro.props;
+
+const columns = [
+  { stat: "goals" as const, title: "Top scorers", unit: "G" },
+  { stat: "mvps" as const, title: "MVP awards", unit: "MVP" },
+].map((column) => ({ ...column, leaders: leadersBy(data, column.stat, 3) }));
+
+const hasAny = columns.some((column) => column.leaders.length > 0);
+---
+
+<div class="fx-ps">
+  {
+    hasAny ? (
+      <div class="fx-ps-grid">
+        {columns.map(({ title, unit, leaders }) => (
+          <div class="fx-ps-col">
+            <h3 class="fx-ps-title">{title}</h3>
+            {leaders.length > 0 ? (
+              <ol class="fx-ps-list">
+                {leaders.map((leader) => (
+                  <li class="fx-ps-row">
+                    <span class="fx-ps-rank">{leader.rank}</span>
+                    <span class="fx-ps-name">{leader.name}</span>
+                    <span class="fx-ps-val">
+                      {leader.value}
+                      <span class="fx-ps-unit">{unit}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p class="fx-ps-empty">None yet.</p>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p class="fx-ps-empty">No player stats have been recorded yet this season.</p>
+    )
+  }
+  <a class="fx-ps-link" href="/stats/">Full player stats <span aria-hidden="true">→</span></a>
+</div>
+
+<style>
+  .fx-ps {
+    padding-top: 6px;
+  }
+  .fx-ps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .fx-ps-title {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .fx-ps-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .fx-ps-row {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white);
+  }
+  .fx-ps-row:first-child {
+    border-top: none;
+  }
+  .fx-ps-rank {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    font-variant-numeric: tabular-nums;
+  }
+  .fx-ps-name {
+    font-weight: 600;
+  }
+  .fx-ps-val {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .fx-ps-unit {
+    margin-left: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .fx-ps-empty {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+  }
+  .fx-ps-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .fx-ps-link:hover {
+    color: var(--gold-light);
+  }
+  @media (max-width: 640px) {
+    .fx-ps-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>

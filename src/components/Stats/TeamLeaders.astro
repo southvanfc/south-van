@@ -1,0 +1,164 @@
+---
+import { leadersBy, type StatKey } from "../../lib/players";
+import type { PlayersData } from "../../types/types";
+
+interface Props {
+  data: PlayersData;
+  /** Show a link through to the full stats page */
+  showLink?: boolean;
+}
+
+const { data, showLink = false } = Astro.props;
+
+const cards: { stat: StatKey; title: string; unit: string }[] = [
+  { stat: "goals", title: "Top Scorers", unit: "Goals" },
+  { stat: "mvps", title: "MVP Awards", unit: "MVPs" },
+];
+
+const built = cards.map((card) => ({ ...card, leaders: leadersBy(data, card.stat) }));
+---
+
+<section class="tl" aria-labelledby="tl-heading">
+  <div class="fx-shell">
+    <span class="eyebrow eyebrow-navy">{data.season} Season</span>
+    <h2 class="tl-title" id="tl-heading">Team Leaders</h2>
+    <div class="tl-grid">
+      {
+        built.map(({ title, unit, leaders }) => (
+          <div class="tl-card">
+            <h3 class="tl-card-title">{title}</h3>
+            {leaders.length > 0 ? (
+              <ol class="tl-list">
+                {leaders.map((leader) => (
+                  <li class="tl-row">
+                    <span class="tl-rank">{leader.rank}</span>
+                    <span class="tl-name">{leader.name}</span>
+                    <span class="tl-value">
+                      {leader.value}
+                      <span class="tl-unit">{unit}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p class="tl-empty">Nothing recorded yet this season.</p>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <p class="tl-note">
+      Totals from the Vancouver Metro Soccer League's official player stats for
+      league matches.
+    </p>
+    {
+      showLink && (
+        <a class="tl-link" href="/stats/">
+          Full player stats
+        </a>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .tl {
+    background: var(--off-white);
+    padding: 64px 80px;
+  }
+  .tl-title {
+    margin: 8px 0 28px;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--navy);
+  }
+  .tl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .tl-card {
+    background: var(--white);
+    border: 1px solid var(--mid-gray);
+    border-top: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .tl-card-title {
+    margin: 0 0 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+  .tl-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px solid var(--lt-gray);
+    color: var(--text-dark);
+  }
+  .tl-row:first-child {
+    border-top: none;
+  }
+  .tl-rank {
+    font-weight: 700;
+    color: var(--text-mid);
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-name {
+    font-weight: 600;
+  }
+  .tl-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-unit {
+    margin-left: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+  .tl-empty,
+  .tl-note {
+    margin: 0;
+    color: var(--text-mid);
+    font-size: 14px;
+  }
+  .tl-note {
+    margin-top: 18px;
+  }
+  .tl-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: underline;
+  }
+  @media (max-width: 960px) {
+    .tl {
+      padding: 48px 28px;
+    }
+  }
+  @media (max-width: 640px) {
+    .tl {
+      padding: 40px 20px;
+    }
+    .tl-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

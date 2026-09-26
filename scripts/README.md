@@ -19,7 +19,7 @@ failure path leaves the existing file exactly as it was.
 
 ```sh
 npm run scrape:vmsl -- --dry-run     # fetch, parse, check, print the diff, write nothing
-npm run scrape:vmsl                  # the same, then write src/data/fixtures.json
+npm run scrape:vmsl                  # the same, then write src/data/fixtures.json and players.json
 npm run scrape:vmsl -- --verbose     # add the URLs fetched and every match parsed
 ```
 
@@ -123,3 +123,15 @@ goals, whichever side we were. A 2-1 away win is stored as `homeScore: 1`,
 `awayScore: 2` with `isHome: false`. Use `ourScore` and `theirScore` from
 `src/lib/fixtures.ts` rather than reading the fields directly, and read any
 scoreline in a diff or a pull request body the same way.
+
+## Player stats
+
+After the fixtures step, the scraper also fetches VMSL's `division_player_stats`
+(goal scorers) and `division_player_mvps` pages, keeps the rows for South Van's
+team id, and writes `src/data/players.json` (goals and MVP awards per player,
+season totals). Both pages list every pool, so rows are filtered by team id.
+A failure here is reported but never blocks the fixtures update, and empty
+pages leave the existing file alone. It is rejected if player goals add up to
+more than the team's goals in the standings. Saved responses for the parser
+tests are `player-stats-2026-27.html` and `player-mvps-2026-27.html`. These
+pages are under `/webapps`, so the same robots.txt caveat applies.

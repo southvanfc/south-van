@@ -4,6 +4,7 @@ import FixturesHero from "../components/Fixtures/FixturesHero.astro";
 import MatchHero from "../components/Fixtures/MatchHero.astro";
 import SeasonStats from "../components/Fixtures/SeasonStats.astro";
 import FixtureList from "../components/Fixtures/FixtureList.astro";
+import { playersData } from "../data/players";
 import { fixturesData } from "../data/fixtures";
 import { OUR_SLUG, getClub, isoKickoff, seasonSummary, upcomingMatches } from "../lib/fixtures";
 import type { SEO } from "../types/types";
@@ -102,7 +103,7 @@ const breadcrumbSchema = {
   }
 
   <FixturesHero season={season} division={division}>
-    <MatchHero data={fixturesData} now={now} />
+    <MatchHero data={fixturesData} players={playersData} now={now} />
   </FixturesHero>
 
   <SeasonStats summary={summary} />

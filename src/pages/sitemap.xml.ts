@@ -57,6 +57,12 @@ const staticRoutes = [
     lastmod: "2026-07-30",
   },
   {
+    url: "/stats/",
+    priority: "0.6",
+    changefreq: "weekly",
+    lastmod: "2026-09-25",
+  },
+  {
     url: "/south-vancouver/",
     priority: "0.7",
     changefreq: "monthly",

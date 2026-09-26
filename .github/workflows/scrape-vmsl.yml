@@ -74,13 +74,13 @@ jobs:
       - name: Look for changes
         id: check
         run: |
-          if git diff --quiet -- src/data/fixtures.json; then
+          if git diff --quiet -- src/data/fixtures.json src/data/players.json; then
             echo "changed=false" >> "${GITHUB_OUTPUT}"
-            echo "src/data/fixtures.json is unchanged. Nothing to propose."
+            echo "fixtures.json and players.json are unchanged. Nothing to propose."
           else
             echo "changed=true" >> "${GITHUB_OUTPUT}"
             echo "date=$(TZ=America/Vancouver date +'%Y-%m-%d')" >> "${GITHUB_OUTPUT}"
-            git --no-pager diff --stat -- src/data/fixtures.json
+            git --no-pager diff --stat -- src/data/fixtures.json src/data/players.json
           fi
 
       # The body is built from the scraper's own diff output, not written by hand.
@@ -97,7 +97,9 @@ jobs:
           # Closing or merging the pull request takes the branch with it, so
           # refreshes do not pile up as stale branches.
           delete-branch: true
-          add-paths: src/data/fixtures.json
+          add-paths: |
+            src/data/fixtures.json
+            src/data/players.json
           commit-message: "Refresh fixture data from VMSL"
           title: "Fixture data refresh, week of ${{ steps.check.outputs.date }}"
           body-path: ${{ runner.temp }}/pr-body.md

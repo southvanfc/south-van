@@ -254,3 +254,17 @@ export interface MensApplicationInsert {
   why_south_van:      string;
   referral?:          string;
 }
+/** One South Van player's season totals from VMSL's division stats pages. */
+export interface PlayerStat {
+  name: string;
+  goals: number;
+  mvps: number;
+}
+
+export interface PlayersData {
+  /** e.g. "2026-27" */
+  season: string;
+  /** ISO timestamp of the last successful scrape */
+  updatedAt: string;
+  players: PlayerStat[];
+}

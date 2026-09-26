@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TeamLeaders from "../components/Stats/TeamLeaders.astro";
+import { playersData } from "../data/players";
+import { totals } from "../lib/players";
+import type { SEO } from "../types/types";
+
+const { season, players } = playersData;
+const sum = totals(playersData);
+
+const rows = [...players].sort(
+  (a, b) => b.goals - a.goals || b.mvps - a.mvps || a.name.localeCompare(b.name),
+);
+
+const seo: SEO = {
+  title: "Player Stats | VMSL | South Van FC",
+  description: `South Van FC men's team player stats for the ${season} season: top scorers and MVP awards in the Vancouver Metro Soccer League.`,
+  canonical: "/stats/",
+  ogType: "website",
+  keywords:
+    "South Van FC stats, VMSL top scorers, VMSL MVP, Vancouver Metro Soccer League player stats",
+  ogImage: "https://www.southvanfc.com/og/og-default.png",
+};
+---
+
+<BaseLayout seo={seo}>
+  <section class="st-hero">
+    <div class="fx-shell">
+      <span class="eyebrow eyebrow-gold">{season} Season</span>
+      <h1 class="st-title">Player Stats</h1>
+      <p class="st-intro">
+        Goals and MVP awards for South Van FC men's team players in the
+        Vancouver Metro Soccer League, taken from the league's official
+        records.
+      </p>
+    </div>
+  </section>
+
+  <TeamLeaders data={playersData} />
+
+  <section class="st-table-wrap" aria-labelledby="st-table-heading">
+    <div class="fx-shell">
+      <h2 class="st-h2" id="st-table-heading">All Players</h2>
+      {
+        rows.length > 0 ? (
+          <div class="st-scroll">
+            <table class="st-table">
+              <thead>
+                <tr>
+                  <th scope="col">Player</th>
+                  <th scope="col" class="num">Goals</th>
+                  <th scope="col" class="num">MVPs</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((player) => (
+                  <tr>
+                    <th scope="row">{player.name}</th>
+                    <td class="num">{player.goals}</td>
+                    <td class="num">{player.mvps}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Team total</th>
+                  <td class="num">{sum.goals}</td>
+                  <td class="num">{sum.mvps}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        ) : (
+          <p class="st-empty">No player stats have been recorded yet this season.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .st-hero {
+    background: linear-gradient(160deg, var(--navy-dark), var(--navy));
+    padding: 72px 80px 56px;
+    color: var(--white);
+  }
+  .st-title {
+    margin: 10px 0 14px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+  }
+  .st-intro {
+    max-width: 620px;
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .st-table-wrap {
+    padding: 56px 80px 72px;
+    background: var(--white);
+  }
+  .st-h2 {
+    margin: 0 0 20px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--navy);
+  }
+  .st-scroll {
+    overflow-x: auto;
+  }
+  .st-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-dark);
+  }
+  .st-table th,
+  .st-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--lt-gray);
+    font-weight: 600;
+  }
+  .st-table thead th {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    border-bottom: 2px solid var(--navy);
+  }
+  .st-table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .st-table tfoot th,
+  .st-table tfoot td {
+    font-weight: 800;
+    color: var(--navy);
+    border-bottom: none;
+    border-top: 2px solid var(--navy);
+  }
+  .st-empty {
+    margin: 0;
+    color: var(--text-mid);
+  }
+  @media (max-width: 960px) {
+    .st-hero {
+      padding: 56px 28px 44px;
+    }
+    .st-table-wrap {
+      padding: 44px 28px 56px;
+    }
+  }
+  @media (max-width: 640px) {
+    .st-hero {
+      padding: 44px 20px 36px;
+    }
+    .st-title {
+      font-size: 36px;
+    }
+    .st-table-wrap {
+      padding: 36px 20px 48px;
+    }
+  }
+</style>

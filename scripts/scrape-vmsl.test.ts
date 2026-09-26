@@ -23,10 +23,13 @@ import {
   findPoolForTeam,
   mapStatus,
   matchesOutsideSeason,
+  mergePlayerStats,
   normaliseMatches,
   parseKickoff,
+  parsePlayerRows,
   parseSchedule,
   parseStandings,
+  playersForTeam,
   seasonWindow,
   slugify,
   stripNewPrefix,
@@ -517,5 +520,31 @@ describe("normaliseMatches guards", () => {
         slugFor: slugify,
       }),
     ).toThrow(/Could not read a kickoff/);
+  });
+});
+
+describe("player stats pages", () => {
+  const goalRows = parsePlayerRows(fixture("player-stats-2026-27.html"));
+  const mvpRows = parsePlayerRows(fixture("player-mvps-2026-27.html"));
+
+  it("reads every pool's rows and skips headings and leader banners", () => {
+    expect(goalRows.length).toBe(65);
+    expect(mvpRows.length).toBe(33);
+    expect(goalRows.every((row) => row.name !== "" && row.count > 0)).toBe(true);
+  });
+
+  it("keeps only South Van rows by team id", () => {
+    const ours = playersForTeam(goalRows, "827");
+    expect(ours.map((row) => row.name)).toEqual(
+      expect.arrayContaining(["David Delgado", "Erfan Amini", "Harjit Kainth"]),
+    );
+    expect(ours.every((row) => row.team === "SouthVan FC")).toBe(true);
+  });
+
+  it("merges goals and MVPs into one record per player", () => {
+    const merged = mergePlayerStats(playersForTeam(goalRows, "827"), playersForTeam(mvpRows, "827"));
+    const erfan = merged.find((player) => player.name === "Erfan Amini");
+    expect(erfan).toEqual({ name: "Erfan Amini", goals: 1, mvps: 1 });
+    expect(merged.find((player) => player.name === "David Delgado")?.mvps).toBe(0);
   });
 });

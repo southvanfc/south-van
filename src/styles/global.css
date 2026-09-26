@@ -327,6 +327,19 @@ a { color: inherit; }
   min-width: 180px; z-index: 300; overflow: hidden;
 }
 .nav-dropdown-menu.open { display: block; }
+.nav-dropdown-menu--left { right: auto; left: -20px; min-width: 210px; }
+/* A group's toggle reads as a nav link, not the Apply button */
+.nav-group-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  letter-spacing: 0.3px; color: var(--text-mid); transition: color 0.2s;
+}
+.nav-group-toggle:hover, .nav-group-toggle[aria-expanded="true"] { color: var(--navy); }
+.nav-group-toggle.active { color: var(--navy); font-weight: 700; }
+.nav-group-toggle[aria-expanded="true"] .nav-dropdown-arrow { transform: rotate(180deg); }
+/* Bridges the gap between toggle and menu so hover is not lost crossing it */
+.nav-group::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 10px; }
+.nav-dropdown-menu li a.active { color: var(--navy); font-weight: 700; }
 .nav-dropdown-menu li a {
   display: block; padding: 12px 20px; font-size: 14px; font-weight: 500;
   color: var(--text-mid); text-decoration: none; transition: background 0.15s, color 0.15s;
@@ -358,6 +371,15 @@ a { color: inherit; }
 }
 .nav-drawer a:last-child { border-bottom: none; }
 .nav-drawer a:hover, .nav-drawer a.active { color: var(--navy); font-weight: 700; }
+.drawer-group {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid var(--lt-gray); padding: 12px 0 4px;
+}
+.drawer-group-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-light);
+}
+.nav-drawer .drawer-child { padding-left: 14px; border-bottom: none; }
 .nav-drawer .drawer-cta {
   margin-top: 12px; background: var(--navy); color: #fff !important;
   padding: 14px 24px; border-radius: 6px; text-align: center; font-weight: 600;

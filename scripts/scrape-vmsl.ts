@@ -31,16 +31,19 @@ import { mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import type { Club, FixturesData, Match, StandingsRow } from "../src/types/types";
+import type { Club, FixturesData, Match, PlayersData, StandingsRow } from "../src/types/types";
 import { OUR_SLUG, isPlayed, outcome, seasonSummary } from "../src/lib/fixtures.ts";
 import {
   deriveTag,
   findPoolForTeam,
   matchesOutsideSeason,
+  mergePlayerStats,
   normaliseMatches,
+  parsePlayerRows,
   parseSchedule,
   parseStandings,
   placeholderColour,
+  playersForTeam,
   seasonWindow,
   slugify,
   stripNewPrefix,
@@ -51,6 +54,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA_PATH = path.join(ROOT, "src", "data", "fixtures.json");
 const VALIDATOR_PATH = path.join(ROOT, "scripts", "validate-fixtures.ts");
 const DISPLAY_PATH = "src/data/fixtures.json";
+const PLAYERS_PATH = path.join(ROOT, "src", "data", "players.json");
+const PLAYERS_DISPLAY_PATH = "src/data/players.json";
 const BASE = "https://vmslsoccer.com/webapps/spappz_live";
 const ORIGIN = new URL(BASE).origin;
 const CRESTS_DIR = path.join(ROOT, "public", "assets", "crests");
@@ -823,6 +828,88 @@ function reportDiff(existing: FixturesData, candidate: FixturesData): string[] {
 }
 
 /* ------------------------------------------------------------------ */
+/* Players                                                             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * South Van's goal scorers and MVPs from the two division aggregate pages, two
+ * more GETs through the same rate limiter. Both pages list every pool, so the
+ * rows are filtered to our team id.
+ *
+ * Deliberately not fatal to the fixtures run: fixtures.json has already been
+ * written by the time this runs, and a broken player page should leave
+ * players.json as it was rather than block a fixtures refresh. It reports the
+ * problem and returns.
+ */
+async function scrapePlayers(
+  config: Config,
+  options: Options,
+  ourGoalsFor: number | null,
+): Promise<void> {
+  const goalsUrl = `${BASE}/division_player_stats?reg_year=${config.regYear}&division=${config.division}&sched_type=reg&firsttime=1`;
+  const mvpsUrl = `${BASE}/division_player_mvps?reg_year=${config.regYear}&division=${config.division}&sched_type=reg&firsttime=1`;
+
+  try {
+    const goalRows = parsePlayerRows(await get(goalsUrl, config.userAgent, options.verbose));
+    const mvpRows = parsePlayerRows(await get(mvpsUrl, config.userAgent, options.verbose));
+
+    let existing: PlayersData | null = null;
+    try {
+      existing = JSON.parse(readFileSync(PLAYERS_PATH, "utf8")) as PlayersData;
+    } catch {
+      existing = null;
+    }
+
+    /* Pages with no rows at all mean the page changed or the season has not
+       started. Either way, do not blank out players already on file. */
+    if (goalRows.length === 0 && mvpRows.length === 0) {
+      console.log(`VMSL returned no player rows, so ${PLAYERS_DISPLAY_PATH} has been left alone.\n`);
+      return;
+    }
+
+    const players = mergePlayerStats(
+      playersForTeam(goalRows, config.teamId),
+      playersForTeam(mvpRows, config.teamId),
+    );
+
+    const totalGoals = players.reduce((sum, player) => sum + player.goals, 0);
+    if (ourGoalsFor !== null && totalGoals > ourGoalsFor) {
+      console.error(
+        `  x Player goals total ${totalGoals} but the team has only scored ${ourGoalsFor}, so the player pages were not trusted. ${PLAYERS_DISPLAY_PATH} has not been changed.\n`,
+      );
+      return;
+    }
+
+    const candidate: PlayersData = {
+      season: config.season,
+      updatedAt: existing?.updatedAt ?? "",
+      players,
+    };
+    const body = (data: PlayersData) => JSON.stringify({ ...data, updatedAt: "" });
+    const unchanged = existing !== null && body(existing) === body(candidate);
+    if (!unchanged) candidate.updatedAt = vancouverTimestamp(new Date());
+
+    console.log(`Players: ${players.length} South Van players, ${totalGoals} goals, ${players.reduce((sum, player) => sum + player.mvps, 0)} MVP awards.`);
+    for (const player of players.slice(0, options.verbose ? players.length : 5)) {
+      console.log(`  ${player.name}: ${player.goals} goals, ${player.mvps} MVPs`);
+    }
+
+    if (options.dryRun) {
+      console.log(`Dry run, so ${PLAYERS_DISPLAY_PATH} was not written.\n`);
+    } else if (unchanged) {
+      console.log(`${PLAYERS_DISPLAY_PATH} is already up to date, so it was not rewritten.\n`);
+    } else {
+      writeFileSync(PLAYERS_PATH, `${JSON.stringify(candidate, null, 2)}\n`, "utf8");
+      console.log(`Wrote ${PLAYERS_DISPLAY_PATH}.\n`);
+    }
+  } catch (error) {
+    console.error(
+      `  x Could not update player stats: ${error instanceof Error ? error.message : String(error)}\n    ${PLAYERS_DISPLAY_PATH} has not been changed.\n`,
+    );
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Main                                                                */
 /* ------------------------------------------------------------------ */
 
@@ -1051,6 +1138,9 @@ async function main(): Promise<void> {
     `\n${matches.length} matches (${played} played, ${upcoming} upcoming), ${standings.length} standings rows, ` +
       `${candidate.clubs.length} clubs, ${history.length} in history, ${diff.length} change${diff.length === 1 ? "" : "s"}.\n`,
   );
+
+  const ourRow = standings.find((row) => row.clubSlug === OUR_SLUG);
+  await scrapePlayers(config, options, ourRow ? ourRow.goalsFor : null);
 }
 
 main().catch((error: unknown) => {

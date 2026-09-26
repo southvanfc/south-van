@@ -82,6 +82,14 @@ export interface RawPool {
   rows: RawStandingsRow[];
 }
 
+/** One player's row on a VMSL division player stats page (goals or MVPs). */
+export interface RawPlayerRow {
+  name: string;
+  teamId: string | null;
+  team: string;
+  count: number;
+}
+
 /* ------------------------------------------------------------------ */
 /* Text helpers                                                        */
 /* ------------------------------------------------------------------ */
@@ -612,4 +620,67 @@ export function normaliseMatches(
   }
 
   return { matches, warnings };
+}
+
+/* ------------------------------------------------------------------ */
+/* Player stats                                                        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Rows of a division_player_stats or division_player_mvps page. Both share one
+ * layout: Player Name, Team Name (linked by team id), then a single count, and
+ * the division's pools are separate tables on the one page. Only rows that
+ * carry a team link and a numeric last cell are read, so the column headings and
+ * each pool's "Current Leader" banner are skipped.
+ */
+export function parsePlayerRows(html: string): RawPlayerRow[] {
+  const rows: RawPlayerRow[] = [];
+
+  for (const chunk of html.split(/<tr\b/i).slice(1)) {
+    const row = cells(chunk);
+    if (row.length !== 3) continue;
+
+    const teamId = /team_page\?id=(\d+)/i.exec(row[1] ?? "")?.[1] ?? null;
+    if (!teamId) continue;
+
+    const count = Number.parseInt(decode(row[2] ?? ""), 10);
+    const name = decode(row[0] ?? "");
+    if (!name || !Number.isInteger(count)) continue;
+
+    rows.push({ name, teamId, team: stripNewPrefix(decode(row[1] ?? "")), count });
+  }
+
+  return rows;
+}
+
+/** Only one team's rows, matched on VMSL's numeric team id. */
+export function playersForTeam(rows: RawPlayerRow[], teamId: string): RawPlayerRow[] {
+  return rows.filter((row) => row.teamId === teamId);
+}
+
+/**
+ * Joins a team's goal rows and MVP rows into one record per player, matched on
+ * name. Someone with goals but no MVPs, or the reverse, gets 0 for the other.
+ * Sorted by goals, then MVPs, then name, so the file stays stable between runs.
+ */
+export function mergePlayerStats(
+  goals: RawPlayerRow[],
+  mvps: RawPlayerRow[],
+): Array<{ name: string; goals: number; mvps: number }> {
+  const byName = new Map<string, { name: string; goals: number; mvps: number }>();
+  const entry = (name: string) => {
+    let found = byName.get(name);
+    if (!found) {
+      found = { name, goals: 0, mvps: 0 };
+      byName.set(name, found);
+    }
+    return found;
+  };
+
+  for (const row of goals) entry(row.name).goals += row.count;
+  for (const row of mvps) entry(row.name).mvps += row.count;
+
+  return [...byName.values()].sort(
+    (a, b) => b.goals - a.goals || b.mvps - a.mvps || a.name.localeCompare(b.name),
+  );
 }

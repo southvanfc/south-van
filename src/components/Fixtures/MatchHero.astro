@@ -1,8 +1,9 @@
 ---
-import type { FixturesData } from "../../types/types";
+import type { FixturesData, PlayersData } from "../../types/types";
 import { nextMatch } from "../../lib/fixtures";
 import CalendarPanel from "./CalendarPanel.astro";
 import NextMatchPanel from "./NextMatchPanel.astro";
+import PlayerStatsPanel from "./PlayerStatsPanel.astro";
 
 /*
  * The match card in the fixtures hero. Two views, next match and calendar,
@@ -24,11 +25,12 @@ import NextMatchPanel from "./NextMatchPanel.astro";
 
 interface Props {
   data: FixturesData;
+  players: PlayersData;
   /** Request time. Passed in rather than read here so the card stays a pure function of its props. */
   now: Date;
 }
 
-const { data, now } = Astro.props;
+const { data, players, now } = Astro.props;
 
 const match = nextMatch(data, now);
 const focus = match
@@ -40,7 +42,7 @@ const focus = match
   <div class="fx-card-head">
     <div class="fx-card-label">
       <span class="fx-dot" aria-hidden="true"></span>
-      <h2 class="fx-eyebrow fx-card-eyebrow">{match ? "Next Match" : "Season"}</h2>
+      <h2 class="fx-eyebrow fx-card-eyebrow" data-fx-card-title>{match ? "Next Match" : "Season"}</h2>
       {match && <span class="fx-card-comp">{match.competitionLabel}</span>}
     </div>
 
@@ -63,6 +65,15 @@ const focus = match
       >
         Calendar
       </button>
+      <button
+        type="button"
+        class="fx-seg-btn"
+        data-fx-view="stats"
+        aria-pressed="false"
+        aria-controls="fx-view-stats"
+      >
+        Player stats
+      </button>
     </div>
   </div>
 
@@ -72,6 +83,10 @@ const focus = match
 
   <div id="fx-view-calendar" hidden>
     <CalendarPanel data={data} now={now} focus={focus} />
+  </div>
+
+  <div id="fx-view-stats" hidden>
+    <PlayerStatsPanel data={players} />
   </div>
 </div>
 
@@ -88,6 +103,17 @@ const focus = match
     const views: Record<string, HTMLElement | null> = {
       match: card.querySelector<HTMLElement>("#fx-view-match"),
       calendar: card.querySelector<HTMLElement>("#fx-view-calendar"),
+      stats: card.querySelector<HTMLElement>("#fx-view-stats"),
+    };
+
+    /* The card heading follows the view: "Next Match" over the calendar or
+       the stats would be wrong. The server text is kept as the match label. */
+    const title = card.querySelector<HTMLElement>("[data-fx-card-title]");
+    const matchTitle = title?.textContent ?? "";
+    const titles: Record<string, string> = {
+      match: matchTitle,
+      calendar: "Calendar",
+      stats: "Player Stats",
     };
 
     card.querySelectorAll<HTMLButtonElement>("[data-fx-view]").forEach((button) => {
@@ -103,6 +129,8 @@ const focus = match
         for (const [name, view] of Object.entries(views)) {
           if (view) view.hidden = name !== wanted;
         }
+
+        if (title && wanted && titles[wanted]) title.textContent = titles[wanted];
       });
     });
 
