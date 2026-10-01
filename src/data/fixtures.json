@@ -1,7 +1,7 @@
 {
   "season": "2026-27",
   "division": "VMSL Division 4A",
-  "updatedAt": "2026-09-25T21:03:09-07:00",
+  "updatedAt": "2026-10-01T10:12:49-07:00",
   "clubs": [
     {
       "name": "South Van FC",
@@ -219,8 +219,8 @@
       "venue": "Empire Turf South - VAN",
       "competition": "league",
       "competitionLabel": "VMSL Division 4A",
-      "homeScore": null,
-      "awayScore": null
+      "homeScore": 8,
+      "awayScore": 3
     },
     {
       "id": "24203",
@@ -407,104 +407,104 @@
   ],
   "standings": [
     {
-      "clubSlug": "highlands-vfc",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 3,
-      "form": ""
-    },
-    {
       "clubSlug": "new-wells-city-fc-royals",
-      "played": 2,
-      "won": 2,
+      "played": 3,
+      "won": 3,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 11,
-      "goalsAgainst": 3,
+      "goalsFor": 19,
+      "goalsAgainst": 6,
       "form": ""
     },
     {
       "clubSlug": "ross-street-raiders",
-      "played": 2,
-      "won": 2,
+      "played": 3,
+      "won": 3,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 11,
-      "goalsAgainst": 4,
+      "goalsFor": 16,
+      "goalsAgainst": 8,
       "form": ""
     },
     {
       "clubSlug": "fc-kova",
-      "played": 2,
-      "won": 1,
+      "played": 3,
+      "won": 2,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 1,
-      "goalsAgainst": 0,
-      "form": ""
-    },
-    {
-      "clubSlug": "northstars-vfc",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
       "goalsFor": 9,
       "goalsAgainst": 2,
       "form": ""
     },
     {
-      "clubSlug": "coastal-fc-c",
-      "played": 2,
-      "won": 0,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "clubSlug": "highlands-vfc",
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 12,
+      "goalsAgainst": 4,
       "form": ""
     },
     {
-      "clubSlug": "burnaby-fc-chelsea",
-      "played": 2,
-      "won": 0,
-      "drawn": 1,
+      "clubSlug": "northstars-vfc",
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
       "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 5,
+      "goalsFor": 10,
+      "goalsAgainst": 2,
       "form": ""
     },
     {
       "clubSlug": "vancouver-grizzlies-fc",
-      "played": 2,
-      "won": 0,
+      "played": 3,
+      "won": 1,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 4,
+      "goalsFor": 6,
       "goalsAgainst": 11,
       "form": ""
     },
     {
-      "clubSlug": "bby-spartans-fc-hades",
-      "played": 2,
+      "clubSlug": "coastal-fc-c",
+      "played": 3,
       "won": 0,
-      "drawn": 0,
+      "drawn": 2,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 2,
+      "form": ""
+    },
+    {
+      "clubSlug": "burnaby-fc-chelsea",
+      "played": 3,
+      "won": 0,
+      "drawn": 1,
       "lost": 2,
       "goalsFor": 3,
-      "goalsAgainst": 12,
+      "goalsAgainst": 13,
+      "form": ""
+    },
+    {
+      "clubSlug": "bby-spartans-fc-hades",
+      "played": 3,
+      "won": 0,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 7,
+      "goalsAgainst": 17,
       "form": ""
     },
     {
       "clubSlug": "south-van-fc",
-      "played": 2,
+      "played": 3,
       "won": 0,
       "drawn": 0,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 15,
-      "form": "LL"
+      "lost": 3,
+      "goalsFor": 6,
+      "goalsAgainst": 23,
+      "form": "LLL"
     }
   ],
   "history": []
