@@ -8,6 +8,8 @@ parse offline. Nothing in the test suite touches the network.
 | `schedule-2025-26.html` | `team_page?reg_year=2026&id=827&cmd=htmlsched` |
 | `schedule-2026-27.html` | `team_page?reg_year=2027&id=827&cmd=htmlsched` |
 | `standings-2025-26-all.html` | `div_stats?reg_year=2026&division=4&sched_pool=&sched_type=reg&firsttime=1` |
+| `goalie-stats-2026-27.html` | `division_goalie_stats?reg_year=2027&division=4&sched_type=reg&firsttime=1` (shutouts, same layout as goals) |
+| `team-page-2026-27.html` | `team_page?reg_year=2027&id=827` (captured 5 October 2026, has the Discipline box) |
 | `standings-2026-27.html` | `div_stats?reg_year=2027&division=4&sched_type=reg&firsttime=1` |
 
 Captured 30 July 2026.

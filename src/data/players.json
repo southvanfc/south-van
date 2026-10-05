@@ -1,120 +1,234 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-05T10:27:30-07:00",
+  "updatedAt": "2026-10-05T12:59:30-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
       "goals": 4,
       "assists": 0,
-      "mvps": 1
+      "mvps": 1,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 10,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "David Delgado",
       "goals": 2,
       "assists": 0,
-      "mvps": 1
+      "mvps": 1,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 7,
+      "gamesPlayed": 4,
+      "yellows": 2,
+      "reds": 0
     },
     {
       "name": "Erfan Amini",
       "goals": 1,
       "assists": 2,
-      "mvps": 1
+      "mvps": 1,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 6,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Keegan Carmichael",
       "goals": 1,
       "assists": 1,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 15,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 1
     },
     {
-      "name": "Bhuvan Tej",
+      "name": "Sujesh Mandal",
       "goals": 0,
-      "assists": 0,
-      "mvps": 0
-    },
-    {
-      "name": "Dean Parsons",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0
-    },
-    {
-      "name": "Deepak Bassi",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0
+      "assists": 4,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 14,
+      "gamesPlayed": 0,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Emanuel Saracho",
       "goals": 0,
       "assists": 1,
-      "mvps": 0
-    },
-    {
-      "name": "Hector Falcon",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 16,
+      "gamesPlayed": 3,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Ishanpreet Singh Aujla",
       "goals": 0,
       "assists": 1,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 13,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Jasdeep Atwal",
       "goals": 0,
       "assists": 1,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 8,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
+      "name": "Sarvajan Gnaneswaran",
+      "goals": 0,
+      "assists": 1,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 9,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
+      "name": "Bhuvan Tej",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 4,
+      "gamesPlayed": 3,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
+      "name": "Dean Parsons",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 3,
+      "gamesPlayed": 4,
+      "yellows": 1,
+      "reds": 0
+    },
+    {
+      "name": "Deepak Bassi",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 17,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
+      "name": "Hector Falcon",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 99,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Jordan Lam",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": null,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Md Tanvirul Islam Choudhury",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 5,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Rinchen Zangpo",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 66,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Samuel Janzen",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
-    },
-    {
-      "name": "Sarvajan Gnaneswaran",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 2,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Shanil Sharma",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 11,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
     },
     {
       "name": "Steven Alix-Meade",
       "goals": 0,
       "assists": 0,
-      "mvps": 0
-    },
-    {
-      "name": "Sujesh Mandal",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0
+      "mvps": 0,
+      "goalkeeper": true,
+      "cleanSheets": 0,
+      "number": null,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
     }
   ]
 }

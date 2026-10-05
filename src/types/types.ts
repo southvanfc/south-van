@@ -258,9 +258,20 @@ export interface MensApplicationInsert {
 export interface PlayerStat {
   name: string;
   goals: number;
-  /** From the hand kept src/data/assists.json, since VMSL does not publish assists */
+  /** From the hand kept src/data/manualStats.json, since VMSL does not publish assists */
   assists: number;
   mvps: number;
+  /** From manualStats.json. Goalkeepers are shown in their own table. */
+  goalkeeper: boolean;
+  /** Shutouts from VMSL's division goalie stats page, so only ever above 0 for goalkeepers */
+  cleanSheets: number;
+  /** Shirt number from the hand kept src/data/manualStats.json, or null if not set */
+  number: number | null;
+  /** From manualStats.json, since VMSL does not publish appearances */
+  gamesPlayed: number;
+  /** From the Discipline box on VMSL's team page */
+  yellows: number;
+  reds: number;
 }
 
 /** Hand kept list of every South Van player, so names can be checked and zero stat players shown. */
@@ -268,9 +279,18 @@ export interface RosterData {
   players: string[];
 }
 
-/** Hand kept assists per match: VMSL match id, then player name, then assists. */
-export interface AssistsData {
-  matches: Record<string, Record<string, number>>;
+/** The per player stats VMSL does not publish, kept by hand in manualStats.json. */
+export interface ManualPlayerStats {
+  assists: number;
+  gamesPlayed: number;
+  /** Shirt number, or null if not set */
+  number: number | null;
+  /** True for a goalkeeper, who is listed in the goalkeepers table instead */
+  goalkeeper: boolean;
+}
+
+export interface ManualStatsData {
+  players: Record<string, ManualPlayerStats>;
 }
 
 export interface PlayersData {

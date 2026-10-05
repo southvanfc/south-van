@@ -18,6 +18,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import type { Match } from "../src/types/types";
 import {
+  checkManualStats,
   classifyCompetition,
   deriveTag,
   findPoolForTeam,
@@ -26,6 +27,7 @@ import {
   mergePlayerStats,
   normaliseMatches,
   parseKickoff,
+  parseDiscipline,
   parsePlayerRows,
   parseSchedule,
   parseStandings,
@@ -33,7 +35,6 @@ import {
   seasonWindow,
   slugify,
   stripNewPrefix,
-  sumAssists,
 } from "./vmsl-parse.ts";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -545,51 +546,88 @@ describe("player stats pages", () => {
   it("merges goals and MVPs into one record per player", () => {
     const merged = mergePlayerStats(playersForTeam(goalRows, "827"), playersForTeam(mvpRows, "827"));
     const erfan = merged.find((player) => player.name === "Erfan Amini");
-    expect(erfan).toEqual({ name: "Erfan Amini", goals: 1, assists: 0, mvps: 1 });
+    expect(erfan).toEqual({ name: "Erfan Amini", goals: 1, assists: 0, mvps: 1, goalkeeper: false, cleanSheets: 0, number: null, gamesPlayed: 0, yellows: 0, reds: 0 });
     expect(merged.find((player) => player.name === "David Delgado")?.mvps).toBe(0);
   });
 });
 
-describe("sumAssists", () => {
-  const goals = new Map<string, number | null>([
-    ["100", 3],
-    ["101", 1],
-    ["102", null],
-  ]);
+describe("checkManualStats", () => {
   const known = ["Harjit Kainth", "David Delgado"];
 
-  it("totals assists per player across matches and matches names loosely", () => {
-    const result = sumAssists(
-      { "100": { "harjit  kainth": 1, "David Delgado": 2 }, "101": { "Harjit Kainth": 1 } },
-      known,
-      goals,
-    );
+  it("matches names loosely and fills in defaults", () => {
+    const result = checkManualStats({ "harjit  kainth": { assists: 2, number: 9 }, "David Delgado": {} }, known);
     expect(result.errors).toEqual([]);
-    expect(result.totals).toEqual({ "Harjit Kainth": 2, "David Delgado": 2 });
+    expect(result.stats).toEqual({
+      "Harjit Kainth": { assists: 2, gamesPlayed: 0, number: 9, goalkeeper: false },
+      "David Delgado": { assists: 0, gamesPlayed: 0, number: null, goalkeeper: false },
+    });
   });
 
   it("rejects a name that is not on the roster or in VMSL's stats, so typos are caught", () => {
-    const result = sumAssists({ "100": { "Harjt Kainth": 1 } }, known, goals);
+    const result = checkManualStats({ "Harjt Kainth": { assists: 1 } }, known);
     expect(result.errors).toHaveLength(1);
-    expect(result.totals).toEqual({});
+    expect(result.stats).toEqual({});
   });
 
-  it("rejects an unknown match, an unplayed match and too many assists", () => {
-    expect(sumAssists({ "999": { "Harjit Kainth": 1 } }, known, goals).errors).toHaveLength(1);
-    expect(sumAssists({ "102": { "Harjit Kainth": 1 } }, known, goals).errors).toHaveLength(1);
-    expect(sumAssists({ "101": { "Harjit Kainth": 1, "David Delgado": 1 } }, known, goals).errors).toHaveLength(1);
+  it("rejects a goalkeeper flag that is not true or false", () => {
+    expect(checkManualStats({ "Harjit Kainth": { goalkeeper: "yes" as unknown as boolean } }, known).errors).toHaveLength(1);
   });
 
-  it("rejects a zero or fractional count", () => {
-    expect(sumAssists({ "100": { "Harjit Kainth": 0 } }, known, goals).errors).toHaveLength(1);
-    expect(sumAssists({ "100": { "Harjit Kainth": 1.5 } }, known, goals).errors).toHaveLength(1);
+  it("rejects negative, fractional and non number values", () => {
+    expect(checkManualStats({ "Harjit Kainth": { assists: -1 } }, known).errors).toHaveLength(1);
+    expect(checkManualStats({ "Harjit Kainth": { gamesPlayed: 1.5 } }, known).errors).toHaveLength(1);
+    expect(checkManualStats({ "Harjit Kainth": { number: 1.5 } }, known).errors).toHaveLength(1);
   });
 
   it("adds assists and roster players to mergePlayerStats, including players with no goals", () => {
-    const merged = mergePlayerStats([], [], { "David Delgado": 2 }, ["David Delgado", "Sam Roe"]);
+    const merged = mergePlayerStats([], [], ["David Delgado", "Sam Roe"], {
+      "David Delgado": { assists: 2, gamesPlayed: 0, number: null, goalkeeper: false },
+    });
     expect(merged).toEqual([
-      { name: "David Delgado", goals: 0, assists: 2, mvps: 0 },
-      { name: "Sam Roe", goals: 0, assists: 0, mvps: 0 },
+      { name: "David Delgado", goals: 0, assists: 2, mvps: 0, goalkeeper: false, cleanSheets: 0, number: null, gamesPlayed: 0, yellows: 0, reds: 0 },
+      { name: "Sam Roe", goals: 0, assists: 0, mvps: 0, goalkeeper: false, cleanSheets: 0, number: null, gamesPlayed: 0, yellows: 0, reds: 0 },
     ]);
+  });
+
+  it("keeps the hand kept stats and adds scraped cards to a player", () => {
+    const merged = mergePlayerStats([], [], ["Sam Roe"], { "Sam Roe": { assists: 1, gamesPlayed: 3, number: 7, goalkeeper: true } }, {
+      "Sam Roe": { yellows: 1, reds: 1 },
+    });
+    expect(merged[0]).toMatchObject({ assists: 1, gamesPlayed: 3, number: 7, goalkeeper: true, yellows: 1, reds: 1 });
+  });
+});
+
+describe("goalkeeper clean sheets", () => {
+  it("reads shutout rows from the goalie stats page", () => {
+    const rows = parsePlayerRows(fixture("goalie-stats-2026-27.html"));
+    expect(rows).toHaveLength(10);
+    expect(rows.every((row) => row.count > 0)).toBe(true);
+    expect(playersForTeam(rows, "827")).toEqual([]);
+  });
+
+  it("adds the goalie page's shutouts to a player", () => {
+    const merged = mergePlayerStats([], [], ["Sam Roe"], {}, {}, [
+      { name: "Sam Roe", teamId: "827", team: "SouthVan FC", count: 2 },
+    ]);
+    expect(merged[0]).toMatchObject({ name: "Sam Roe", cleanSheets: 2 });
+  });
+});
+
+describe("parseDiscipline", () => {
+  it("reads yellow and red totals from the team page", () => {
+    expect(parseDiscipline(fixture("team-page-2026-27.html"))).toEqual({
+      "David Delgado": { yellows: 2, reds: 0 },
+      "Dean Parsons": { yellows: 1, reds: 0 },
+      "Keegan Carmichael": { yellows: 0, reds: 1 },
+    });
+  });
+
+  it("adds a player's league and cup rows together", () => {
+    const html = `<b>Discipline</b><table><tr><td>A B</td><td>2 (red: 0 yellow: 2 yellow accum: 0)</td><td>League</td></tr><tr><td>A B</td><td>1 (red: 1 yellow: 0 yellow accum: 0)</td><td>Cup</td></tr></table>`;
+    expect(parseDiscipline(html)).toEqual({ "A B": { yellows: 2, reds: 1 } });
+  });
+
+  it("returns null when the page has no Discipline box", () => {
+    expect(parseDiscipline("<html></html>")).toBeNull();
   });
 });

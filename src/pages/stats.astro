@@ -1,15 +1,43 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TeamLeaders from "../components/Stats/TeamLeaders.astro";
+import StatsTable, { type Column } from "../components/Stats/StatsTable.astro";
 import { playersData } from "../data/players";
 import { totals } from "../lib/players";
 import type { SEO } from "../types/types";
 
 const { season, players } = playersData;
-const sum = totals(playersData);
 
-const rows = [...players].sort(
+const gamesPlayed: Column = { key: "gamesPlayed", label: "Games played", short: "GP", icon: "calendar", color: "#3b6fb6" };
+const assists: Column = { key: "assists", label: "Assists", short: "Assists", icon: "assist", color: "#1f9d6b" };
+const yellows: Column = { key: "yellows", label: "Yellow cards", short: "Yellow", icon: "yellow", color: "#f2c200" };
+const reds: Column = { key: "reds", label: "Red cards", short: "Red", icon: "red", color: "#d23a2e" };
+
+const outfieldColumns: Column[] = [
+  gamesPlayed,
+  { key: "goals", label: "Goals", short: "Goals", icon: "ball", color: "#12285a" },
+  assists,
+  { key: "mvps", label: "MVP awards", short: "MVPs", icon: "star", color: "#e8b430" },
+  yellows,
+  reds,
+];
+const keeperColumns: Column[] = [
+  gamesPlayed,
+  { key: "cleanSheets", label: "Clean sheets", short: "Clean sheets", icon: "shield", color: "#0e8a9c" },
+  assists,
+  yellows,
+  reds,
+];
+
+const outfield = players.filter((player) => !player.goalkeeper);
+const keepers = players.filter((player) => player.goalkeeper);
+const sum = totals({ ...playersData, players: outfield });
+
+const outfieldRows = [...outfield].sort(
   (a, b) => b.goals - a.goals || b.assists - a.assists || b.mvps - a.mvps || a.name.localeCompare(b.name),
+);
+const keeperRows = [...keepers].sort(
+  (a, b) => b.cleanSheets - a.cleanSheets || b.gamesPlayed - a.gamesPlayed || a.name.localeCompare(b.name),
 );
 
 const seo: SEO = {
@@ -29,9 +57,10 @@ const seo: SEO = {
       <span class="eyebrow eyebrow-gold">{season} Season</span>
       <h1 class="st-title">Player Stats</h1>
       <p class="st-intro">
-        Goals, assists and MVP awards for South Van FC men's team players in the
-        Vancouver Metro Soccer League, with goals and MVPs taken from the
-        league's official records.
+        Games played, goals, assists, MVP awards, clean sheets and cards for
+        South Van FC men's team players in the Vancouver Metro Soccer League.
+        Goals, MVPs, clean sheets and cards come from the league's official
+        records. Games played and assists are kept by the club.
       </p>
     </div>
   </section>
@@ -42,39 +71,22 @@ const seo: SEO = {
     <div class="fx-shell">
       <h2 class="st-h2" id="st-table-heading">All Players</h2>
       {
-        rows.length > 0 ? (
-          <div class="st-scroll">
-            <table class="st-table">
-              <thead>
-                <tr>
-                  <th scope="col">Player</th>
-                  <th scope="col" class="num">Goals</th>
-                  <th scope="col" class="num">Assists</th>
-                  <th scope="col" class="num">MVPs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((player) => (
-                  <tr>
-                    <th scope="row">{player.name}</th>
-                    <td class="num">{player.goals}</td>
-                    <td class="num">{player.assists}</td>
-                    <td class="num">{player.mvps}</td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="row">Team total</th>
-                  <td class="num">{sum.goals}</td>
-                  <td class="num">{sum.assists}</td>
-                  <td class="num">{sum.mvps}</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+        outfieldRows.length > 0 ? (
+          <StatsTable
+            columns={outfieldColumns}
+            rows={outfieldRows}
+            totals={[null, sum.goals, sum.assists, sum.mvps, sum.yellows, sum.reds]}
+          />
         ) : (
           <p class="st-empty">No player stats have been recorded yet this season.</p>
+        )
+      }
+      {
+        keeperRows.length > 0 && (
+          <>
+            <h2 class="st-h2 st-h2-keepers" id="st-keepers-heading">Goalkeepers</h2>
+            <StatsTable columns={keeperColumns} rows={keeperRows} />
+          </>
         )
       }
     </div>
@@ -112,39 +124,8 @@ const seo: SEO = {
     letter-spacing: -0.5px;
     color: var(--navy);
   }
-  .st-scroll {
-    overflow-x: auto;
-  }
-  .st-table {
-    width: 100%;
-    border-collapse: collapse;
-    color: var(--text-dark);
-  }
-  .st-table th,
-  .st-table td {
-    padding: 12px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--lt-gray);
-    font-weight: 600;
-  }
-  .st-table thead th {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-mid);
-    border-bottom: 2px solid var(--navy);
-  }
-  .st-table .num {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-  .st-table tfoot th,
-  .st-table tfoot td {
-    font-weight: 800;
-    color: var(--navy);
-    border-bottom: none;
-    border-top: 2px solid var(--navy);
+  .st-h2-keepers {
+    margin-top: 48px;
   }
   .st-empty {
     margin: 0;

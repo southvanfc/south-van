@@ -31,8 +31,8 @@ import { mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import type { AssistsData, RosterData, Club, FixturesData, Match, PlayersData, StandingsRow } from "../src/types/types";
-import { OUR_SLUG, isPlayed, ourScore, outcome, seasonSummary } from "../src/lib/fixtures.ts";
+import type { ManualStatsData, RosterData, Club, FixturesData, Match, PlayersData, StandingsRow } from "../src/types/types";
+import { OUR_SLUG, isPlayed, outcome, seasonSummary } from "../src/lib/fixtures.ts";
 import {
   deriveTag,
   findPoolForTeam,
@@ -46,7 +46,8 @@ import {
   playersForTeam,
   seasonWindow,
   slugify,
-  sumAssists,
+  checkManualStats,
+  parseDiscipline,
   stripNewPrefix,
   type RawStandingsRow,
 } from "./vmsl-parse.ts";
@@ -59,8 +60,8 @@ const PLAYERS_PATH = path.join(ROOT, "src", "data", "players.json");
 const PLAYERS_DISPLAY_PATH = "src/data/players.json";
 const ROSTER_PATH = path.join(ROOT, "src", "data", "roster.json");
 const ROSTER_DISPLAY_PATH = "src/data/roster.json";
-const ASSISTS_PATH = path.join(ROOT, "src", "data", "assists.json");
-const ASSISTS_DISPLAY_PATH = "src/data/assists.json";
+const MANUAL_PATH = path.join(ROOT, "src", "data", "manualStats.json");
+const MANUAL_DISPLAY_PATH = "src/data/manualStats.json";
 const BASE = "https://vmslsoccer.com/webapps/spappz_live";
 const ORIGIN = new URL(BASE).origin;
 const CRESTS_DIR = path.join(ROOT, "public", "assets", "crests");
@@ -852,11 +853,16 @@ async function scrapePlayers(
   ourGoalsFor: number | null,
 ): Promise<void> {
   const goalsUrl = `${BASE}/division_player_stats?reg_year=${config.regYear}&division=${config.division}&sched_type=reg&firsttime=1`;
+  const goalieUrl = `${BASE}/division_goalie_stats?reg_year=${config.regYear}&division=${config.division}&sched_type=reg&firsttime=1`;
   const mvpsUrl = `${BASE}/division_player_mvps?reg_year=${config.regYear}&division=${config.division}&sched_type=reg&firsttime=1`;
 
   try {
     const goalRows = parsePlayerRows(await get(goalsUrl, config.userAgent, options.verbose));
     const mvpRows = parsePlayerRows(await get(mvpsUrl, config.userAgent, options.verbose));
+    /* Shutouts, in the same layout as goals. No rows is normal, since most
+       teams have none early in the season, so unlike goals this is not a sign
+       the page changed. */
+    const goalieRows = parsePlayerRows(await get(goalieUrl, config.userAgent, options.verbose));
 
     let existing: PlayersData | null = null;
     try {
@@ -874,13 +880,14 @@ async function scrapePlayers(
 
     const ourGoalRows = playersForTeam(goalRows, config.teamId);
     const ourMvpRows = playersForTeam(mvpRows, config.teamId);
+    const ourCleanSheetRows = playersForTeam(goalieRows, config.teamId);
 
-    /* VMSL has no assists, so they are kept by hand per match. A missing file
-       just means none recorded yet, but a broken one stops the update rather
-       than quietly dropping assists. */
-    let assistsData: AssistsData = { matches: {} };
+    /* VMSL has no assists, games played or shirt numbers, so they are kept by
+       hand in manualStats.json. A missing file just means none recorded yet, but
+       a broken one stops the update rather than quietly dropping them. */
+    let manualData: ManualStatsData = { players: {} };
     try {
-      assistsData = JSON.parse(readFileSync(ASSISTS_PATH, "utf8")) as AssistsData;
+      manualData = JSON.parse(readFileSync(MANUAL_PATH, "utf8")) as ManualStatsData;
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }
@@ -890,28 +897,36 @@ async function scrapePlayers(
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }
-    const fixtures = JSON.parse(readFileSync(DATA_PATH, "utf8")) as FixturesData;
-    const ourGoalsByMatch = new Map(
-      fixtures.matches.map((match) => [match.id, ourScore(match)]),
-    );
-    const assists = sumAssists(
-      assistsData.matches ?? {},
-      [...roster, ...ourGoalRows.map((row) => row.name), ...ourMvpRows.map((row) => row.name)],
-      ourGoalsByMatch,
-    );
-    if (assists.errors.length > 0) {
-      for (const message of assists.errors) console.error(`  x ${message}`);
-      console.error(`    ${PLAYERS_DISPLAY_PATH} has not been changed. Fix ${ASSISTS_DISPLAY_PATH} and run again.\n`);
+    const manual = checkManualStats(manualData.players ?? {}, [
+      ...roster,
+      ...ourGoalRows.map((row) => row.name),
+      ...ourMvpRows.map((row) => row.name),
+      ...ourCleanSheetRows.map((row) => row.name),
+    ]);
+    if (manual.errors.length > 0) {
+      for (const message of manual.errors) console.error(`  x ${message}`);
+      console.error(`    ${PLAYERS_DISPLAY_PATH} has not been changed. Fix ${MANUAL_DISPLAY_PATH} and run again.\n`);
       return;
     }
-    const unlisted = [...ourGoalRows, ...ourMvpRows]
+    const unlisted = [...ourGoalRows, ...ourMvpRows, ...ourCleanSheetRows]
       .map((row) => row.name)
       .filter((name) => !roster.some((player) => player.toLowerCase() === name.toLowerCase()));
     for (const name of new Set(unlisted)) {
       console.log(`  ! VMSL lists "${name}" but ${ROSTER_DISPLAY_PATH} does not. Add them so the roster stays complete.`);
     }
 
-    const players = mergePlayerStats(ourGoalRows, ourMvpRows, assists.totals, roster);
+    /* Cards come from the Discipline box on the team page. If the box has gone
+       missing the page changed, so keep the cards already on file rather than
+       zeroing everyone. */
+    const teamUrl = `${BASE}/team_page?reg_year=${config.regYear}&id=${config.teamId}`;
+    let cards = parseDiscipline(await get(teamUrl, config.userAgent, options.verbose));
+    if (cards === null) {
+      console.log(`  ! No Discipline box on the team page, so card totals were kept from ${PLAYERS_DISPLAY_PATH}.`);
+      cards = Object.fromEntries(
+        (existing?.players ?? []).map(({ name, yellows, reds }) => [name, { yellows: yellows ?? 0, reds: reds ?? 0 }]),
+      );
+    }
+    const players = mergePlayerStats(ourGoalRows, ourMvpRows, roster, manual.stats, cards, ourCleanSheetRows);
 
     const totalGoals = players.reduce((sum, player) => sum + player.goals, 0);
     if (ourGoalsFor !== null && totalGoals > ourGoalsFor) {

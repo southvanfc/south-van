@@ -1,0 +1,31 @@
+---
+/** A navy soccer shirt with the player's number on it. */
+interface Props {
+  number: number;
+}
+
+const { number } = Astro.props;
+/* Smaller type for three digits so it stays on the shirt */
+const fontSize = String(number).length > 2 ? 7 : 9;
+---
+
+<svg class="st-shirt" width="30" height="30" viewBox="0 0 24 24" role="img" aria-label={`Shirt number ${number}`}>
+  <path
+    d="M8.5 3 3 5.5 1.5 10 5 11.5 6 10v11h12V10l1 1.5 3.5-1.5L21 5.5 15.5 3C15 4.6 13.7 5.4 12 5.4S9 4.6 8.5 3Z"
+    fill="#013478"
+    stroke="#011f4a"
+    stroke-width="0.8"
+    stroke-linejoin="round"
+  />
+  <text x="12" y="15.6" text-anchor="middle" font-size={fontSize} font-weight="800" fill="#ffffff" font-family="inherit"
+    >{number}</text
+  >
+</svg>
+
+<style>
+  .st-shirt {
+    flex: none;
+    width: 30px;
+    height: 30px;
+  }
+</style>

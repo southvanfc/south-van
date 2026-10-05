@@ -11,7 +11,7 @@
  * The reference implementation this grew from is scripts/vmsl-poc-reference.ts.
  */
 
-import type { Competition, Match, StandingsRow } from "../src/types/types";
+import type { Competition, ManualPlayerStats, Match, PlayerStat, StandingsRow } from "../src/types/types";
 
 /* ------------------------------------------------------------------ */
 /* Raw shapes, straight off the page                                   */
@@ -80,6 +80,12 @@ export interface RawPool {
   /** The pool letter, e.g. "A". */
   pool: string;
   rows: RawStandingsRow[];
+}
+
+/** A player's card totals from the Discipline box on VMSL's team page. */
+export interface CardCounts {
+  yellows: number;
+  reds: number;
 }
 
 /** One player's row on a VMSL division player stats page (goals or MVPs). */
@@ -653,6 +659,35 @@ export function parsePlayerRows(html: string): RawPlayerRow[] {
   return rows;
 }
 
+/**
+ * Card totals from the Discipline box on a team page, whose rows read
+ * "2 (red: 0 yellow: 2 yellow accum: 0)" with one row per player per League or
+ * Cup, so a player's rows are added together. Returns null when the page has no
+ * Discipline box at all, which is a page change and not "nobody has a card", and
+ * an empty object when the box is there but has no players in it.
+ */
+export function parseDiscipline(html: string): Record<string, CardCounts> | null {
+  const start = html.search(/<b>Discipline<\/b>/i);
+  if (start === -1) return null;
+  const end = html.indexOf("</table>", start);
+  const box = html.slice(start, end === -1 ? undefined : end);
+
+  const cards: Record<string, CardCounts> = {};
+  for (const chunk of box.split(/<tr\b/i).slice(1)) {
+    const row = cells(chunk);
+    if (row.length < 2) continue;
+    const text = decode(row[1] ?? "");
+    const red = /red:\s*(\d+)/i.exec(text)?.[1];
+    const yellow = /yellow:\s*(\d+)/i.exec(text)?.[1];
+    const name = decode(row[0] ?? "");
+    if (!name || red === undefined || yellow === undefined) continue;
+    const found = (cards[name] ??= { yellows: 0, reds: 0 });
+    found.yellows += Number.parseInt(yellow, 10);
+    found.reds += Number.parseInt(red, 10);
+  }
+  return cards;
+}
+
 /** Only one team's rows, matched on VMSL's numeric team id. */
 export function playersForTeam(rows: RawPlayerRow[], teamId: string): RawPlayerRow[] {
   return rows.filter((row) => row.teamId === teamId);
@@ -661,22 +696,38 @@ export function playersForTeam(rows: RawPlayerRow[], teamId: string): RawPlayerR
 /**
  * Joins a team's goal rows and MVP rows into one record per player, matched on
  * name. Someone with goals but no MVPs, or the reverse, gets 0 for the other.
- * `assists` is the hand kept season total per player (see `sumAssists`), and
  * `roster` is every player on the club, so someone with no goals, assists or
- * MVPs still gets a row of zeros. Sorted by goals, then assists, then
- * MVPs, then name, so the file stays stable between runs.
+ * MVPs still gets a row of zeros. `manual` is the hand kept assists, games
+ * played and shirt number from manualStats.json (see `checkManualStats`), which
+ * VMSL does not publish. `cards` is the yellow and red totals from
+ * `parseDiscipline`, and `cleanSheets` the goalie page's shutout rows. Sorted by goals, then assists, then MVPs, then name, so the
+ * file stays stable between runs.
  */
 export function mergePlayerStats(
   goals: RawPlayerRow[],
   mvps: RawPlayerRow[],
-  assists: Record<string, number> = {},
   roster: string[] = [],
-): Array<{ name: string; goals: number; assists: number; mvps: number }> {
-  const byName = new Map<string, { name: string; goals: number; assists: number; mvps: number }>();
+  manual: Record<string, ManualPlayerStats> = {},
+  cards: Record<string, CardCounts> = {},
+  cleanSheets: RawPlayerRow[] = [],
+): PlayerStat[] {
+  const byName = new Map<string, PlayerStat>();
   const entry = (name: string) => {
     let found = byName.get(name);
     if (!found) {
-      found = { name, goals: 0, assists: 0, mvps: 0 };
+      const kept = manual[name];
+      found = {
+        name,
+        goals: 0,
+        assists: kept?.assists ?? 0,
+        mvps: 0,
+        goalkeeper: kept?.goalkeeper ?? false,
+        cleanSheets: 0,
+        number: kept?.number ?? null,
+        gamesPlayed: kept?.gamesPlayed ?? 0,
+        yellows: cards[name]?.yellows ?? 0,
+        reds: cards[name]?.reds ?? 0,
+      };
       byName.set(name, found);
     }
     return found;
@@ -685,7 +736,9 @@ export function mergePlayerStats(
   for (const name of roster) entry(name);
   for (const row of goals) entry(row.name).goals += row.count;
   for (const row of mvps) entry(row.name).mvps += row.count;
-  for (const [name, count] of Object.entries(assists)) entry(name).assists += count;
+  for (const row of cleanSheets) entry(row.name).cleanSheets += row.count;
+  for (const name of Object.keys(manual)) entry(name);
+  for (const name of Object.keys(cards)) entry(name);
 
   return [...byName.values()].sort(
     (a, b) =>
@@ -697,52 +750,38 @@ export function mergePlayerStats(
 }
 
 /**
- * Totals the hand kept per match assists (`src/data/assists.json`) into one
- * count per player. Names are matched to `knownNames` (the players VMSL lists)
- * ignoring case and extra spaces, so "harjit kainth" lands on "Harjit Kainth".
- * `knownNames` is the club roster plus anyone VMSL lists, since VMSL only knows
- * scorers and MVPs. `errors` are things that make the file untrustworthy: a
- * name nobody knows (almost always a typo), an unknown match id, a match not
- * yet played, or more assists than South Van goals in that match (every assist
- * needs a goal).
+ * Checks the hand kept manualStats.json. Names are matched to `knownNames` (the
+ * club roster plus anyone VMSL lists) ignoring case and extra spaces, so
+ * "harjit kainth" lands on "Harjit Kainth". `errors` are things that make the
+ * file untrustworthy: a name nobody knows (almost always a typo), a count that is
+ * not a whole number of 0 or more, or a shirt number that is not null or a whole
+ * number of 0 or more.
  */
-export function sumAssists(
-  matches: Record<string, Record<string, number>>,
+export function checkManualStats(
+  players: Record<string, Partial<ManualPlayerStats>>,
   knownNames: string[],
-  ourGoalsByMatch: Map<string, number | null>,
-): { totals: Record<string, number>; errors: string[] } {
+): { stats: Record<string, ManualPlayerStats>; errors: string[] } {
   const canonical = (name: string) => name.trim().replace(/\s+/g, " ").toLowerCase();
   const known = new Map(knownNames.map((name) => [canonical(name), name]));
-  const totals: Record<string, number> = {};
+  const stats: Record<string, ManualPlayerStats> = {};
   const errors: string[] = [];
+  const whole = (value: unknown): value is number => Number.isInteger(value) && (value as number) >= 0;
 
-  for (const [matchId, perPlayer] of Object.entries(matches)) {
-    if (!ourGoalsByMatch.has(matchId)) {
-      errors.push(`assists.json has match ${matchId}, which is not in fixtures.json.`);
+  for (const [rawName, entry] of Object.entries(players)) {
+    const name = known.get(canonical(rawName));
+    if (!name) {
+      errors.push(`manualStats.json: "${rawName}" is not on the roster (src/data/roster.json) or in VMSL's stats. Fix the spelling or add them to the roster.`);
       continue;
     }
-    let matchTotal = 0;
-    for (const [rawName, count] of Object.entries(perPlayer)) {
-      if (!Number.isInteger(count) || count < 1) {
-        errors.push(`assists.json match ${matchId}: ${rawName} has ${count} assists, expected a whole number of 1 or more.`);
-        continue;
-      }
-      const key = canonical(rawName);
-      const name = known.get(key);
-      if (!name) {
-        errors.push(`assists.json match ${matchId}: "${rawName}" is not on the roster (src/data/roster.json) or in VMSL's stats. Fix the spelling or add them to the roster.`);
-        continue;
-      }
-      totals[name] = (totals[name] ?? 0) + count;
-      matchTotal += count;
-    }
-    const goals = ourGoalsByMatch.get(matchId);
-    if (goals === null || goals === undefined) {
-      errors.push(`assists.json match ${matchId} has assists but the match has no score yet.`);
-    } else if (matchTotal > goals) {
-      errors.push(`assists.json match ${matchId} has ${matchTotal} assists but South Van scored ${goals}.`);
+    const { assists = 0, gamesPlayed = 0, number = null, goalkeeper = false } = entry;
+    if (!whole(assists)) errors.push(`manualStats.json: ${rawName} has ${assists} assists, expected a whole number of 0 or more.`);
+    if (!whole(gamesPlayed)) errors.push(`manualStats.json: ${rawName} has ${gamesPlayed} games played, expected a whole number of 0 or more.`);
+    if (number !== null && !whole(number)) errors.push(`manualStats.json: ${rawName} has shirt number ${number}, expected a whole number or null.`);
+    if (typeof goalkeeper !== "boolean") errors.push(`manualStats.json: ${rawName} has goalkeeper ${goalkeeper}, expected true or false.`);
+    if (whole(assists) && whole(gamesPlayed) && (number === null || whole(number)) && typeof goalkeeper === "boolean") {
+      stats[name] = { assists, gamesPlayed, number, goalkeeper };
     }
   }
 
-  return { totals, errors };
+  return { stats, errors };
 }

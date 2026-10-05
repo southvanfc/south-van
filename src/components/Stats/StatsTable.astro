@@ -1,0 +1,121 @@
+---
+import StatIcon from "./StatIcon.astro";
+import ShirtNumber from "./ShirtNumber.astro";
+import type { PlayerStat } from "../../types/types";
+
+export interface Column {
+  key: "gamesPlayed" | "goals" | "assists" | "mvps" | "cleanSheets" | "yellows" | "reds";
+  label: string;
+  short: string;
+  icon: "calendar" | "ball" | "assist" | "star" | "yellow" | "red" | "shield";
+  color: string;
+}
+
+interface Props {
+  columns: readonly Column[];
+  rows: PlayerStat[];
+  /** Shown in the team total row, one entry per column. Leave out for no total row. A null entry is left blank. */
+  totals?: readonly (number | null)[];
+}
+
+const { columns, rows, totals } = Astro.props;
+
+/* Only reserve room for a shirt when someone in this table has a number, so names line up */
+const hasNumbers = rows.some((player) => player.number !== null);
+---
+
+<div class="st-scroll">
+  <table class="st-table">
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        {columns.map((column) => (
+          <th scope="col" class="num" title={column.label}>
+            <span class="st-head">
+              <StatIcon icon={column.icon} color={column.color} />
+              <span>{column.short}</span>
+            </span>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((player) => (
+        <tr>
+          <th scope="row">
+            <span class="st-player">
+              {player.number !== null ? <ShirtNumber number={player.number} /> : hasNumbers && <span class="st-shirt-gap" />}
+              {player.name}
+            </span>
+          </th>
+          {columns.map((column) => (
+            <td class="num">{player[column.key]}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+    {totals && (
+      <tfoot>
+        <tr>
+          <th scope="row">Team total</th>
+          {totals.map((value) => (
+            <td class="num">{value}</td>
+          ))}
+        </tr>
+      </tfoot>
+    )}
+  </table>
+</div>
+
+<style>
+  .st-scroll {
+    overflow-x: auto;
+  }
+  .st-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-dark);
+  }
+  .st-table th,
+  .st-table td {
+    padding: 8px 14px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--lt-gray);
+    font-weight: 600;
+  }
+  .st-table thead th {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    border-bottom: 2px solid var(--navy);
+  }
+  .st-table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .st-head {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .st-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.3;
+  }
+  .st-shirt-gap {
+    flex: none;
+    width: 30px;
+  }
+  .st-table tfoot th,
+  .st-table tfoot td {
+    font-weight: 800;
+    color: var(--navy);
+    border-bottom: none;
+    border-top: 2px solid var(--navy);
+  }
+</style>

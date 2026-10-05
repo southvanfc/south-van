@@ -35,13 +35,23 @@ export function leadersBy(data: PlayersData, stat: StatKey, limit = 5): Leader[]
   return leaders;
 }
 
-export function totals(data: PlayersData): { goals: number; assists: number; mvps: number } {
+export interface PlayerTotals {
+  goals: number;
+  assists: number;
+  mvps: number;
+  yellows: number;
+  reds: number;
+}
+
+export function totals(data: PlayersData): PlayerTotals {
   return data.players.reduce(
-    (sum: { goals: number; assists: number; mvps: number }, player: PlayerStat) => ({
+    (sum: PlayerTotals, player: PlayerStat) => ({
       goals: sum.goals + player.goals,
       assists: sum.assists + player.assists,
       mvps: sum.mvps + player.mvps,
+      yellows: sum.yellows + player.yellows,
+      reds: sum.reds + player.reds,
     }),
-    { goals: 0, assists: 0, mvps: 0 },
+    { goals: 0, assists: 0, mvps: 0, yellows: 0, reds: 0 },
   );
 }
