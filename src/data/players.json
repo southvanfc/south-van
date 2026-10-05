@@ -1,16 +1,16 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-01T10:12:50-07:00",
+  "updatedAt": "2026-10-04T22:45:46-07:00",
   "players": [
+    {
+      "name": "Harjit Kainth",
+      "goals": 4,
+      "mvps": 1
+    },
     {
       "name": "David Delgado",
       "goals": 2,
       "mvps": 1
-    },
-    {
-      "name": "Harjit Kainth",
-      "goals": 2,
-      "mvps": 0
     },
     {
       "name": "Erfan Amini",
