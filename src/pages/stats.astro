@@ -9,12 +9,12 @@ const { season, players } = playersData;
 const sum = totals(playersData);
 
 const rows = [...players].sort(
-  (a, b) => b.goals - a.goals || b.mvps - a.mvps || a.name.localeCompare(b.name),
+  (a, b) => b.goals - a.goals || b.assists - a.assists || b.mvps - a.mvps || a.name.localeCompare(b.name),
 );
 
 const seo: SEO = {
   title: "Player Stats | VMSL | South Van FC",
-  description: `South Van FC men's team player stats for the ${season} season: top scorers and MVP awards in the Vancouver Metro Soccer League.`,
+  description: `South Van FC men's team player stats for the ${season} season: top scorers, assists and MVP awards in the Vancouver Metro Soccer League.`,
   canonical: "/stats/",
   ogType: "website",
   keywords:
@@ -29,9 +29,9 @@ const seo: SEO = {
       <span class="eyebrow eyebrow-gold">{season} Season</span>
       <h1 class="st-title">Player Stats</h1>
       <p class="st-intro">
-        Goals and MVP awards for South Van FC men's team players in the
-        Vancouver Metro Soccer League, taken from the league's official
-        records.
+        Goals, assists and MVP awards for South Van FC men's team players in the
+        Vancouver Metro Soccer League, with goals and MVPs taken from the
+        league's official records.
       </p>
     </div>
   </section>
@@ -49,6 +49,7 @@ const seo: SEO = {
                 <tr>
                   <th scope="col">Player</th>
                   <th scope="col" class="num">Goals</th>
+                  <th scope="col" class="num">Assists</th>
                   <th scope="col" class="num">MVPs</th>
                 </tr>
               </thead>
@@ -57,6 +58,7 @@ const seo: SEO = {
                   <tr>
                     <th scope="row">{player.name}</th>
                     <td class="num">{player.goals}</td>
+                    <td class="num">{player.assists}</td>
                     <td class="num">{player.mvps}</td>
                   </tr>
                 ))}
@@ -65,6 +67,7 @@ const seo: SEO = {
                 <tr>
                   <th scope="row">Team total</th>
                   <td class="num">{sum.goals}</td>
+                  <td class="num">{sum.assists}</td>
                   <td class="num">{sum.mvps}</td>
                 </tr>
               </tfoot>

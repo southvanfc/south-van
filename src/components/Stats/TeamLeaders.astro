@@ -12,6 +12,7 @@ const { data, showLink = false } = Astro.props;
 
 const cards: { stat: StatKey; title: string; unit: string }[] = [
   { stat: "goals", title: "Top Scorers", unit: "Goals" },
+  { stat: "assists", title: "Top Assists", unit: "Assists" },
   { stat: "mvps", title: "MVP Awards", unit: "MVPs" },
 ];
 
@@ -48,8 +49,8 @@ const built = cards.map((card) => ({ ...card, leaders: leadersBy(data, card.stat
       }
     </div>
     <p class="tl-note">
-      Totals from the Vancouver Metro Soccer League's official player stats for
-      league matches.
+      Goals and MVPs are from the Vancouver Metro Soccer League's official player
+      stats for league matches. Assists are tracked by the club.
     </p>
     {
       showLink && (
@@ -75,7 +76,7 @@ const built = cards.map((card) => ({ ...card, leaders: leadersBy(data, card.stat
   }
   .tl-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
   .tl-card {
@@ -149,6 +150,9 @@ const built = cards.map((card) => ({ ...card, leaders: leadersBy(data, card.stat
     text-decoration: underline;
   }
   @media (max-width: 960px) {
+    .tl-grid {
+      grid-template-columns: 1fr;
+    }
     .tl {
       padding: 48px 28px;
     }

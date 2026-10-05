@@ -33,6 +33,7 @@ import {
   seasonWindow,
   slugify,
   stripNewPrefix,
+  sumAssists,
 } from "./vmsl-parse.ts";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -544,7 +545,51 @@ describe("player stats pages", () => {
   it("merges goals and MVPs into one record per player", () => {
     const merged = mergePlayerStats(playersForTeam(goalRows, "827"), playersForTeam(mvpRows, "827"));
     const erfan = merged.find((player) => player.name === "Erfan Amini");
-    expect(erfan).toEqual({ name: "Erfan Amini", goals: 1, mvps: 1 });
+    expect(erfan).toEqual({ name: "Erfan Amini", goals: 1, assists: 0, mvps: 1 });
     expect(merged.find((player) => player.name === "David Delgado")?.mvps).toBe(0);
+  });
+});
+
+describe("sumAssists", () => {
+  const goals = new Map<string, number | null>([
+    ["100", 3],
+    ["101", 1],
+    ["102", null],
+  ]);
+  const known = ["Harjit Kainth", "David Delgado"];
+
+  it("totals assists per player across matches and matches names loosely", () => {
+    const result = sumAssists(
+      { "100": { "harjit  kainth": 1, "David Delgado": 2 }, "101": { "Harjit Kainth": 1 } },
+      known,
+      goals,
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.totals).toEqual({ "Harjit Kainth": 2, "David Delgado": 2 });
+  });
+
+  it("rejects a name that is not on the roster or in VMSL's stats, so typos are caught", () => {
+    const result = sumAssists({ "100": { "Harjt Kainth": 1 } }, known, goals);
+    expect(result.errors).toHaveLength(1);
+    expect(result.totals).toEqual({});
+  });
+
+  it("rejects an unknown match, an unplayed match and too many assists", () => {
+    expect(sumAssists({ "999": { "Harjit Kainth": 1 } }, known, goals).errors).toHaveLength(1);
+    expect(sumAssists({ "102": { "Harjit Kainth": 1 } }, known, goals).errors).toHaveLength(1);
+    expect(sumAssists({ "101": { "Harjit Kainth": 1, "David Delgado": 1 } }, known, goals).errors).toHaveLength(1);
+  });
+
+  it("rejects a zero or fractional count", () => {
+    expect(sumAssists({ "100": { "Harjit Kainth": 0 } }, known, goals).errors).toHaveLength(1);
+    expect(sumAssists({ "100": { "Harjit Kainth": 1.5 } }, known, goals).errors).toHaveLength(1);
+  });
+
+  it("adds assists and roster players to mergePlayerStats, including players with no goals", () => {
+    const merged = mergePlayerStats([], [], { "David Delgado": 2 }, ["David Delgado", "Sam Roe"]);
+    expect(merged).toEqual([
+      { name: "David Delgado", goals: 0, assists: 2, mvps: 0 },
+      { name: "Sam Roe", goals: 0, assists: 0, mvps: 0 },
+    ]);
   });
 });

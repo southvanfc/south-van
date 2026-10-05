@@ -128,10 +128,33 @@ scoreline in a diff or a pull request body the same way.
 
 After the fixtures step, the scraper also fetches VMSL's `division_player_stats`
 (goal scorers) and `division_player_mvps` pages, keeps the rows for South Van's
-team id, and writes `src/data/players.json` (goals and MVP awards per player,
-season totals). Both pages list every pool, so rows are filtered by team id.
+team id, and writes `src/data/players.json` (goals, assists and MVP awards per
+player, season totals). Both pages list every pool, so rows are filtered by team id.
 A failure here is reported but never blocks the fixtures update, and empty
 pages leave the existing file alone. It is rejected if player goals add up to
 more than the team's goals in the standings. Saved responses for the parser
 tests are `player-stats-2026-27.html` and `player-mvps-2026-27.html`. These
 pages are under `/webapps`, so the same robots.txt caveat applies.
+
+### Assists
+
+VMSL does not publish assists, so they are kept by hand in `src/data/assists.json`
+and merged in on every scrape. After a game, add an entry keyed by the match id
+(the `id` in fixtures.json), then player name, then assists:
+
+```json
+{ "matches": { "24203": { "Harjit Kainth": 1, "David Delgado": 2 } } }
+```
+
+The scraper totals these per player. It refuses to update players.json, and says
+why, if a match id is not in fixtures.json, the match has no score yet, a count
+is not a whole number of 1 or more, or a match has more assists than South Van
+goals. A name must be on the roster or in VMSL's stats, so a typo is an error rather
+than a new player. Names match ignoring case and extra spaces.
+
+VMSL only lists players who have scored or won an MVP, so `src/data/roster.json`
+(`{ "players": ["Full Name", ...] }`) is the hand kept list of every player. Add
+each new signing there. Roster players with no stats still get a row of zeros on
+the stats page, and the scraper prints a warning if VMSL lists someone who is
+not on the roster. The file is never written by the bot, so the scheduled
+refresh keeps your assists.

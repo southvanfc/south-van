@@ -1,6 +1,6 @@
 import type { PlayerStat, PlayersData } from "../types/types";
 
-export type StatKey = "goals" | "mvps";
+export type StatKey = "goals" | "assists" | "mvps";
 
 export interface Leader {
   name: string;
@@ -35,12 +35,13 @@ export function leadersBy(data: PlayersData, stat: StatKey, limit = 5): Leader[]
   return leaders;
 }
 
-export function totals(data: PlayersData): { goals: number; mvps: number } {
+export function totals(data: PlayersData): { goals: number; assists: number; mvps: number } {
   return data.players.reduce(
-    (sum: { goals: number; mvps: number }, player: PlayerStat) => ({
+    (sum: { goals: number; assists: number; mvps: number }, player: PlayerStat) => ({
       goals: sum.goals + player.goals,
+      assists: sum.assists + player.assists,
       mvps: sum.mvps + player.mvps,
     }),
-    { goals: 0, mvps: 0 },
+    { goals: 0, assists: 0, mvps: 0 },
   );
 }

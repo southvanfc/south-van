@@ -258,7 +258,19 @@ export interface MensApplicationInsert {
 export interface PlayerStat {
   name: string;
   goals: number;
+  /** From the hand kept src/data/assists.json, since VMSL does not publish assists */
+  assists: number;
   mvps: number;
+}
+
+/** Hand kept list of every South Van player, so names can be checked and zero stat players shown. */
+export interface RosterData {
+  players: string[];
+}
+
+/** Hand kept assists per match: VMSL match id, then player name, then assists. */
+export interface AssistsData {
+  matches: Record<string, Record<string, number>>;
 }
 
 export interface PlayersData {

@@ -31,8 +31,8 @@ import { mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import type { Club, FixturesData, Match, PlayersData, StandingsRow } from "../src/types/types";
-import { OUR_SLUG, isPlayed, outcome, seasonSummary } from "../src/lib/fixtures.ts";
+import type { AssistsData, RosterData, Club, FixturesData, Match, PlayersData, StandingsRow } from "../src/types/types";
+import { OUR_SLUG, isPlayed, ourScore, outcome, seasonSummary } from "../src/lib/fixtures.ts";
 import {
   deriveTag,
   findPoolForTeam,
@@ -46,6 +46,7 @@ import {
   playersForTeam,
   seasonWindow,
   slugify,
+  sumAssists,
   stripNewPrefix,
   type RawStandingsRow,
 } from "./vmsl-parse.ts";
@@ -56,6 +57,10 @@ const VALIDATOR_PATH = path.join(ROOT, "scripts", "validate-fixtures.ts");
 const DISPLAY_PATH = "src/data/fixtures.json";
 const PLAYERS_PATH = path.join(ROOT, "src", "data", "players.json");
 const PLAYERS_DISPLAY_PATH = "src/data/players.json";
+const ROSTER_PATH = path.join(ROOT, "src", "data", "roster.json");
+const ROSTER_DISPLAY_PATH = "src/data/roster.json";
+const ASSISTS_PATH = path.join(ROOT, "src", "data", "assists.json");
+const ASSISTS_DISPLAY_PATH = "src/data/assists.json";
 const BASE = "https://vmslsoccer.com/webapps/spappz_live";
 const ORIGIN = new URL(BASE).origin;
 const CRESTS_DIR = path.join(ROOT, "public", "assets", "crests");
@@ -867,10 +872,46 @@ async function scrapePlayers(
       return;
     }
 
-    const players = mergePlayerStats(
-      playersForTeam(goalRows, config.teamId),
-      playersForTeam(mvpRows, config.teamId),
+    const ourGoalRows = playersForTeam(goalRows, config.teamId);
+    const ourMvpRows = playersForTeam(mvpRows, config.teamId);
+
+    /* VMSL has no assists, so they are kept by hand per match. A missing file
+       just means none recorded yet, but a broken one stops the update rather
+       than quietly dropping assists. */
+    let assistsData: AssistsData = { matches: {} };
+    try {
+      assistsData = JSON.parse(readFileSync(ASSISTS_PATH, "utf8")) as AssistsData;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    let roster: string[] = [];
+    try {
+      roster = (JSON.parse(readFileSync(ROSTER_PATH, "utf8")) as RosterData).players;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    const fixtures = JSON.parse(readFileSync(DATA_PATH, "utf8")) as FixturesData;
+    const ourGoalsByMatch = new Map(
+      fixtures.matches.map((match) => [match.id, ourScore(match)]),
     );
+    const assists = sumAssists(
+      assistsData.matches ?? {},
+      [...roster, ...ourGoalRows.map((row) => row.name), ...ourMvpRows.map((row) => row.name)],
+      ourGoalsByMatch,
+    );
+    if (assists.errors.length > 0) {
+      for (const message of assists.errors) console.error(`  x ${message}`);
+      console.error(`    ${PLAYERS_DISPLAY_PATH} has not been changed. Fix ${ASSISTS_DISPLAY_PATH} and run again.\n`);
+      return;
+    }
+    const unlisted = [...ourGoalRows, ...ourMvpRows]
+      .map((row) => row.name)
+      .filter((name) => !roster.some((player) => player.toLowerCase() === name.toLowerCase()));
+    for (const name of new Set(unlisted)) {
+      console.log(`  ! VMSL lists "${name}" but ${ROSTER_DISPLAY_PATH} does not. Add them so the roster stays complete.`);
+    }
+
+    const players = mergePlayerStats(ourGoalRows, ourMvpRows, assists.totals, roster);
 
     const totalGoals = players.reduce((sum, player) => sum + player.goals, 0);
     if (ourGoalsFor !== null && totalGoals > ourGoalsFor) {
@@ -889,9 +930,9 @@ async function scrapePlayers(
     const unchanged = existing !== null && body(existing) === body(candidate);
     if (!unchanged) candidate.updatedAt = vancouverTimestamp(new Date());
 
-    console.log(`Players: ${players.length} South Van players, ${totalGoals} goals, ${players.reduce((sum, player) => sum + player.mvps, 0)} MVP awards.`);
+    console.log(`Players: ${players.length} South Van players, ${totalGoals} goals, ${players.reduce((sum, player) => sum + player.assists, 0)} assists, ${players.reduce((sum, player) => sum + player.mvps, 0)} MVP awards.`);
     for (const player of players.slice(0, options.verbose ? players.length : 5)) {
-      console.log(`  ${player.name}: ${player.goals} goals, ${player.mvps} MVPs`);
+      console.log(`  ${player.name}: ${player.goals} goals, ${player.assists} assists, ${player.mvps} MVPs`);
     }
 
     if (options.dryRun) {
