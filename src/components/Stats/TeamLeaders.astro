@@ -1,5 +1,6 @@
 ---
-import { leadersBy, type StatKey } from "../../lib/players";
+import { LEADER_CARD_LIMIT, leadersBy, type StatKey } from "../../lib/players";
+import LeaderboardModal from "./LeaderboardModal.astro";
 import type { PlayersData } from "../../types/types";
 
 interface Props {
@@ -16,12 +17,9 @@ const cards: { stat: StatKey; title: string; unit: string }[] = [
   { stat: "mvps", title: "MVP Awards", unit: "MVPs" },
 ];
 
-/** Rows shown on a card. Anyone past this is only in the "View all" modal. */
-const CARD_LIMIT = 5;
-
 const built = cards.map((card) => {
   const all = leadersBy(data, card.stat, Infinity);
-  return { ...card, all, leaders: all.slice(0, CARD_LIMIT) };
+  return { ...card, all, leaders: all.slice(0, LEADER_CARD_LIMIT) };
 });
 ---
 
@@ -51,31 +49,7 @@ const built = cards.map((card) => {
               <p class="tl-empty">Nothing recorded yet this season.</p>
             )}
             {all.length > leaders.length && (
-              <>
-                <button type="button" class="tl-more" data-tl-open={`tl-modal-${stat}`}>
-                  View all {all.length} <span aria-hidden="true">→</span>
-                </button>
-                <dialog class="tl-modal" id={`tl-modal-${stat}`} aria-labelledby={`tl-modal-${stat}-title`}>
-                  <div class="tl-modal-head">
-                    <h3 class="tl-modal-title" id={`tl-modal-${stat}-title`}>{title}</h3>
-                    <button type="button" class="tl-modal-close" data-tl-close aria-label={`Close ${title}`}>
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <ol class="tl-list">
-                    {all.map((leader) => (
-                      <li class="tl-row">
-                        <span class="tl-rank">{leader.rank}</span>
-                        <span class="tl-name">{leader.name}</span>
-                        <span class="tl-value">
-                          {leader.value}
-                          <span class="tl-unit">{unit}</span>
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </dialog>
-              </>
+              <LeaderboardModal id={`tl-modal-${stat}`} title={title} unit={unit} leaders={all} />
             )}
           </div>
         ))
@@ -94,20 +68,6 @@ const built = cards.map((card) => {
     }
   </div>
 </section>
-
-<script>
-  /* Native <dialog>: showModal gives focus trapping and Escape to close. A click
-     on the backdrop lands on the dialog itself, so that closes it too. */
-  document.querySelectorAll<HTMLButtonElement>("[data-tl-open]").forEach((button) => {
-    const dialog = document.getElementById(button.dataset.tlOpen ?? "") as HTMLDialogElement | null;
-    if (!dialog) return;
-    button.addEventListener("click", () => dialog.showModal());
-    dialog.querySelector("[data-tl-close]")?.addEventListener("click", () => dialog.close());
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) dialog.close();
-    });
-  });
-</script>
 
 <style>
   .tl {
@@ -179,64 +139,6 @@ const built = cards.map((card) => {
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--text-mid);
-  }
-  .tl-more {
-    margin-top: 14px;
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--navy);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-  }
-  .tl-more:hover {
-    color: var(--navy-dark);
-  }
-  .tl-modal {
-    width: min(440px, calc(100vw - 32px));
-    max-height: min(80vh, 640px);
-    padding: 24px;
-    border: none;
-    border-top: 3px solid var(--gold);
-    border-radius: 10px;
-    background: var(--white);
-    color: var(--text-dark);
-    overflow-y: auto;
-  }
-  .tl-modal::backdrop {
-    background: rgba(10, 20, 45, 0.6);
-  }
-  .tl-modal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-  .tl-modal-title {
-    margin: 0;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-mid);
-  }
-  .tl-modal-close {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 50%;
-    background: var(--lt-gray);
-    font-size: 22px;
-    line-height: 1;
-    color: var(--navy);
-    cursor: pointer;
-  }
-  .tl-modal-close:hover {
-    background: var(--mid-gray);
   }
   .tl-empty,
   .tl-note {

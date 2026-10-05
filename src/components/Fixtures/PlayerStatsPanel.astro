@@ -8,11 +8,14 @@ interface Props {
 
 const { data } = Astro.props;
 
+/** Rows per column. Everyone else is on the full stats page, which the link below goes to. */
+const ROWS = 2;
+
 const columns = [
   { stat: "goals" as const, title: "Top scorers", unit: "G" },
   { stat: "assists" as const, title: "Top assists", unit: "A" },
   { stat: "mvps" as const, title: "MVP awards", unit: "MVP" },
-].map((column) => ({ ...column, leaders: leadersBy(data, column.stat, 3) }));
+].map((column) => ({ ...column, leaders: leadersBy(data, column.stat, Infinity).slice(0, ROWS) }));
 
 const hasAny = columns.some((column) => column.leaders.length > 0);
 ---

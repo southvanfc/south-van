@@ -1,0 +1,161 @@
+---
+import type { Leader } from "../../lib/players";
+
+interface Props {
+  /** Unique per modal on the page */
+  id: string;
+  title: string;
+  unit: string;
+  /** Everyone with the stat, not just the rows shown on the card */
+  leaders: Leader[];
+  /** "dark" for a trigger on the navy fixtures panel, "light" on a white card */
+  variant?: "light" | "dark";
+}
+
+const { id, title, unit, leaders, variant = "light" } = Astro.props;
+---
+
+<button type="button" class={`lb-more lb-more-${variant}`} data-lb-open={id}>
+  View all {leaders.length} <span aria-hidden="true">→</span>
+</button>
+<dialog class="lb-modal" id={id} aria-labelledby={`${id}-title`}>
+  <div class="lb-head">
+    <h3 class="lb-title" id={`${id}-title`}>{title}</h3>
+    <button type="button" class="lb-close" data-lb-close aria-label={`Close ${title}`}>
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <ol class="lb-list">
+    {leaders.map((leader) => (
+      <li class="lb-row">
+        <span class="lb-rank">{leader.rank}</span>
+        <span class="lb-name">{leader.name}</span>
+        <span class="lb-value">
+          {leader.value}
+          <span class="lb-unit">{unit}</span>
+        </span>
+      </li>
+    ))}
+  </ol>
+</dialog>
+
+<script>
+  /* Native <dialog>: showModal gives focus trapping and Escape to close. A click
+     on the backdrop lands on the dialog itself, so that closes it too. */
+  document.querySelectorAll<HTMLButtonElement>("[data-lb-open]").forEach((button) => {
+    const dialog = document.getElementById(button.dataset.lbOpen ?? "") as HTMLDialogElement | null;
+    if (!dialog) return;
+    button.addEventListener("click", () => dialog.showModal());
+    dialog.querySelector("[data-lb-close]")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
+
+<style>
+  .lb-more {
+    margin-top: 14px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .lb-more-light {
+    color: var(--navy);
+  }
+  .lb-more-light:hover {
+    color: var(--navy-dark);
+  }
+  .lb-more-dark {
+    color: var(--gold);
+  }
+  .lb-more-dark:hover {
+    color: var(--gold-light);
+  }
+  .lb-modal {
+    width: min(440px, calc(100vw - 32px));
+    max-height: min(80vh, 640px);
+    padding: 24px;
+    border: none;
+    border-top: 3px solid var(--gold);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-y: auto;
+  }
+  .lb-modal::backdrop {
+    background: rgba(10, 20, 45, 0.6);
+  }
+  .lb-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .lb-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+  .lb-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: var(--lt-gray);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--navy);
+    cursor: pointer;
+  }
+  .lb-close:hover {
+    background: var(--mid-gray);
+  }
+  .lb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px solid var(--lt-gray);
+  }
+  .lb-row:first-child {
+    border-top: none;
+  }
+  .lb-rank {
+    font-weight: 700;
+    color: var(--text-mid);
+    font-variant-numeric: tabular-nums;
+  }
+  .lb-name {
+    font-weight: 600;
+  }
+  .lb-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .lb-unit {
+    margin-left: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+</style>

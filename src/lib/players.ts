@@ -2,6 +2,9 @@ import type { PlayerStat, PlayersData } from "../types/types";
 
 export type StatKey = "goals" | "assists" | "mvps";
 
+/** Rows a leaders card shows. Anyone past this is only in the "View all" modal. */
+export const LEADER_CARD_LIMIT = 5;
+
 export interface Leader {
   name: string;
   value: number;
