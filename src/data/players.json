@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-05T12:59:30-07:00",
+  "updatedAt": "2026-10-05T13:09:05-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
@@ -49,18 +49,6 @@
       "gamesPlayed": 2,
       "yellows": 0,
       "reds": 1
-    },
-    {
-      "name": "Sujesh Mandal",
-      "goals": 0,
-      "assists": 4,
-      "mvps": 0,
-      "goalkeeper": false,
-      "cleanSheets": 0,
-      "number": 14,
-      "gamesPlayed": 0,
-      "yellows": 0,
-      "reds": 0
     },
     {
       "name": "Emanuel Saracho",
@@ -226,6 +214,18 @@
       "goalkeeper": true,
       "cleanSheets": 0,
       "number": null,
+      "gamesPlayed": 4,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
+      "name": "Sujesh Mandal",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 14,
       "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
