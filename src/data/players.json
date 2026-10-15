@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-05T13:09:05-07:00",
+  "updatedAt": "2026-10-14T19:49:02-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
@@ -99,6 +99,18 @@
       "reds": 0
     },
     {
+      "name": "Jordan Lam",
+      "goals": 0,
+      "assists": 0,
+      "mvps": 1,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": null,
+      "gamesPlayed": 2,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
       "name": "Bhuvan Tej",
       "goals": 0,
       "assists": 0,
@@ -143,18 +155,6 @@
       "cleanSheets": 0,
       "number": 99,
       "gamesPlayed": 4,
-      "yellows": 0,
-      "reds": 0
-    },
-    {
-      "name": "Jordan Lam",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0,
-      "goalkeeper": false,
-      "cleanSheets": 0,
-      "number": null,
-      "gamesPlayed": 2,
       "yellows": 0,
       "reds": 0
     },
