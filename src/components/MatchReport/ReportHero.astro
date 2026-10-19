@@ -1,0 +1,350 @@
+---
+import { Image } from "astro:assets";
+import Crest from "../Fixtures/Crest.astro";
+import ShareBar from "../ShareBar.astro";
+import { formatLongDate } from "../../lib/fixtures";
+import type { MatchReport, ReportSide } from "../../lib/matchReport";
+
+/*
+ * Header of a match report: breadcrumb, the scoreboard, then the headline.
+ *
+ * Built on .fx-hero so it shares the navy gradient, pitch lines and contrast
+ * checked label tokens with /fixtures, which is the point of the design: a
+ * report should look like it belongs to the match card it describes.
+ *
+ * The scoreboard always puts the home team on the left, as MatchRow does. The
+ * stored scores are home first, so an away defeat reads "1 - 0" with us on the
+ * right and the result chip carrying the outcome. Nothing is flipped here.
+ */
+
+interface Props {
+  report: MatchReport;
+  title: string;
+  description: string;
+  author: string;
+  authorImage?: string;
+  authorImageAlt?: string;
+  pubDate: Date;
+  readingMinutes: number;
+  /** Absolute URL of this page, for the share buttons */
+  shareUrl: string;
+}
+
+const {
+  report,
+  title,
+  description,
+  author,
+  authorImage,
+  authorImageAlt,
+  pubDate,
+  readingMinutes,
+  shareUrl,
+} = Astro.props;
+
+const { match, home, away, result } = report;
+
+const RESULT_WORDS: Record<"W" | "D" | "L", string> = {
+  W: "Win",
+  D: "Draw",
+  L: "Loss",
+};
+
+const nameOf = (side: ReportSide): string => side.club?.name ?? side.slug;
+
+const scoreLabel = `Full time, ${nameOf(home)} ${home.score}, ${nameOf(away)} ${away.score}`;
+const sides = [
+  { side: home, label: "Home", away: false },
+  { side: away, label: "Away", away: true },
+];
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<header class="fx-hero mr-hero">
+  <div class="fx-shell mr-inner">
+    <nav class="mr-crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="mr-crumb-sep" aria-hidden="true">›</span>
+      <a href="/blogs/">Blog</a>
+      <span class="mr-crumb-sep" aria-hidden="true">›</span>
+      <span class="mr-crumb-cur">{title}</span>
+    </nav>
+
+    <p class="mr-kicker">
+      <span class="mr-kicker-tag">Match report</span>
+      <span>{match.competitionLabel}</span>
+      <span class="mr-kicker-dot" aria-hidden="true">·</span>
+      <span>{formatLongDate(match.date)}</span>
+    </p>
+
+    <div class="mr-board">
+      {
+        sides.map(({ side, label, away: isAway }, index) => (
+          <>
+            {index === 1 && (
+              <div class="mr-score" role="group" aria-label={scoreLabel}>
+                <div class="mr-digits" aria-hidden="true">
+                  <span>{home.score}</span>
+                  <span class="mr-dash">-</span>
+                  <span>{away.score}</span>
+                </div>
+                <span class="mr-ft" aria-hidden="true">Full time</span>
+                <span
+                  class:list={["mr-result", `is-${result.toLowerCase()}`]}
+                >
+                  <span aria-hidden="true">{RESULT_WORDS[result]}</span>
+                  <span class="fx-sr">
+                    {RESULT_WORDS[result]} for South Van FC
+                  </span>
+                </span>
+              </div>
+            )}
+            <div class:list={["mr-side", side.isUs && "is-us", isAway && "is-away"]}>
+              <Crest club={side.club} slug={side.slug} size="lg" onDark />
+              <div class="mr-name">{nameOf(side)}</div>
+              <div class="mr-side-sub">{label}</div>
+            </div>
+          </>
+        ))
+      }
+    </div>
+
+    <h1 class="mr-title">{title}</h1>
+    <p class="mr-desc">{description}</p>
+
+    <div class="mr-meta">
+      <div class="mr-author">
+        {
+          authorImage && (
+            <Image
+              class="mr-avatar"
+              src={authorImage}
+              alt={authorImageAlt || author}
+              width={48}
+              height={48}
+            />
+          )
+        }
+        <div>
+          <div class="mr-author-name">{author}</div>
+          <div class="mr-author-detail">
+            <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+            <span aria-hidden="true"> · </span>
+            {readingMinutes} min read
+          </div>
+        </div>
+      </div>
+      <ShareBar title={title} url={shareUrl} theme="dark" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .mr-inner {
+    max-width: 810px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Breadcrumb */
+  .mr-crumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .mr-crumb a {
+    color: var(--fx-muted-on-navy);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mr-crumb a:hover {
+    color: var(--gold);
+  }
+  .mr-crumb-sep {
+    color: var(--fx-hairline);
+  }
+  .mr-crumb-cur {
+    color: var(--gold);
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Kicker */
+  .mr-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fx-label);
+  }
+  .mr-kicker-tag {
+    color: var(--gold);
+  }
+  .mr-kicker-dot {
+    opacity: 0.6;
+  }
+
+  /* Scoreboard */
+  .mr-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: start;
+    gap: 16px clamp(14px, 3vw, 36px);
+    margin: 22px 0 36px;
+    padding: 32px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .mr-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    text-align: center;
+  }
+  .mr-name {
+    font-size: clamp(15px, 2.2vw, 22px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+    color: var(--white);
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  .mr-side-sub {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fx-label);
+  }
+
+  .mr-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-top: 2px;
+  }
+  .mr-digits {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 2vw, 18px);
+    font-size: clamp(44px, 8vw, 80px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+  }
+  .mr-dash {
+    font-weight: 400;
+    opacity: 0.4;
+  }
+  .mr-ft {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fx-label);
+  }
+
+  /* The outcome colours are the same tokens as the W/D/L pills on /fixtures */
+  .mr-result {
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .mr-result.is-w {
+    background: var(--win);
+  }
+  .mr-result.is-d {
+    background: var(--draw);
+  }
+  .mr-result.is-l {
+    background: var(--loss);
+  }
+
+  /* Headline */
+  .mr-title {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .mr-desc {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--fx-muted-on-navy);
+  }
+
+  /* Byline */
+  .mr-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .mr-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mr-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .mr-author-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .mr-author-detail {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--fx-muted-on-navy);
+  }
+
+  @media (max-width: 640px) {
+    .mr-board {
+      padding: 24px 0;
+      margin-bottom: 28px;
+    }
+    .mr-desc {
+      font-size: 15px;
+    }
+  }
+</style>

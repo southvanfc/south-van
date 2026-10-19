@@ -698,11 +698,13 @@ a { color: inherit; }
 
    Scoped to the fixtures sections rather than added to :root, so that nothing
    else on the site moves. .mens-next reuses the match card on the men's team
-   page and sits on the same navy gradient, so it needs the same tokens. */
+   page and sits on the same navy gradient, so it needs the same tokens.
+   .mr wraps the white sections of a blog match report, which use --fx-muted. */
 .fx-hero,
 .fx-stats,
 .fx-list,
-.mens-next {
+.mens-next,
+.mr {
   /* On the navy card: 5.1:1 and 6.0:1 at the worst point of the gradient */
   --fx-label: rgba(255,255,255,0.62);
   --fx-muted-on-navy: rgba(255,255,255,0.7);
@@ -1765,4 +1767,19 @@ a { color: inherit; }
   .fx-month { width: 100%; }
   .fx-empty { padding: 48px 16px; }
   .fx-legend { gap: 14px; }
+}
+
+/* ── MATCH REPORT (blog) ──
+   Shared by the blocks in src/components/MatchReport/ that sit in the white
+   article column under the report's prose. The hero and facts strip reuse
+   .fx-hero and .fx-stats, so they need nothing here. Block specific styles
+   live in each component. */
+.mr-block { margin-top: 48px; }
+.mr-h {
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy);
+  font-size: 13px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--navy-dark);
 }

@@ -1,0 +1,70 @@
+---
+import ShirtNumber from "../Stats/ShirtNumber.astro";
+import type { MatchReport } from "../../lib/matchReport";
+
+/*
+ * One player and one line on why. Deliberately no season figures: VMSL's
+ * numbers lag the match by a day or two, so a "3rd award this season" printed
+ * here would be wrong on the day it was published.
+ */
+
+interface Props {
+  motm: NonNullable<MatchReport["motm"]>;
+}
+
+const { motm } = Astro.props;
+---
+
+<section class="mr-block" aria-labelledby="mr-motm-h">
+  <h2 class="mr-h" id="mr-motm-h">Man of the match</h2>
+  <div class="mr-motm">
+    {
+      motm.number !== null && (
+        <div class="mr-motm-shirt">
+          <ShirtNumber number={motm.number} />
+        </div>
+      )
+    }
+    <div class="mr-motm-text">
+      <p class="mr-motm-name">{motm.name}</p>
+      {motm.reason && <p class="mr-motm-reason">{motm.reason}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .mr-motm {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 24px;
+    background: var(--gold-pale);
+    border: 1px solid #f0e4b0;
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+  }
+  .mr-motm-shirt {
+    flex: none;
+  }
+  /* ShirtNumber is 30px by default, which is right in a table row and small here */
+  .mr-motm-shirt :global(.st-shirt) {
+    width: 60px;
+    height: 60px;
+  }
+  .mr-motm-text {
+    min-width: 0;
+  }
+  .mr-motm-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--navy-dark);
+  }
+  .mr-motm-reason {
+    margin: 6px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-mid);
+  }
+</style>

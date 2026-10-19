@@ -1,0 +1,117 @@
+---
+import type { ReportGoalView } from "../../lib/matchReport";
+
+/*
+ * Goals in the order they went in. Ours are a filled gold dot with the scorer
+ * and assist, theirs a hollow dot with the club name, since an opponent's
+ * scorer is usually a shirt number and not a name worth headlining.
+ *
+ * Rendered only when the report lists goals, so a report that leaves them out
+ * never shows an empty "Goals" heading.
+ */
+
+interface Props {
+  goals: ReportGoalView[];
+  opponentName: string;
+}
+
+const { goals, opponentName } = Astro.props;
+---
+
+<section class="mr-block" aria-labelledby="mr-goals-h">
+  <h2 class="mr-h" id="mr-goals-h">Goals</h2>
+  <ol class="mr-goals">
+    {
+      goals.map((goal) => (
+        <li class:list={["mr-goal", goal.team === "them" && "is-them"]}>
+          <span class="mr-goal-min">
+            {goal.minute !== null ? `${goal.minute}'` : ""}
+          </span>
+          <span class="mr-goal-dot" aria-hidden="true" />
+          <span class="mr-goal-body">
+            <span class="mr-goal-who">
+              {goal.team === "them" ? opponentName : goal.scorer}
+              {goal.detail && <span class="mr-goal-detail">{goal.detail}</span>}
+            </span>
+            {goal.team === "them" ? (
+              <span class="mr-goal-sub">{goal.scorer}</span>
+            ) : (
+              goal.assist && <span class="mr-goal-sub">Assist: {goal.assist}</span>
+            )}
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .mr-goals {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mr-goal {
+    display: grid;
+    grid-template-columns: 44px 14px minmax(0, 1fr);
+    align-items: start;
+    gap: 0 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--lt-gray);
+  }
+  .mr-goal:last-child {
+    border-bottom: none;
+  }
+  .mr-goal-min {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: right;
+    color: var(--navy-dark);
+    font-variant-numeric: tabular-nums;
+  }
+  .mr-goal-dot {
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--gold);
+  }
+  .mr-goal.is-them .mr-goal-dot {
+    background: transparent;
+    border-color: var(--fx-muted);
+  }
+  .mr-goal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .mr-goal-who {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text-dark);
+  }
+  .mr-goal.is-them .mr-goal-who {
+    font-weight: 600;
+    color: var(--fx-muted);
+  }
+  .mr-goal-detail {
+    margin-left: 8px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--lt-gray);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--navy-dark);
+    vertical-align: 2px;
+  }
+  .mr-goal-sub {
+    font-size: 14px;
+    color: var(--fx-muted);
+  }
+</style>

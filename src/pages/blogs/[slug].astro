@@ -4,6 +4,16 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ShareBar from "../../components/ShareBar.astro";
 import SubscribeForm from "../../components/SubscribeForm.astro";
+import ReportHero from "../../components/MatchReport/ReportHero.astro";
+import FactsStrip from "../../components/MatchReport/FactsStrip.astro";
+import GoalTimeline from "../../components/MatchReport/GoalTimeline.astro";
+import MotmCard from "../../components/MatchReport/MotmCard.astro";
+import LineupPanel from "../../components/MatchReport/LineupPanel.astro";
+import NextUp from "../../components/MatchReport/NextUp.astro";
+import { fixturesData } from "../../data/fixtures";
+import { playersData } from "../../data/players";
+import { isoKickoff } from "../../lib/fixtures";
+import { buildMatchReport } from "../../lib/matchReport";
 
 const { slug } = Astro.params;
 const posts = await getCollection("blog");
@@ -14,6 +24,15 @@ if (!post) {
 }
 
 const { Content } = await render(post);
+
+/*
+ * A post with a matchId that resolves to a played match is a match report.
+ * Anything else, including a matchId that no longer resolves, renders as an
+ * ordinary post. `npm run validate:reports` is what catches the broken id, since
+ * this page renders per request and would otherwise only fail in front of a
+ * visitor.
+ */
+const report = buildMatchReport(post.data, fixturesData, playersData, new Date());
 
 const recentPosts = posts
   .filter((p) => p.data.author === post.data.author && p.id !== post.id)
@@ -94,6 +113,32 @@ const articleSchema = {
     name: post.data.author,
   },
 };
+
+/*
+ * The match itself as structured data, shaped like the entries on /fixtures so
+ * the two read as the same event. No eventStatus: schema.org has no "completed"
+ * value, and a past startDate is how a finished event is expressed.
+ */
+const sportsEventSchema = report
+  ? (() => {
+      const homeName = report.home.club?.name ?? report.home.slug;
+      const awayName = report.away.club?.name ?? report.away.slug;
+      return {
+        "@context": "https://schema.org",
+        "@type": "SportsEvent",
+        name: `${homeName} vs ${awayName}`,
+        sport: "Soccer",
+        startDate: isoKickoff(report.match),
+        location: { "@type": "Place", name: report.match.venue },
+        homeTeam: { "@type": "SportsTeam", name: homeName },
+        awayTeam: { "@type": "SportsTeam", name: awayName },
+        competitor: [
+          { "@type": "SportsTeam", name: homeName },
+          { "@type": "SportsTeam", name: awayName },
+        ],
+      };
+    })()
+  : null;
 ---
 
 <BaseLayout seo={seo}>
@@ -109,50 +154,79 @@ const articleSchema = {
     type="application/ld+json"
     set:html={JSON.stringify(breadcrumbSchema)}
   />
+  {
+    sportsEventSchema && (
+      <script
+        is:inline
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify(sportsEventSchema)}
+      />
+    )
+  }
 
   <article class="post-page">
-    <header class="post-hero">
-      <div class="post-hero-inner">
-        <nav class="post-crumb" aria-label="Breadcrumb">
-          <a href="/">Home</a>
-          <span class="post-crumb-sep" aria-hidden="true">›</span>
-          <a href="/blogs/">Blog</a>
-          <span class="post-crumb-sep" aria-hidden="true">›</span>
-          <span class="post-crumb-cur">{post.data.title}</span>
-        </nav>
-        {
-          post.data.category && (
-            <span class="blog-card-cat">{post.data.category}</span>
-          )
-        }
-        <h1 class="post-title">{post.data.title}</h1>
-        <p class="post-desc">{post.data.description}</p>
-        <div class="post-meta">
-          <div class="post-meta-author">
-            {
-              post.data.image && (
-                <Image
-                  class="author-avatar"
-                  src={post.data.image}
-                  alt={post.data.imageAlt || post.data.author}
-                  width={85}
-                  height={85}
-                />
-              )
-            }
-            <div>
-              <div>
-                <span>{post.data.author}</span>
+    {
+      report ? (
+        <>
+          <ReportHero
+            report={report}
+            title={post.data.title}
+            description={post.data.description}
+            author={post.data.author}
+            authorImage={post.data.image}
+            authorImageAlt={post.data.imageAlt}
+            pubDate={post.data.pubDate}
+            readingMinutes={readingTime(post.body ?? "")}
+            shareUrl={Astro.url.href}
+          />
+          <FactsStrip report={report} />
+        </>
+      ) : (
+        <header class="post-hero">
+          <div class="post-hero-inner">
+            <nav class="post-crumb" aria-label="Breadcrumb">
+              <a href="/">Home</a>
+              <span class="post-crumb-sep" aria-hidden="true">›</span>
+              <a href="/blogs/">Blog</a>
+              <span class="post-crumb-sep" aria-hidden="true">›</span>
+              <span class="post-crumb-cur">{post.data.title}</span>
+            </nav>
+            {post.data.category && (
+              <span class="blog-card-cat">{post.data.category}</span>
+            )}
+            <h1 class="post-title">{post.data.title}</h1>
+            <p class="post-desc">{post.data.description}</p>
+            <div class="post-meta">
+              <div class="post-meta-author">
+                {post.data.image && (
+                  <Image
+                    class="author-avatar"
+                    src={post.data.image}
+                    alt={post.data.imageAlt || post.data.author}
+                    width={85}
+                    height={85}
+                  />
+                )}
+                <div>
+                  <div>
+                    <span>{post.data.author}</span>
+                  </div>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </div>
               </div>
-              <time datetime={post.data.pubDate.toISOString()}>
-                {formatDate(post.data.pubDate)}
-              </time>
+              <ShareBar
+                title={post.data.title}
+                url={Astro.url.href}
+                theme="dark"
+              />
             </div>
           </div>
-          <ShareBar title={post.data.title} url={Astro.url.href} theme="dark" />
-        </div>
-      </div>
-    </header>
+        </header>
+      )
+    }
 
     {
       post.data.coverImage && (
@@ -184,6 +258,24 @@ const articleSchema = {
           }
         });
       </script>
+
+      {
+        report && (
+          <div class="mr">
+            {report.goals.length > 0 && (
+              <GoalTimeline
+                goals={report.goals}
+                opponentName={report.opponent?.name ?? report.match.opponentSlug}
+              />
+            )}
+            {report.motm && <MotmCard motm={report.motm} />}
+            {report.lineup &&
+              report.lineup.starters.length + report.lineup.bench.length >
+                0 && <LineupPanel lineup={report.lineup} />}
+            {report.next && <NextUp data={fixturesData} match={report.next} />}
+          </div>
+        )
+      }
 
       {
         post.data.tags && post.data.tags.length > 0 && (

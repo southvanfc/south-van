@@ -1,0 +1,164 @@
+---
+import ShirtNumber from "../Stats/ShirtNumber.astro";
+import StatIcon from "../Stats/StatIcon.astro";
+import type { MatchReport } from "../../lib/matchReport";
+
+/*
+ * Starters and bench as two plain lists. There is no formation graphic because
+ * no formation is recorded, and a pitch diagram with invented positions would
+ * be worse than none.
+ *
+ * Shirt numbers come from players.json by name. A player with no number set
+ * keeps an empty slot of the same width so the names still line up.
+ */
+
+interface Props {
+  lineup: NonNullable<MatchReport["lineup"]>;
+}
+
+const { lineup } = Astro.props;
+const columns = [
+  { label: "Starting lineup", players: lineup.starters },
+  { label: "Bench", players: lineup.bench },
+].filter((column) => column.players.length > 0);
+
+const plural = (count: number, word: string): string =>
+  `${count} ${word}${count === 1 ? "" : "s"}`;
+---
+
+<section class="mr-block" aria-labelledby="mr-lineup-h">
+  <h2 class="mr-h" id="mr-lineup-h">Lineup</h2>
+  <div class:list={["mr-lineup", columns.length === 1 && "is-single"]}>
+    {
+      columns.map((column) => (
+        <div>
+          <h3 class="mr-sub">{column.label}</h3>
+          <ul class="mr-players">
+            {column.players.map((player) => (
+              <li class="mr-player">
+                <span class="mr-player-num">
+                  {player.number !== null && (
+                    <ShirtNumber number={player.number} />
+                  )}
+                </span>
+                <span class="mr-player-name">{player.name}</span>
+                <span class="mr-player-tags">
+                  {player.goalkeeper && (
+                    <span class="mr-tag">
+                      <span aria-hidden="true">GK</span>
+                      <span class="fx-sr">Goalkeeper</span>
+                    </span>
+                  )}
+                  {player.captain && (
+                    <span class="mr-tag is-captain">
+                      <span aria-hidden="true">C</span>
+                      <span class="fx-sr">Captain</span>
+                    </span>
+                  )}
+                  {player.goals > 0 && (
+                    <span class="mr-stat">
+                      <StatIcon icon="ball" color="var(--navy)" />
+                      {player.goals > 1 && (
+                        <span aria-hidden="true">{player.goals}</span>
+                      )}
+                      <span class="fx-sr">{plural(player.goals, "goal")}</span>
+                    </span>
+                  )}
+                  {player.assists > 0 && (
+                    <span class="mr-stat">
+                      <StatIcon icon="assist" color="var(--navy)" />
+                      {player.assists > 1 && (
+                        <span aria-hidden="true">{player.assists}</span>
+                      )}
+                      <span class="fx-sr">
+                        {plural(player.assists, "assist")}
+                      </span>
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .mr-lineup {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 32px;
+  }
+  .mr-lineup.is-single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mr-sub {
+    margin: 0 0 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fx-muted);
+  }
+  .mr-players {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mr-player {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--lt-gray);
+  }
+  .mr-player:last-child {
+    border-bottom: none;
+  }
+  .mr-player-num {
+    display: flex;
+    width: 30px;
+    height: 30px;
+  }
+  .mr-player-name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-dark);
+    overflow-wrap: break-word;
+  }
+  .mr-player-tags {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mr-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--lt-gray);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--navy-dark);
+  }
+  .mr-tag.is-captain {
+    background: var(--gold);
+  }
+  .mr-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+
+  @media (max-width: 640px) {
+    .mr-lineup {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

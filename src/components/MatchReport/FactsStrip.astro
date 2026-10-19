@@ -1,0 +1,108 @@
+---
+import LocationButton from "../Fixtures/LocationButton.astro";
+import { formatTime } from "../../lib/fixtures";
+import type { MatchReport } from "../../lib/matchReport";
+
+/*
+ * The four facts a reader checks first, in the gold topped navy band the
+ * fixtures page uses for season stats.
+ *
+ * Form ends at this match rather than at today, so the strip does not change
+ * as later results come in. League position is left out on purpose: the
+ * standings are a live snapshot and cannot be rewound to the night in question.
+ */
+
+interface Props {
+  report: MatchReport;
+}
+
+const { report } = Astro.props;
+const { match, form } = report;
+
+const WORDS: Record<"W" | "D" | "L", string> = { W: "Win", D: "Draw", L: "Loss" };
+---
+
+<section class="fx-stats mr-facts" aria-label="Match facts">
+  <dl class="mr-facts-inner">
+    <div class="mr-fact">
+      <dt>Competition</dt>
+      <dd>{match.competitionLabel}</dd>
+    </div>
+    <div class="mr-fact">
+      <dt>Kickoff</dt>
+      <dd>{formatTime(match.time)}</dd>
+    </div>
+    <div class="mr-fact">
+      <dt>Venue</dt>
+      <dd class="mr-venue">
+        <span>{match.venue}</span>
+        <LocationButton venue={match.venue} onDark />
+      </dd>
+    </div>
+    {
+      form.length > 0 && (
+        <div class="mr-fact">
+          <dt>Form</dt>
+          <dd>
+            <span class="mr-form">
+              {form.map((result) => (
+                <span class:list={["fx-fp", `is-${result.toLowerCase()}`]}>
+                  <span aria-hidden="true">{result}</span>
+                  <span class="fx-sr">{WORDS[result]}</span>
+                </span>
+              ))}
+            </span>
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+</section>
+
+<style>
+  .mr-facts-inner {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    gap: 20px 32px;
+    max-width: 810px;
+    margin: 0 auto;
+    padding: 26px 0;
+  }
+  .mr-fact {
+    min-width: 0;
+  }
+  .mr-fact dt {
+    margin-bottom: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fx-label);
+  }
+  .mr-fact dd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--white);
+  }
+  .mr-venue {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mr-form {
+    display: inline-flex;
+    gap: 4px;
+    /* The pills are 19px, so match the 15px text line to keep the row even */
+    vertical-align: middle;
+  }
+
+  @media (max-width: 960px) {
+    .mr-facts-inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      justify-content: stretch;
+    }
+  }
+</style>

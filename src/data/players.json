@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-14T19:49:02-07:00",
+  "updatedAt": "2026-10-19T09:31:44-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
@@ -10,7 +10,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 10,
-      "gamesPlayed": 4,
+      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     },
@@ -22,7 +22,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 7,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 2,
       "reds": 0
     },
@@ -34,7 +34,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 6,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 0,
       "reds": 0
     },
@@ -46,7 +46,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 15,
-      "gamesPlayed": 2,
+      "gamesPlayed": 3,
       "yellows": 0,
       "reds": 1
     },
@@ -58,7 +58,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 16,
-      "gamesPlayed": 3,
+      "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
     },
@@ -70,7 +70,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 13,
-      "gamesPlayed": 4,
+      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     },
@@ -82,7 +82,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 8,
-      "gamesPlayed": 2,
+      "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
     },
@@ -94,7 +94,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 9,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 0,
       "reds": 0
     },
@@ -106,7 +106,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": null,
-      "gamesPlayed": 2,
+      "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
     },
@@ -118,7 +118,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 4,
-      "gamesPlayed": 3,
+      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     },
@@ -130,7 +130,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 3,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 1,
       "reds": 0
     },
@@ -142,7 +142,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 17,
-      "gamesPlayed": 2,
+      "gamesPlayed": 3,
       "yellows": 0,
       "reds": 0
     },
@@ -154,7 +154,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 99,
-      "gamesPlayed": 4,
+      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     },
@@ -178,7 +178,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 66,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 0,
       "reds": 0
     },
@@ -190,7 +190,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 2,
-      "gamesPlayed": 2,
+      "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
     },
@@ -202,7 +202,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 11,
-      "gamesPlayed": 2,
+      "gamesPlayed": 3,
       "yellows": 0,
       "reds": 0
     },
@@ -214,7 +214,7 @@
       "goalkeeper": true,
       "cleanSheets": 0,
       "number": null,
-      "gamesPlayed": 4,
+      "gamesPlayed": 6,
       "yellows": 0,
       "reds": 0
     },
@@ -226,7 +226,7 @@
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 14,
-      "gamesPlayed": 4,
+      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     }

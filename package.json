@@ -4,12 +4,14 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:fixtures && astro build",
+    "build": "npm run validate:fixtures && npm run validate:reports && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:fixtures": "node scripts/validate-fixtures.ts",
+    "validate:reports": "node scripts/validate-reports.ts",
+    "new:report": "node scripts/new-report.ts",
     "scrape:vmsl": "node scripts/scrape-vmsl.ts"
   },
   "dependencies": {
@@ -25,7 +27,8 @@
   },
   "devDependencies": {
     "@astrojs/vercel": "^11.0.5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "yaml": "^2.8.3"
   },
   "overrides": {
     "path-to-regexp": "6.3.0"
