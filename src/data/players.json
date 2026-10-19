@@ -1,12 +1,12 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-19T11:06:17-07:00",
+  "updatedAt": "2026-10-19T14:43:57-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
-      "goals": 4,
+      "goals": 7,
       "assists": 0,
-      "mvps": 1,
+      "mvps": 2,
       "goalkeeper": false,
       "cleanSheets": 0,
       "number": 10,
@@ -17,7 +17,7 @@
     {
       "name": "David Delgado",
       "goals": 2,
-      "assists": 0,
+      "assists": 1,
       "mvps": 1,
       "goalkeeper": false,
       "cleanSheets": 0,
@@ -51,9 +51,21 @@
       "reds": 1
     },
     {
+      "name": "Bhuvan Tej",
+      "goals": 1,
+      "assists": 0,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 4,
+      "gamesPlayed": 5,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
       "name": "Emanuel Saracho",
       "goals": 0,
-      "assists": 1,
+      "assists": 3,
       "mvps": 0,
       "goalkeeper": false,
       "cleanSheets": 0,
@@ -99,6 +111,18 @@
       "reds": 0
     },
     {
+      "name": "Sujesh Mandal",
+      "goals": 0,
+      "assists": 1,
+      "mvps": 0,
+      "goalkeeper": false,
+      "cleanSheets": 0,
+      "number": 14,
+      "gamesPlayed": 5,
+      "yellows": 0,
+      "reds": 0
+    },
+    {
       "name": "Jordan Lam",
       "goals": 0,
       "assists": 0,
@@ -107,18 +131,6 @@
       "cleanSheets": 0,
       "number": 44,
       "gamesPlayed": 4,
-      "yellows": 0,
-      "reds": 0
-    },
-    {
-      "name": "Bhuvan Tej",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0,
-      "goalkeeper": false,
-      "cleanSheets": 0,
-      "number": 4,
-      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     },
@@ -143,7 +155,7 @@
       "cleanSheets": 0,
       "number": 17,
       "gamesPlayed": 3,
-      "yellows": 0,
+      "yellows": 1,
       "reds": 0
     },
     {
@@ -215,18 +227,6 @@
       "cleanSheets": 0,
       "number": null,
       "gamesPlayed": 6,
-      "yellows": 0,
-      "reds": 0
-    },
-    {
-      "name": "Sujesh Mandal",
-      "goals": 0,
-      "assists": 0,
-      "mvps": 0,
-      "goalkeeper": false,
-      "cleanSheets": 0,
-      "number": 14,
-      "gamesPlayed": 5,
       "yellows": 0,
       "reds": 0
     }

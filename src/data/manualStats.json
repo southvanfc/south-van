@@ -6,7 +6,7 @@
       "number": 10
     },
     "David Delgado": {
-      "assists": 0,
+      "assists": 1,
       "gamesPlayed": 6,
       "number": 7
     },
@@ -36,7 +36,7 @@
       "number": 17
     },
     "Emanuel Saracho": {
-      "assists": 1,
+      "assists": 3,
       "gamesPlayed": 4,
       "number": 16
     },
@@ -92,7 +92,7 @@
       "goalkeeper": true
     },
     "Sujesh Mandal": {
-      "assists": 0,
+      "assists": 1,
       "gamesPlayed": 5,
       "number": 14
     }
