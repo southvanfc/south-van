@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updatedAt": "2026-10-19T09:31:44-07:00",
+  "updatedAt": "2026-10-19T11:06:17-07:00",
   "players": [
     {
       "name": "Harjit Kainth",
@@ -105,7 +105,7 @@
       "mvps": 1,
       "goalkeeper": false,
       "cleanSheets": 0,
-      "number": null,
+      "number": 44,
       "gamesPlayed": 4,
       "yellows": 0,
       "reds": 0
