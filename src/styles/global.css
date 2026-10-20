@@ -611,6 +611,41 @@ a { color: inherit; }
 .footer-bottom-right a { font-size: 12px; color: rgba(255,255,255,0.28); text-decoration: none; transition: color 0.2s; }
 .footer-bottom-right a:hover { color: #e8b430; }
 
+/* Agency credit: its own block under the legal row, a mid-sized CTA card */
+.footer-credit {
+  background: #01173a; border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 24px 80px; display: flex; justify-content: center;
+}
+.footer-credit-card {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 10px 20px 10px 10px; border-radius: 14px;
+  background: rgba(232,180,48,0.1); border: 1px solid var(--gold);
+  color: #fff; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.footer-credit-card:hover,
+.footer-credit-card:focus-visible {
+  background: rgba(232,180,48,0.18); border-color: var(--gold-light);
+}
+.footer-credit-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.footer-credit-logo {
+  flex-shrink: 0; width: 46px; height: 46px; border-radius: 11px;
+  display: grid; place-items: center; background: #fff;
+}
+.footer-credit-logo img { width: 32px; height: 32px; display: block; }
+.footer-credit-text { display: flex; flex-direction: column; gap: 1px; text-align: left; }
+.footer-credit-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+.footer-credit-name { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+.footer-credit-go {
+  display: grid; place-items: center; margin-left: 6px;
+  color: var(--gold); transition: color 0.2s;
+}
+.footer-credit-card:hover .footer-credit-go,
+.footer-credit-card:focus-visible .footer-credit-go { color: var(--gold-light); }
+
 /* ── ACCESSIBILITY ── */
 .skip-link {
   position: absolute; top: -100%; left: 16px;
@@ -659,6 +694,7 @@ a { color: inherit; }
   .footer-subscribe-inner { gap: 20px; }
   .footer { grid-template-columns: 1fr; padding: 48px 28px 32px; gap: 32px; }
   .footer-bottom { padding: 16px 28px; flex-direction: column; gap: 6px; text-align: center; }
+  .footer-credit { padding: 20px 28px; }
   .stats-band { grid-template-columns: repeat(2, 1fr); }
   .stat-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
   .stat-cell:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.07); }
